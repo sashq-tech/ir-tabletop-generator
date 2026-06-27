@@ -40,7 +40,9 @@ It can be opened directly in a browser. No dev server is required.
 - Scenario-specific evidence checklist items.
 - Markdown-style copy output.
 - Browser-generated slide deck preview/print mode with remote facilitation ground rules, group check-in, inject slides, key decisions, worksheet capture, and group lessons learned.
+- Slide-deck print polish: replaced dense worksheet-row slide content with a lighter scribe-capture slide and added slide numbers to slide-deck mode.
 - Print CSS includes page margins, split print modes, and basic page-break handling for cleaner PDF output.
+- Facilitator print polish: phase-objective cards now print with white backgrounds and dark text instead of screen-mode dark cards.
 - Footer states no login, no upload, no backend, and browser-based generic content.
 - Mobile layout fixes after screenshot review.
 
@@ -56,6 +58,7 @@ It can be opened directly in a browser. No dev server is required.
 
 - `node --check app.js` passed.
 - Local Chrome headless screenshots were captured for desktop and mobile.
+- Chrome print-emulation screenshots and PDFs were generated for the slide deck and facilitator guide.
 - Mobile overflow was found and fixed.
 - Browser verification artifacts are kept in `../output/` and ignored by `.gitignore`.
 
@@ -64,12 +67,13 @@ It can be opened directly in a browser. No dev server is required.
 - Content model is improved across all five current incident categories.
 - Injects now use true phase-specific pools for Detect, Triage, Contain, Communicate, and Recover.
 - Print layout has split-mode support and basic page-break protection, but still needs deeper portrait-paper review.
-- Slide deck mode exists as a first prototype, but needs slide density and landscape PDF review before real exercise use.
+- Slide deck mode has first-pass density polish and landscape PDF output, but should still be reviewed with real organizational content before exercise use.
+- Local Poppler/Python PDF inspection was not available, so visual review currently uses Chrome print emulation and generated PDF files.
 - Source-document mapping has started at the source-group level, but individual source review is not complete.
 - No domain, branding, analytics, or deployment plan yet.
 
 ## Next Prototype Moves
 
 - Continue portrait print review and decide whether the worksheet should stay as a compact table or become a printable blank form.
-- Continue slide-deck review for remote and hybrid facilitation and decide whether a `.pptx` export is worth the added complexity.
+- Review slide-deck PDF in a normal PDF viewer and decide whether a `.pptx` export is worth the added complexity.
 - Add scenario variants or optional category filters only after print/export polish is stronger.

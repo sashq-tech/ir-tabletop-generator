@@ -830,6 +830,16 @@ function getGroupLabels() {
   });
 }
 
+function buildScribeCaptureItems() {
+  return [
+    "Facts: What is confirmed, who confirmed it, and when?",
+    "Assumptions: What is being treated as true until verified?",
+    "Decisions: What changed because of this inject, and who approved it?",
+    "Questions: What must be answered before the next inject?",
+    "Scribe: assign one owner for every open question or follow-up."
+  ];
+}
+
 const scenarioFacilitatorGuidance = {
   ransomware: {
     expectedDiscussionAreas: [
@@ -1291,9 +1301,6 @@ function buildSlideData(timeline, decisions) {
     const detail = term.nextElementSibling?.textContent || "";
     return `${term.textContent}: ${detail}`;
   });
-  const worksheetRows = [...output.exerciseWorksheet.querySelectorAll("tr")].map((row) =>
-    [...row.querySelectorAll("td")].map((cell) => cell.textContent)
-  );
   const factItems = getListItems(output.initialConditions);
   const objectiveItems = getListItems(output.objectives);
 
@@ -1361,11 +1368,8 @@ function buildSlideData(timeline, decisions) {
     {
       eyebrow: "Scribe capture",
       title: "Facts, Assumptions, Decisions, Questions",
-      body: ["Use this slide to pause and normalize what the group has captured so far."],
-      items: worksheetRows.map(
-        ([fact, assumption, decision, question], index) =>
-          `Row ${index + 1}: Fact - ${fact} / Assumption - ${assumption} / Decision - ${decision} / Question - ${question}`
-      )
+      body: ["Pause here to normalize the shared notes before the next decision point."],
+      items: buildScribeCaptureItems()
     },
     {
       eyebrow: "Closeout",

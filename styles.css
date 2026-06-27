@@ -338,15 +338,28 @@ body.print-slide-deck .packet {
 body.print-slide-deck .slide-deck {
   display: grid;
   gap: 1rem;
+  counter-reset: slide;
 }
 
 .slide {
   min-width: 0;
+  position: relative;
+  counter-increment: slide;
   padding: clamp(1.2rem, 3vw, 2rem);
   border: 1px solid rgba(238, 245, 239, 0.14);
   border-radius: 8px;
   background: rgba(24, 29, 27, 0.95);
   box-shadow: var(--shadow);
+}
+
+body.print-slide-deck .slide::after {
+  content: counter(slide);
+  position: absolute;
+  right: 1rem;
+  bottom: 0.85rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 800;
 }
 
 .slide-kicker {
@@ -759,7 +772,8 @@ li + li {
   .packet,
   .packet-header,
   .packet-section,
-  .timeline li {
+  .timeline li,
+  .phase-objectives li {
     border-color: #cccccc;
     background: #ffffff;
     box-shadow: none;
@@ -773,6 +787,7 @@ li + li {
   body.print-slide-deck .slide-deck {
     display: block;
     page: slide;
+    counter-reset: slide;
   }
 
   .slide {
@@ -785,6 +800,13 @@ li + li {
     background: #ffffff;
     break-after: page;
     page-break-after: always;
+  }
+
+  body.print-slide-deck .slide::after {
+    right: 0.28in;
+    bottom: 0.2in;
+    color: #666666;
+    font-size: 9pt;
   }
 
   .slide:last-child {
@@ -826,6 +848,11 @@ li + li {
   .checklist,
   .phase-objectives {
     display: block;
+  }
+
+  .phase-objectives li {
+    margin-bottom: 0.08in;
+    padding: 0.12in;
   }
 
   body.print-participant-only .facilitator-content,
@@ -872,6 +899,7 @@ li + li {
   .packet-section li,
   .packet-header p:last-child,
   .timeline span,
+  .phase-objectives li,
   .worksheet-table td {
     color: #222222;
   }

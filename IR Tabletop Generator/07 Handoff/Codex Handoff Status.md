@@ -60,10 +60,11 @@ The IR Tabletop Generator project has:
 - Added full-packet, participant-only, and facilitator-only print controls with print-mode CSS.
 - Captured future slide-ready export idea: slide outline, landscape slide-format PDF, and possible client-side PowerPoint export for organizational templates.
 - Added first slide-ready output prototype: copyable slide outline and printable slide deck with remote facilitation ground rules, configurable group check-in, one slide per inject phase, key decisions, worksheet capture, and group lessons learned.
+- Made first print/export polish pass: lighter scribe-capture slide, slide numbers in slide-deck mode, and white-background phase objective cards in facilitator print output.
 
 ## Next Recommended Step
 
-Continue print/export polish before adding more scenario categories. The strongest next work item is reviewing the slide-deck flow and PDF density for remote or hybrid facilitation, then tuning portrait packet page breaks and deciding whether the worksheet should remain a compact table or become a printable blank form.
+Continue print/export polish before adding more scenario categories. The strongest next work item is reviewing the generated slide-deck PDF in a normal PDF viewer, then tuning portrait packet page breaks and deciding whether the worksheet should remain a compact table or become a printable blank form.
 
 ## Later Roadmap Note
 
