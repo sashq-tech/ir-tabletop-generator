@@ -1,0 +1,5 @@
+output/
+Incident Response Sources/
+.vscode/
+*.code-workspace
+**/.obsidian/

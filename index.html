@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>IR Tabletop Generator Prototype</title>
+    <meta
+      name="description"
+      content="A browser-based prototype for generating incident response tabletop exercise packets with scenarios, timed injects, facilitator notes, and after-action prompts."
+    >
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="brand-lockup" aria-label="IR Tabletop Generator">
+        <span class="brand-mark" aria-hidden="true">IR</span>
+        <div>
+          <p class="eyebrow">Prototype workspace</p>
+          <h1>Incident Response Tabletop Exercise Generator</h1>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="ghost-button" id="copyBtn" type="button">Copy packet</button>
+        <button class="primary-button" id="printBtn" type="button">Print full packet</button>
+      </div>
+    </header>
+
+    <main class="app-shell">
+      <section class="control-panel" aria-label="Exercise settings">
+        <div class="panel-heading">
+          <p class="eyebrow">Build the packet</p>
+          <h2>Exercise settings</h2>
+        </div>
+
+        <label class="field">
+          <span>Incident type</span>
+          <select id="incidentType">
+            <option value="ransomware">Ransomware disruption</option>
+            <option value="phishing">Credential phishing</option>
+            <option value="insider">Insider data exposure</option>
+            <option value="ddos">Public service outage</option>
+            <option value="supplyChain">Vendor compromise</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Organization profile</span>
+          <select id="orgProfile">
+            <option value="publicSector">Public sector office</option>
+            <option value="healthcare">Healthcare support team</option>
+            <option value="finance">Finance or payroll team</option>
+            <option value="education">School or university</option>
+            <option value="smallBusiness">Small business IT team</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Audience</span>
+          <select id="audience">
+            <option value="mixed">Mixed technical and leadership</option>
+            <option value="technical">Technical response team</option>
+            <option value="leadership">Executives and senior staff</option>
+            <option value="compliance">Compliance and policy owners</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Exercise focus</span>
+          <select id="exerciseFocus">
+            <option value="balanced" selected>Balanced readiness</option>
+            <option value="operations">Containment and recovery</option>
+            <option value="communications">Communications pressure</option>
+            <option value="governance">Policy and evidence</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Duration</span>
+          <select id="duration">
+            <option value="30">30 minutes</option>
+            <option value="60" selected>60 minutes</option>
+            <option value="90">90 minutes</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Difficulty</span>
+          <select id="difficulty">
+            <option value="intro">Introductory</option>
+            <option value="standard" selected>Standard</option>
+            <option value="stress">Stress test</option>
+          </select>
+        </label>
+
+        <fieldset class="field group-labels">
+          <legend>Presentation groups</legend>
+          <div class="group-fields">
+            <input id="groupOneInput" type="text" value="Group 1" aria-label="Presentation group 1">
+            <input id="groupTwoInput" type="text" value="Group 2" aria-label="Presentation group 2">
+            <input id="groupThreeInput" type="text" value="Group 3" aria-label="Presentation group 3">
+          </div>
+        </fieldset>
+
+        <label class="field">
+          <span>Seed</span>
+          <div class="seed-row">
+            <input id="seedInput" inputmode="numeric" type="text" aria-label="Scenario seed">
+            <button class="icon-button" id="seedBtn" type="button" aria-label="Randomize seed" title="Randomize seed">New</button>
+          </div>
+        </label>
+
+        <button class="primary-button wide" id="generateBtn" type="button">Generate exercise packet</button>
+        <button class="ghost-button wide" id="dailyBtn" type="button">Daily drill</button>
+        <button class="ghost-button wide" id="viewPacketBtn" type="button">View packet</button>
+        <button class="ghost-button wide" id="copyLinkBtn" type="button">Copy scenario link</button>
+        <button class="ghost-button wide" id="downloadBtn" type="button">Download packet</button>
+        <button class="ghost-button wide" id="downloadParticipantBtn" type="button">Download participant handout</button>
+        <button class="ghost-button wide" id="downloadFacilitatorBtn" type="button">Download facilitator guide</button>
+        <div class="print-actions" aria-label="Print options">
+          <button class="ghost-button wide" id="printParticipantBtn" type="button">Print participant handout</button>
+          <button class="ghost-button wide" id="printFacilitatorBtn" type="button">Print facilitator guide</button>
+          <button class="ghost-button wide" id="copySlidesBtn" type="button">Copy slide outline</button>
+          <button class="ghost-button wide" id="printSlidesBtn" type="button">Print slide deck</button>
+        </div>
+
+        <aside class="trust-note" aria-label="Prototype note">
+          <strong>Prototype note</strong>
+          This tool creates educational tabletop exercise materials. It does not replace an incident response plan,
+          legal advice, compliance review, or organization-specific security guidance.
+        </aside>
+      </section>
+
+      <section class="output-stage" aria-live="polite" aria-label="Generated tabletop packet">
+        <div class="signal-strip" aria-hidden="true">
+          <span>Detect</span>
+          <span>Triage</span>
+          <span>Contain</span>
+          <span>Communicate</span>
+          <span>Recover</span>
+        </div>
+
+        <article class="packet" id="packet">
+          <div class="packet-header">
+            <p class="eyebrow">Generated packet</p>
+            <h2 id="packetTitle">Ransomware Disruption Tabletop</h2>
+            <p id="packetSummary">
+              Configure the exercise settings and generate a meeting-ready packet.
+            </p>
+          </div>
+
+          <div class="packet-grid">
+            <section class="packet-section full-width">
+              <h3>Exercise Profile</h3>
+              <dl class="profile-grid" id="exerciseProfile"></dl>
+            </section>
+
+            <section class="packet-section full-width use-note">
+              <h3>Use Note</h3>
+              <p>
+                This packet is for educational tabletop exercise planning. Customize it to local policies, systems,
+                roles, and reporting requirements before use. It is not legal, compliance, or incident response advice.
+              </p>
+            </section>
+
+            <section class="packet-section full-width handout-divider participant-divider">
+              <p class="eyebrow">Participant content</p>
+              <h3>Participant Handout</h3>
+              <p>
+                Share this portion with participants before or during the exercise. It includes the scenario setup,
+                starting facts, ground rules, objectives, agenda, and expected roles. It does not reveal future injects.
+              </p>
+            </section>
+
+            <section class="packet-section participant-content facilitator-reference">
+              <h3>Scenario Brief</h3>
+              <p id="scenarioBrief"></p>
+            </section>
+
+            <section class="packet-section participant-content facilitator-reference">
+              <h3>Initial Conditions</h3>
+              <ul id="initialConditions"></ul>
+            </section>
+
+            <section class="packet-section participant-content">
+              <h3>Ground Rules</h3>
+              <ul id="groundRules"></ul>
+            </section>
+
+            <section class="packet-section participant-content">
+              <h3>Assumptions to Validate</h3>
+              <ul id="assumptions"></ul>
+            </section>
+
+            <section class="packet-section participant-content facilitator-reference">
+              <h3>Exercise Objectives</h3>
+              <ul id="objectives"></ul>
+            </section>
+
+            <section class="packet-section participant-content">
+              <h3>Meeting Agenda</h3>
+              <ol id="meetingAgenda"></ol>
+            </section>
+
+            <section class="packet-section participant-content facilitator-reference">
+              <h3>Participant Roles</h3>
+              <ul id="participantRoles"></ul>
+            </section>
+
+            <section class="packet-section full-width handout-divider facilitator-divider">
+              <p class="eyebrow">Facilitator content</p>
+              <h3>Facilitator Guide</h3>
+              <p>
+                Keep this portion with the facilitator and scribe. It includes scenario variables, injects,
+                prompts, expected decision points, evidence needs, and after-action material.
+              </p>
+            </section>
+
+            <section class="packet-section full-width facilitator-content">
+              <h3>Scenario Variables</h3>
+              <dl class="profile-grid" id="scenarioVariables"></dl>
+            </section>
+
+            <section class="packet-section full-width facilitator-content">
+              <h3>Phase Objectives</h3>
+              <ul class="phase-objectives" id="phaseObjectives"></ul>
+            </section>
+
+            <section class="packet-section full-width facilitator-content">
+              <h3>Inject Timeline</h3>
+              <ol class="timeline" id="timeline"></ol>
+            </section>
+
+            <section class="packet-section full-width facilitator-content">
+              <h3>Discussion Prompts</h3>
+              <ul class="prompt-list" id="discussionPrompts"></ul>
+            </section>
+
+            <section class="packet-section full-width facilitator-content">
+              <h3>Expected Discussion Areas</h3>
+              <ul id="expectedDiscussionAreas"></ul>
+            </section>
+
+            <section class="packet-section full-width facilitator-content table-scroll">
+              <h3>Facts, Assumptions, Decisions, Questions</h3>
+              <table class="worksheet-table fadq-table">
+                <thead>
+                  <tr>
+                    <th>Known Facts</th>
+                    <th>Assumptions</th>
+                    <th>Decisions</th>
+                    <th>Open Questions</th>
+                  </tr>
+                </thead>
+                <tbody id="exerciseWorksheet"></tbody>
+              </table>
+            </section>
+
+            <section class="packet-section facilitator-content">
+              <h3>Key Decision Points</h3>
+              <ul id="decisionPoints"></ul>
+            </section>
+
+            <section class="packet-section facilitator-content">
+              <h3>Stakeholder Messages</h3>
+              <ul id="stakeholderMessages"></ul>
+            </section>
+
+            <section class="packet-section facilitator-content">
+              <h3>Communications Checklist</h3>
+              <ul id="communicationsChecklist"></ul>
+            </section>
+
+            <section class="packet-section facilitator-content">
+              <h3>Watch For Gaps</h3>
+              <ul id="watchForGaps"></ul>
+            </section>
+
+            <section class="packet-section facilitator-content">
+              <h3>Facilitator Notes</h3>
+              <ul id="facilitatorNotes"></ul>
+            </section>
+
+            <section class="packet-section facilitator-content">
+              <h3>After-Action Prompts</h3>
+              <ul id="aarPrompts"></ul>
+            </section>
+
+            <section class="packet-section facilitator-content">
+              <h3>Evidence Prompts</h3>
+              <ul id="evidencePrompts"></ul>
+            </section>
+
+            <section class="packet-section full-width facilitator-content">
+              <h3>Evidence Checklist</h3>
+              <ul class="checklist" id="evidenceChecklist"></ul>
+            </section>
+
+            <section class="packet-section full-width facilitator-content">
+              <h3>Decision and Action Tracker</h3>
+              <table class="worksheet-table">
+                <thead>
+                  <tr>
+                    <th>Item</th>
+                    <th>Owner</th>
+                    <th>Due</th>
+                    <th>Status / Notes</th>
+                  </tr>
+                </thead>
+                <tbody id="actionTracker"></tbody>
+              </table>
+            </section>
+          </div>
+        </article>
+
+        <article class="slide-deck" id="slideDeck" aria-label="Slide-ready tabletop deck"></article>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>No login. No upload. No backend. This prototype runs in the browser and uses generic exercise content.</p>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
