@@ -1002,6 +1002,9 @@ const output = {
   presentationStage: document.querySelector("#presentationStage"),
   presentationSlide: document.querySelector("#presentationSlide"),
   presentationCounter: document.querySelector("#presentationCounter"),
+  presentationNotes: document.querySelector("#presentationNotes"),
+  presentationNotesTitle: document.querySelector("#presentationNotesTitle"),
+  presentationNotesList: document.querySelector("#presentationNotesList"),
   exerciseProfile: document.querySelector("#exerciseProfile"),
   scenarioVariables: document.querySelector("#scenarioVariables"),
   scenarioBrief: document.querySelector("#scenarioBrief"),
@@ -1029,6 +1032,9 @@ const output = {
 
 let presentationIndex = 0;
 let pendingPresentationIndex = null;
+let presentationAudience = "facilitator";
+let presentationNotesVisible = true;
+let currentSlideData = [];
 
 function makeSeed() {
   return String(Math.floor(100000 + Math.random() * 900000));
@@ -1356,6 +1362,16 @@ function makeSlide(eyebrow, title, body = [], items = []) {
   return section;
 }
 
+function makeSlideFromData(slide, audience = "facilitator") {
+  const body = audience === "participant" && slide.participantBody ? slide.participantBody : slide.body;
+  const items = audience === "participant" && slide.participantItems ? slide.participantItems : slide.items;
+  return makeSlide(slide.eyebrow, slide.title, body, items);
+}
+
+function facilitatorNotes(title, items = []) {
+  return { title, items };
+}
+
 function buildSlideData(timeline, decisions) {
   const groups = getGroupLabels();
   const profileLines = [...output.exerciseProfile.querySelectorAll("dt")].map((term) => {
@@ -1373,13 +1389,25 @@ function buildSlideData(timeline, decisions) {
       eyebrow: "Exercise deck",
       title: output.packetTitle.textContent,
       body: [output.packetSummary.textContent],
-      items: profileLines.slice(0, 8)
+      items: profileLines.slice(0, 8),
+      participantSafe: true,
+      notes: facilitatorNotes("Opening", [
+        "Confirm the audience and exercise scope before starting.",
+        "Remind participants this is an exercise, not an incident declaration.",
+        "Keep the packet available as a backup if screen share fails."
+      ])
     },
     {
       eyebrow: "Remote / hybrid facilitation",
       title: "Remote Facilitation Ground Rules",
       body: ["Use this deck to pace the exercise when participants are not all in the same room."],
-      items: buildRemoteFacilitationItems(groups)
+      items: buildRemoteFacilitationItems(groups),
+      participantSafe: true,
+      notes: facilitatorNotes("Remote Facilitation Ground Rules", [
+        "Pause after each major slide and invite quiet groups by name.",
+        "Use chat only for links, clarifying questions, and scribe handoffs.",
+        "If the meeting platform fails, continue from the downloaded packet."
+      ])
     },
     {
       eyebrow: "Remote / hybrid facilitation",
@@ -1388,31 +1416,62 @@ function buildSlideData(timeline, decisions) {
       items: [
         ...groups.map((group) => `${group}: spokesperson, backup, and local notes owner confirmed.`),
         "Facilitator: confirm recording, chat use, and shared notes expectations."
-      ]
+      ],
+      participantItems: groups.map((group) => `${group}: spokesperson, backup, and local notes owner confirmed.`),
+      participantSafe: true,
+      notes: facilitatorNotes("Group Check-In", [
+        "Do not begin until every group has a spokesperson.",
+        "Confirm who is taking shared notes and where action items will land.",
+        "Set expectations for who may speak during time-boxed injects."
+      ])
     },
     {
       eyebrow: "Participant briefing",
       title: "Scenario Brief",
       body: [output.scenarioBrief.textContent],
-      items: []
+      items: [],
+      participantSafe: true,
+      notes: facilitatorNotes("Scenario Brief", [
+        "Read the scenario slowly and avoid adding ungenerated facts.",
+        "Ask whether participants need any term clarified before starting.",
+        "Do not reveal future injects or expected answers."
+      ])
     },
     {
       eyebrow: "Participant briefing",
       title: "Initial Conditions",
       body: [],
-      items: factItems
+      items: factItems,
+      participantSafe: true,
+      notes: facilitatorNotes("Initial Conditions", [
+        "Treat these as the only facts available at the start.",
+        "If participants invent facts, capture them as assumptions.",
+        "Point the scribe to the Facts / Assumptions / Decisions / Questions worksheet."
+      ])
     },
     {
       eyebrow: "Participant briefing",
       title: "Objectives",
       body: [],
-      items: objectiveItems
+      items: objectiveItems,
+      participantSafe: true,
+      notes: facilitatorNotes("Objectives", [
+        "Tie discussion back to these objectives when conversation drifts.",
+        "Balance technical, communication, recovery, evidence, and leadership decisions.",
+        "Keep the exercise focused on decision quality, not perfect technical detail."
+      ])
     },
     {
       eyebrow: "Exercise flow",
       title: "Inject Timeline Overview",
       body: [],
-      items: timeline.map((item) => `${item.time} - ${item.phase}: ${item.text}`)
+      items: timeline.map((item) => `${item.time} - ${item.phase}: ${item.text}`),
+      participantSafe: false,
+      notes: facilitatorNotes("Inject Timeline Overview", [
+        "Facilitator-only pacing slide; do not screen share in participant mode.",
+        "Use this to decide where to pause, skip, or extend discussion.",
+        "If time runs short, prioritize the phase with the most unresolved decisions."
+      ])
     },
     ...timeline.map((item) => ({
       eyebrow: `${item.time} / ${item.phase}`,
@@ -1421,31 +1480,63 @@ function buildSlideData(timeline, decisions) {
       items: [
         ...groups.map((group) => `${group}: What do you know, need, or recommend?`),
         "Scribe: capture facts, assumptions, decisions, and open questions."
-      ]
+      ],
+      participantItems: groups.map((group) => `${group}: What do you know, need, or recommend?`),
+      participantSafe: true,
+      notes: facilitatorNotes(`${item.phase} Inject`, [
+        `Phase objective: ${phaseObjectives[item.phase]}`,
+        "Ask each group for facts first, then assumptions, then decisions.",
+        "Capture unresolved questions before advancing.",
+        "Avoid confirming whether participant theories are correct unless the packet says so."
+      ])
     })),
     {
       eyebrow: "Facilitated discussion",
       title: "Discussion Prompts",
       body: ["Use these prompts when the group has answered the immediate inject questions."],
-      items: discussionItems
+      items: discussionItems,
+      participantSafe: false,
+      notes: facilitatorNotes("Discussion Prompts", [
+        "Use selectively; do not ask every prompt if the group is already productive.",
+        "Prioritize prompts that reveal ownership, escalation, communication, and evidence gaps.",
+        "Capture strong comments as after-action evidence."
+      ])
     },
     {
       eyebrow: "Facilitated discussion",
       title: "Key Decisions",
       body: [],
-      items: decisions
+      items: decisions,
+      participantSafe: false,
+      notes: facilitatorNotes("Key Decisions", [
+        "Ask who owns each decision in real life.",
+        "Capture whether authority is documented or assumed.",
+        "Mark any decision that requires policy, legal, business, or executive follow-up."
+      ])
     },
     {
       eyebrow: "Scribe capture",
       title: "Facts, Assumptions, Decisions, Questions",
       body: ["Pause here to normalize the shared notes before the next decision point."],
-      items: buildScribeCaptureItems()
+      items: buildScribeCaptureItems(),
+      participantSafe: false,
+      notes: facilitatorNotes("Scribe Capture", [
+        "Use the blank worksheet or shared notes to normalize the exercise record.",
+        "Separate confirmed facts from assumptions with an owner to validate each assumption.",
+        "Every action item should have an owner and due date before closeout."
+      ])
     },
     {
       eyebrow: "Evidence and closeout",
       title: "Evidence and After-Action Prompts",
       body: ["Use this slide to turn discussion into reviewable follow-up."],
-      items: [...evidenceItemsForSlides, ...aarItemsForSlides]
+      items: [...evidenceItemsForSlides, ...aarItemsForSlides],
+      participantSafe: false,
+      notes: facilitatorNotes("Evidence and After-Action", [
+        "Turn observations into auditable follow-up tasks.",
+        "Ask what evidence would prove the organization made timely, reasonable decisions.",
+        "Keep improvement items practical enough to assign."
+      ])
     },
     {
       eyebrow: "Closeout",
@@ -1454,29 +1545,71 @@ function buildSlideData(timeline, decisions) {
       items: [
         ...groups.map((group) => `${group}: strongest response step, biggest gap, assigned follow-up.`),
         "Facilitator: confirm owners, due dates, and where the after-action notes will live."
-      ]
+      ],
+      participantItems: groups.map((group) => `${group}: strongest response step, biggest gap, assigned follow-up.`),
+      participantSafe: true,
+      notes: facilitatorNotes("Group Lessons Learned", [
+        "Keep closeout concrete and time-boxed.",
+        "Ask for one strength, one gap, and one follow-up from each group.",
+        "End by confirming where after-action notes and owners will live."
+      ])
     }
   ];
 }
 
 function renderSlideDeck(timeline, decisions) {
-  const slides = buildSlideData(timeline, decisions);
+  currentSlideData = buildSlideData(timeline, decisions);
   output.slideDeck.replaceChildren(
-    ...slides.map((slide) => makeSlide(slide.eyebrow, slide.title, slide.body, slide.items))
+    ...currentSlideData.map((slide) => makeSlideFromData(slide, "facilitator"))
   );
 }
 
-function getPresentationSlides() {
-  return [...output.slideDeck.querySelectorAll(".slide")];
+function getPresentationSlidesData() {
+  if (presentationAudience === "participant") {
+    return currentSlideData.filter((slide) => slide.participantSafe !== false);
+  }
+  return currentSlideData;
+}
+
+function renderPresentationNotes(slide) {
+  const isVisible = presentationAudience === "facilitator" && presentationNotesVisible;
+  output.presentationNotes.classList.toggle("hidden", !isVisible);
+  document.querySelector(".presentation-layout").classList.toggle("notes-hidden", !isVisible);
+  document.querySelector("#presentationNotesBtn").setAttribute("aria-pressed", String(isVisible));
+
+  if (!isVisible) {
+    output.presentationNotesTitle.textContent = "Notes";
+    output.presentationNotesList.replaceChildren();
+    return;
+  }
+
+  const notes = slide.notes || facilitatorNotes(slide.title, ["Use the packet and worksheet to capture decisions."]);
+  output.presentationNotesTitle.textContent = notes.title;
+  output.presentationNotesList.replaceChildren(
+    ...notes.items.map((text) => {
+      const item = document.createElement("li");
+      item.textContent = text;
+      return item;
+    })
+  );
+}
+
+function updatePresentationAudienceControls() {
+  document.querySelector("#participantDeckBtn").setAttribute("aria-pressed", String(presentationAudience === "participant"));
+  document.querySelector("#facilitatorDeckBtn").setAttribute("aria-pressed", String(presentationAudience === "facilitator"));
+  document.querySelector("#presentationNotesBtn").disabled = presentationAudience === "participant";
 }
 
 function showPresentationSlide(index) {
-  const slides = getPresentationSlides();
+  const slides = getPresentationSlidesData();
   if (slides.length === 0) {
     return;
   }
   presentationIndex = Math.min(Math.max(index, 0), slides.length - 1);
-  output.presentationSlide.replaceChildren(slides[presentationIndex].cloneNode(true));
+  const slide = slides[presentationIndex];
+  output.presentationSlide.replaceChildren(makeSlideFromData(slide, presentationAudience));
+  renderPresentationNotes(slide);
+  updatePresentationAudienceControls();
   output.presentationCounter.textContent = `${presentationIndex + 1} / ${slides.length}`;
   document.querySelector("#presentationPrevBtn").disabled = presentationIndex === 0;
   document.querySelector("#presentationNextBtn").disabled = presentationIndex === slides.length - 1;
@@ -1485,8 +1618,12 @@ function showPresentationSlide(index) {
   }
 }
 
-function openPresentationMode(startIndex = 0) {
+function openPresentationMode(startIndex = 0, audience = presentationAudience) {
   clearPrintMode();
+  presentationAudience = audience;
+  if (presentationAudience === "participant") {
+    presentationNotesVisible = false;
+  }
   output.presentationStage.hidden = false;
   document.body.classList.add("presentation-active");
   showPresentationSlide(startIndex);
@@ -1503,6 +1640,24 @@ function closePresentationMode() {
 
 function movePresentation(delta) {
   showPresentationSlide(presentationIndex + delta);
+}
+
+function setPresentationAudience(audience) {
+  presentationAudience = audience;
+  if (audience === "participant") {
+    presentationNotesVisible = false;
+  } else if (!presentationNotesVisible) {
+    presentationNotesVisible = true;
+  }
+  showPresentationSlide(Math.min(presentationIndex, getPresentationSlidesData().length - 1));
+}
+
+function togglePresentationNotes() {
+  if (presentationAudience === "participant") {
+    return;
+  }
+  presentationNotesVisible = !presentationNotesVisible;
+  showPresentationSlide(presentationIndex);
 }
 
 function handlePresentationKeydown(event) {
@@ -1604,6 +1759,8 @@ function applyStateFromUrl() {
   }
 
   if (params.get("view") === "present") {
+    presentationAudience = params.get("deck") === "facilitator" ? "facilitator" : "participant";
+    presentationNotesVisible = presentationAudience === "facilitator" && params.get("notes") !== "off";
     pendingPresentationIndex = Math.max((Number(params.get("slide")) || 1) - 1, 0);
   }
 }
@@ -1618,7 +1775,11 @@ function updateUrlState() {
 function updatePresentationUrl() {
   const params = new URLSearchParams(getState());
   params.set("view", "present");
+  params.set("deck", presentationAudience);
   params.set("slide", String(presentationIndex + 1));
+  if (presentationAudience === "facilitator" && !presentationNotesVisible) {
+    params.set("notes", "off");
+  }
   window.history.replaceState(null, "", `${window.location.pathname}?${params.toString()}`);
 }
 
@@ -1916,10 +2077,13 @@ document.querySelector("#printParticipantBtn").addEventListener("click", () => p
 document.querySelector("#printFacilitatorBtn").addEventListener("click", () => printMode("facilitator"));
 document.querySelector("#printWorksheetBtn").addEventListener("click", () => printMode("worksheet"));
 document.querySelector("#printSlidesBtn").addEventListener("click", () => printMode("slides"));
-document.querySelector("#presentSlidesBtn").addEventListener("click", () => openPresentationMode());
+document.querySelector("#presentSlidesBtn").addEventListener("click", () => openPresentationMode(0, "facilitator"));
 document.querySelector("#presentationPrevBtn").addEventListener("click", () => movePresentation(-1));
 document.querySelector("#presentationNextBtn").addEventListener("click", () => movePresentation(1));
 document.querySelector("#presentationExitBtn").addEventListener("click", closePresentationMode);
+document.querySelector("#participantDeckBtn").addEventListener("click", () => setPresentationAudience("participant"));
+document.querySelector("#facilitatorDeckBtn").addEventListener("click", () => setPresentationAudience("facilitator"));
+document.querySelector("#presentationNotesBtn").addEventListener("click", togglePresentationNotes);
 document.querySelector("#copyBtn").addEventListener("click", copyPacket);
 document.querySelector("#copySlidesBtn").addEventListener("click", copySlideOutline);
 document.querySelector("#copyLinkBtn").addEventListener("click", copyScenarioLink);

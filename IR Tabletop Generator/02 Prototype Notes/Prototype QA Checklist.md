@@ -38,7 +38,9 @@ Use this checklist after meaningful prototype changes.
 - Print slide deck shows slide-ready content instead of the packet view.
 - Slide deck supports remote, hybrid, or distributed facilitation without exposing real organization-specific details.
 - Presentation group labels flow into slide output and copied scenario links.
-- Browser presentation mode opens a one-slide-at-a-time deck, supports next/previous controls, supports arrow-key navigation, exits with Escape, and preserves `view=present&slide=N` in the URL.
+- Browser presentation mode opens a one-slide-at-a-time deck, supports next/previous controls, supports arrow-key navigation, exits with Escape, and preserves `view=present&deck=participant|facilitator&slide=N` in the URL.
+- Facilitator presentation mode shows the notes rail by default and preserves `notes=off` when notes are hidden.
+- Participant presentation mode hides the notes rail, disables the Notes button, filters facilitator-only slides, and does not show facilitator/scribe-only bullets on shared inject slides.
 
 ## Trust Checks
 

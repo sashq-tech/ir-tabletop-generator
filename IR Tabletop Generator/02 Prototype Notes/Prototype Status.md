@@ -28,7 +28,9 @@ It can be opened directly in a browser. No dev server is required.
 - Full-packet, participant-only, and facilitator-only print controls.
 - Blank worksheet print control and blank worksheet Markdown download for live scribing.
 - Slide-deck print control and slide-outline copy control for remote, hybrid, or distributed exercises.
-- Browser presentation mode with one-slide-at-a-time deck view, next/previous controls, keyboard navigation, and shareable `view=present&slide=N` URLs.
+- Browser presentation mode with one-slide-at-a-time deck view, next/previous controls, keyboard navigation, and shareable `view=present&deck=participant|facilitator&slide=N` URLs.
+- Participant-safe browser presentation mode that filters facilitator-only slides and removes facilitator/scribe-only bullets from shared inject slides.
+- Facilitator browser presentation mode with a separate notes rail and a notes visibility toggle for screen-share control.
 - Configurable presentation group labels that flow into the slide deck and scenario link.
 - Seeded generation for repeatable output.
 - Seeded scenario variables for detection source, affected asset, business impact, and recovery constraint.
@@ -62,7 +64,7 @@ It can be opened directly in a browser. No dev server is required.
 - `node --check app.js` passed.
 - Local Chrome headless screenshots were captured for desktop and mobile.
 - Chrome print-emulation screenshots and PDFs were generated for the slide deck and facilitator guide.
-- Browser verification confirmed presentation navigation, direct presentation URLs, and blank worksheet print rendering.
+- Browser verification confirmed presentation navigation, direct presentation URLs, participant-safe deck filtering, facilitator notes visibility, and blank worksheet print rendering.
 - Mobile overflow was found and fixed.
 - Browser verification artifacts are kept in `../output/` and ignored by `.gitignore`.
 
@@ -71,7 +73,7 @@ It can be opened directly in a browser. No dev server is required.
 - Content model is improved across all five current incident categories.
 - Injects now use true phase-specific pools for Detect, Triage, Contain, Communicate, and Recover.
 - Print layout has split-mode support, blank worksheet support, and basic page-break protection, but still needs deeper portrait-paper review.
-- Slide deck mode has first-pass density polish and landscape PDF output, but should still be reviewed with real organizational content before exercise use.
+- Slide deck mode has first-pass density polish, landscape PDF output, participant-safe browser mode, and facilitator notes, but should still be reviewed with real organizational content before exercise use.
 - Local Poppler/Python PDF inspection was not available, so visual review currently uses Chrome print emulation and generated PDF files.
 - Source-document mapping has started at the source-group level, but individual source review is not complete.
 - No domain, branding, analytics, or deployment plan yet.
@@ -80,5 +82,5 @@ It can be opened directly in a browser. No dev server is required.
 
 - Continue portrait print review for full packet, participant handout, facilitator guide, and blank worksheet.
 - Review slide-deck PDF in a normal PDF viewer and decide whether a `.pptx` export is worth the added complexity.
-- Continue browser presentation-mode polish for real remote facilitation, especially dense slides and screen-share readability.
+- Continue browser presentation-mode polish for real remote facilitation, especially notes ergonomics, participant-safe direct links, dense slides, and screen-share readability.
 - Add scenario variants or optional category filters only after print/export polish is stronger.

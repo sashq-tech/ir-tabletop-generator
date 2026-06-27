@@ -24,14 +24,14 @@ The downloaded files in `Incident Response Sources/` are reference material only
 - Markdown-style copied packet text.
 - Markdown full packet, participant handout, standalone facilitator guide, and blank worksheet downloads.
 - Browser-generated slide outline and slide-deck print view for remote, hybrid, or distributed facilitation.
-- Browser presentation mode with next/previous controls, keyboard navigation, and shareable slide URLs.
+- Browser presentation mode with facilitator and participant deck modes, next/previous controls, keyboard navigation, facilitator notes, and shareable slide URLs.
 - Daily drill seed based on the current date.
 - Quiet site footer reinforcing no-login, no-upload, no-backend behavior.
 
 ## Next Ideas
 
 - Continue polishing portrait print layout and page breaks.
-- Continue polishing slide-deck layout and browser presentation flow.
+- Continue polishing slide-deck layout, facilitator notes, and participant-safe browser presentation flow.
 - Continue deepening the phase-specific inject pools and decision prompts.
 - Add scenario variants or optional category filters only after the five current categories feel strong.
 - Expand the source-to-feature map from source groups into individual source notes when useful.

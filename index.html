@@ -359,12 +359,24 @@
 
     <section class="presentation-stage" id="presentationStage" aria-live="polite" aria-label="Slide presentation" hidden>
       <div class="presentation-toolbar">
+        <div class="presentation-segment" aria-label="Presentation audience">
+          <button id="participantDeckBtn" type="button" aria-pressed="false">Participant</button>
+          <button id="facilitatorDeckBtn" type="button" aria-pressed="true">Facilitator</button>
+        </div>
         <button class="ghost-button" id="presentationPrevBtn" type="button" aria-label="Previous slide">&lt;</button>
         <span id="presentationCounter">1 / 1</span>
         <button class="ghost-button" id="presentationNextBtn" type="button" aria-label="Next slide">&gt;</button>
+        <button class="ghost-button" id="presentationNotesBtn" type="button" aria-pressed="true">Notes</button>
         <button class="ghost-button" id="presentationExitBtn" type="button">Exit</button>
       </div>
-      <div class="presentation-slide" id="presentationSlide"></div>
+      <div class="presentation-layout">
+        <div class="presentation-slide" id="presentationSlide"></div>
+        <aside class="presentation-notes" id="presentationNotes" aria-label="Facilitator notes">
+          <p class="eyebrow">Facilitator notes</p>
+          <h2 id="presentationNotesTitle">Notes</h2>
+          <ul id="presentationNotesList"></ul>
+        </aside>
+      </div>
     </section>
 
     <footer class="site-footer">

@@ -2,7 +2,7 @@
 
 ## Last Updated
 
-2026-06-26
+2026-06-27
 
 ## Current State
 
@@ -64,10 +64,14 @@ The IR Tabletop Generator project has:
 - Added browser presentation mode for remote facilitation: one-slide-at-a-time deck view, next/previous controls, keyboard navigation, Escape exit, and shareable `view=present&slide=N` URLs.
 - Added printable and downloadable blank facilitator worksheet for live scribing and after-action capture.
 - Added discussion prompt and evidence/after-action prompt slides to better match the facilitator flow.
+- Added separate facilitator and participant browser presentation modes.
+- Added a facilitator notes rail with notes visibility control.
+- Added participant-safe presentation filtering so shared mode skips facilitator-only slides and removes facilitator/scribe-only bullets from shared inject slides.
+- Updated presentation URLs to preserve `deck=participant|facilitator`, slide number, and hidden notes state.
 
 ## Next Recommended Step
 
-Continue export/presentation polish before adding more scenario categories. The strongest next work item is reviewing the live presentation mode and generated PDFs in normal real-world use: Teams/Zoom screen share, browser fullscreen, and local PDF viewer.
+Continue export/presentation polish before adding more scenario categories. The strongest next work item is a real-world presentation rehearsal pass: Teams/Zoom screen share, browser fullscreen, participant-safe links, facilitator notes ergonomics, and local PDF viewer review.
 
 ## Later Roadmap Note
 

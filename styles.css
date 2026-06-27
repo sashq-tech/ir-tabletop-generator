@@ -454,20 +454,56 @@ body.presentation-active {
 
 .presentation-toolbar {
   display: grid;
-  grid-template-columns: 3rem minmax(4rem, auto) 3rem auto;
+  grid-template-columns: auto 3rem minmax(4rem, auto) 3rem auto auto;
   gap: 0.7rem;
   justify-content: end;
   align-items: center;
+}
+
+.presentation-segment {
+  display: inline-grid;
+  grid-template-columns: minmax(6.8rem, auto) minmax(6.8rem, auto);
+  gap: 0.25rem;
+  padding: 0.25rem;
+  border: 1px solid rgba(238, 245, 239, 0.16);
+  border-radius: 8px;
+  background: rgba(15, 21, 18, 0.78);
+}
+
+.presentation-segment button {
+  min-height: 2.25rem;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--muted);
+  padding: 0.45rem 0.7rem;
+}
+
+.presentation-segment button[aria-pressed="true"] {
+  background: var(--green);
+  color: var(--ink);
 }
 
 .presentation-toolbar button {
   min-width: 3rem;
 }
 
+.presentation-toolbar button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
 .presentation-toolbar span {
   color: var(--muted);
   font-weight: 900;
   text-align: center;
+}
+
+.presentation-layout {
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 24rem);
+  gap: 1rem;
 }
 
 .presentation-slide {
@@ -496,6 +532,34 @@ body.presentation-active {
 
 .presentation-slide .slide ul {
   gap: 0.75rem;
+}
+
+.presentation-notes {
+  min-width: 0;
+  overflow: auto;
+  padding: 1rem;
+  border: 1px solid rgba(238, 245, 239, 0.14);
+  border-radius: 8px;
+  background: rgba(24, 29, 27, 0.95);
+  box-shadow: var(--shadow);
+}
+
+.presentation-notes h2 {
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
+}
+
+.presentation-notes li {
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.presentation-notes.hidden {
+  display: none;
+}
+
+.presentation-layout.notes-hidden {
+  grid-template-columns: minmax(0, 1fr);
 }
 
 .packet-header {
@@ -855,8 +919,13 @@ li + li {
   }
 
   .presentation-toolbar {
-    grid-template-columns: 2.75rem minmax(3.5rem, auto) 2.75rem minmax(4rem, auto);
+    grid-template-columns: 1fr 2.75rem minmax(3.5rem, auto) 2.75rem;
     gap: 0.45rem;
+    justify-content: stretch;
+  }
+
+  .presentation-segment {
+    grid-column: 1 / -1;
   }
 
   .presentation-toolbar button {
@@ -864,8 +933,31 @@ li + li {
     padding-inline: 0.5rem;
   }
 
+  #presentationNotesBtn,
+  #presentationExitBtn {
+    min-width: 0;
+  }
+
+  #presentationNotesBtn {
+    grid-column: 1 / 3;
+  }
+
+  #presentationExitBtn {
+    grid-column: 3 / 5;
+  }
+
+  .presentation-layout,
+  .presentation-layout.notes-hidden {
+    grid-template-columns: 1fr;
+    overflow: auto;
+  }
+
   .presentation-slide .slide {
     padding: 1rem;
+  }
+
+  .presentation-notes {
+    max-height: 18rem;
   }
 }
 

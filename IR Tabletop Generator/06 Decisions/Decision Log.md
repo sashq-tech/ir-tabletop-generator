@@ -47,3 +47,9 @@ Reason: The user's exercise spans three geographic sites and is run over Microso
 Decision: Prioritize an in-browser presentation mode plus printable/exportable backups before adding more scenario categories.
 
 Reason: Remote exercises need a facilitator-friendly pacing surface that works over screen share without requiring PowerPoint. Printable slide decks, facilitator guides, and blank scribe worksheets remain important backups for organizations that prefer PDF or paper workflows.
+
+## 2026-06-27 - Separate Facilitator and Participant Presentation Modes
+
+Decision: Add separate browser presentation modes for facilitators and participants before pursuing true PowerPoint export.
+
+Reason: Remote tabletop sessions need a screen-share-safe participant view, while facilitators still need private pacing notes, inject context, and backup prompts. Keeping both modes in the browser preserves the no-login, no-upload, no-backend architecture and gives users a useful live option before adding export complexity.
