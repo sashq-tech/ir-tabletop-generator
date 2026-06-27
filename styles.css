@@ -330,6 +330,10 @@ button {
   display: none;
 }
 
+.blank-worksheet {
+  display: none;
+}
+
 body.print-slide-deck .signal-strip,
 body.print-slide-deck .packet {
   display: none;
@@ -339,6 +343,45 @@ body.print-slide-deck .slide-deck {
   display: grid;
   gap: 1rem;
   counter-reset: slide;
+}
+
+body.print-blank-worksheet .signal-strip,
+body.print-blank-worksheet .packet {
+  display: none;
+}
+
+body.print-blank-worksheet .blank-worksheet {
+  display: grid;
+  gap: 1rem;
+}
+
+.worksheet-header,
+.worksheet-block {
+  min-width: 0;
+  padding: clamp(1rem, 2vw, 1.35rem);
+  border: 1px solid rgba(238, 245, 239, 0.12);
+  border-radius: 8px;
+  background: rgba(24, 29, 27, 0.95);
+  box-shadow: var(--shadow);
+}
+
+.worksheet-header p:last-child {
+  margin: 0.45rem 0 0;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.blank-fadq-table,
+.blank-action-table {
+  table-layout: fixed;
+}
+
+.blank-fadq-table td {
+  height: 5.4rem;
+}
+
+.blank-action-table td {
+  height: 3.6rem;
 }
 
 .slide {
@@ -386,6 +429,73 @@ body.print-slide-deck .slide::after {
   gap: 0.45rem;
   margin: 0;
   padding-left: 1.2rem;
+}
+
+.presentation-stage[hidden] {
+  display: none;
+}
+
+.presentation-stage {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 1rem;
+  padding: 1rem;
+  background:
+    linear-gradient(135deg, rgba(67, 224, 138, 0.12), transparent 44%),
+    var(--bg);
+}
+
+body.presentation-active {
+  overflow: hidden;
+}
+
+.presentation-toolbar {
+  display: grid;
+  grid-template-columns: 3rem minmax(4rem, auto) 3rem auto;
+  gap: 0.7rem;
+  justify-content: end;
+  align-items: center;
+}
+
+.presentation-toolbar button {
+  min-width: 3rem;
+}
+
+.presentation-toolbar span {
+  color: var(--muted);
+  font-weight: 900;
+  text-align: center;
+}
+
+.presentation-slide {
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+}
+
+.presentation-slide .slide {
+  display: grid;
+  align-content: center;
+  min-height: 0;
+  padding: clamp(1.5rem, 4vw, 4rem);
+}
+
+.presentation-slide .slide h2 {
+  margin-bottom: 1rem;
+  font-size: clamp(2rem, 5vw, 4.5rem);
+  line-height: 1.05;
+}
+
+.presentation-slide .slide p,
+.presentation-slide .slide li {
+  font-size: clamp(1rem, 1.7vw, 1.55rem);
+}
+
+.presentation-slide .slide ul {
+  gap: 0.75rem;
 }
 
 .packet-header {
@@ -739,6 +849,24 @@ li + li {
   .worksheet-table td {
     padding: 0.55rem;
   }
+
+  .presentation-stage {
+    padding: 0.75rem;
+  }
+
+  .presentation-toolbar {
+    grid-template-columns: 2.75rem minmax(3.5rem, auto) 2.75rem minmax(4rem, auto);
+    gap: 0.45rem;
+  }
+
+  .presentation-toolbar button {
+    min-width: 2.75rem;
+    padding-inline: 0.5rem;
+  }
+
+  .presentation-slide .slide {
+    padding: 1rem;
+  }
 }
 
 @media print {
@@ -784,10 +912,22 @@ li + li {
     display: none;
   }
 
+  body.print-blank-worksheet .packet {
+    display: none;
+  }
+
   body.print-slide-deck .slide-deck {
     display: block;
     page: slide;
     counter-reset: slide;
+  }
+
+  body.print-blank-worksheet .blank-worksheet {
+    display: block;
+  }
+
+  .presentation-stage {
+    display: none;
   }
 
   .slide {
@@ -841,6 +981,29 @@ li + li {
     gap: 0.08in;
     margin: 0.05in 0 0;
     padding-left: 0.24in;
+  }
+
+  .worksheet-header,
+  .worksheet-block {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: #ffffff;
+    box-shadow: none;
+  }
+
+  .worksheet-block {
+    margin-top: 0.22in;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .blank-fadq-table td {
+    height: 1.05in;
+  }
+
+  .blank-action-table td {
+    height: 0.72in;
   }
 
   .packet-grid,

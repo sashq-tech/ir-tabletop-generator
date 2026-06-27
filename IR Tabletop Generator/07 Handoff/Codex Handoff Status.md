@@ -61,14 +61,17 @@ The IR Tabletop Generator project has:
 - Captured future slide-ready export idea: slide outline, landscape slide-format PDF, and possible client-side PowerPoint export for organizational templates.
 - Added first slide-ready output prototype: copyable slide outline and printable slide deck with remote facilitation ground rules, configurable group check-in, one slide per inject phase, key decisions, worksheet capture, and group lessons learned.
 - Made first print/export polish pass: lighter scribe-capture slide, slide numbers in slide-deck mode, and white-background phase objective cards in facilitator print output.
+- Added browser presentation mode for remote facilitation: one-slide-at-a-time deck view, next/previous controls, keyboard navigation, Escape exit, and shareable `view=present&slide=N` URLs.
+- Added printable and downloadable blank facilitator worksheet for live scribing and after-action capture.
+- Added discussion prompt and evidence/after-action prompt slides to better match the facilitator flow.
 
 ## Next Recommended Step
 
-Continue print/export polish before adding more scenario categories. The strongest next work item is reviewing the generated slide-deck PDF in a normal PDF viewer, then tuning portrait packet page breaks and deciding whether the worksheet should remain a compact table or become a printable blank form.
+Continue export/presentation polish before adding more scenario categories. The strongest next work item is reviewing the live presentation mode and generated PDFs in normal real-world use: Teams/Zoom screen share, browser fullscreen, and local PDF viewer.
 
 ## Later Roadmap Note
 
-For August exercise prep, slide-ready output now exists as a first prototype so users can paste generated exercise content into organizational PowerPoint templates or print a slide-format PDF. True `.pptx` export should still wait until the no-backend approach is proven.
+For August exercise prep, slide-ready output and browser presentation mode now exist as first prototypes so users can run from the browser, paste generated exercise content into organizational PowerPoint templates, or print a slide-format PDF. True `.pptx` export should still wait until the no-backend approach is proven.
 
 Important example use case: the user's exercise spans three geographic sites and is delivered over Microsoft Teams. Slide output should still remain platform-agnostic, pace the exercise in organized chunks, create clear response moments for each group, and avoid the awkwardness of running the session from a long Confluence page.
 

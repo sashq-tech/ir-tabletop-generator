@@ -41,3 +41,9 @@ Reason: Many tabletop exercises are briefed through existing agency or organizat
 Decision: Design slide output around remote, hybrid, or distributed facilitation, not only in-room tabletop delivery.
 
 Reason: The user's exercise spans three geographic sites and is run over Microsoft Teams, but that should remain an example rather than the product boundary. A slide flow should break the exercise into paced chunks, give each group clear response moments, and avoid the usability problems of running the exercise from a long Confluence page.
+
+## 2026-06-27 - Browser Presentation With Printable Backups
+
+Decision: Prioritize an in-browser presentation mode plus printable/exportable backups before adding more scenario categories.
+
+Reason: Remote exercises need a facilitator-friendly pacing surface that works over screen share without requiring PowerPoint. Printable slide decks, facilitator guides, and blank scribe worksheets remain important backups for organizations that prefer PDF or paper workflows.

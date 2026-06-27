@@ -19,19 +19,19 @@ The downloaded files in `Incident Response Sources/` are reference material only
 - Seeded generation for repeatable packets.
 - Seeded scenario variables for detection source, affected asset, business impact, and recovery constraint.
 - Scenario brief, exercise profile, use note, initial conditions, ground rules, assumptions to validate, objectives, agenda, participant roles, phase objectives, phase-specific timed injects, discussion prompts, expected discussion areas, facts/assumptions/decisions/questions worksheet, decision points, stakeholder messages, communications checklist, watch-for gaps, facilitator notes, after-action prompts, evidence prompts, evidence checklist, and action tracker.
-- Copy, full-packet print, participant-only print, facilitator-only print, slide-deck print, slide-outline copy, download, Daily drill, and View packet controls.
+- Copy, full-packet print, participant-only print, facilitator-only print, blank worksheet print, slide-deck print, slide-outline copy, download, Daily drill, and View packet controls.
 - Copy scenario link control that preserves settings in the URL.
 - Markdown-style copied packet text.
-- Markdown full packet, participant handout, and standalone facilitator guide downloads.
+- Markdown full packet, participant handout, standalone facilitator guide, and blank worksheet downloads.
 - Browser-generated slide outline and slide-deck print view for remote, hybrid, or distributed facilitation.
+- Browser presentation mode with next/previous controls, keyboard navigation, and shareable slide URLs.
 - Daily drill seed based on the current date.
 - Quiet site footer reinforcing no-login, no-upload, no-backend behavior.
 
 ## Next Ideas
 
 - Continue polishing portrait print layout and page breaks.
-- Continue polishing slide-deck layout and remote facilitation flow.
+- Continue polishing slide-deck layout and browser presentation flow.
 - Continue deepening the phase-specific inject pools and decision prompts.
 - Add scenario variants or optional category filters only after the five current categories feel strong.
-- Add optional facilitator/team labels if the privacy/trust model still feels clean.
 - Expand the source-to-feature map from source groups into individual source notes when useful.

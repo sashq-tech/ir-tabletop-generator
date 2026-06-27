@@ -116,9 +116,12 @@
         <button class="ghost-button wide" id="downloadBtn" type="button">Download packet</button>
         <button class="ghost-button wide" id="downloadParticipantBtn" type="button">Download participant handout</button>
         <button class="ghost-button wide" id="downloadFacilitatorBtn" type="button">Download facilitator guide</button>
+        <button class="ghost-button wide" id="downloadWorksheetBtn" type="button">Download blank worksheet</button>
         <div class="print-actions" aria-label="Print options">
           <button class="ghost-button wide" id="printParticipantBtn" type="button">Print participant handout</button>
           <button class="ghost-button wide" id="printFacilitatorBtn" type="button">Print facilitator guide</button>
+          <button class="ghost-button wide" id="printWorksheetBtn" type="button">Print blank worksheet</button>
+          <button class="ghost-button wide" id="presentSlidesBtn" type="button">Present slides</button>
           <button class="ghost-button wide" id="copySlidesBtn" type="button">Copy slide outline</button>
           <button class="ghost-button wide" id="printSlidesBtn" type="button">Print slide deck</button>
         </div>
@@ -313,8 +316,56 @@
         </article>
 
         <article class="slide-deck" id="slideDeck" aria-label="Slide-ready tabletop deck"></article>
+
+        <article class="blank-worksheet" id="blankWorksheet" aria-label="Blank facilitator worksheet">
+          <header class="worksheet-header">
+            <p class="eyebrow">Scribe worksheet</p>
+            <h2 id="blankWorksheetTitle">Blank Facilitator Worksheet</h2>
+            <p id="blankWorksheetSummary"></p>
+          </header>
+
+          <section class="worksheet-block">
+            <h3>Facts, Assumptions, Decisions, Questions</h3>
+            <table class="worksheet-table blank-fadq-table">
+              <thead>
+                <tr>
+                  <th>Known Facts</th>
+                  <th>Assumptions</th>
+                  <th>Decisions</th>
+                  <th>Open Questions</th>
+                </tr>
+              </thead>
+              <tbody id="blankFadqRows"></tbody>
+            </table>
+          </section>
+
+          <section class="worksheet-block">
+            <h3>Decision and Action Tracker</h3>
+            <table class="worksheet-table blank-action-table">
+              <thead>
+                <tr>
+                  <th>Item / Decision</th>
+                  <th>Owner</th>
+                  <th>Due</th>
+                  <th>Status / Notes</th>
+                </tr>
+              </thead>
+              <tbody id="blankActionRows"></tbody>
+            </table>
+          </section>
+        </article>
       </section>
     </main>
+
+    <section class="presentation-stage" id="presentationStage" aria-live="polite" aria-label="Slide presentation" hidden>
+      <div class="presentation-toolbar">
+        <button class="ghost-button" id="presentationPrevBtn" type="button" aria-label="Previous slide">&lt;</button>
+        <span id="presentationCounter">1 / 1</span>
+        <button class="ghost-button" id="presentationNextBtn" type="button" aria-label="Next slide">&gt;</button>
+        <button class="ghost-button" id="presentationExitBtn" type="button">Exit</button>
+      </div>
+      <div class="presentation-slide" id="presentationSlide"></div>
+    </section>
 
     <footer class="site-footer">
       <p>No login. No upload. No backend. This prototype runs in the browser and uses generic exercise content.</p>

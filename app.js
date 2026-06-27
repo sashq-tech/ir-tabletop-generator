@@ -994,6 +994,14 @@ const output = {
   packetTitle: document.querySelector("#packetTitle"),
   packetSummary: document.querySelector("#packetSummary"),
   slideDeck: document.querySelector("#slideDeck"),
+  blankWorksheet: document.querySelector("#blankWorksheet"),
+  blankWorksheetTitle: document.querySelector("#blankWorksheetTitle"),
+  blankWorksheetSummary: document.querySelector("#blankWorksheetSummary"),
+  blankFadqRows: document.querySelector("#blankFadqRows"),
+  blankActionRows: document.querySelector("#blankActionRows"),
+  presentationStage: document.querySelector("#presentationStage"),
+  presentationSlide: document.querySelector("#presentationSlide"),
+  presentationCounter: document.querySelector("#presentationCounter"),
   exerciseProfile: document.querySelector("#exerciseProfile"),
   scenarioVariables: document.querySelector("#scenarioVariables"),
   scenarioBrief: document.querySelector("#scenarioBrief"),
@@ -1018,6 +1026,9 @@ const output = {
   evidenceChecklist: document.querySelector("#evidenceChecklist"),
   actionTracker: document.querySelector("#actionTracker")
 };
+
+let presentationIndex = 0;
+let pendingPresentationIndex = null;
 
 function makeSeed() {
   return String(Math.floor(100000 + Math.random() * 900000));
@@ -1089,6 +1100,26 @@ function renderActionTracker(items) {
       return tr;
     })
   );
+}
+
+function makeBlankRows(rowCount, columnCount) {
+  return Array.from({ length: rowCount }, () => {
+    const tr = document.createElement("tr");
+    Array.from({ length: columnCount }, () => {
+      const td = document.createElement("td");
+      td.textContent = "";
+      tr.append(td);
+    });
+    return tr;
+  });
+}
+
+function renderBlankWorksheet() {
+  output.blankWorksheetTitle.textContent = `${output.packetTitle.textContent} Worksheet`;
+  output.blankWorksheetSummary.textContent =
+    "Use this blank form during live facilitation to capture facts, assumptions, decisions, open questions, owners, and follow-up actions.";
+  output.blankFadqRows.replaceChildren(...makeBlankRows(6, 4));
+  output.blankActionRows.replaceChildren(...makeBlankRows(6, 4));
 }
 
 function buildAgenda(duration) {
@@ -1266,6 +1297,36 @@ function worksheetText() {
     .join("\n\n");
 }
 
+function blankWorksheetText() {
+  const fadqRows = Array.from({ length: 6 }, (_, index) =>
+    [
+      `### FADQ Row ${index + 1}`,
+      "- Known fact:",
+      "- Assumption:",
+      "- Decision:",
+      "- Open question:"
+    ].join("\n")
+  ).join("\n\n");
+  const actionRows = Array.from({ length: 6 }, (_, index) =>
+    [
+      `### Action Row ${index + 1}`,
+      "- Item / decision:",
+      "- Owner:",
+      "- Due:",
+      "- Status / notes:"
+    ].join("\n")
+  ).join("\n\n");
+
+  return [
+    `# ${output.packetTitle.textContent} - Blank Facilitator Worksheet`,
+    output.packetSummary.textContent,
+    "## Facts, Assumptions, Decisions, Questions",
+    fadqRows,
+    "## Decision and Action Tracker",
+    actionRows
+  ].join("\n\n").trim();
+}
+
 function makeSlide(eyebrow, title, body = [], items = []) {
   const section = document.createElement("section");
   const label = document.createElement("p");
@@ -1303,6 +1364,9 @@ function buildSlideData(timeline, decisions) {
   });
   const factItems = getListItems(output.initialConditions);
   const objectiveItems = getListItems(output.objectives);
+  const discussionItems = getListItems(output.discussionPrompts).slice(0, 5);
+  const evidenceItemsForSlides = getListItems(output.evidencePrompts).slice(0, 3);
+  const aarItemsForSlides = getListItems(output.aarPrompts).slice(0, 3);
 
   return [
     {
@@ -1361,6 +1425,12 @@ function buildSlideData(timeline, decisions) {
     })),
     {
       eyebrow: "Facilitated discussion",
+      title: "Discussion Prompts",
+      body: ["Use these prompts when the group has answered the immediate inject questions."],
+      items: discussionItems
+    },
+    {
+      eyebrow: "Facilitated discussion",
       title: "Key Decisions",
       body: [],
       items: decisions
@@ -1370,6 +1440,12 @@ function buildSlideData(timeline, decisions) {
       title: "Facts, Assumptions, Decisions, Questions",
       body: ["Pause here to normalize the shared notes before the next decision point."],
       items: buildScribeCaptureItems()
+    },
+    {
+      eyebrow: "Evidence and closeout",
+      title: "Evidence and After-Action Prompts",
+      body: ["Use this slide to turn discussion into reviewable follow-up."],
+      items: [...evidenceItemsForSlides, ...aarItemsForSlides]
     },
     {
       eyebrow: "Closeout",
@@ -1388,6 +1464,61 @@ function renderSlideDeck(timeline, decisions) {
   output.slideDeck.replaceChildren(
     ...slides.map((slide) => makeSlide(slide.eyebrow, slide.title, slide.body, slide.items))
   );
+}
+
+function getPresentationSlides() {
+  return [...output.slideDeck.querySelectorAll(".slide")];
+}
+
+function showPresentationSlide(index) {
+  const slides = getPresentationSlides();
+  if (slides.length === 0) {
+    return;
+  }
+  presentationIndex = Math.min(Math.max(index, 0), slides.length - 1);
+  output.presentationSlide.replaceChildren(slides[presentationIndex].cloneNode(true));
+  output.presentationCounter.textContent = `${presentationIndex + 1} / ${slides.length}`;
+  document.querySelector("#presentationPrevBtn").disabled = presentationIndex === 0;
+  document.querySelector("#presentationNextBtn").disabled = presentationIndex === slides.length - 1;
+  if (!output.presentationStage.hidden) {
+    updatePresentationUrl();
+  }
+}
+
+function openPresentationMode(startIndex = 0) {
+  clearPrintMode();
+  output.presentationStage.hidden = false;
+  document.body.classList.add("presentation-active");
+  showPresentationSlide(startIndex);
+  document.querySelector("#presentationNextBtn").focus();
+}
+
+function closePresentationMode() {
+  output.presentationStage.hidden = true;
+  document.body.classList.remove("presentation-active");
+  output.presentationSlide.replaceChildren();
+  updateUrlState();
+  document.querySelector("#presentSlidesBtn").focus();
+}
+
+function movePresentation(delta) {
+  showPresentationSlide(presentationIndex + delta);
+}
+
+function handlePresentationKeydown(event) {
+  if (output.presentationStage.hidden) {
+    return;
+  }
+  if (event.key === "ArrowRight" || event.key === "PageDown" || event.key === " ") {
+    event.preventDefault();
+    movePresentation(1);
+  } else if (event.key === "ArrowLeft" || event.key === "PageUp") {
+    event.preventDefault();
+    movePresentation(-1);
+  } else if (event.key === "Escape") {
+    event.preventDefault();
+    closePresentationMode();
+  }
 }
 
 function getRenderedTimelineItems() {
@@ -1468,6 +1599,12 @@ function applyStateFromUrl() {
     document.body.classList.add("print-facilitator-only");
   } else if (params.get("printView") === "slides") {
     document.body.classList.add("print-slide-deck");
+  } else if (params.get("printView") === "worksheet") {
+    document.body.classList.add("print-blank-worksheet");
+  }
+
+  if (params.get("view") === "present") {
+    pendingPresentationIndex = Math.max((Number(params.get("slide")) || 1) - 1, 0);
   }
 }
 
@@ -1476,6 +1613,13 @@ function updateUrlState() {
   const params = new URLSearchParams(state);
   const nextUrl = `${window.location.pathname}?${params.toString()}`;
   window.history.replaceState(null, "", nextUrl);
+}
+
+function updatePresentationUrl() {
+  const params = new URLSearchParams(getState());
+  params.set("view", "present");
+  params.set("slide", String(presentationIndex + 1));
+  window.history.replaceState(null, "", `${window.location.pathname}?${params.toString()}`);
 }
 
 function generatePacket() {
@@ -1544,7 +1688,14 @@ function generatePacket() {
   renderList(output.evidenceChecklist, [...scenarioEvidenceNeeds[controls.incidentType.value], ...evidenceItems.slice(0, 4)]);
   renderActionTracker(buildActionTracker(scenario, focus));
   renderSlideDeck(timeline, selectedDecisions);
+  renderBlankWorksheet();
   updateUrlState();
+  if (!output.presentationStage.hidden) {
+    showPresentationSlide(presentationIndex);
+  } else if (pendingPresentationIndex !== null) {
+    openPresentationMode(pendingPresentationIndex);
+    pendingPresentationIndex = null;
+  }
 }
 
 function renderProfileForElement(element, items) {
@@ -1721,8 +1872,19 @@ function downloadFacilitatorGuide() {
   downloadMarkdown(filename, facilitatorGuideText());
 }
 
+function downloadBlankWorksheet() {
+  const scenario = scenarios[controls.incidentType.value];
+  const filename = `${safeFilename(scenario.label)}-blank-worksheet-${controls.seedInput.value}.md`;
+  downloadMarkdown(filename, blankWorksheetText());
+}
+
 function clearPrintMode() {
-  document.body.classList.remove("print-participant-only", "print-facilitator-only", "print-slide-deck");
+  document.body.classList.remove(
+    "print-participant-only",
+    "print-facilitator-only",
+    "print-slide-deck",
+    "print-blank-worksheet"
+  );
 }
 
 function printMode(mode) {
@@ -1733,9 +1895,10 @@ function printMode(mode) {
     document.body.classList.add("print-facilitator-only");
   } else if (mode === "slides") {
     document.body.classList.add("print-slide-deck");
+  } else if (mode === "worksheet") {
+    document.body.classList.add("print-blank-worksheet");
   }
   window.print();
-  window.setTimeout(clearPrintMode, 800);
 }
 
 document.querySelector("#generateBtn").addEventListener("click", generatePacket);
@@ -1751,13 +1914,19 @@ document.querySelector("#dailyBtn").addEventListener("click", () => {
 document.querySelector("#printBtn").addEventListener("click", () => printMode("full"));
 document.querySelector("#printParticipantBtn").addEventListener("click", () => printMode("participant"));
 document.querySelector("#printFacilitatorBtn").addEventListener("click", () => printMode("facilitator"));
+document.querySelector("#printWorksheetBtn").addEventListener("click", () => printMode("worksheet"));
 document.querySelector("#printSlidesBtn").addEventListener("click", () => printMode("slides"));
+document.querySelector("#presentSlidesBtn").addEventListener("click", () => openPresentationMode());
+document.querySelector("#presentationPrevBtn").addEventListener("click", () => movePresentation(-1));
+document.querySelector("#presentationNextBtn").addEventListener("click", () => movePresentation(1));
+document.querySelector("#presentationExitBtn").addEventListener("click", closePresentationMode);
 document.querySelector("#copyBtn").addEventListener("click", copyPacket);
 document.querySelector("#copySlidesBtn").addEventListener("click", copySlideOutline);
 document.querySelector("#copyLinkBtn").addEventListener("click", copyScenarioLink);
 document.querySelector("#downloadBtn").addEventListener("click", downloadPacket);
 document.querySelector("#downloadParticipantBtn").addEventListener("click", downloadParticipantHandout);
 document.querySelector("#downloadFacilitatorBtn").addEventListener("click", downloadFacilitatorGuide);
+document.querySelector("#downloadWorksheetBtn").addEventListener("click", downloadBlankWorksheet);
 document.querySelector("#viewPacketBtn").addEventListener("click", () => {
   document.querySelector("#packet").scrollIntoView({ behavior: "smooth", block: "start" });
 });
@@ -1767,6 +1936,7 @@ Object.values(controls).forEach((control) => {
 });
 
 window.addEventListener("afterprint", clearPrintMode);
+window.addEventListener("keydown", handlePresentationKeydown);
 
 applyStateFromUrl();
 generatePacket();

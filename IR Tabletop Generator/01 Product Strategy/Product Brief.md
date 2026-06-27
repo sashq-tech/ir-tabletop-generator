@@ -50,16 +50,18 @@ The site should generate the whole tabletop packet, not just a scenario prompt:
 
 The best early gimmick is the audit-ready packet: a printable, professional package that helps the facilitator document the exercise afterward.
 
-## Future Slide Output Idea
+## Presentation and Export Direction
 
-For the August exercise timeframe, consider a slide-ready export path. The goal should not be to replace organizational PowerPoint templates. It should give users clean slide content they can paste into their own templates.
+For the August exercise timeframe, support both browser-run facilitation and slide-ready export paths. The goal should not be to replace organizational PowerPoint templates. It should give users clean slide content they can run from the browser, print to PDF, or paste into their own templates.
 
 A motivating real-world use case is a tabletop exercise spanning multiple locations and delivered over a meeting platform such as Microsoft Teams. The product should support that situation without being limited to it. A slide deck can help the facilitator break the exercise into organized chunks, keep remote or hybrid participants oriented, and avoid the pacing problems that can happen when the exercise is run from a long Confluence page.
 
-Potential formats:
+Current and potential formats:
 
+- Browser presentation mode with one slide at a time.
 - Slide outline copied as Markdown or plain text.
 - Landscape slide-format PDF with one concept per page.
+- Printable blank facilitator worksheet for live scribing.
 - Later PowerPoint export if a reliable client-side library fits the no-backend model.
 
 Likely slide sequence:
@@ -73,7 +75,9 @@ Likely slide sequence:
 7. One slide per inject phase
 8. Discussion prompts
 9. Key decisions
-10. Evidence and after-action worksheet
+10. Scribe capture
+11. Evidence and after-action prompts
+12. Group lessons learned
 
 Remote facilitation additions:
 

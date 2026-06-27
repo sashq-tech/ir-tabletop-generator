@@ -29,13 +29,16 @@ Use this checklist after meaningful prototype changes.
 - Download packet creates a `.md` file.
 - Download participant handout creates a participant-safe `.md` file without future injects.
 - Download facilitator guide creates a facilitator-only `.md` file with injects, expected discussion areas, facts/assumptions/decisions/questions worksheet, watch-for gaps, evidence prompts, evidence checklist, and action tracker.
+- Download blank worksheet creates a scribe-ready `.md` file without prefilled scenario prompts.
 - Facilitator guide includes enough participant context to stand alone without exposing future injects in the participant handout.
 - Facts / Assumptions / Decisions / Questions worksheet stays readable on desktop and does not widen the mobile page.
+- Blank worksheet print mode shows writable Facts / Assumptions / Decisions / Questions and Decision / Action Tracker tables.
 - Evidence checklist is scenario-specific.
-- Copy slide outline includes remote facilitation ground rules, group check-in, scenario brief, inject slides, key decisions, worksheet capture, and group lessons learned.
+- Copy slide outline includes remote facilitation ground rules, group check-in, scenario brief, inject slides, discussion prompts, key decisions, worksheet capture, evidence/AAR prompts, and group lessons learned.
 - Print slide deck shows slide-ready content instead of the packet view.
 - Slide deck supports remote, hybrid, or distributed facilitation without exposing real organization-specific details.
 - Presentation group labels flow into slide output and copied scenario links.
+- Browser presentation mode opens a one-slide-at-a-time deck, supports next/previous controls, supports arrow-key navigation, exits with Escape, and preserves `view=present&slide=N` in the URL.
 
 ## Trust Checks
 
