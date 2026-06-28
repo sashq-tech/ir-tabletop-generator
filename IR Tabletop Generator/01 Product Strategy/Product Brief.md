@@ -87,3 +87,31 @@ Remote facilitation additions:
 - Pause points for each group to respond
 - Scribe capture slide for facts, assumptions, decisions, and open questions
 - Final group lessons learned slide
+## Primary Real-World Design Context
+
+The first real target use case is a small software development company tabletop exercise run by a sole cyber practitioner / ISSO.
+
+Non-sensitive operating context:
+
+- Current company size is under 100 people, with a possible hiring goal around 150 depending on awarded contracts.
+- Work pattern is hybrid. Monday and Friday are commonly work-from-home days, but there is flexibility.
+- Personnel often travel to demonstrate software and meet with customers.
+- The company is Microsoft 365 Commercial heavy.
+- Current software delivery is mostly executable-based, with web application versions in progress.
+- The organization has completed one tabletop so far.
+- Prior exercise participants included ISSO, IT Director, FSO/Ops Chief, CEO, and President.
+- In Sean's organization, the FSO and Operations Chief are the same person because of company size; the product must not assume that combined role is normal elsewhere.
+- In Sean's organization, the President will likely ask many of the operational/executive questions and brief the CEO as needed.
+- The next exercise may include additional participants such as the product team lead.
+- Target exercise duration is 60 minutes, but executive discussion can run long.
+
+Design implications:
+
+- The product should support small teams without assuming a SOC or large security staff.
+- Remote and hybrid participation should be first-class, especially Microsoft Teams / Zoom-style facilitation.
+- Scenarios should include executive decision pressure without letting leadership discussion consume the whole exercise.
+- Role mapping should be configurable. Do not hard-code Sean's local role structure, such as combined FSO/Ops Chief, into generic scenario assumptions.
+- Software demo travel and customer-facing commitments are useful pressure points.
+- Microsoft 365 account compromise, credential phishing, travel-device exposure, software delivery disruption, vendor/customer communication, and web-app transition risks are high-value scenario seeds.
+- Time-boxing, decision capture, and after-action outputs matter as much as scenario drama.
+

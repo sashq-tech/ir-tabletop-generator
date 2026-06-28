@@ -35,3 +35,14 @@ The downloaded files in `Incident Response Sources/` are reference material only
 - Continue deepening the phase-specific inject pools and decision prompts.
 - Add scenario variants or optional category filters only after the five current categories feel strong.
 - Expand the source-to-feature map from source groups into individual source notes when useful.
+## Launch / Deployment Boundary
+
+This prototype is not deployed yet. If it graduates toward a public static site, ship only the intended public files:
+
+- `index.html`
+- `styles.css`
+- `app.js`
+- `trust-and-privacy.html`
+
+Do not ship `Incident Response Sources/`, the Obsidian vault, `output/`, workspace files, agent folders, or local test artifacts. See `DEPLOYMENT_CHECKLIST.md` before any public launch.
+

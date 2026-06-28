@@ -3,11 +3,41 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>IR Tabletop Generator Prototype</title>
+    <title>Incident Response Tabletop Exercise Generator</title>
     <meta
       name="description"
-      content="A browser-based prototype for generating incident response tabletop exercise packets with scenarios, timed injects, facilitator notes, and after-action prompts."
+      content="Generate browser-based incident response tabletop exercise packets with scenarios, timed injects, participant handouts, facilitator notes, worksheets, and after-action prompts."
     >
+    <meta name="application-name" content="IR Tabletop Generator">
+    <meta name="theme-color" content="#06110d">
+    <link rel="icon" href="data:,">
+    <meta property="og:title" content="Incident Response Tabletop Exercise Generator">
+    <meta
+      property="og:description"
+      content="A static, no-login tabletop exercise packet generator for incident response practice, facilitator prep, and browser-based exercise delivery."
+    >
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Incident Response Tabletop Exercise Generator">
+    <meta
+      name="twitter:description"
+      content="Build incident response tabletop exercise packets in the browser with scenarios, injects, handouts, facilitator notes, worksheets, and slide-ready outputs."
+    >
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Incident Response Tabletop Exercise Generator",
+        "applicationCategory": "SecurityApplication",
+        "operatingSystem": "Any",
+        "description": "A browser-based incident response tabletop exercise packet generator with scenarios, timed injects, participant handouts, facilitator notes, worksheets, and after-action prompts.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      }
+    </script>
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
@@ -15,7 +45,7 @@
       <div class="brand-lockup" aria-label="IR Tabletop Generator">
         <span class="brand-mark" aria-hidden="true">IR</span>
         <div>
-          <p class="eyebrow">Prototype workspace</p>
+          <p class="eyebrow">Browser-only exercise builder</p>
           <h1>Incident Response Tabletop Exercise Generator</h1>
         </div>
       </div>
@@ -25,7 +55,49 @@
       </div>
     </header>
 
-    <main class="app-shell">
+        <main class="app-shell">
+      <section class="format-chooser" aria-label="Choose exercise format">
+        <div class="chooser-copy">
+          <p class="eyebrow">Choose the format</p>
+          <h2>Start with the exercise shape, then tune the details.</h2>
+          <p>
+            Pick a format for the meeting you need to run. The packet builder is best for a full tabletop package,
+            interactive rehearsal is best for live decision practice, slides are best for remote facilitation, and the
+            worksheet is best when you only need a clean scribe surface.
+          </p>
+        </div>
+        <div class="mode-grid" role="list" aria-label="Available formats">
+          <button class="mode-card" type="button" data-mode-target="packet" aria-pressed="true">
+            <span>Full packet</span>
+            <strong>Scenario, handout, facilitator guide, evidence prompts, and action tracker.</strong>
+          </button>
+          <button class="mode-card" type="button" data-mode-target="interactive" aria-pressed="false">
+            <span>Interactive rehearsal</span>
+            <strong>Inject-by-inject choices with consequence meters and after-action reveal.</strong>
+          </button>
+          <button class="mode-card" type="button" data-mode-target="slides" aria-pressed="false">
+            <span>Slide facilitation</span>
+            <strong>Browser presentation and slide-ready output for Teams or Zoom delivery.</strong>
+          </button>
+          <button class="mode-card" type="button" data-mode-target="worksheet" aria-pressed="false">
+            <span>Scribe worksheet</span>
+            <strong>Facts, assumptions, decisions, questions, and action tracking without the full packet.</strong>
+          </button>
+        </div>
+        <div class="format-advisor" aria-label="Format recommendation helper">
+          <label class="field compact-field">
+            <span class="field-label">Help me choose</span>
+            <select id="formatNeed">
+              <option value="packet">I need a complete exercise package</option>
+              <option value="interactive">I want the group to make decisions live</option>
+              <option value="slides">I am facilitating over Teams or Zoom</option>
+              <option value="worksheet">I only need a scribe worksheet</option>
+            </select>
+          </label>
+          <button class="ghost-button" id="recommendFormatBtn" type="button">Recommend format</button>
+          <p id="formatAdvice">Full packet is the safest default when you need participant and facilitator material.</p>
+        </div>
+      </section>
       <section class="control-panel" aria-label="Exercise settings">
         <div class="panel-heading">
           <p class="eyebrow">Build the packet</p>
@@ -33,7 +105,7 @@
         </div>
 
         <label class="field">
-          <span>Incident type</span>
+          <span class="field-label">Incident type <button class="help-button" type="button" data-help="Choose the incident family that best matches the discussion you want: ransomware, phishing, insider risk, outage, or vendor compromise." aria-label="Explain incident type">?</button></span>
           <select id="incidentType">
             <option value="ransomware">Ransomware disruption</option>
             <option value="phishing">Credential phishing</option>
@@ -44,7 +116,7 @@
         </label>
 
         <label class="field">
-          <span>Organization profile</span>
+          <span class="field-label">Organization profile <button class="help-button" type="button" data-help="Pick the closest operating environment. This changes business pressure, stakeholders, assumptions, and discussion prompts." aria-label="Explain organization profile">?</button></span>
           <select id="orgProfile">
             <option value="publicSector">Public sector office</option>
             <option value="healthcare">Healthcare support team</option>
@@ -55,7 +127,7 @@
         </label>
 
         <label class="field">
-          <span>Audience</span>
+          <span class="field-label">Audience <button class="help-button" type="button" data-help="Choose who will be in the room so the prompts balance technical detail, leadership decisions, policy, and compliance." aria-label="Explain audience">?</button></span>
           <select id="audience">
             <option value="mixed">Mixed technical and leadership</option>
             <option value="technical">Technical response team</option>
@@ -65,7 +137,7 @@
         </label>
 
         <label class="field">
-          <span>Exercise focus</span>
+          <span class="field-label">Exercise focus <button class="help-button" type="button" data-help="Use this to steer the packet toward containment, communications, governance/evidence, or balanced readiness." aria-label="Explain exercise focus">?</button></span>
           <select id="exerciseFocus">
             <option value="balanced" selected>Balanced readiness</option>
             <option value="operations">Containment and recovery</option>
@@ -75,7 +147,7 @@
         </label>
 
         <label class="field">
-          <span>Duration</span>
+          <span class="field-label">Duration <button class="help-button" type="button" data-help="Sets the meeting pace and agenda. Short exercises need fewer injects; longer exercises can support deeper discussion." aria-label="Explain duration">?</button></span>
           <select id="duration">
             <option value="30">30 minutes</option>
             <option value="60" selected>60 minutes</option>
@@ -84,7 +156,7 @@
         </label>
 
         <label class="field">
-          <span>Difficulty</span>
+          <span class="field-label">Difficulty <button class="help-button" type="button" data-help="Introductory reduces ambiguity, standard adds realistic tradeoffs, and stress test increases uncertainty and time pressure." aria-label="Explain difficulty">?</button></span>
           <select id="difficulty">
             <option value="intro">Introductory</option>
             <option value="standard" selected>Standard</option>
@@ -93,16 +165,24 @@
         </label>
 
         <fieldset class="field group-labels">
-          <legend>Presentation groups</legend>
-          <div class="group-fields">
-            <input id="groupOneInput" type="text" value="Group 1" aria-label="Presentation group 1">
+          <legend>Presentation participation</legend>
+          <label class="field nested-field">
+            <span class="field-label">Team format <button class="help-button" type="button" data-help="Choose one room for whole-team discussion or multiple groups/sites when remote teams will compare answers." aria-label="Explain team format">?</button></span>
+            <select id="groupMode">
+              <option value="whole" selected>Whole room / one team</option>
+              <option value="two">Two groups or sites</option>
+              <option value="three">Three groups or sites</option>
+            </select>
+          </label>
+          <div class="group-fields" id="groupFields">
+            <input id="groupOneInput" type="text" value="Whole team" aria-label="Primary team label">
             <input id="groupTwoInput" type="text" value="Group 2" aria-label="Presentation group 2">
             <input id="groupThreeInput" type="text" value="Group 3" aria-label="Presentation group 3">
           </div>
         </fieldset>
 
         <label class="field">
-          <span>Seed</span>
+          <span class="field-label">Seed <button class="help-button" type="button" data-help="The seed keeps a generated packet repeatable. Use New or Daily drill when you want a fresh variation." aria-label="Explain seed">?</button></span>
           <div class="seed-row">
             <input id="seedInput" inputmode="numeric" type="text" aria-label="Scenario seed">
             <button class="icon-button" id="seedBtn" type="button" aria-label="Randomize seed" title="Randomize seed">New</button>
@@ -113,6 +193,7 @@
         <button class="ghost-button wide" id="dailyBtn" type="button">Daily drill</button>
         <button class="ghost-button wide" id="viewPacketBtn" type="button">View packet</button>
         <button class="ghost-button wide" id="copyLinkBtn" type="button">Copy scenario link</button>
+        <button class="ghost-button wide" id="copyParticipantDeckBtn" type="button">Copy participant deck link</button>
         <button class="ghost-button wide" id="downloadBtn" type="button">Download packet</button>
         <button class="ghost-button wide" id="downloadParticipantBtn" type="button">Download participant handout</button>
         <button class="ghost-button wide" id="downloadFacilitatorBtn" type="button">Download facilitator guide</button>
@@ -125,6 +206,12 @@
           <button class="ghost-button wide" id="copySlidesBtn" type="button">Copy slide outline</button>
           <button class="ghost-button wide" id="printSlidesBtn" type="button">Print slide deck</button>
         </div>
+
+                <aside class="field-help-panel" id="fieldHelp" aria-live="polite" hidden>
+          <button class="field-help-close" id="fieldHelpClose" type="button" aria-label="Close field explanation">x</button>
+          <strong id="fieldHelpTitle">Field help</strong>
+          <p id="fieldHelpText"></p>
+        </aside>
 
         <aside class="trust-note" aria-label="Prototype note">
           <strong>Prototype note</strong>
@@ -165,6 +252,101 @@
               </p>
             </section>
 
+
+            <section class="packet-section full-width interactive-exercise" id="interactiveExercise" aria-label="Interactive decision rehearsal">
+              <div class="interactive-header">
+                <div>
+                  <p class="eyebrow">Interactive decision rehearsal</p>
+                  <h3 id="interactiveTitle">Microsoft 365 Account Compromise</h3>
+                  <p id="interactiveSummary">
+                    Step through a short branching scenario. Choose a response at each inject, watch the readiness meters move, and review the after-action reveal.
+                  </p>
+                </div>
+                <div class="interactive-actions">
+                  <button class="primary-button" id="startInteractiveBtn" type="button">Start interactive exercise</button>
+                  <button class="ghost-button" id="copyInteractiveDebriefBtn" type="button" disabled>Copy after-action reveal</button>
+                  <button class="ghost-button" id="resetInteractiveBtn" type="button">Reset</button>
+                </div>
+              </div>
+
+              <div class="scenario-library" aria-label="Interactive scenario library">
+                <label class="field compact-field">
+                  <span class="field-label">Scenario <button class="help-button" type="button" data-help="Choose the playable interactive exercise for this incident family. The featured option is the most complete path; focused drills are shorter practice variants." aria-label="Explain scenario">?</button></span>
+                  <select id="interactiveScenario"></select>
+                </label>
+                <p id="interactiveScenarioSummary">Choose a scenario to rehearse.</p>
+              </div>
+
+              <div class="facilitator-runbook" aria-label="Facilitator run sequence">
+                <div class="runbook-heading">
+                  <div>
+                    <p class="eyebrow">Facilitator runbook</p>
+                    <h4>Prep, run, capture, close.</h4>
+                  </div>
+                  <p id="runbookStatus">Ready to prepare.</p>
+                </div>
+                <ol class="runbook-steps">
+                  <li>
+                    <strong>1. Select</strong>
+                    <span id="runbookScenario">Choose a scenario from the picker.</span>
+                  </li>
+                  <li>
+                    <strong>2. Pre-brief</strong>
+                    <span id="runbookPreBrief">Copy the facilitator pre-brief and stage materials.</span>
+                  </li>
+                  <li>
+                    <strong>3. Run live</strong>
+                    <span id="runbookConsole">Use timer, inject copy, notes, and choices during the session.</span>
+                  </li>
+                  <li>
+                    <strong>4. Close out</strong>
+                    <span id="runbookAar">Complete the path to unlock the after-action report export.</span>
+                  </li>
+                </ol>
+              </div>
+
+              <div class="facilitator-console" aria-label="Facilitator controls">
+                <div class="timer-card">
+                  <span>Facilitator timer</span>
+                  <strong id="interactiveTimer">60:00</strong>
+                  <small id="interactiveTimerStatus">Ready</small>
+                </div>
+                <div class="facilitator-tools">
+                  <button class="ghost-button" id="toggleTimerBtn" type="button">Start timer</button>
+                  <button class="ghost-button" id="addFiveBtn" type="button">+5 min</button>
+                  <button class="ghost-button" id="resetTimerBtn" type="button">Reset timer</button>
+                  <button class="ghost-button" id="copyInjectBtn" type="button">Copy current inject</button>
+                  <button class="ghost-button" id="copyPreBriefBtn" type="button">Copy facilitator pre-brief</button>
+                  <button class="ghost-button" id="toggleFacilitatorNotesBtn" type="button" aria-expanded="false">Show facilitator notes</button>
+                </div>
+                <div class="facilitator-notes-panel" id="interactiveFacilitatorNotes" hidden>
+                  <p class="eyebrow">Facilitator notes</p>
+                  <ul id="interactiveFacilitatorNotesList"></ul>
+                </div>
+              </div>
+
+              <div class="meter-grid" id="interactiveMeters" aria-label="Consequence meters"></div>
+
+              <div class="interactive-stage" id="interactiveStage">
+                <div class="inject-card">
+                  <p class="eyebrow" id="interactivePhase">Ready</p>
+                  <h4 id="interactiveInjectTitle">Credential phishing / account compromise</h4>
+                  <p id="interactiveInjectText">
+                    Use this mode when you want the team to make decisions instead of only discussing a linear packet.
+                  </p>
+                  <p class="interactive-context" id="interactiveContext">
+                    Built for a small hybrid software company using Microsoft 365, customer demos, executive participation, and a 60-minute facilitation window.
+                  </p>
+                </div>
+                <div class="choice-grid" id="interactiveChoices"></div>
+              </div>
+
+              <div class="debrief-panel" id="interactiveDebrief" hidden>
+                <p class="eyebrow">After-action reveal</p>
+                <h4 id="interactiveDebriefTitle">Decision path summary</h4>
+                <div id="interactiveDebriefBody"></div>
+              </div>
+            </section>
             <section class="packet-section full-width handout-divider participant-divider">
               <p class="eyebrow">Participant content</p>
               <h3>Participant Handout</h3>
@@ -380,9 +562,19 @@
     </section>
 
     <footer class="site-footer">
-      <p>No login. No upload. No backend. This prototype runs in the browser and uses generic exercise content.</p>
+      <p>No login. No upload. No backend. This prototype runs in the browser and uses generic exercise content. <a href="trust-and-privacy.html">Trust and privacy</a></p>
     </footer>
 
     <script src="app.js"></script>
   </body>
 </html>
+
+
+
+
+
+
+
+
+
+

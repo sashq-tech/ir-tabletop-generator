@@ -12,7 +12,7 @@ const scenarios = {
     opening:
       "A department file share becomes unavailable shortly after users report ransom notes on shared workstations. The help desk is receiving calls from staff who cannot access forms, case files, and shared templates.",
     variables: {
-      detectionSource: ["help desk ticket spike", "endpoint alert", "file-share monitoring alert", "user screenshot", "backup job anomaly", "business owner escalation"],
+      detectionSource: ["help desk ticket spike", "endpoint alert", "file-share monitoring alert", "user screenshot", "backup job anomaly", "department lead escalation"],
       affectedAsset: ["department file share", "shared workstation group", "line-of-business file repository", "administrative support server", "remote office file cache", "shared document repository"],
       businessImpact: ["deadline-critical processing is delayed", "staff cannot access shared templates", "customer-facing work is slowed", "manual workarounds are being requested", "a public-facing service depends on affected data", "leadership needs a continuity estimate"],
       recoveryConstraint: ["backup integrity is not confirmed", "the last known-good restore point is unclear", "system owners disagree on recovery priority", "affected hosts may still need evidence preservation", "restore testing requires a clean target environment", "remote access scope is not yet understood"]
@@ -32,7 +32,7 @@ const scenarios = {
       "The incident channel fills with duplicate status requests from teams that are not part of the response group.",
       "Backup staff report that restore points exist, but no one has validated whether they are clean.",
       "A remote office still has active VPN sessions into the affected shared environment.",
-      "A business owner asks to restore a service before containment assumptions are confirmed.",
+      "A service owner asks to restore a service before containment assumptions are confirmed.",
       "Communications asks for a holding statement that separates confirmed facts from working assumptions."
     ],
     decisions: [
@@ -176,23 +176,23 @@ const scenarios = {
     variables: {
       detectionSource: ["public monitoring alert", "call center reports", "hosting provider notification", "social media complaint", "status page discrepancy", "partner availability report"],
       affectedAsset: ["public website", "customer portal", "online form service", "public status page", "authentication gateway", "public API endpoint"],
-      businessImpact: ["call volume is rising", "public trust is affected", "business owners need a workaround", "partners are asking whether to disconnect", "a public deadline may be missed", "support staff need a script"],
+      businessImpact: ["call volume is rising", "public trust is affected", "service leads need a workaround", "partners are asking whether to disconnect", "a public deadline may be missed", "support staff need a script"],
       recoveryConstraint: ["provider filtering may block legitimate users", "the team has not ruled out a second incident", "service priority is disputed", "status messaging needs approval", "alternate processes need business approval", "provider changes require a named approver"]
     },
     objectives: [
-      "Exercise outage triage across IT, communications, and business owners.",
+      "Exercise outage triage across IT, communications, and service leads.",
       "Review when to engage hosting, internet service, or DDoS protection providers.",
       "Practice public messaging during a service availability incident."
     ],
     injects: [
       "Monitoring shows traffic spikes from multiple regions.",
       "The call center reports a surge in complaints about unavailable services.",
-      "A business owner asks to post a workaround on social media immediately.",
+      "An operations lead asks to post a workaround on social media immediately.",
       "The hosting provider requests approval to apply stricter traffic filtering.",
       "An executive asks whether this is a distraction from another attack.",
       "The website comes back briefly, then fails again under renewed traffic.",
       "A partner organization asks whether its connection to your system should be disabled.",
-      "A business owner asks whether the public deadline can be extended or handled manually.",
+      "A program lead asks whether the public deadline can be extended or handled manually.",
       "The status page is reachable, but users say its message is too vague to be useful.",
       "The provider asks for a decision on emergency filtering that could block some legitimate users.",
       "Support staff report that callers are receiving different explanations from different teams."
@@ -210,7 +210,7 @@ const scenarios = {
       "From Call Center: We need a script. Call volume is now triple normal.",
       "From Hosting Provider: We can apply emergency filtering, but some legitimate users may be blocked.",
       "From Communications: The public is already discussing the outage. Silence is becoming its own message.",
-      "From Business Owner: If the portal stays down, we need an approved alternate intake process.",
+      "From Operations Lead: If the portal stays down, we need an approved alternate intake process.",
       "From Partner: Our integration is timing out. Should we pause automated retries?",
       "From Executive Sponsor: Tell me what is affected, what is still working, and what decision you need."
     ]
@@ -287,14 +287,14 @@ const phaseInjectPools = {
       "Two teams provide conflicting timelines for when the first symptoms appeared.",
       "Backup staff say restore points exist, but no one has validated whether they are clean.",
       "Identity logs show unusual administrative activity, but ownership of the account is unclear.",
-      "A business owner reports that a critical process depends on a share not included in the first scope estimate."
+      "A department lead reports that a critical process depends on a share not included in the first scope estimate."
     ],
     Contain: [
       "A system owner warns that disconnecting a server will interrupt a deadline-critical workflow.",
       "The network team asks whether to block a remote access path used by administrators.",
       "A department leader asks whether staff should keep working from personal devices.",
       "A remote office still has active VPN sessions to the affected shared environment.",
-      "A technical lead recommends isolating a server before the business owner has approved downtime.",
+      "A technical lead recommends isolating a server before the service owner has approved downtime.",
       "A team member suggests disabling a maintenance account that may also be needed for recovery."
     ],
     Communicate: [
@@ -308,8 +308,8 @@ const phaseInjectPools = {
     Recover: [
       "Backup staff can restore one system quickly, but the last known-good point is unclear.",
       "The backup administrator reports that the most recent backup job failed overnight.",
-      "A business owner requests temporary manual processing before systems are restored.",
-      "A test restore succeeds technically, but the business owner says the data may be too old.",
+      "An operations lead requests temporary manual processing before systems are restored.",
+      "A test restore succeeds technically, but the service owner says the data may be too old.",
       "The team needs a monitoring plan before reconnecting a restored service to the normal network.",
       "A system owner asks whether evidence collection is complete enough to rebuild an affected host."
     ]
@@ -352,7 +352,7 @@ const phaseInjectPools = {
       "Help desk asks what script to use for users who clicked versus users who only received the message.",
       "A department head says sensitive documents were accessible from the affected account.",
       "The team needs a monitoring period for unusual mailbox, identity, or document access after reset.",
-      "A business owner asks whether to review shared documents that were accessible from the account.",
+      "A product lead asks whether to review shared documents that were accessible from the account.",
       "Security asks who will verify mailbox rules, forwarding, delegated access, and app consent are clean."
     ]
   },
@@ -375,7 +375,7 @@ const phaseInjectPools = {
     ],
     Contain: [
       "A manager wants immediate access to the laptop to keep work moving.",
-      "Business owners ask whether access should be suspended before more evidence is preserved.",
+      "Department leads ask whether access should be suspended before more evidence is preserved.",
       "IT can disable accounts quickly, but doing so may alert the employee before HR is ready.",
       "HR asks whether device collection can occur during a scheduled meeting.",
       "A system owner says disabling one account will not remove access from a shared group.",
@@ -412,31 +412,31 @@ const phaseInjectPools = {
       "Staff cannot reach an administrative console needed to review service health.",
       "An executive asks whether the outage could be masking another incident.",
       "The provider asks for a priority list because not all services can be protected equally.",
-      "Business owners provide different estimates of public impact.",
+      "Service leads provide different estimates of public impact.",
       "Monitoring shows improvement in one region while user complaints continue elsewhere."
     ],
     Contain: [
       "The hosting provider offers emergency filtering that may block some legitimate users.",
-      "A business owner requests approval to publish an alternate process.",
+      "An operations lead requests approval to publish an alternate process.",
       "A partner asks whether its connection to your system should be disabled.",
       "The network team asks who can approve emergency rate-limit changes.",
-      "A business owner wants to pause a public form before the response team understands the impact.",
+      "A service owner wants to pause a public form before the response team understands the impact.",
       "The provider can redirect traffic, but the change may affect reporting and monitoring."
     ],
     Communicate: [
       "Call center supervisors ask for a plain-language status script.",
       "Communications says silence is being interpreted publicly.",
-      "A business owner wants to post a workaround on social media immediately.",
+      "An operations lead wants to post a workaround on social media immediately.",
       "The public status page needs an update that avoids unconfirmed cause statements.",
       "A partner asks for a direct notice before changing its own connection behavior.",
       "Support teams are giving inconsistent explanations to callers."
     ],
     Recover: [
       "The website comes back briefly, then fails again under renewed traffic.",
-      "Business owners disagree about which public service should recover first.",
+      "Service leads disagree about which public service should recover first.",
       "Provider changes have stabilized traffic, but user reports continue.",
       "The team needs criteria for returning from emergency filtering to normal operations.",
-      "A public deadline is approaching, and business owners need a decision on alternate intake.",
+      "A public deadline is approaching, and service leads need a decision on alternate intake.",
       "Monitoring is stable, but the call center continues to receive delayed complaints."
     ]
   },
@@ -478,7 +478,7 @@ const phaseInjectPools = {
       "System owners request a temporary support process if vendor access remains disabled.",
       "Procurement asks what evidence should be attached to the vendor-risk record.",
       "The vendor provides a remediation statement, but the team needs internal validation before restoring access.",
-      "A business owner asks how long emergency support limitations can remain in place.",
+      "A service owner asks how long emergency support limitations can remain in place.",
       "The team must decide what vendor-risk follow-up should be tracked after the exercise."
     ]
   }
@@ -490,7 +490,7 @@ const initialConditionPools = {
     "At least one shared service is unavailable to normal users.",
     "The team has not confirmed whether backups are usable.",
     "Some staff are still using affected devices.",
-    "Business owners are asking for a recovery estimate.",
+    "Department leads are asking for a recovery estimate.",
     "Remote access paths have not been ruled in or out.",
     "The organization has not agreed on which business service should recover first."
   ],
@@ -516,7 +516,7 @@ const initialConditionPools = {
   ddos: [
     "The outage is visible to external users.",
     "The team has not confirmed whether the traffic surge is the only issue.",
-    "Business owners disagree about which services are most critical.",
+    "Service leads disagree about which services are most critical.",
     "A provider may need approval before emergency filtering is applied.",
     "Communications staff need accurate status language.",
     "External users are affected, but internal health checks are mixed.",
@@ -539,7 +539,7 @@ const assumptionPools = {
   ransomware: [
     "The team can identify the earliest known affected system.",
     "Backups exist and can be tested before restoration decisions.",
-    "Business owners can rank critical services quickly.",
+    "Service leads can rank critical services quickly.",
     "Containment actions can be approved during business hours.",
     "Staff will follow guidance to stop unsafe workarounds.",
     "The team can preserve enough evidence before rebuilding affected systems.",
@@ -566,7 +566,7 @@ const assumptionPools = {
   ddos: [
     "The provider can support emergency filtering if approved.",
     "The team can distinguish service outage response from deeper incident investigation.",
-    "Business owners can prioritize public services under pressure.",
+    "Service leads can prioritize public services under pressure.",
     "Communications has an approved status-update path.",
     "Call center or support teams can report user impact quickly.",
     "Provider changes can be documented with approver, time, expected effect, and rollback contact.",
@@ -691,7 +691,7 @@ const profiles = {
   smallBusiness: {
     label: "Small business IT team",
     summary: "a small business IT team where one or two people handle most technical response work",
-    roleAdd: "Business owner or operations manager",
+    roleAdd: "Operations lead or service owner",
     concern: "clear ownership, vendor support, and keeping essential work moving"
   }
 };
@@ -750,7 +750,7 @@ const difficultyAdds = {
   },
   standard: {
     summary: "Standard pace with realistic ambiguity and cross-team decisions.",
-    extraObjective: "Identify unclear handoffs between technical response, business owners, and communications.",
+    extraObjective: "Identify unclear handoffs between technical response, service leads, and communications.",
     inject: "Two teams provide conflicting timelines for when the issue first began."
   },
   stress: {
@@ -764,7 +764,7 @@ const roleSets = {
   mixed: [
     "Facilitator: keeps time, delivers injects, and records unresolved questions.",
     "Technical responder: explains triage, containment, evidence, and recovery actions.",
-    "Business owner: explains mission impact and recovery priorities.",
+    "Service owner: explains mission impact and recovery priorities.",
     "Leadership representative: approves risk decisions and major communications."
   ],
   technical: [
@@ -813,21 +813,52 @@ const communicationsItems = [
 ];
 
 function buildRemoteFacilitationItems(groups) {
+  if (groups.length === 1) {
+    return [
+      "Use the meeting platform or shared screen for briefing, injects, and decisions; use chat for clarifying questions and links.",
+      `Pause after each inject and call on ${groups[0]} before moving to the next phase.`,
+      "Identify one spokesperson, one backup, and one notes owner before the scenario starts.",
+      "Keep a shared scribe view for facts, assumptions, decisions, open questions, and action items.",
+      "Separate local impact from organization-wide decisions when participants report status."
+    ];
+  }
+
   return [
     "Use the meeting platform or shared screen for briefing, injects, and decisions; use chat for clarifying questions and links.",
     `Pause after each inject and call on ${groups.join(", ")} before moving to the next phase.`,
-    "Ask each group to identify one spokesperson and one backup before the scenario starts.",
+    "Ask each group or site to identify one spokesperson and one backup before the scenario starts.",
     "Keep a shared scribe view for facts, assumptions, decisions, open questions, and action items.",
     "Separate group-level impact from organization-wide decisions when participants report status."
   ];
 }
 
 function getGroupLabels() {
-  const defaults = ["Group 1", "Group 2", "Group 3"];
-  return [controls.groupOneInput, controls.groupTwoInput, controls.groupThreeInput].map((control, index) => {
-    const value = control.value.trim();
-    return value || defaults[index];
+  const mode = controls.groupMode.value;
+  const count = mode === "three" ? 3 : mode === "two" ? 2 : 1;
+  const defaults = count === 1 ? ["Whole team"] : ["Group 1", "Group 2", "Group 3"];
+  return [controls.groupOneInput, controls.groupTwoInput, controls.groupThreeInput]
+    .slice(0, count)
+    .map((control, index) => {
+      const value = control.value.trim();
+      return value || defaults[index];
+    });
+}
+
+function updateGroupModeFields() {
+  const mode = controls.groupMode.value;
+  const count = mode === "three" ? 3 : mode === "two" ? 2 : 1;
+  if (count === 1 && controls.groupOneInput.value.trim() === "Group 1") {
+    controls.groupOneInput.value = "Whole team";
+  } else if (count > 1 && controls.groupOneInput.value.trim() === "Whole team") {
+    controls.groupOneInput.value = "Group 1";
+  }
+
+  [controls.groupOneInput, controls.groupTwoInput, controls.groupThreeInput].forEach((control, index) => {
+    const isActive = index < count;
+    control.hidden = !isActive;
+    control.disabled = !isActive;
   });
+  controls.groupOneInput.setAttribute("aria-label", count === 1 ? "Team label" : "Presentation group 1");
 }
 
 function buildScribeCaptureItems() {
@@ -926,7 +957,7 @@ const scenarioFacilitatorGuidance = {
       "Traffic filtering is approved without understanding legitimate-user impact.",
       "Public messaging begins without a single approver.",
       "The team forgets to check for a second issue hidden by the outage.",
-      "Business owners disagree on service priority without an escalation path.",
+      "Service leads disagree on service priority without an escalation path.",
       "Provider actions are not captured in the incident timeline.",
       "Participants call it a DDoS before validating application, provider, and dependency health.",
       "Workaround language is posted before ownership and support capacity are confirmed."
@@ -984,10 +1015,25 @@ const controls = {
   exerciseFocus: document.querySelector("#exerciseFocus"),
   duration: document.querySelector("#duration"),
   difficulty: document.querySelector("#difficulty"),
+  groupMode: document.querySelector("#groupMode"),
   groupOneInput: document.querySelector("#groupOneInput"),
   groupTwoInput: document.querySelector("#groupTwoInput"),
   groupThreeInput: document.querySelector("#groupThreeInput"),
-  seedInput: document.querySelector("#seedInput")
+  seedInput: document.querySelector("#seedInput"),
+  interactiveScenario: document.querySelector("#interactiveScenario")
+};
+
+
+const ui = {
+  modeButtons: document.querySelectorAll("[data-mode-target]"),
+  formatNeed: document.querySelector("#formatNeed"),
+  recommendFormatBtn: document.querySelector("#recommendFormatBtn"),
+  formatAdvice: document.querySelector("#formatAdvice"),
+  helpButtons: document.querySelectorAll(".help-button"),
+  fieldHelp: document.querySelector("#fieldHelp"),
+  fieldHelpTitle: document.querySelector("#fieldHelpTitle"),
+  fieldHelpText: document.querySelector("#fieldHelpText"),
+  fieldHelpClose: document.querySelector("#fieldHelpClose")
 };
 
 const output = {
@@ -1006,6 +1052,28 @@ const output = {
   presentationNotesTitle: document.querySelector("#presentationNotesTitle"),
   presentationNotesList: document.querySelector("#presentationNotesList"),
   exerciseProfile: document.querySelector("#exerciseProfile"),
+  interactiveMeters: document.querySelector("#interactiveMeters"),
+  interactiveTitle: document.querySelector("#interactiveTitle"),
+  interactivePhase: document.querySelector("#interactivePhase"),
+  interactiveInjectTitle: document.querySelector("#interactiveInjectTitle"),
+  interactiveInjectText: document.querySelector("#interactiveInjectText"),
+  interactiveContext: document.querySelector("#interactiveContext"),
+  interactiveScenarioSummary: document.querySelector("#interactiveScenarioSummary"),
+  runbookStatus: document.querySelector("#runbookStatus"),
+  runbookScenario: document.querySelector("#runbookScenario"),
+  runbookPreBrief: document.querySelector("#runbookPreBrief"),
+  runbookConsole: document.querySelector("#runbookConsole"),
+  runbookAar: document.querySelector("#runbookAar"),
+  interactiveChoices: document.querySelector("#interactiveChoices"),
+  interactiveDebrief: document.querySelector("#interactiveDebrief"),
+  interactiveDebriefTitle: document.querySelector("#interactiveDebriefTitle"),
+  interactiveDebriefBody: document.querySelector("#interactiveDebriefBody"),
+  copyInteractiveDebriefBtn: document.querySelector("#copyInteractiveDebriefBtn"),
+  interactiveTimer: document.querySelector("#interactiveTimer"),
+  interactiveTimerStatus: document.querySelector("#interactiveTimerStatus"),
+  interactiveFacilitatorNotes: document.querySelector("#interactiveFacilitatorNotes"),
+  interactiveFacilitatorNotesList: document.querySelector("#interactiveFacilitatorNotesList"),
+  toggleFacilitatorNotesBtn: document.querySelector("#toggleFacilitatorNotesBtn"),
   scenarioVariables: document.querySelector("#scenarioVariables"),
   scenarioBrief: document.querySelector("#scenarioBrief"),
   initialConditions: document.querySelector("#initialConditions"),
@@ -1035,6 +1103,10 @@ let pendingPresentationIndex = null;
 let presentationAudience = "facilitator";
 let presentationNotesVisible = true;
 let currentSlideData = [];
+let interactiveTimerRemaining = 0;
+let interactiveTimerRunning = false;
+let interactiveTimerInterval = null;
+let interactiveFacilitatorNotesVisible = false;
 
 function makeSeed() {
   return String(Math.floor(100000 + Math.random() * 900000));
@@ -1068,6 +1140,1635 @@ function shuffle(items, random) {
   return copy;
 }
 
+
+const interactiveMeters = {
+  containment: { label: "Containment", value: 50 },
+  evidence: { label: "Evidence quality", value: 50 },
+  continuity: { label: "Business continuity", value: 50 },
+  trust: { label: "Stakeholder trust", value: 50 },
+  coordination: { label: "Team coordination", value: 50 }
+};
+
+const interactiveScenarios = {
+  phishing: {
+    title: "Microsoft 365 Phishing Decision Rehearsal",
+    context:
+      "Small hybrid software company, Microsoft 365 Commercial heavy, customer demos in motion, and a 60-minute tabletop window with President-led executive briefings.",
+    meters: {
+      containment: { label: "Account containment", value: 50 },
+      evidence: { label: "Evidence quality", value: 50 },
+      continuity: { label: "Demo continuity", value: 50 },
+      trust: { label: "Stakeholder trust", value: 50 },
+      coordination: { label: "Team coordination", value: 50 }
+    },
+    phases: [
+      {
+        phase: "Detect",
+        title: "Risky sign-in follows a shared-document lure",
+        inject:
+          "A product lead preparing for a customer demo reports an unfamiliar Microsoft 365 sign-in alert. Identity logs show a risky sign-in for the account, and the user remembers opening a shared-document link from someone who looked like a known contact.",
+        choices: [
+          {
+            label: "Declare a suspected account compromise, revoke sessions, reset credentials, and preserve sign-in and message evidence.",
+            impact: { containment: 18, evidence: 16, continuity: -4, trust: 6, coordination: 10 },
+            outcome: "The team contains the likely account exposure while preserving the artifacts needed to understand scope.",
+            lesson: "A suspected account compromise can be contained quickly without losing the evidence needed for scoping."
+          },
+          {
+            label: "Ask the user to change their password and keep preparing for the demo while IT watches for more alerts.",
+            impact: { containment: -12, evidence: 2, continuity: 10, trust: -6, coordination: -4 },
+            outcome: "The demo work continues, but active sessions, tokens, and mailbox access may remain exposed.",
+            lesson: "Password change alone may not contain a Microsoft 365 compromise if sessions or app grants remain active."
+          },
+          {
+            label: "Send a broad staff warning first, before confirming whether the account was actually used by an attacker.",
+            impact: { containment: 2, evidence: -4, continuity: -6, trust: 8, coordination: -2 },
+            outcome: "Awareness rises quickly, but responders receive a surge of questions before they have confirmed facts.",
+            lesson: "Early warning is useful when paired with clear reporting instructions and a next update time."
+          }
+        ]
+      },
+      {
+        phase: "Triage",
+        title: "Mailbox, Teams, and SharePoint scope are uncertain",
+        inject:
+          "The account has recent mailbox activity, SharePoint access, and Teams messages tied to customer demo logistics. The President asks what they can tell the CEO now and whether tomorrow's customer meeting is at risk.",
+        choices: [
+          {
+            label: "Create a shared fact board for sign-ins, mailbox rules, app consent, file access, and customer-demo dependencies.",
+            impact: { containment: 10, evidence: 18, continuity: 4, trust: 8, coordination: 14 },
+            outcome: "The room separates confirmed facts from assumptions and can brief leadership without slowing technical scoping.",
+            lesson: "A shared fact board keeps identity, mailbox, collaboration, and business-impact threads aligned."
+          },
+          {
+            label: "Treat the risky sign-in as the only confirmed issue and defer collaboration review until after the demo.",
+            impact: { containment: 2, evidence: -12, continuity: 8, trust: -4, coordination: -4 },
+            outcome: "The response feels fast, but possible SharePoint, Teams, or mailbox misuse remains unscoped.",
+            lesson: "Account incidents often extend into collaboration data, not just the sign-in event."
+          },
+          {
+            label: "Pull leadership, IT, security, operations, and product into one open-ended call to discuss every concern.",
+            impact: { containment: -4, evidence: 2, continuity: -8, trust: 2, coordination: -10 },
+            outcome: "Everyone hears the same concern, but owners and next actions are delayed by the size of the discussion.",
+            lesson: "Broad alignment still needs a response lead, update cadence, and assigned workstreams."
+          }
+        ]
+      },
+      {
+        phase: "Contain",
+        title: "Demo access competes with account safety",
+        inject:
+          "The product lead needs Microsoft 365 access restored for tomorrow's demo. IT can re-enable access quickly, but mailbox rules, forwarding, OAuth app consent, and recent file-sharing activity are not fully reviewed.",
+        choices: [
+          {
+            label: "Restore limited access with safeguards: fresh credentials, MFA verification, session revocation, app consent review, and monitoring.",
+            impact: { containment: 14, evidence: 8, continuity: 10, trust: 8, coordination: 8 },
+            outcome: "The demo remains possible while the team continues higher-risk account review under controlled conditions.",
+            lesson: "Controlled restoration can protect business needs without pretending the account is fully cleared."
+          },
+          {
+            label: "Keep the account blocked until every mailbox, file, and app-consent check is complete.",
+            impact: { containment: 18, evidence: 12, continuity: -16, trust: -2, coordination: 2 },
+            outcome: "Security confidence improves, but leadership now needs a customer-demo backup plan.",
+            lesson: "Strong containment is valid, but it must be paired with a continuity decision."
+          },
+          {
+            label: "Restore full access immediately and ask the user to report anything unusual after the demo.",
+            impact: { containment: -16, evidence: -10, continuity: 16, trust: -8, coordination: -6 },
+            outcome: "The demo prep recovers quickly, but the team cannot explain whether hidden persistence remains.",
+            lesson: "Convenience without verification can turn a small account event into a recurring incident."
+          }
+        ]
+      },
+      {
+        phase: "Communicate",
+        title: "Notification thresholds are unclear",
+        inject:
+          "The President asks what should be briefed to the CEO and whether the customer needs notice. No confirmed data disclosure has been identified, but the account had access to demo materials and customer logistics.",
+        choices: [
+          {
+            label: "Prepare a leadership brief with known facts, unknowns, notification criteria, and the next update time.",
+            impact: { containment: 2, evidence: 8, continuity: 4, trust: 14, coordination: 12 },
+            outcome: "Leadership has a calm, fact-bounded message and a decision point if scope changes.",
+            lesson: "Decision criteria let leaders move quickly without overstating unconfirmed impact."
+          },
+          {
+            label: "Notify the customer immediately that a Microsoft 365 account may have been compromised.",
+            impact: { containment: 0, evidence: 2, continuity: -8, trust: 8, coordination: 2 },
+            outcome: "The customer hears early, but follow-up questions arrive before the team can explain scope or impact.",
+            lesson: "Early notice may be appropriate, but incomplete facts can create avoidable churn."
+          },
+          {
+            label: "Keep the issue inside IT until there is confirmed data loss or customer impact.",
+            impact: { containment: 4, evidence: 0, continuity: 6, trust: -14, coordination: -10 },
+            outcome: "The response stays quiet, but leadership and operations are not ready if the scope expands.",
+            lesson: "Waiting for certainty can leave stakeholders unprepared for time-sensitive decisions."
+          }
+        ]
+      },
+      {
+        phase: "Recover",
+        title: "Closeout must become real follow-up",
+        inject:
+          "The account appears contained. The team must decide what to document, what control gaps to fix before the next customer trip, and what the President should carry forward to leadership.",
+        choices: [
+          {
+            label: "Capture the timeline, evidence sources, decisions, owners, due dates, and control gaps before closing.",
+            impact: { containment: 4, evidence: 12, continuity: 4, trust: 8, coordination: 16 },
+            outcome: "The exercise ends with a usable after-action record and owners for practical improvements.",
+            lesson: "A tabletop becomes valuable when decisions turn into tracked work."
+          },
+          {
+            label: "End once everyone agrees the scenario was realistic and ask for improvement ideas later by email.",
+            impact: { containment: 0, evidence: -6, continuity: 2, trust: -2, coordination: -10 },
+            outcome: "The room feels aligned, but lessons and owners fade after the meeting ends.",
+            lesson: "Consensus is not the same as an after-action plan."
+          },
+          {
+            label: "Spend the remaining time debating whether the user should have trusted the shared-document link.",
+            impact: { containment: -2, evidence: -4, continuity: -4, trust: -10, coordination: -12 },
+            outcome: "The closeout becomes blame-oriented and misses the process, control, and decision gaps.",
+            lesson: "Useful exercises focus on response decisions and system improvements, not individual blame."
+          }
+        ]
+      }
+    ]
+  },  ransomware: makeInteractiveScenario("Ransomware Disruption Decision Rehearsal", {
+    containment: "Spread control",
+    continuity: "Service continuity"
+  }, [
+    ["Detect", "Shared files begin changing at scale", "Help desk tickets spike after staff find shared files renamed with unfamiliar extensions. A department lead says a deadline-critical folder is unreadable, and backup alerts show unusual file modification volume overnight."],
+    ["Triage", "Business impact and entry point are unclear", "A second team reports missing templates. IT is not sure whether the activity started from an endpoint, a mapped drive, or a privileged account. Leadership asks how bad this is and when operations can resume."],
+    ["Contain", "Isolation could interrupt critical work", "IT can isolate file servers and disable suspect accounts, but a service owner warns that one server supports a deadline-critical workflow. Staff are asking whether they can copy files to personal storage."],
+    ["Communicate", "Staff and executives need guidance", "The President asks what to tell the CEO. Department leads want staff instructions. No one has confirmed data theft, but the outage is becoming visible and rumors are spreading."],
+    ["Recover", "Restore path must be chosen", "Backups exist, but no one has confirmed the clean restore point. An operations lead asks whether temporary manual processing can start before systems are restored."]
+  ], [
+    ["Declare a suspected incident, preserve early evidence, and assign parallel scope and leadership-briefing owners.", "The team starts with a clear incident posture while preserving first-known facts.", "Ransomware response starts stronger when declaration, evidence capture, and leadership rhythm happen together."],
+    ["Build a fact board covering affected shares, first known time, suspected entry points, backup status, and business priorities.", "The room aligns on what is known, unknown, and needed before high-impact decisions.", "A shared fact board keeps ransomware triage from becoming a swirl of guesses."],
+    ["Isolate highest-risk systems, block unsafe workarounds, and document any business exception for critical workflows.", "Risk drops while leadership owns the business tradeoff instead of leaving it implicit.", "Containment decisions are stronger when business exceptions are explicit and recorded."],
+    ["Issue an internal update with confirmed facts, prohibited workarounds, next update time, and executive briefing path.", "Staff get practical guidance and leadership has a controlled update rhythm.", "Good ransomware communications separate facts, instructions, and next-update timing."],
+    ["Validate a clean restore point, define post-restore monitoring, and approve temporary manual processing with limits.", "Recovery begins with evidence-backed confidence and a controlled business workaround.", "Recovery is a decision process, not just a technical restore task."]
+  ], [
+    [
+      {
+        label: "Tell staff to stop using the share and wait for IT to confirm whether this is ransomware.",
+        impact: { containment: 4, evidence: 4, continuity: -4, trust: 0, coordination: -4 },
+        outcome: "Some unsafe activity slows, but the response still lacks declaration, ownership, and a leadership briefing path.",
+        lesson: "Cautionary guidance helps, but it does not replace incident ownership and evidence preservation."
+      },
+      {
+        label: "Start restoring the deadline-critical folder first so the affected team can keep working.",
+        impact: { containment: -12, evidence: -8, continuity: 10, trust: -4, coordination: -8 },
+        outcome: "The team sees action quickly, but restoration starts before anyone knows whether the threat is still active.",
+        lesson: "Early recovery pressure can increase ransomware damage when containment is not established."
+      }
+    ],
+    [
+      {
+        label: "Ask each technical area to investigate separately and report back when they have something solid.",
+        impact: { containment: 2, evidence: 6, continuity: 0, trust: -2, coordination: -10 },
+        outcome: "Work begins in parallel, but the room gets duplicate questions and inconsistent timelines.",
+        lesson: "Parallel triage still needs a shared fact board, update cadence, and owner for decisions."
+      },
+      {
+        label: "Tell leadership there is no reliable estimate until forensic review is complete.",
+        impact: { containment: 4, evidence: 8, continuity: -6, trust: -10, coordination: -4 },
+        outcome: "The statement avoids guessing, but leaders have too little information to make continuity decisions.",
+        lesson: "Ransomware leaders need bounded uncertainty: what is known, what is unknown, and the next decision point."
+      }
+    ],
+    [
+      {
+        label: "Keep the server online until the service owner approves downtime for the deadline-critical workflow.",
+        impact: { containment: -14, evidence: 2, continuity: 10, trust: -6, coordination: -4 },
+        outcome: "The workflow continues briefly, but the suspected spread path remains open.",
+        lesson: "Waiting for perfect business alignment can leave the environment exposed."
+      },
+      {
+        label: "Disconnect every potentially affected server immediately and sort out operations after the shutdown.",
+        impact: { containment: 18, evidence: 6, continuity: -16, trust: -2, coordination: 0 },
+        outcome: "Spread risk drops quickly, but leadership now owns a major service disruption without a prepared continuity plan.",
+        lesson: "Aggressive containment can be valid, but it must come with communications and continuity handling."
+      }
+    ],
+    [
+      {
+        label: "Send a brief message that IT is investigating and avoid details until the team knows more.",
+        impact: { containment: 0, evidence: 2, continuity: -2, trust: -8, coordination: -6 },
+        outcome: "The message is cautious, but staff fill the gaps with rumors and unsafe workarounds.",
+        lesson: "Under-communication can create operational risk during ransomware response."
+      },
+      {
+        label: "Warn everyone that ransomware is underway and all shared systems may be unsafe.",
+        impact: { containment: 6, evidence: 0, continuity: -12, trust: 2, coordination: -4 },
+        outcome: "The warning gets attention, but vague alarm creates more questions than usable action.",
+        lesson: "Urgency works best when paired with specific instructions and a next update time."
+      }
+    ],
+    [
+      {
+        label: "Restore the newest available backup immediately to reduce downtime.",
+        impact: { containment: -8, evidence: -8, continuity: 14, trust: -4, coordination: -2 },
+        outcome: "Services may return faster, but the team cannot explain whether the restore point is safe or whether reinfection risk remains.",
+        lesson: "Fast restore without validation can reintroduce the incident."
+      },
+      {
+        label: "Delay all manual work and recovery until every affected system has been rebuilt.",
+        impact: { containment: 10, evidence: 8, continuity: -14, trust: -6, coordination: 0 },
+        outcome: "Technical risk is tightly controlled, but operational impact grows without a continuity bridge.",
+        lesson: "Secure recovery still needs controlled business continuity options."
+      }
+    ]
+  ]),
+  insider: makeInteractiveScenario("Insider Data Exposure Decision Rehearsal", {
+    containment: "Access control",
+    evidence: "Evidence integrity",
+    continuity: "Transition continuity",
+    trust: "Fair process",
+    coordination: "HR/legal coordination"
+  }, [
+    ["Detect", "Unusual download before departure", "A supervisor reports that an employee who recently gave notice downloaded a large set of project files after hours, including customer demo material and internal roadmaps. The employee still supports a release handoff, and HR has a planned exit discussion later today."],
+    ["Triage", "Purpose and scope are disputed", "The supervisor says some files may be needed for transition work. IT sees personal cloud storage access around the same time, but there is no confirmed upload. A data owner asks whether controlled technical drawings or customer-sensitive records are included."],
+    ["Contain", "Access changes may disrupt transition work", "The employee is still assigned to support a release handoff and answer product questions. Removing all access could delay the team, but leaving access unchanged may expose more files and weaken evidence preservation."],
+    ["Communicate", "Need-to-know handling is unclear", "The President asks what can be briefed to the CEO. HR warns that the matter is sensitive, the supervisor wants guidance for the team, and legal asks that nobody write accusations before facts are reviewed."],
+    ["Recover", "Closeout and access governance gaps", "The review finds excessive access to old project folders, unclear offboarding timing, and inconsistent export logging. The team must decide what to document, what to fix, and who owns follow-up." ]
+  ], [
+    ["Preserve logs, limit access quietly, and bring HR, legal, the supervisor, and the data owner into a need-to-know triage path.", "The team reduces risk while protecting evidence and avoiding premature accusations.", "Insider scenarios need both security control and procedural fairness."],
+    ["Separate facts from assumptions and review access history, file sensitivity, transfer indicators, and authorized transition need.", "The response avoids jumping to conclusions while still identifying data and access risk quickly.", "Insider triage works best when intent is not assumed before evidence and business context are reviewed."],
+    ["Move to least-privilege transition access, preserve account and device state, and route handoff work through a supervisor.", "The business keeps moving while riskier access paths are closed and evidence remains defensible.", "Containment can be targeted instead of all-or-nothing."],
+    ["Use need-to-know language: transition coverage, confidentiality, approved points of contact, and the next leadership update time.", "The team gets enough direction to keep working without spreading sensitive claims or undermining HR/legal handling.", "Insider communications should protect privacy, evidence, and operations at the same time."],
+    ["Document the decision trail, data-owner sensitivity review, access cleanup, offboarding trigger changes, evidence retention, and owners.", "The event becomes a practical improvement path instead of only a personnel concern.", "Insider exercises should end with access governance and evidence-handling improvements."]
+  ], [
+    [
+      {
+        label: "Ask the supervisor to question the employee directly before IT changes access.",
+        impact: { containment: -10, evidence: -12, continuity: 2, trust: -14, coordination: -12 },
+        outcome: "The conversation may surface context, but it risks alerting the employee, contaminating evidence, and creating employment-process problems.",
+        lesson: "Direct questioning should be coordinated with HR/legal and evidence owners, not improvised by a supervisor."
+      },
+      {
+        label: "Disable all access immediately and collect the laptop before HR or legal are consulted.",
+        impact: { containment: 18, evidence: 4, continuity: -14, trust: -10, coordination: -8 },
+        outcome: "Risk drops fast, but the action disrupts the handoff and may create avoidable procedural issues.",
+        lesson: "Urgent access control still needs a defensible approval path and evidence plan."
+      }
+    ],
+    [
+      {
+        label: "Assume the files were needed for transition work unless a confirmed upload appears.",
+        impact: { containment: -12, evidence: -6, continuity: 10, trust: 2, coordination: -4 },
+        outcome: "The handoff continues smoothly, but the team leaves sensitive-file scope and transfer indicators unresolved.",
+        lesson: "Benign explanations are possible, but they do not replace evidence-based scoping."
+      },
+      {
+        label: "Treat the activity as malicious and brief leadership before the data owner classifies the files.",
+        impact: { containment: 6, evidence: -4, continuity: -4, trust: -14, coordination: -8 },
+        outcome: "Leadership hears a clear concern, but the language gets ahead of facts and data sensitivity.",
+        lesson: "Insider triage should distinguish suspicious activity from proven intent or confirmed exposure."
+      }
+    ],
+    [
+      {
+        label: "Leave current access unchanged until the release handoff is complete.",
+        impact: { containment: -16, evidence: -6, continuity: 14, trust: -6, coordination: -4 },
+        outcome: "The transition work continues, but the same access paths remain open during the concern window.",
+        lesson: "Business continuity pressure should shape targeted containment, not prevent it."
+      },
+      {
+        label: "Lock every account and device immediately, then ask the team to recreate handoff knowledge later.",
+        impact: { containment: 18, evidence: 10, continuity: -16, trust: -4, coordination: -2 },
+        outcome: "The risk window closes, but the product team loses transition support without a continuity bridge.",
+        lesson: "Aggressive containment needs an operations plan, especially in small teams."
+      }
+    ],
+    [
+      {
+        label: "Tell the immediate team that the employee is under investigation so they stop sharing information.",
+        impact: { containment: 4, evidence: -8, continuity: -8, trust: -18, coordination: -10 },
+        outcome: "The team becomes cautious, but rumors spread and the organization may create unnecessary personnel risk.",
+        lesson: "Need-to-know communications should avoid labels, accusations, and unnecessary personnel detail."
+      },
+      {
+        label: "Keep the issue entirely inside IT until the review proves intentional misuse.",
+        impact: { containment: 2, evidence: 4, continuity: 4, trust: -10, coordination: -12 },
+        outcome: "The matter stays quiet, but HR, legal, leadership, and the supervisor are not ready for time-sensitive decisions.",
+        lesson: "Confidential handling still needs the right decision-makers in the loop."
+      }
+    ],
+    [
+      {
+        label: "Close the review once the employee leaves and revisit access cleanup during the next audit cycle.",
+        impact: { containment: -6, evidence: -8, continuity: 4, trust: -6, coordination: -12 },
+        outcome: "The immediate pressure ends, but access governance and evidence-retention gaps remain unowned.",
+        lesson: "Offboarding incidents should produce near-term improvements, not vague future audit items."
+      },
+      {
+        label: "Write a detailed narrative naming suspected motives and distribute it broadly for awareness.",
+        impact: { containment: 0, evidence: -10, continuity: -6, trust: -18, coordination: -8 },
+        outcome: "The story spreads quickly, but privacy, fairness, and evidence quality suffer.",
+        lesson: "After-action records should document facts, decisions, owners, and gaps without speculative motive."
+      }
+    ]
+  ]),  ddos: makeInteractiveScenario("Public Service Outage Decision Rehearsal", {
+    containment: "Service stability",
+    evidence: "Technical timeline",
+    continuity: "Business continuity",
+    trust: "Public confidence",
+    coordination: "Provider coordination"
+  }, [
+    ["Detect", "Public service instability appears", "Monitoring shows intermittent failures for a public-facing web service during a customer deadline window. Support is receiving reports from several regions, but internal tools still appear normal and the team has not confirmed whether this is traffic, hosting, application, identity, or dependency related."],
+    ["Triage", "Cause and impact are still ambiguous", "Recent deployment notes, cloud service health, authentication errors, CDN logs, database latency, and third-party dependency status all show possible signals. Service leads want an estimated restoration time, while leadership asks whether this should be treated as a cyber incident."],
+    ["Contain", "Stabilization choices affect real users", "The provider can apply emergency filtering and rate limits, but that may block legitimate users. The product team can disable a non-critical feature to restore core access, but support will need a manual workaround script."],
+    ["Communicate", "Status messaging needs precision", "Customers, partners, staff, and leadership are asking for updates. The President wants language that is honest about impact, does not overstate root cause, and gives the CEO a clear briefing path if public pressure increases."],
+    ["Recover", "Service returns but resilience gaps remain", "Core service is stable again after changes by the provider and the product team. Logs show warning signs before the outage, status messaging lagged behind support calls, and no one is sure who owns follow-up reliability fixes."]
+  ], [
+    ["Open an incident bridge, assign technical, provider, support, and communications owners, and capture first known impact.", "The response starts organized while root cause is still unknown.", "Availability incidents need structure before diagnosis is complete."],
+    ["Run parallel triage lanes for recent changes, dependencies, identity, infrastructure, and provider status while publishing a bounded update time.", "The team narrows causes without making unsupported promises.", "Parallel triage works when lanes, owners, and update times are explicit."],
+    ["Approve targeted filtering plus partial restoration, publish service limitations, and monitor support load, error rates, and blocked legitimate users.", "Users regain core service while the team manages known side effects.", "Partial recovery is valuable when limitations and rollback criteria are clearly owned."],
+    ["Publish a status update with impact, affected functions, workaround, next update time, and no unsupported root-cause claim.", "The message is useful without overcommitting or speculating.", "Outage communication should be specific about impact even when cause is unknown."],
+    ["Run an after-action review covering timeline, detection gaps, provider actions, change controls, status messaging, owners, and validation criteria.", "The team turns service restoration into concrete resilience improvements.", "Outage exercises should end with operational reliability work, not just service recovery."]
+  ], [
+    [
+      {
+        label: "Wait for more reports before declaring an incident because internal systems still work.",
+        impact: { containment: -12, evidence: -8, continuity: -10, trust: -12, coordination: -10 },
+        outcome: "The team avoids premature escalation, but support calls and public complaints grow before ownership is clear.",
+        lesson: "An outage can need incident structure before the cause is known."
+      },
+      {
+        label: "Call it a DDoS publicly and ask the provider to block the suspicious traffic immediately.",
+        impact: { containment: 6, evidence: -10, continuity: -6, trust: -14, coordination: -4 },
+        outcome: "Some traffic is reduced, but the public statement and provider action get ahead of the facts.",
+        lesson: "Early labels can narrow thinking and create communications risk."
+      }
+    ],
+    [
+      {
+        label: "Focus only on the most recent deployment and pause provider engagement until the app team finishes review.",
+        impact: { containment: -8, evidence: 4, continuity: -10, trust: -8, coordination: -12 },
+        outcome: "The deployment review may find useful clues, but dependency and provider signals age while the outage continues.",
+        lesson: "Outage triage should split work across likely causes instead of serializing every path."
+      },
+      {
+        label: "Promise a restoration estimate to leadership based on the first likely cause.",
+        impact: { containment: -4, evidence: -6, continuity: 2, trust: -16, coordination: -6 },
+        outcome: "Leadership gets an answer quickly, but confidence drops if the first theory is wrong.",
+        lesson: "Estimated restoration times need confidence levels and assumptions."
+      }
+    ],
+    [
+      {
+        label: "Apply the strictest provider filtering immediately and accept that some legitimate users may be blocked.",
+        impact: { containment: 18, evidence: 2, continuity: -12, trust: -8, coordination: 2 },
+        outcome: "Traffic pressure drops, but legitimate access problems and support burden increase.",
+        lesson: "Emergency filtering needs user-impact monitoring and rollback criteria."
+      },
+      {
+        label: "Avoid temporary workarounds until the true root cause is proven.",
+        impact: { containment: -10, evidence: 6, continuity: -14, trust: -10, coordination: -4 },
+        outcome: "The technical investigation stays clean, but users remain blocked from core service longer than necessary.",
+        lesson: "Root cause analysis and business continuity have to move together."
+      }
+    ],
+    [
+      {
+        label: "Delay status messaging until the team can explain the cause with confidence.",
+        impact: { containment: 0, evidence: 4, continuity: -4, trust: -18, coordination: -8 },
+        outcome: "The team avoids speculation, but customers and support staff fill the silence with inconsistent explanations.",
+        lesson: "A useful outage update can describe impact and next update time without claiming root cause."
+      },
+      {
+        label: "Post that the issue is resolved as soon as the dashboard turns green once.",
+        impact: { containment: -6, evidence: -4, continuity: 4, trust: -14, coordination: -6 },
+        outcome: "The message is optimistic, but a recurrence would make the organization look unreliable.",
+        lesson: "Recovery messages should wait for validation criteria, not a single good signal."
+      }
+    ],
+    [
+      {
+        label: "Close the incident after service stabilizes and leave reliability improvements for normal backlog grooming.",
+        impact: { containment: -6, evidence: -10, continuity: 4, trust: -8, coordination: -12 },
+        outcome: "The team moves on quickly, but the same monitoring, ownership, and provider-coordination gaps may return.",
+        lesson: "Restoration is not the same as resilience improvement."
+      },
+      {
+        label: "Assign every follow-up to IT because the outage was technical.",
+        impact: { containment: -4, evidence: -4, continuity: -8, trust: -6, coordination: -14 },
+        outcome: "Technical tasks get owners, but status messaging, support scripts, product tradeoffs, and provider management remain under-owned.",
+        lesson: "Availability follow-up usually crosses technical, product, support, communications, and vendor roles."
+      }
+    ]
+  ]),  supplyChain: makeInteractiveScenario("Vendor Compromise Decision Rehearsal", {
+    containment: "Third-party access",
+    evidence: "Vendor evidence",
+    continuity: "Support continuity",
+    trust: "Customer confidence",
+    coordination: "Partner coordination"
+  }, [
+    ["Detect", "Vendor support access looks unusual", "A vendor support account logs into an administrative console outside the normal maintenance window and touches a customer-facing service configuration. The vendor has not announced an incident, but your logs show the activity came through a support portal integration rather than a normal employee account."],
+    ["Triage", "Access paths and obligations are unclear", "The vendor says they are investigating suspicious activity in their environment. Internal teams ask which systems the vendor can access, whether customer data or controlled technical information could be involved, and what the contract or security addendum requires for notices and cooperation."],
+    ["Contain", "Support access is risky but operationally useful", "Limiting vendor access may delay a planned customer demo, production support fix, or web application rollout. The vendor requests temporary restored access to troubleshoot, while the product lead wants assurance that any access is monitored and approved."],
+    ["Communicate", "Vendor statement is vague", "Leadership asks whether customers, partners, or the CEO need an update. The vendor's statement confirms an investigation but does not say whether your tenant, data, support portal, or credentials were affected."],
+    ["Recover", "Normal access needs restoration criteria", "No malicious activity is confirmed in your tenant, but the vendor cannot fully explain the suspicious login. The team must decide what evidence, access changes, authentication requirements, and monitoring must be in place before normal support access returns."]
+  ], [
+    ["Preserve access logs, contact the vendor through an approved channel, temporarily limit the vendor account, and open an internal incident record.", "The team reduces third-party access risk while validating facts through defensible channels.", "Vendor incidents require both internal containment and external confirmation."],
+    ["Build a vendor access map, identify service owners, review notice terms, and track confirmed facts separately from vendor claims.", "The team can make decisions based on access paths and obligations, not guesswork.", "Third-party triage depends on knowing access, ownership, agreements, and evidence sources."],
+    ["Allow time-boxed, monitored access from approved accounts only, with system owner approval, logging requirements, and rollback criteria.", "Support can continue under controlled conditions while risky access paths stay restricted.", "Vendor containment can use guarded access instead of blind trust or total lockout."],
+    ["Prepare leadership and customer-facing criteria based on confirmed impact, contract terms, affected services, and vendor updates.", "Leadership has a defensible path without over- or under-notifying.", "Vendor messaging needs decision criteria before facts force the moment."],
+    ["Require access review, stronger authentication, named owners, monitoring rules, vendor attestation, and a documented restoration decision.", "Vendor access returns with better governance and a defensible decision trail.", "Third-party recovery should improve the access model, not just reopen the door."]
+  ], [
+    [
+      {
+        label: "Assume the login was normal vendor maintenance until the vendor confirms an issue.",
+        impact: { containment: -14, evidence: -8, continuity: 8, trust: -10, coordination: -10 },
+        outcome: "Support work continues, but suspicious third-party access remains active while evidence and escalation windows age.",
+        lesson: "Vendor normalcy claims should be checked against your own logs and access expectations."
+      },
+      {
+        label: "Disable every vendor account immediately and stop all vendor-supported work.",
+        impact: { containment: 18, evidence: 8, continuity: -18, trust: -4, coordination: -8 },
+        outcome: "Risk drops quickly, but customer support, demos, and product work may stall without a transition plan.",
+        lesson: "Strong containment still needs business-impact routing and named approvers."
+      }
+    ],
+    [
+      {
+        label: "Wait for the vendor's formal incident notice before mapping access or reviewing contract terms.",
+        impact: { containment: -10, evidence: -10, continuity: 2, trust: -8, coordination: -14 },
+        outcome: "The team avoids duplicated work, but loses time understanding exposure, obligations, and internal owners.",
+        lesson: "Your response can begin before the vendor finishes its investigation."
+      },
+      {
+        label: "Tell all service owners to independently contact the vendor for details.",
+        impact: { containment: 0, evidence: -8, continuity: -4, trust: -6, coordination: -16 },
+        outcome: "Teams may collect useful fragments, but the vendor receives scattered questions and the internal fact pattern becomes messy.",
+        lesson: "Vendor coordination works best through a controlled contact path and shared fact log."
+      }
+    ],
+    [
+      {
+        label: "Restore full vendor access so the customer demo and support fix stay on schedule.",
+        impact: { containment: -18, evidence: -8, continuity: 16, trust: -10, coordination: -8 },
+        outcome: "The business schedule stays intact, but the team reopens risk before monitoring and approval conditions exist.",
+        lesson: "Business pressure should shape guarded access, not erase containment requirements."
+      },
+      {
+        label: "Keep access fully disabled until the vendor completes its entire investigation.",
+        impact: { containment: 12, evidence: 6, continuity: -16, trust: -4, coordination: -6 },
+        outcome: "The access risk stays low, but support dependencies and customer-facing work may pile up without a controlled exception process.",
+        lesson: "Total lockout is sometimes necessary, but exceptions and workarounds still need owners."
+      }
+    ],
+    [
+      {
+        label: "Tell customers a vendor compromise may have affected service before impact is confirmed.",
+        impact: { containment: 0, evidence: -6, continuity: -4, trust: -16, coordination: -10 },
+        outcome: "The message is proactive, but it may overstate the facts and create avoidable customer concern.",
+        lesson: "Vendor communications should separate confirmed impact from active investigation."
+      },
+      {
+        label: "Keep the issue inside IT until the vendor provides definitive wording.",
+        impact: { containment: 2, evidence: 4, continuity: 2, trust: -12, coordination: -14 },
+        outcome: "The team avoids speculation, but leadership and customer-facing teams lack criteria for questions that may arrive first.",
+        lesson: "Internal readiness language can be prepared before external notification is required."
+      }
+    ],
+    [
+      {
+        label: "Restore normal access after the vendor says the issue is contained.",
+        impact: { containment: -10, evidence: -8, continuity: 10, trust: -8, coordination: -8 },
+        outcome: "Support returns quickly, but the decision relies on vendor assurance without local validation or new controls.",
+        lesson: "Restoration criteria should include your evidence, not only vendor confidence."
+      },
+      {
+        label: "Require a new vendor security review before any future support access is allowed.",
+        impact: { containment: 14, evidence: 4, continuity: -14, trust: 2, coordination: -6 },
+        outcome: "The bar is high, but normal operations may suffer if temporary monitored access is not defined.",
+        lesson: "Recovery should pair stronger governance with practical support continuity."
+      }
+    ]
+  ])};
+
+Object.assign(interactiveScenarios, {
+  "phishing-oauth": makeInteractiveScenario("OAuth Consent Phishing Drill", {
+    containment: "App consent control",
+    evidence: "Consent evidence",
+    continuity: "User continuity",
+    trust: "User confidence",
+    coordination: "Identity coordination"
+  }, [
+    ["Detect", "Unexpected app consent appears", "A user reports a suspicious Microsoft 365 consent prompt after opening a shared-document link. Audit logs show a newly authorized third-party app with broad mailbox and file permissions."],
+    ["Triage", "Scope includes app grants", "Identity logs show several users may have approved the same app. Help desk wants simple guidance, while IT needs to know whether revoking consent will disrupt legitimate work."],
+    ["Contain", "Revocation may affect workflows", "The app can be blocked tenant-wide, but no one has confirmed whether any business-approved automation uses a similar consent path."],
+    ["Communicate", "Users need clear reporting guidance", "Staff are forwarding screenshots and asking whether they should approve the prompt. Leadership wants a short message that does not create panic."],
+    ["Recover", "Consent governance gaps remain", "The app is removed and no data loss is confirmed, but consent settings, user training, and app review ownership are unclear."]
+  ], [
+    ["Revoke the suspicious app grant, preserve consent logs, and identify all users who approved it.", "The team contains the risky integration while preserving evidence for scoping.", "OAuth phishing requires app-grant review, not just password resets."],
+    ["Group affected users by app approval, sign-in activity, and mailbox/file access before deciding notification language.", "The team scopes exposure with evidence instead of assuming every recipient is compromised.", "Consent events need their own triage lane."],
+    ["Block the app, document business impact, and create an exception path for known approved automations.", "Risky access closes while legitimate workflows have a controlled route.", "Tenant-wide controls need exception ownership."],
+    ["Send staff a concise report/delete/do-not-approve message with a named help desk path.", "Users get action guidance while IT continues scoping.", "User communications should reduce copy-forward behavior."],
+    ["Assign owners for consent policy, app review, user reporting, and evidence retention changes.", "The exercise ends with durable control improvements.", "Recovery should close the governance gap that allowed the prompt."]
+  ]),
+  "ransomware-backup": makeInteractiveScenario("Backup Failure Ransomware Drill", {
+    containment: "Spread control",
+    evidence: "Ransomware evidence",
+    continuity: "Recovery continuity",
+    trust: "Leadership confidence",
+    coordination: "Recovery coordination"
+  }, [
+    ["Detect", "File share encryption is reported", "A shared project folder shows encrypted files and ransom notes. The first available backup copy also appears incomplete."],
+    ["Triage", "Backup confidence is uncertain", "IT can isolate more systems, but leadership asks when the team can restore enough files for customer work."],
+    ["Contain", "Restoration could reintroduce risk", "A clean restore point is not confirmed. Some teams want to rebuild from local copies to keep work moving."],
+    ["Communicate", "Leadership wants a recovery answer", "The President asks for an update to brief the CEO: what is down, what is recoverable, and what cannot be promised yet."],
+    ["Recover", "Backup process gaps are exposed", "Core data is partially restored, but backup monitoring, restore testing, and ownership gaps are obvious."]
+  ], [
+    ["Isolate affected shares, preserve ransom artifacts, and validate backup integrity before promising restore times.", "The team slows spread while keeping recovery claims defensible.", "Backup status is evidence, not an assumption."],
+    ["Separate containment, backup validation, and business-priority restore lanes with named owners.", "The team can answer leadership without collapsing every task into one queue.", "Ransomware response needs parallel recovery work."],
+    ["Restore only from validated clean sources and track any manual reconstruction as an exception.", "Recovery proceeds with fewer reinfection and integrity risks.", "Fast restoration still needs clean-source criteria."],
+    ["Brief leadership with affected services, validated restore options, decision needs, and next update time.", "The CEO gets useful risk context without false certainty.", "Recovery communication should distinguish tested facts from hopes."],
+    ["Assign follow-ups for restore testing, backup alerting, isolation playbooks, and recovery decision authority.", "The exercise converts backup failure into concrete resilience work.", "Ransomware recovery is only strong if restore confidence is tested beforehand."]
+  ]),
+  "insider-contractor": makeInteractiveScenario("Contractor Overshare Drill", {
+    containment: "Access control",
+    evidence: "Sharing evidence",
+    continuity: "Project continuity",
+    trust: "Fair process",
+    coordination: "Sponsor coordination"
+  }, [
+    ["Detect", "Shared folder link is too broad", "A contractor sponsor reports that a project folder link may have been shared with a larger vendor team than intended."],
+    ["Triage", "Business need is mixed with overexposure", "Some vendor users may need access for an active handoff, while others appear outside the approved project roster."],
+    ["Contain", "Access cleanup may disrupt work", "Removing the external group could block a near-term customer demo, but leaving it open may expose internal roadmaps."],
+    ["Communicate", "Sponsor and data owner disagree", "The sponsor wants continuity; the data owner wants a sensitivity review before any external access continues."],
+    ["Recover", "External sharing governance is unclear", "The link is corrected, but owners for external sharing review, expiration, and audit are not defined."]
+  ], [
+    ["Preserve sharing logs, identify external users, and freeze link expansion while sponsor and data owner review scope.", "The team stops further spread without assuming every vendor user acted improperly.", "Oversharing response starts with scope and evidence."],
+    ["Compare access against the approved project roster and classify the shared content with the data owner.", "The team separates valid work from overexposure.", "External access decisions need both roster and data sensitivity."],
+    ["Move required users to a least-privilege group and remove broad link access with a documented exception path.", "The project keeps moving under tighter control.", "Containment can preserve continuity when access is rebuilt intentionally."],
+    ["Brief sponsor and data owner with facts, impact, interim access, and next review time.", "The disagreement becomes a decision path instead of a tug-of-war.", "Small orgs need explicit owners for external-sharing tradeoffs."],
+    ["Assign owners for external sharing review, expiration defaults, audit checks, and sponsor approval rules.", "The team closes the process gap behind the overshare.", "Recovery should improve sharing governance, not only fix one link."]
+  ]),
+  "ddos-cloud-dependency": makeInteractiveScenario("Cloud Dependency Outage Drill", {
+    containment: "Service stability",
+    evidence: "Dependency timeline",
+    continuity: "Workaround continuity",
+    trust: "Public confidence",
+    coordination: "Provider coordination"
+  }, [
+    ["Detect", "Cloud dependency begins failing", "A customer-facing web workflow slows down while the core app remains online. Provider status pages are green, but logs point to a third-party dependency timeout."],
+    ["Triage", "Provider status does not match telemetry", "Support sees user complaints, engineering sees dependency errors, and leadership wants to know whether this is your outage or the provider's."],
+    ["Contain", "Workaround has user friction", "A manual workaround can keep critical users moving, but it increases support load and leaves non-critical features degraded."],
+    ["Communicate", "Status page wording is difficult", "The team needs to acknowledge impact without blaming a provider before evidence is complete."],
+    ["Recover", "Provider escalation path is weak", "Service stabilizes, but escalation contacts, synthetic monitoring, and workaround ownership are unclear."]
+  ], [
+    ["Open an incident, capture dependency telemetry, and start provider escalation while monitoring user impact.", "The team treats the outage seriously without waiting for provider confirmation.", "Your telemetry can justify escalation before a public provider status change."],
+    ["Run internal health, dependency, and provider-ticket lanes in parallel with a bounded next update.", "The team avoids a false either-or between your app and the provider.", "Dependency outages need parallel proof gathering."],
+    ["Publish the workaround with limitations, support script, and rollback criteria.", "Critical users have a path while the team tracks support burden.", "Workarounds need owners and honest limitations."],
+    ["Post impact-focused status language with next update time and no unsupported blame.", "Users get useful information while evidence continues.", "Status updates can be specific without naming a cause."],
+    ["Assign owners for provider escalation, dependency monitoring, workaround playbooks, and customer messaging triggers.", "The incident produces operational resilience improvements.", "Dependency recovery should strengthen escalation and detection."]
+  ]),
+  "supplyChain-breach-notice": makeInteractiveScenario("Vendor Breach Notice Drill", {
+    containment: "Third-party access",
+    evidence: "Notice evidence",
+    continuity: "Service continuity",
+    trust: "Customer confidence",
+    coordination: "Partner coordination"
+  }, [
+    ["Detect", "Vendor sends a vague breach notice", "A software vendor sends a brief notice saying it is investigating unauthorized access. The notice does not say whether your tenant, support portal, or customer data is affected."],
+    ["Triage", "Contract terms and exposure are unclear", "Leadership asks what must be done today. Procurement has the contract, IT owns the integration, and the product team owns customer impact."],
+    ["Contain", "Integration access may be needed", "The vendor integration supports a customer workflow. Disabling it may reduce risk but could interrupt demonstrations and support."],
+    ["Communicate", "Customers may ask first", "The vendor says it will provide more details later. Customer-facing teams want holding language now."],
+    ["Recover", "Vendor assurance is not enough", "The vendor says the issue is contained, but internal owners must decide what proof and access changes are required before normal operations resume."]
+  ], [
+    ["Preserve the notice, open an incident record, identify integrations, and route vendor questions through one owner.", "The team gets organized before the vendor provides full facts.", "A vague notice still deserves a structured response."],
+    ["Map access, contract terms, data exposure, and service owners into a shared fact log.", "Decisions can be based on obligations and exposure rather than anxiety.", "Vendor breach triage is part technical, part contractual."],
+    ["Reduce integration privileges where possible and document any business-approved exception.", "Risk is reduced without pretending the integration has no business value.", "Containment should be proportional and documented."],
+    ["Prepare internal and customer-facing criteria that separate known impact from pending vendor details.", "Teams are ready to answer without overstating the incident.", "Holding language is useful when it is tied to decision criteria."],
+    ["Require vendor attestation, internal log review, access cleanup, and named restoration approval.", "Normal operations resume with a stronger decision trail.", "Vendor recovery should be validated locally as well as externally."]
+  ])
+});
+
+
+Object.assign(interactiveScenarios, {
+  "phishing-bec": makeInteractiveScenario("Executive Payment Request Drill", {
+    containment: "Mailbox containment",
+    evidence: "Message evidence",
+    continuity: "Finance continuity",
+    trust: "Executive trust",
+    coordination: "Finance coordination"
+  }, [
+    ["Detect", "Urgent payment request arrives", "A finance analyst receives an email that appears to come from the President asking for an urgent vendor payment before a customer demo trip. The display name is familiar, but the reply-to address and tone are unusual."],
+    ["Triage", "Executive calendar adds pressure", "The President is in meetings and not immediately reachable. Finance wants to avoid delaying legitimate travel support, while IT needs the message headers and mailbox evidence."],
+    ["Contain", "Similar messages may be spreading", "Help desk receives two more forwarded messages from staff who were copied on related payment requests. It is unclear whether the executive mailbox is compromised or only spoofed."],
+    ["Communicate", "Finance needs a safe script", "Finance asks what it can tell managers who are waiting on payment approvals. Leadership wants clear language that does not imply the President made a mistake."],
+    ["Recover", "Approval controls are informal", "No payment was made, but the team discovers that urgent vendor payment verification relies on personal knowledge rather than a written callback process."]
+  ], [
+    ["Preserve the message, verify the request out-of-band, and hold payment until finance and IT agree on scope.", "The team prevents a rushed payment while preserving evidence needed to determine spoofing versus compromise.", "BEC response should protect the business process and mailbox evidence at the same time."],
+    ["Create parallel lanes for executive verification, message-header review, and finance impact.", "Finance gets a decision path while IT checks whether the mailbox or only the display name was abused.", "Executive pressure should not collapse verification steps."],
+    ["Block similar messages, search mailboxes for related lures, and avoid deleting evidence until scoped.", "The team reduces spread without losing proof of targeting.", "Containment should include mailbox search and evidence preservation."],
+    ["Send finance a short holding script: payment verification is in progress, no action until approved, next update time named.", "Managers get a calm process update without unverified attribution.", "Internal messaging should protect confidence while facts are incomplete."],
+    ["Assign owners for payment callback rules, executive impersonation reporting, and finance approval thresholds.", "The exercise ends with a control improvement rather than only a blocked email.", "BEC recovery should harden the payment workflow."]
+  ], [
+    [{ label: "Approve the payment because the request appears to come from leadership.", impact: { containment: -12, evidence: -8, continuity: 8, trust: -12, coordination: -10 }, outcome: "The business moves quickly, but the team may authorize fraud before validating the sender.", lesson: "Executive urgency is a reason to verify, not a reason to skip verification." }, { label: "Delete the message and warn finance informally.", impact: { containment: 2, evidence: -14, continuity: -2, trust: -4, coordination: -6 }, outcome: "The immediate message is gone, but evidence and search terms are lost.", lesson: "Suspicious financial messages should be preserved before cleanup." }],
+    [{ label: "Wait until the President is available before doing anything else.", impact: { containment: -8, evidence: 2, continuity: -8, trust: -4, coordination: -6 }, outcome: "The team avoids bothering others, but similar messages may continue spreading.", lesson: "Verification can proceed through approved alternates while the executive is unavailable." }, { label: "Treat it as only a finance issue unless IT sees more alerts.", impact: { containment: -10, evidence: -4, continuity: 4, trust: -6, coordination: -8 }, outcome: "Finance is left holding risk that may actually involve mailbox or identity compromise.", lesson: "BEC sits between business process and technical investigation." }],
+    [{ label: "Send a broad warning before confirming related messages.", impact: { containment: 4, evidence: -2, continuity: -2, trust: -8, coordination: -4 }, outcome: "Staff are alerted, but unsupported detail may create confusion.", lesson: "Warnings should be specific enough to help and cautious enough to avoid speculation." }, { label: "Focus only on the original recipient.", impact: { containment: -12, evidence: -4, continuity: 4, trust: -6, coordination: -4 }, outcome: "The first report is handled, but related targeting may remain active.", lesson: "Payment fraud attempts often target a process, not just one person." }],
+    [{ label: "Tell everyone the President was impersonated before technical scope is known.", impact: { containment: 0, evidence: 0, continuity: -4, trust: -12, coordination: -8 }, outcome: "The message travels faster than the facts.", lesson: "Attribution should wait for evidence." }, { label: "Keep it quiet so the executive team is not embarrassed.", impact: { containment: -8, evidence: 0, continuity: 2, trust: -10, coordination: -10 }, outcome: "The organization misses a chance to prevent additional payment attempts.", lesson: "Low-drama internal guidance is not the same as blame." }],
+    [{ label: "Close the event because no money left the company.", impact: { containment: -4, evidence: -2, continuity: 6, trust: -4, coordination: -8 }, outcome: "The organization avoids paperwork but leaves the same process exposed.", lesson: "Near misses are useful control evidence." }, { label: "Require every payment to be approved by the CEO personally.", impact: { containment: 6, evidence: 0, continuity: -12, trust: -2, coordination: -6 }, outcome: "The rule sounds strong but may be impractical and create bottlenecks.", lesson: "Controls need sustainable approval paths." }]
+  ]),
+  "ransomware-saas-lockout": makeInteractiveScenario("SaaS Admin Lockout Ransomware Drill", {
+    containment: "Identity containment",
+    evidence: "Admin evidence",
+    continuity: "SaaS continuity",
+    trust: "Leadership confidence",
+    coordination: "Vendor coordination"
+  }, [
+    ["Detect", "Admin access is failing", "An administrator cannot access a critical SaaS console shortly after endpoint alerts show suspicious archive and encryption behavior on an admin workstation."],
+    ["Triage", "Console ownership is unclear", "IT can still reach some user-facing features, but admin recovery options require vendor support. Leadership asks whether customer operations are affected."],
+    ["Contain", "Identity changes may break integrations", "Resetting admin sessions and rotating keys may disrupt integrations used by product demos and support workflows."],
+    ["Communicate", "Teams need workarounds", "Support, product, and leadership need to know which SaaS functions remain safe to use while admin recovery is underway."],
+    ["Recover", "Admin recovery exposes weak break-glass planning", "Vendor support restores access, but break-glass accounts, hardware token custody, and integration key rotation procedures are not clearly owned."]
+  ], [
+    ["Open an incident, isolate the admin workstation, preserve identity logs, and start vendor recovery for privileged access.", "The team treats admin lockout as a ransomware-adjacent identity incident rather than a simple password issue.", "SaaS ransomware pressure often shows up as identity and admin recovery pressure."],
+    ["Separate user service status, admin access recovery, and vendor escalation into named lanes.", "Leadership gets a clearer answer on impact while technical recovery proceeds.", "Admin outage does not always equal user outage, but it can become one."],
+    ["Rotate only high-risk credentials first, document integration impact, and pause unsafe automations.", "The team reduces compromise risk without blindly breaking every workflow.", "Key rotation needs business-impact sequencing."],
+    ["Publish internal guidance listing safe functions, blocked admin changes, workaround owners, and next update time.", "Teams can keep operating with fewer assumptions.", "Workaround communication is part of containment."],
+    ["Assign owners for break-glass account testing, vendor escalation contacts, admin workstation hardening, and key rotation drills.", "The exercise turns a lockout into durable recovery planning.", "SaaS recovery depends on rehearsed privileged-access restoration."]
+  ]),
+  "supplyChain-update-integrity": makeInteractiveScenario("Vendor Update Integrity Drill", {
+    containment: "Update containment",
+    evidence: "Package evidence",
+    continuity: "Deployment continuity",
+    trust: "Customer confidence",
+    coordination: "Engineering coordination"
+  }, [
+    ["Detect", "Unexpected vendor updater behavior", "Endpoint telemetry shows a trusted vendor updater launching unusual child processes on several demo laptops after a routine software update."],
+    ["Triage", "Demo systems may be affected", "Product teams need the laptops for customer demonstrations this week. Engineering wants hashes, update versions, and install timelines before deciding whether to roll back."],
+    ["Contain", "Rollback could disrupt demos", "Blocking the updater may prevent further execution, but rolling back the package could break demo environments and support tooling."],
+    ["Communicate", "Customer-facing teams need criteria", "Sales and product leads ask whether planned demos can continue. Leadership wants a decision standard that does not overstate compromise."],
+    ["Recover", "Software update trust needs review", "The vendor says the package is legitimate, but internal telemetry remains unexplained and software update allowlisting is informal."]
+  ], [
+    ["Freeze the updater, preserve package hashes and endpoint telemetry, and identify every host that received the update.", "The team stops possible spread while preserving evidence for vendor and internal review.", "Trusted updater alerts need package-level evidence, not only endpoint cleanup."],
+    ["Group systems by update version, execution behavior, and demo criticality before deciding rollback scope.", "The team can protect higher-risk systems without grounding every demo by default.", "Supply-chain triage needs both technical grouping and business context."],
+    ["Block further updater execution, create a clean demo-device exception path, and document residual risk.", "Containment reduces risk while preserving a narrow path for critical business activity.", "Exceptions need owner approval and monitoring."],
+    ["Give customer-facing teams go/no-go criteria based on affected devices, clean build availability, and vendor evidence.", "The business gets a usable decision standard instead of vague reassurance.", "Customer messaging should be tied to observable criteria."],
+    ["Assign owners for vendor package validation, update allowlisting, demo-device rebuild standards, and future update monitoring.", "Recovery improves software supply-chain hygiene.", "Vendor assurance should be paired with internal validation."]
+  ])
+});
+const interactiveScenarioLibrary = {
+  phishing: [
+    { key: "phishing", label: "Featured: M365 account compromise", summary: "Full five-step phishing rehearsal covering risky sign-ins, mailbox rules, executive briefings, and post-incident controls." },
+    { key: "phishing-oauth", label: "Focused drill: OAuth consent app", summary: "Practice handling malicious app consent, tenant-wide blocking, user guidance, and consent governance." },
+    { key: "phishing-bec", label: "Focused drill: Executive payment request", summary: "Practice BEC-style payment pressure, executive verification, finance holds, and callback controls." }
+  ],
+  ransomware: [
+    { key: "ransomware", label: "Featured: Ransomware disruption", summary: "Full five-step ransomware rehearsal covering detection, containment, business pressure, communications, and recovery." },
+    { key: "ransomware-backup", label: "Focused drill: Backup failure", summary: "Practice backup integrity decisions when encrypted files and incomplete restore points collide." },
+    { key: "ransomware-saas-lockout", label: "Focused drill: SaaS admin lockout", summary: "Practice ransomware-adjacent identity recovery when privileged SaaS access and integrations are at risk." }
+  ],
+  insider: [
+    { key: "insider", label: "Featured: Departing employee data exposure", summary: "Full five-step insider rehearsal focused on HR/legal coordination, evidence, fair process, and access cleanup." },
+    { key: "insider-contractor", label: "Focused drill: Contractor overshare", summary: "Practice external sharing cleanup, sponsor coordination, data-owner review, and least-privilege access." }
+  ],
+  ddos: [
+    { key: "ddos", label: "Featured: Public service outage", summary: "Full five-step availability rehearsal covering triage, provider filtering, status messaging, and resilience follow-up." },
+    { key: "ddos-cloud-dependency", label: "Focused drill: Cloud dependency outage", summary: "Practice dependency failures, provider escalation, workarounds, and impact-focused status updates." }
+  ],
+  supplyChain: [
+    { key: "supplyChain", label: "Featured: Vendor support portal compromise", summary: "Full five-step third-party access rehearsal covering support portal activity, contract terms, monitored exceptions, and restoration gates." },
+    { key: "supplyChain-breach-notice", label: "Focused drill: Vendor breach notice", summary: "Practice vague vendor notices, contract obligations, integration containment, and customer-facing criteria." },
+    { key: "supplyChain-update-integrity", label: "Focused drill: Vendor update integrity", summary: "Practice suspicious trusted updater behavior, demo continuity, package evidence, and customer go/no-go criteria." }
+  ]
+};
+let interactiveState = null;
+function makeInteractiveScenario(title, meterLabels, phaseRows, primaryChoices, alternateChoices = null) {
+  const defaultSecondaryChoices = [
+    {
+      label: "Pause for a broad discussion before assigning owners or containment steps.",
+      impact: { containment: -4, evidence: 0, continuity: -6, trust: 0, coordination: -8 },
+      outcome: "The conversation surfaces concerns, but time passes without clear ownership.",
+      lesson: "Discussion is useful only when it produces decisions, owners, or evidence needs."
+    },
+    {
+      label: "Choose the least disruptive path and revisit the concern after normal work resumes.",
+      impact: { containment: -12, evidence: -6, continuity: 10, trust: -6, coordination: -6 },
+      outcome: "The business keeps moving, but the response leaves important risk unresolved.",
+      lesson: "Business continuity pressure should shape response decisions, not replace them."
+    }
+  ];
+  const meters = Object.fromEntries(
+    Object.entries(interactiveMeters).map(([key, meter]) => [
+      key,
+      { ...meter, label: meterLabels[key] || meter.label }
+    ])
+  );
+  return {
+    title,
+    meters,
+    phases: phaseRows.map(([phase, phaseTitle, inject], index) => {
+      const secondaryChoices = alternateChoices?.[index] || defaultSecondaryChoices;
+      return {
+        phase,
+        title: phaseTitle,
+        inject,
+        choices: [
+          {
+            label: primaryChoices[index][0],
+            impact: { containment: 12, evidence: 10, continuity: 6, trust: 8, coordination: 12 },
+            outcome: primaryChoices[index][1],
+            lesson: primaryChoices[index][2]
+          },
+          ...secondaryChoices
+        ]
+      };
+    })
+  };
+}
+
+function libraryEntriesForIncident(incidentKey = controls.incidentType.value) {
+  return interactiveScenarioLibrary[incidentKey] || interactiveScenarioLibrary.phishing;
+}
+
+function selectedInteractiveScenarioEntry() {
+  const entries = libraryEntriesForIncident();
+  const selectedKey = controls.interactiveScenario?.value;
+  return entries.find((entry) => entry.key === selectedKey) || entries[0];
+}
+
+function selectedInteractiveScenarioKey() {
+  return selectedInteractiveScenarioEntry().key;
+}
+
+function syncInteractiveScenarioPicker(preferredKey = controls.interactiveScenario?.value) {
+  if (!controls.interactiveScenario) {
+    return;
+  }
+  const entries = libraryEntriesForIncident();
+  const nextKey = entries.some((entry) => entry.key === preferredKey) ? preferredKey : entries[0].key;
+  controls.interactiveScenario.replaceChildren(
+    ...entries.map((entry) => {
+      const option = document.createElement("option");
+      option.value = entry.key;
+      option.textContent = entry.label;
+      return option;
+    })
+  );
+  controls.interactiveScenario.value = nextKey;
+  if (output.interactiveScenarioSummary) {
+    output.interactiveScenarioSummary.textContent = selectedInteractiveScenarioEntry().summary;
+  }
+}
+
+function currentInteractiveScenario() {
+  const selectedKey = selectedInteractiveScenarioKey();
+  return interactiveScenarios[selectedKey] || interactiveScenarios.phishing;
+}
+
+function cloneInteractiveMeters() {
+  return Object.fromEntries(
+    Object.entries(currentInteractiveScenario().meters).map(([key, meter]) => [key, { ...meter }])
+  );
+}
+
+function clampMeter(value) {
+  return Math.max(0, Math.min(100, value));
+}
+
+
+const formatAdvice = {
+  packet: "Full packet is the safest default when you need participant handouts, facilitator notes, evidence prompts, and after-action material.",
+  interactive: "Interactive rehearsal fits live meetings where the group should make choices, see consequences, and leave with action items.",
+  slides: "Slide facilitation is best when you are running the exercise over Teams or Zoom and need clear pacing for remote participants.",
+  worksheet: "Scribe worksheet is best when you already have a scenario and only need a clean way to capture facts, assumptions, decisions, questions, and actions."
+};
+
+function setWorkspaceMode(mode = "packet") {
+  const nextMode = formatAdvice[mode] ? mode : "packet";
+  document.body.dataset.mode = nextMode;
+  ui.modeButtons.forEach((button) => {
+    button.setAttribute("aria-pressed", String(button.dataset.modeTarget === nextMode));
+  });
+  if (ui.formatAdvice) {
+    ui.formatAdvice.textContent = formatAdvice[nextMode];
+  }
+}
+
+function recommendFormat() {
+  const mode = ui.formatNeed?.value || "packet";
+  setWorkspaceMode(mode);
+}
+
+function selectedOptionText(control) {
+  return control?.options?.[control.selectedIndex]?.text || "";
+}
+
+function currentExerciseSetup() {
+  return {
+    scenarioKey: selectedInteractiveScenarioKey(),
+    incidentKey: controls.incidentType.value,
+    scenario: scenarios[controls.incidentType.value],
+    profile: profiles[controls.orgProfile.value],
+    focus: focusAdds[controls.exerciseFocus.value],
+    audienceLabel: selectedOptionText(controls.audience),
+    durationLabel: selectedOptionText(controls.duration),
+    difficultyLabel: selectedOptionText(controls.difficulty),
+    difficulty: difficultyAdds[controls.difficulty.value]
+  };
+}
+
+function interactiveScenarioTitle(setup = currentExerciseSetup()) {
+  if (setup.scenarioKey === "phishing") {
+    return "Credential Phishing Decision Rehearsal";
+  }
+  return `${setup.scenario.label} Decision Rehearsal Preview`;
+}
+
+function interactiveScenarioContext(setup = currentExerciseSetup()) {
+  return `${setup.durationLabel} ${setup.difficultyLabel.toLowerCase()} exercise for ${setup.profile.summary}. Audience: ${setup.audienceLabel}. Focus: ${setup.focus.label}. The playable path now follows the selected incident type.`;
+}
+
+function interactiveIntroText(setup = currentExerciseSetup()) {
+  return `Use this mode to rehearse decisions for ${setup.scenario.label.toLowerCase()} with ${setup.focus.label.toLowerCase()} pressure, then compare the team's choices against containment, evidence, continuity, and stakeholder trust.`;
+}
+
+function showFieldHelp(button) {
+  if (!ui.fieldHelp || !ui.fieldHelpTitle || !ui.fieldHelpText) {
+    return;
+  }
+  const label = button.closest(".field-label")?.firstChild?.textContent?.trim() || "Field help";
+  const field = button.closest(".field");
+  ui.helpButtons.forEach((helpButton) => helpButton.setAttribute("aria-expanded", "false"));
+  button.setAttribute("aria-expanded", "true");
+  ui.fieldHelpTitle.textContent = label;
+  ui.fieldHelpText.textContent = button.dataset.help || "This field changes the generated exercise output.";
+  if (field) {
+    field.insertAdjacentElement("afterend", ui.fieldHelp);
+  }
+  ui.fieldHelp.hidden = false;
+  ui.fieldHelp.scrollIntoView({ block: "nearest", behavior: "smooth" });
+}
+
+function hideFieldHelp() {
+  if (ui.fieldHelp) {
+    ui.fieldHelp.hidden = true;
+  }
+  ui.helpButtons.forEach((button) => button.setAttribute("aria-expanded", "false"));
+}
+function interactiveDurationSeconds() {
+  const minutes = Number.parseInt(controls.duration.value, 10) || 60;
+  return minutes * 60;
+}
+
+function formatTimer(seconds) {
+  const safeSeconds = Math.max(0, seconds);
+  const minutes = Math.floor(safeSeconds / 60);
+  const remainder = safeSeconds % 60;
+  return `${minutes}:${String(remainder).padStart(2, "0")}`;
+}
+
+function updateInteractiveTimerDisplay(statusText = null) {
+  if (!output.interactiveTimer || !output.interactiveTimerStatus) {
+    return;
+  }
+  output.interactiveTimer.textContent = formatTimer(interactiveTimerRemaining || interactiveDurationSeconds());
+  const defaultStatus = interactiveTimerRunning
+    ? "Running"
+    : interactiveTimerRemaining > 0 && interactiveTimerRemaining < interactiveDurationSeconds()
+      ? "Paused"
+      : "Ready";
+  output.interactiveTimerStatus.textContent = statusText || (interactiveTimerRemaining === 0 ? "Time expired" : defaultStatus);
+  const toggleTimerBtn = document.querySelector("#toggleTimerBtn");
+  if (toggleTimerBtn) {
+    toggleTimerBtn.textContent = interactiveTimerRunning ? "Pause timer" : "Start timer";
+  }
+}
+
+function stopInteractiveTimer(statusText = "Paused") {
+  if (interactiveTimerInterval) {
+    window.clearInterval(interactiveTimerInterval);
+    interactiveTimerInterval = null;
+  }
+  interactiveTimerRunning = false;
+  updateInteractiveTimerDisplay(statusText);
+}
+
+function resetInteractiveTimer(statusText = "Ready") {
+  if (interactiveTimerInterval) {
+    window.clearInterval(interactiveTimerInterval);
+    interactiveTimerInterval = null;
+  }
+  interactiveTimerRunning = false;
+  interactiveTimerRemaining = interactiveDurationSeconds();
+  updateInteractiveTimerDisplay(statusText);
+}
+
+function toggleInteractiveTimer() {
+  if (!interactiveTimerRemaining) {
+    interactiveTimerRemaining = interactiveDurationSeconds();
+  }
+  if (interactiveTimerRunning) {
+    stopInteractiveTimer();
+    return;
+  }
+  interactiveTimerRunning = true;
+  updateInteractiveTimerDisplay("Running");
+  interactiveTimerInterval = window.setInterval(() => {
+    interactiveTimerRemaining = Math.max(0, interactiveTimerRemaining - 1);
+    if (interactiveTimerRemaining === 0) {
+      stopInteractiveTimer("Time expired");
+      return;
+    }
+    updateInteractiveTimerDisplay("Running");
+  }, 1000);
+}
+
+function addInteractiveTimerMinutes(minutes) {
+  interactiveTimerRemaining = (interactiveTimerRemaining || interactiveDurationSeconds()) + minutes * 60;
+  updateInteractiveTimerDisplay(interactiveTimerRunning ? "Running" : "Time added");
+}
+
+function currentInteractivePhase() {
+  const scenario = currentInteractiveScenario();
+  if (!interactiveState || interactiveState.step >= scenario.phases.length) {
+    return null;
+  }
+  return scenario.phases[interactiveState.step];
+}
+
+function facilitatorNotesForCurrentPhase() {
+  const setup = currentExerciseSetup();
+  const phase = currentInteractivePhase();
+
+  if (!phase) {
+    return [
+      `Exercise profile: ${setup.durationLabel}, ${setup.difficultyLabel.toLowerCase()}, ${setup.audienceLabel}.`,
+      "Use the reveal to assign owners for weak meters before closing the meeting.",
+      "Capture open facts, assumptions, decisions, and questions while they are still fresh."
+    ];
+  }
+
+  const lastDecision = interactiveState?.path?.at(-1);
+  const notes = [
+    `Phase objective: ${phaseObjectives[phase.phase] || "Drive the team toward one concrete decision."}`,
+    `Decision prompt: Which option would the team actually choose, who approves it, and what evidence supports it?`,
+    `Watch for: unresolved owner, missing evidence source, unclear executive briefing path, or business continuity assumption.`
+  ];
+
+  if (lastDecision) {
+    notes.push(`Previous outcome: ${lastDecision.outcome}`);
+  }
+
+  return notes;
+}
+
+function renderInteractiveFacilitatorNotes() {
+  if (!output.interactiveFacilitatorNotes || !output.interactiveFacilitatorNotesList || !output.toggleFacilitatorNotesBtn) {
+    return;
+  }
+  output.interactiveFacilitatorNotes.hidden = !interactiveFacilitatorNotesVisible;
+  output.toggleFacilitatorNotesBtn.textContent = interactiveFacilitatorNotesVisible ? "Hide facilitator notes" : "Show facilitator notes";
+  output.toggleFacilitatorNotesBtn.setAttribute("aria-expanded", String(interactiveFacilitatorNotesVisible));
+  output.interactiveFacilitatorNotesList.replaceChildren(
+    ...facilitatorNotesForCurrentPhase().map((note) => {
+      const item = document.createElement("li");
+      item.textContent = note;
+      return item;
+    })
+  );
+}
+
+function toggleInteractiveFacilitatorNotes() {
+  interactiveFacilitatorNotesVisible = !interactiveFacilitatorNotesVisible;
+  renderInteractiveFacilitatorNotes();
+}
+
+function currentInjectCopyText() {
+  const scenario = currentInteractiveScenario();
+  const phase = currentInteractivePhase();
+  const setup = currentExerciseSetup();
+
+  if (!phase) {
+    return interactiveDebriefReady()
+      ? interactiveDebriefText()
+      : `${scenario.title}\n\n${interactiveIntroText(setup)}\n\n${interactiveScenarioContext(setup)}`;
+  }
+
+  return [
+    `# ${scenario.title} - ${phase.phase}`,
+    "",
+    `Inject: ${phase.title}`,
+    phase.inject,
+    "",
+    "Facilitator notes:",
+    ...facilitatorNotesForCurrentPhase().map((note) => `- ${note}`),
+    "",
+    "Decision options:",
+    ...phase.choices.map((choice, index) => `${index + 1}. ${choice.label}`)
+  ].join("\n");
+}
+
+function copyCurrentInject() {
+  copyText(currentInjectCopyText(), document.querySelector("#copyInjectBtn"), "Copy current inject");
+}
+
+function facilitatorAgendaItems(scenario, durationMinutes) {
+  const setupMinutes = Math.min(10, Math.max(5, Math.round(durationMinutes * 0.15)));
+  const closeoutMinutes = Math.min(12, Math.max(8, Math.round(durationMinutes * 0.18)));
+  const exerciseMinutes = Math.max(15, durationMinutes - setupMinutes - closeoutMinutes);
+  const phaseMinutes = Math.max(5, Math.floor(exerciseMinutes / scenario.phases.length));
+  const items = [
+    `0-${setupMinutes} min: Welcome, opening script, ground rules, role confirmation, and decision-capture expectations.`
+  ];
+  let cursor = setupMinutes;
+
+  scenario.phases.forEach((phase, index) => {
+    const end = index === scenario.phases.length - 1 ? durationMinutes - closeoutMinutes : cursor + phaseMinutes;
+    items.push(`${cursor}-${end} min: ${phase.phase} - ${phase.title}. Drive one decision, one owner, and one evidence source.`);
+    cursor = end;
+  });
+
+  items.push(`${durationMinutes - closeoutMinutes}-${durationMinutes} min: After-action capture, owner assignments, next meeting date, and executive readout needs.`);
+  return items;
+}
+
+function facilitatorPreReadItems(setup, scenario, entry) {
+  const items = [
+    "Bring the current incident response plan, escalation roster, communications approval path, and any relevant system owner contacts.",
+    "Stage the FADQ worksheet, action tracker, facilitator timer, selected scenario link, and after-action export template.",
+    "Confirm who can approve containment, user communications, executive updates, vendor outreach, and recovery priorities.",
+    "Ask participants to answer from current practice, not ideal future process.",
+    "Do not distribute facilitator notes or expected outcomes to participants before the exercise."
+  ];
+  const incidentKey = setup.incidentKey;
+  const scenarioKey = entry.key;
+
+  if (incidentKey === "phishing" || scenarioKey.includes("phishing")) {
+    items.push("Have Microsoft 365 sign-in, mailbox rule, message trace, session revocation, and suspicious consent evidence sources in mind.");
+  }
+  if (scenarioKey.includes("bec")) {
+    items.push("Confirm the out-of-band verification path for payment, vendor banking, executive, or finance-related requests.");
+  }
+  if (incidentKey === "ransomware" || scenarioKey.includes("ransomware")) {
+    items.push("Know who can approve isolation, backup validation, restore priority, administrator recovery, and business continuity workarounds.");
+  }
+  if (incidentKey === "insider" || scenarioKey.includes("insider")) {
+    items.push("Prepare HR, legal, data owner, access review, and evidence preservation decision paths.");
+  }
+  if (incidentKey === "ddos" || scenarioKey.includes("outage")) {
+    items.push("Confirm service status, provider escalation, public status page, customer workaround, and monitoring contact paths.");
+  }
+  if (incidentKey === "supplyChain" || scenarioKey.includes("supplyChain")) {
+    items.push("Have vendor support, contract owner, integration owner, update/package evidence, and customer notification paths ready.");
+  }
+
+  return items;
+}
+
+function facilitatorParticipantRoles(setup) {
+  const profileRole = setup.profile?.roleAdd ? [setup.profile.roleAdd] : [];
+  return [...(roleSets[controls.audience.value] || roleSets.mixed), ...profileRole];
+}
+
+function facilitatorGroupLine() {
+  if (controls.groupMode.value === "whole") {
+    return "Whole-room discussion";
+  }
+  return [controls.groupOneInput.value, controls.groupTwoInput.value, controls.groupThreeInput.value]
+    .map((name) => name.trim())
+    .filter(Boolean)
+    .join(", ");
+}
+
+function facilitatorDurationPhrase(setup) {
+  return setup.durationLabel.replace(" minutes", "-minute").replace(" minute", "-minute");
+}
+
+function facilitatorPreBriefText() {
+  const setup = currentExerciseSetup();
+  const scenario = currentInteractiveScenario();
+  const entry = selectedInteractiveScenarioEntry();
+  const durationMinutes = Number(controls.duration.value);
+  const seed = controls.seedInput.value || "not set";
+
+  return [
+    `# ${scenario.title} - Facilitator Pre-Brief`,
+    "",
+    "## Exercise Setup",
+    `- Incident family: ${setup.scenario.label}`,
+    `- Interactive scenario: ${entry.label}`,
+    `- Organization profile: ${setup.profile.label}`,
+    `- Audience: ${setup.audienceLabel}`,
+    `- Focus: ${setup.focus.label}`,
+    `- Duration: ${setup.durationLabel}`,
+    `- Difficulty: ${setup.difficultyLabel}`,
+    `- Group mode: ${facilitatorGroupLine()}`,
+    `- Seed: ${seed}`,
+    "",
+    "## Opening Script",
+    `Welcome to a ${facilitatorDurationPhrase(setup).toLowerCase()} no-fault tabletop exercise for ${setup.scenario.label.toLowerCase()}. Today we are using ${scenario.title}. The goal is to practice how we make decisions with incomplete information, how we brief leadership, and how we assign owners for follow-up work.`,
+    "Please answer from current practice. If a policy, tool, owner, or contact path is unclear, capture that as an action item instead of trying to solve it during the exercise. This is a discussion exercise, not legal, regulatory, or technical advice.",
+    "",
+    "## Facilitator Agenda",
+    listText(facilitatorAgendaItems(scenario, durationMinutes)),
+    "",
+    "## Participant Roles",
+    listText(facilitatorParticipantRoles(setup)),
+    "",
+    "## Pre-Read Checklist",
+    listText(facilitatorPreReadItems(setup, scenario, entry)),
+    "",
+    "## Materials to Stage",
+    listText([
+      "Selected interactive scenario and facilitator console.",
+      "Current inject copy button for presenter-friendly prompts.",
+      "FADQ worksheet for facts, assumptions, decisions, and questions.",
+      "Action tracker with owner, due date, and status fields.",
+      "After-action report export for decisions, tradeoffs, owners, and next-meeting follow-ups."
+    ]),
+    "",
+    "## Ground Rules",
+    listText(groundRules)
+  ].join("\n");
+}
+
+function copyFacilitatorPreBrief() {
+  copyText(facilitatorPreBriefText(), document.querySelector("#copyPreBriefBtn"), "Copy facilitator pre-brief");
+}
+
+function renderFacilitatorRunbook() {
+  const setup = currentExerciseSetup();
+  const scenario = currentInteractiveScenario();
+  const entry = selectedInteractiveScenarioEntry();
+  const totalSteps = scenario.phases.length;
+  const currentStep = interactiveState ? Math.min(interactiveState.step + 1, totalSteps) : 0;
+  const isComplete = Boolean(interactiveState && interactiveState.step >= totalSteps);
+  const consoleState = isComplete
+    ? "complete"
+    : interactiveState
+      ? `running step ${currentStep} of ${totalSteps}`
+      : "ready";
+
+  output.runbookStatus.textContent = isComplete
+    ? "Exercise complete. Export the AAR while decisions are fresh."
+    : interactiveState
+      ? "Live session in progress. Keep decisions, evidence, and owners visible."
+      : "Ready to prepare.";
+  output.runbookScenario.textContent = `${entry.label}: ${scenario.title} for a ${facilitatorDurationPhrase(setup).toLowerCase()} ${setup.difficultyLabel.toLowerCase()} session.`;
+  output.runbookPreBrief.textContent = `Copy the facilitator pre-brief, confirm roles for ${setup.audienceLabel.toLowerCase()}, and stage the FADQ worksheet before starting.`;
+  output.runbookConsole.textContent = `Console ${consoleState}: use the timer, copy current inject, and reveal facilitator notes as the group makes choices.`;
+  output.runbookAar.textContent = isComplete
+    ? "AAR export is unlocked. Copy the after-action report, assign owners, and schedule the next review."
+    : "AAR export unlocks after the final choice. Capture decision owners during each inject.";
+}
+
+function startInteractiveExercise() {
+  setWorkspaceMode("interactive");
+  output.copyInteractiveDebriefBtn.disabled = true;
+  resetInteractiveTimer("Ready");
+  interactiveState = {
+    scenarioKey: selectedInteractiveScenarioKey(),
+    incidentKey: controls.incidentType.value,
+    step: 0,
+    meters: cloneInteractiveMeters(),
+    path: []
+  };
+  output.interactiveDebrief.hidden = true;
+  renderInteractiveExercise();
+}
+
+function resetInteractiveExercise() {
+  interactiveState = null;
+  output.interactiveDebrief.hidden = true;
+  renderInteractiveIntro();
+}
+
+function renderInteractiveMeters(meters) {
+  output.interactiveMeters.replaceChildren(
+    ...Object.entries(meters).map(([key, meter]) => {
+      const card = document.createElement("article");
+      const label = document.createElement("strong");
+      const track = document.createElement("div");
+      const fill = document.createElement("span");
+      const value = document.createElement("em");
+      card.className = "meter-card";
+      track.className = "meter-track";
+      fill.style.width = `${clampMeter(meter.value)}%`;
+      value.textContent = `${clampMeter(meter.value)}`;
+      label.textContent = meter.label;
+      track.append(fill);
+      card.append(label, track, value);
+      card.dataset.meter = key;
+      return card;
+    })
+  );
+}
+
+function renderInteractiveIntro() {
+  syncInteractiveScenarioPicker();
+  const setup = currentExerciseSetup();
+  output.copyInteractiveDebriefBtn.disabled = true;
+  renderInteractiveMeters(currentInteractiveScenario().meters);
+  output.interactivePhase.textContent = "Ready";
+  output.interactiveTitle.textContent = currentInteractiveScenario().title;
+  output.interactiveInjectTitle.textContent = currentInteractiveScenario().title;
+  output.interactiveInjectText.textContent = interactiveIntroText(setup);
+  output.interactiveContext.textContent = interactiveScenarioContext(setup);
+  output.interactiveChoices.replaceChildren();
+  if (!interactiveTimerRunning) {
+    interactiveTimerRemaining = interactiveDurationSeconds();
+  }
+  updateInteractiveTimerDisplay();
+  renderFacilitatorRunbook();
+  renderInteractiveFacilitatorNotes();
+}
+
+function renderInteractiveExercise() {
+  if (!interactiveState) {
+    renderInteractiveIntro();
+    return;
+  }
+  if (interactiveState.scenarioKey !== selectedInteractiveScenarioKey() || interactiveState.incidentKey !== controls.incidentType.value) {
+    resetInteractiveExercise();
+    return;
+  }
+  const scenario = currentInteractiveScenario();
+  const phase = scenario.phases[interactiveState.step];
+  output.interactiveTitle.textContent = currentInteractiveScenario().title;
+  renderInteractiveMeters(interactiveState.meters);
+  output.interactivePhase.textContent = `${phase.phase} / step ${interactiveState.step + 1} of ${scenario.phases.length}`;
+  output.interactiveInjectTitle.textContent = phase.title;
+  output.interactiveInjectText.textContent = phase.inject;
+  output.interactiveContext.textContent = interactiveScenarioContext();
+  output.interactiveChoices.replaceChildren(
+    ...phase.choices.map((choice, index) => makeInteractiveChoice(choice, index))
+  );
+  updateInteractiveTimerDisplay();
+  renderFacilitatorRunbook();
+  renderInteractiveFacilitatorNotes();
+}
+
+function makeInteractiveChoice(choice, index) {
+  const button = document.createElement("button");
+  const label = document.createElement("strong");
+  const hint = document.createElement("span");
+  button.className = "choice-card";
+  button.type = "button";
+  label.textContent = `Option ${index + 1}`;
+  hint.textContent = choice.label;
+  button.append(label, hint);
+  button.addEventListener("click", () => chooseInteractiveOption(choice));
+  return button;
+}
+
+function chooseInteractiveOption(choice) {
+  Object.entries(choice.impact).forEach(([key, delta]) => {
+    interactiveState.meters[key].value = clampMeter(interactiveState.meters[key].value + delta);
+  });
+  interactiveState.path.push({
+    phase: currentInteractiveScenario().phases[interactiveState.step].phase,
+    title: currentInteractiveScenario().phases[interactiveState.step].title,
+    choice: choice.label,
+    outcome: choice.outcome,
+    lesson: choice.lesson,
+    impact: choice.impact
+  });
+  interactiveState.step += 1;
+  if (interactiveState.step >= currentInteractiveScenario().phases.length) {
+    renderInteractiveDebrief();
+  } else {
+    renderInteractiveExercise();
+  }
+}
+
+function renderInteractiveDebrief() {
+  const scenario = currentInteractiveScenario();
+  renderInteractiveMeters(interactiveState.meters);
+  output.interactivePhase.textContent = "Complete";
+  output.interactiveInjectTitle.textContent = "Exercise complete";
+  output.interactiveInjectText.textContent = "Review the decision path, tradeoffs, and follow-up owners before closing the meeting.";
+  output.interactiveContext.textContent = "Use this reveal as a short after-action review: what worked, what got traded off, and what needs an owner today.";
+  output.interactiveChoices.replaceChildren();
+  output.interactiveDebrief.hidden = false;
+  output.copyInteractiveDebriefBtn.disabled = false;
+  stopInteractiveTimer("Exercise complete");
+  renderFacilitatorRunbook();
+  renderInteractiveFacilitatorNotes();
+  output.interactiveDebriefTitle.textContent = "After-action reveal";
+
+  const summary = document.createElement("p");
+  summary.className = "debrief-summary";
+  summary.textContent = buildInteractiveDebriefSummary(scenario);
+
+  const scoreGrid = makeInteractiveScoreGrid();
+  const pathList = makeInteractivePathList();
+  const tradeoffs = makeInteractiveTradeoffList();
+  const actions = makeInteractiveActionList();
+  const nextMeeting = makeInteractiveNextMeetingList();
+
+  output.interactiveDebriefBody.replaceChildren(
+    summary,
+    makeDebriefSection("Readiness snapshot", scoreGrid),
+    makeDebriefSection("Decision path", pathList),
+    makeDebriefSection("Tradeoffs to discuss", tradeoffs),
+    makeDebriefSection("Follow-up owners", actions),
+    makeDebriefSection("Next meeting follow-ups", nextMeeting)
+  );
+}
+
+function buildInteractiveDebriefSummary(scenario) {
+  const meters = Object.values(interactiveState.meters);
+  const strongest = meters.filter((meter) => meter.value >= 70).map((meter) => meter.label);
+  const weakest = meters.filter((meter) => meter.value < 50).map((meter) => meter.label);
+  const critical = meters.filter((meter) => meter.value <= 40).map((meter) => meter.label);
+
+  if (critical.length) {
+    return `${scenario.title} ended with urgent attention needed on ${critical.join(", ")}. Use the remaining time to assign owners before the team leaves the room.`;
+  }
+
+  if (strongest.length && weakest.length) {
+    return `${scenario.title} produced a mixed result. Strongest areas: ${strongest.join(", ")}. Needs attention: ${weakest.join(", ")}.`;
+  }
+
+  if (strongest.length) {
+    return `${scenario.title} ended with strong performance in ${strongest.join(", ")}. Confirm the evidence and owners that made those decisions work.`;
+  }
+
+  return `${scenario.title} stayed in the middle range. Treat that as a realistic tabletop outcome: useful discussion, but still requiring clearer owners, evidence, and decision thresholds.`;
+}
+
+function makeInteractiveScoreGrid() {
+  const grid = document.createElement("dl");
+  grid.className = "debrief-score-grid";
+
+  Object.entries(interactiveState.meters).forEach(([key, meter]) => {
+    const item = document.createElement("div");
+    const term = document.createElement("dt");
+    const detail = document.createElement("dd");
+    item.dataset.meter = key;
+    term.textContent = meter.label;
+    detail.textContent = `${meter.value} - ${meterInterpretation(meter.value)}`;
+    item.append(term, detail);
+    grid.append(item);
+  });
+
+  return grid;
+}
+
+function makeInteractivePathList() {
+  const list = document.createElement("ol");
+  list.className = "debrief-path";
+
+  interactiveState.path.forEach((entry) => {
+    const item = document.createElement("li");
+    const decision = document.createElement("strong");
+    const outcome = document.createElement("p");
+    const lesson = document.createElement("p");
+    const impact = document.createElement("p");
+    decision.textContent = `${entry.phase}: ${entry.choice}`;
+    outcome.textContent = entry.outcome;
+    lesson.textContent = `Facilitator note: ${entry.lesson}`;
+    impact.textContent = `Meter movement: ${formatMeterImpact(entry.impact)}.`;
+    item.append(decision, outcome, lesson, impact);
+    list.append(item);
+  });
+
+  return list;
+}
+
+function makeInteractiveTradeoffList() {
+  const list = document.createElement("ul");
+  list.className = "debrief-tradeoffs";
+
+  interactiveTradeoffItems().forEach((text) => {
+    const item = document.createElement("li");
+    item.textContent = text;
+    list.append(item);
+  });
+
+  return list;
+}
+
+function makeInteractiveActionList() {
+  const list = document.createElement("ul");
+  list.className = "debrief-actions";
+
+  interactiveActionItems().forEach((text) => {
+    const item = document.createElement("li");
+    item.textContent = text;
+    list.append(item);
+  });
+
+  return list;
+}
+
+function interactiveTradeoffItems() {
+  const tradeoffs = interactiveState.path
+    .map((entry) => tradeoffFromEntry(entry))
+    .filter(Boolean);
+
+  return tradeoffs.length ? tradeoffs : [
+    "No single decision created a sharp tradeoff. Ask whether that reflects real confidence, easy choices, or a scenario that needs more pressure."
+  ];
+}
+
+function interactiveActionItems() {
+  const weakMeters = Object.entries(interactiveState.meters)
+    .filter(([, meter]) => meter.value < 58)
+    .sort(([, first], [, second]) => first.value - second.value);
+  const actionKeys = weakMeters.length ? weakMeters.map(([key]) => key) : ["coordination", "evidence"];
+
+  return uniqueItems(actionKeys.map(actionForMeter)).slice(0, 5);
+}
+function makeInteractiveNextMeetingList() {
+  const list = document.createElement("ul");
+  list.className = "debrief-actions";
+
+  interactiveNextMeetingItems().forEach((text) => {
+    const item = document.createElement("li");
+    item.textContent = text;
+    list.append(item);
+  });
+
+  return list;
+}
+
+function interactiveNextMeetingItems() {
+  const weakMeters = Object.values(interactiveState.meters)
+    .filter((meter) => meter.value < 60)
+    .sort((first, second) => first.value - second.value)
+    .map((meter) => `${meter.label} (${meter.value})`);
+  const selectedScenario = selectedInteractiveScenarioEntry().label;
+  const weakestText = weakMeters.length ? weakMeters.slice(0, 3).join(", ") : "no meter below 60";
+
+  return [
+    `Schedule a 20-minute closeout within five business days to review ${weakestText}.`,
+    `Update the exercise record with the selected scenario (${selectedScenario}), seed ${controls.seedInput.value}, timer status, and decision path.`,
+    "Confirm one owner, due date, and evidence artifact for each follow-up action before the next tabletop.",
+    "Re-run this drill or an adjacent focused drill after the highest-risk owner actions are complete."
+  ];
+}
+
+function interactiveDecisionEvidenceItems() {
+  return interactiveState.path.map((entry, index) => ({
+    heading: `${index + 1}. ${entry.phase} - ${entry.title}`,
+    decision: entry.choice,
+    outcome: entry.outcome,
+    evidence: evidencePromptForPhase(entry.phase),
+    meterMovement: formatMeterImpact(entry.impact)
+  }));
+}
+
+function evidencePromptForPhase(phase) {
+  const prompts = {
+    Detect: "Preserve the initial report, alert source, timestamps, affected user or system, and original message or log artifact.",
+    Triage: "Record facts, assumptions, affected scope, decision authority, and the evidence that changed the team from monitoring to response.",
+    Contain: "Record containment approval, systems or accounts touched, rollback criteria, business exception, and evidence preservation decision.",
+    Communicate: "Save approved internal or external language, audience, sender, approval path, and next update time.",
+    Recover: "Record restoration criteria, monitoring owner, control improvement, due date, and evidence needed for program records."
+  };
+  return prompts[phase] || "Record the decision owner, supporting evidence, unresolved assumptions, and next review time.";
+}
+
+function interactiveCloseoutQuestions() {
+  return [
+    "What decision would have been hardest to make in a real incident, and who would approve it?",
+    "Which evidence source mattered most, and can the team retrieve it quickly today?",
+    "Which communication would leadership need first if this happened tomorrow?",
+    "What owner action must be finished before the next exercise or audit review?"
+  ];
+}
+
+function reportLineItems(items) {
+  return items.length ? items.map((item) => `- ${item}`) : ["- None captured."];
+}
+
+function makeDebriefSection(title, content) {
+  const section = document.createElement("section");
+  const heading = document.createElement("h5");
+  section.className = "debrief-section";
+  heading.textContent = title;
+  section.append(heading, content);
+  return section;
+}
+
+function meterInterpretation(value) {
+  if (value >= 75) return "strong control point";
+  if (value >= 60) return "working, but verify assumptions";
+  if (value >= 45) return "fragile and worth discussing";
+  return "needs an owner before closeout";
+}
+
+function formatMeterImpact(impact) {
+  return Object.entries(impact)
+    .filter(([, value]) => value !== 0)
+    .map(([key, value]) => `${interactiveState.meters[key].label} ${value > 0 ? "+" : ""}${value}`)
+    .join(", ") || "no meter change";
+}
+
+function tradeoffFromEntry(entry) {
+  const gains = Object.entries(entry.impact)
+    .filter(([, value]) => value >= 10)
+    .map(([key]) => interactiveState.meters[key].label);
+  const costs = Object.entries(entry.impact)
+    .filter(([, value]) => value <= -8)
+    .map(([key]) => interactiveState.meters[key].label);
+
+  if (!gains.length || !costs.length) return null;
+  return `${entry.phase}: gained ${gains.join(", ")} but paid for it in ${costs.join(", ")}. Ask whether the team would accept that tradeoff in a real incident.`;
+}
+
+function actionForMeter(key) {
+  const actions = {
+    containment: "Technical lead: define the next containment trigger, approval authority, and rollback condition.",
+    evidence: "Scribe or compliance owner: capture the timeline, evidence sources, decision approvals, and unresolved facts.",
+    continuity: "Service owner or operations lead: name the minimum viable work process and recovery priority for the next business cycle.",
+    trust: "Leadership or communications owner: draft the next internal update with known facts, unknowns, and the next update time.",
+    coordination: "Facilitator or incident lead: assign owners for the next decision, next briefing, and next evidence checkpoint."
+  };
+  return actions[key] || "Facilitator: assign one concrete owner and due date before the exercise ends.";
+}
+
+function uniqueItems(items) {
+  return [...new Set(items)];
+}
+
+function interactiveDebriefReady() {
+  return Boolean(
+    interactiveState &&
+    interactiveState.path.length &&
+    interactiveState.step >= currentInteractiveScenario().phases.length
+  );
+}
+
+function interactiveDebriefText() {
+  if (!interactiveDebriefReady()) {
+    return "No completed interactive after-action reveal is available yet.";
+  }
+
+  const scenario = currentInteractiveScenario();
+  const setup = currentExerciseSetup();
+  const generatedAt = new Date().toLocaleString();
+  const scenarioEntry = selectedInteractiveScenarioEntry();
+  const timerStatus = output.interactiveTimerStatus?.textContent || "not started";
+  const timerRemaining = formatTimer(interactiveTimerRemaining || 0);
+  const scoreLines = Object.values(interactiveState.meters)
+    .map((meter) => `- ${meter.label}: ${meter.value} - ${meterInterpretation(meter.value)}`);
+  const decisionLines = interactiveDecisionEvidenceItems().flatMap((entry) => [
+    entry.heading,
+    `   Decision: ${entry.decision}`,
+    `   Outcome: ${entry.outcome}`,
+    `   Evidence or record to preserve: ${entry.evidence}`,
+    `   Meter movement: ${entry.meterMovement}.`
+  ]);
+  const pathLines = interactiveState.path.flatMap((entry, index) => [
+    `${index + 1}. ${entry.phase}: ${entry.choice}`,
+    `   Outcome: ${entry.outcome}`,
+    `   Facilitator note: ${entry.lesson}`,
+    `   Meter movement: ${formatMeterImpact(entry.impact)}.`
+  ]);
+  const tradeoffLines = reportLineItems(interactiveTradeoffItems());
+  const actionLines = reportLineItems(interactiveActionItems());
+  const nextMeetingLines = reportLineItems(interactiveNextMeetingItems());
+  const closeoutLines = reportLineItems(interactiveCloseoutQuestions());
+
+  return [
+    `# ${scenario.title} - Facilitator After-Action Report`,
+    "",
+    "## Exercise Snapshot",
+    `Generated: ${generatedAt}`,
+    `Incident type: ${setup.scenario.label}`,
+    `Interactive scenario: ${scenarioEntry.label}`,
+    `Organization profile: ${setup.profile.label}`,
+    `Audience: ${setup.audienceLabel}`,
+    `Focus: ${setup.focus.label}`,
+    `Duration: ${setup.durationLabel}`,
+    `Difficulty: ${setup.difficultyLabel}`,
+    `Seed: ${controls.seedInput.value}`,
+    `Timer remaining: ${timerRemaining} (${timerStatus})`,
+    "",
+    "## Facilitator Summary",
+    buildInteractiveDebriefSummary(scenario),
+    "",
+    "## Readiness Snapshot",
+    ...scoreLines,
+    "",
+    "## Key Decisions and Evidence",
+    ...decisionLines,
+    "",
+    "## Decision Path Detail",
+    ...pathLines,
+    "",
+    "## Tradeoffs to Discuss",
+    ...tradeoffLines,
+    "",
+    "## Owner Action Register",
+    ...actionLines,
+    "",
+    "## Next Meeting Follow-Ups",
+    ...nextMeetingLines,
+    "",
+    "## Facilitator Closeout Questions",
+    ...closeoutLines
+  ].join("\n");
+}
 function renderList(element, items) {
   element.replaceChildren(
     ...items.map((item) => {
@@ -1203,7 +2904,7 @@ function buildExerciseWorksheet(facts, assumptions, decisions, guidance) {
     guidance.evidencePrompts[0],
     guidance.evidencePrompts[1],
     "What information is needed before the next major decision?",
-    "Who owns the next update to leadership, business owners, or support teams?"
+    "Who owns the next update to leadership, service leads, or support teams?"
   ];
 
   return [0, 1, 2, 3].map((index) => ({
@@ -1338,6 +3039,9 @@ function makeSlide(eyebrow, title, body = [], items = []) {
   const label = document.createElement("p");
   const heading = document.createElement("h2");
   section.className = "slide";
+  if (items.length >= 6 || body.join(" ").length > 360) {
+    section.classList.add("slide-dense");
+  }
   label.className = "slide-kicker";
   label.textContent = eyebrow;
   heading.textContent = title;
@@ -1411,16 +3115,16 @@ function buildSlideData(timeline, decisions) {
     },
     {
       eyebrow: "Remote / hybrid facilitation",
-      title: "Group Check-In",
-      body: ["Confirm each group is ready before revealing the scenario."],
+      title: groups.length === 1 ? "Participant Check-In" : "Group Check-In",
+      body: [groups.length === 1 ? "Confirm the room is ready before revealing the scenario." : "Confirm each group is ready before revealing the scenario."],
       items: [
         ...groups.map((group) => `${group}: spokesperson, backup, and local notes owner confirmed.`),
         "Facilitator: confirm recording, chat use, and shared notes expectations."
       ],
       participantItems: groups.map((group) => `${group}: spokesperson, backup, and local notes owner confirmed.`),
       participantSafe: true,
-      notes: facilitatorNotes("Group Check-In", [
-        "Do not begin until every group has a spokesperson.",
+      notes: facilitatorNotes(groups.length === 1 ? "Participant Check-In" : "Group Check-In", [
+        groups.length === 1 ? "Do not begin until the spokesperson and notes owner are clear." : "Do not begin until every group has a spokesperson.",
         "Confirm who is taking shared notes and where action items will land.",
         "Set expectations for who may speak during time-boxed injects."
       ])
@@ -1485,7 +3189,7 @@ function buildSlideData(timeline, decisions) {
       participantSafe: true,
       notes: facilitatorNotes(`${item.phase} Inject`, [
         `Phase objective: ${phaseObjectives[item.phase]}`,
-        "Ask each group for facts first, then assumptions, then decisions.",
+        groups.length === 1 ? "Ask for facts first, then assumptions, then decisions." : groups.length === 1 ? "Ask for facts first, then assumptions, then decisions." : "Ask each group for facts first, then assumptions, then decisions.",
         "Capture unresolved questions before advancing.",
         "Avoid confirming whether participant theories are correct unless the packet says so."
       ])
@@ -1540,17 +3244,17 @@ function buildSlideData(timeline, decisions) {
     },
     {
       eyebrow: "Closeout",
-      title: "Group Lessons Learned",
-      body: ["Capture one practical improvement from each group before ending the exercise."],
+      title: groups.length === 1 ? "Lessons Learned" : "Group Lessons Learned",
+      body: [groups.length === 1 ? "Capture one practical improvement before ending the exercise." : "Capture one practical improvement from each group before ending the exercise."],
       items: [
         ...groups.map((group) => `${group}: strongest response step, biggest gap, assigned follow-up.`),
         "Facilitator: confirm owners, due dates, and where the after-action notes will live."
       ],
       participantItems: groups.map((group) => `${group}: strongest response step, biggest gap, assigned follow-up.`),
       participantSafe: true,
-      notes: facilitatorNotes("Group Lessons Learned", [
+      notes: facilitatorNotes(groups.length === 1 ? "Lessons Learned" : "Group Lessons Learned", [
         "Keep closeout concrete and time-boxed.",
-        "Ask for one strength, one gap, and one follow-up from each group.",
+        groups.length === 1 ? "Ask for one strength, one gap, and one follow-up." : "Ask for one strength, one gap, and one follow-up from each group.",
         "End by confirming where after-action notes and owners will live."
       ])
     }
@@ -1595,9 +3299,11 @@ function renderPresentationNotes(slide) {
 }
 
 function updatePresentationAudienceControls() {
-  document.querySelector("#participantDeckBtn").setAttribute("aria-pressed", String(presentationAudience === "participant"));
+  const isParticipant = presentationAudience === "participant";
+  document.querySelector("#participantDeckBtn").setAttribute("aria-pressed", String(isParticipant));
   document.querySelector("#facilitatorDeckBtn").setAttribute("aria-pressed", String(presentationAudience === "facilitator"));
-  document.querySelector("#presentationNotesBtn").disabled = presentationAudience === "participant";
+  document.querySelector("#presentationNotesBtn").disabled = isParticipant;
+  output.presentationStage.classList.toggle("participant-deck-active", isParticipant);
 }
 
 function showPresentationSlide(index) {
@@ -1673,6 +3379,15 @@ function handlePresentationKeydown(event) {
   } else if (event.key === "Escape") {
     event.preventDefault();
     closePresentationMode();
+  } else if (event.key.toLowerCase() === "n") {
+    event.preventDefault();
+    togglePresentationNotes();
+  } else if (event.key.toLowerCase() === "p") {
+    event.preventDefault();
+    setPresentationAudience("participant");
+  } else if (event.key.toLowerCase() === "f") {
+    event.preventDefault();
+    setPresentationAudience("facilitator");
   }
 }
 
@@ -1717,10 +3432,12 @@ function getState() {
     focus: controls.exerciseFocus.value,
     duration: controls.duration.value,
     difficulty: controls.difficulty.value,
-    g1: controls.groupOneInput.value.trim() || "Group 1",
+    gm: controls.groupMode.value,
+    g1: controls.groupOneInput.value.trim() || (controls.groupMode.value === "whole" ? "Whole team" : "Group 1"),
     g2: controls.groupTwoInput.value.trim() || "Group 2",
     g3: controls.groupThreeInput.value.trim() || "Group 3",
-    seed: controls.seedInput.value
+    seed: controls.seedInput.value,
+    rehearsal: selectedInteractiveScenarioKey()
   };
 }
 
@@ -1743,9 +3460,13 @@ function applyStateFromUrl() {
   });
 
   controls.seedInput.value = params.get("seed") || makeSeed();
-  controls.groupOneInput.value = params.get("g1") || "Group 1";
+  const groupMode = params.get("gm");
+  controls.groupMode.value = ["whole", "two", "three"].includes(groupMode) ? groupMode : "whole";
+  controls.groupOneInput.value = params.get("g1") || (controls.groupMode.value === "whole" ? "Whole team" : "Group 1");
   controls.groupTwoInput.value = params.get("g2") || "Group 2";
   controls.groupThreeInput.value = params.get("g3") || "Group 3";
+  updateGroupModeFields();
+  syncInteractiveScenarioPicker(params.get("rehearsal"));
 
   clearPrintMode();
   if (params.get("printView") === "participant") {
@@ -1850,6 +3571,11 @@ function generatePacket() {
   renderActionTracker(buildActionTracker(scenario, focus));
   renderSlideDeck(timeline, selectedDecisions);
   renderBlankWorksheet();
+  if (interactiveState) {
+    renderInteractiveExercise();
+  } else {
+    renderInteractiveIntro();
+  }
   updateUrlState();
   if (!output.presentationStage.hidden) {
     showPresentationSlide(presentationIndex);
@@ -1991,6 +3717,20 @@ function copyScenarioLink() {
   copyText(window.location.href, document.querySelector("#copyLinkBtn"), "Copy scenario link");
 }
 
+function copyInteractiveDebrief() {
+  copyText(interactiveDebriefText(), output.copyInteractiveDebriefBtn, "Copy after-action reveal");
+}
+
+function copyParticipantDeckLink() {
+  const params = new URLSearchParams(getState());
+  params.set("view", "present");
+  params.set("deck", "participant");
+  params.set("slide", "1");
+  params.delete("notes");
+  const url = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+  copyText(url, document.querySelector("#copyParticipantDeckBtn"), "Copy participant deck link");
+}
+
 function copySlideOutline() {
   copyText(slideOutlineText(), document.querySelector("#copySlidesBtn"), "Copy slide outline");
 }
@@ -2062,14 +3802,45 @@ function printMode(mode) {
   window.print();
 }
 
+
+ui.modeButtons.forEach((button) => {
+  button.addEventListener("click", () => setWorkspaceMode(button.dataset.modeTarget));
+});
+
+ui.recommendFormatBtn?.addEventListener("click", recommendFormat);
+ui.formatNeed?.addEventListener("change", recommendFormat);
+
+ui.helpButtons.forEach((button) => {
+  button.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    showFieldHelp(button);
+  });
+});
+
+ui.fieldHelpClose?.addEventListener("click", hideFieldHelp);
+
 document.querySelector("#generateBtn").addEventListener("click", generatePacket);
+document.querySelector("#startInteractiveBtn").addEventListener("click", startInteractiveExercise);
+document.querySelector("#resetInteractiveBtn").addEventListener("click", resetInteractiveExercise);
+document.querySelector("#copyInteractiveDebriefBtn").addEventListener("click", copyInteractiveDebrief);
+document.querySelector("#toggleTimerBtn").addEventListener("click", toggleInteractiveTimer);
+document.querySelector("#addFiveBtn").addEventListener("click", () => addInteractiveTimerMinutes(5));
+document.querySelector("#resetTimerBtn").addEventListener("click", () => resetInteractiveTimer("Ready"));
+document.querySelector("#copyInjectBtn").addEventListener("click", copyCurrentInject);
+document.querySelector("#copyPreBriefBtn").addEventListener("click", copyFacilitatorPreBrief);
+document.querySelector("#toggleFacilitatorNotesBtn").addEventListener("click", toggleInteractiveFacilitatorNotes);
 document.querySelector("#seedBtn").addEventListener("click", () => {
   controls.seedInput.value = makeSeed();
   generatePacket();
+  resetInteractiveTimer("Ready");
+  renderInteractiveFacilitatorNotes();
 });
 document.querySelector("#dailyBtn").addEventListener("click", () => {
   controls.seedInput.value = makeDailySeed();
   generatePacket();
+  resetInteractiveTimer("Ready");
+  renderInteractiveFacilitatorNotes();
   document.querySelector("#packet").scrollIntoView({ behavior: "smooth", block: "start" });
 });
 document.querySelector("#printBtn").addEventListener("click", () => printMode("full"));
@@ -2087,6 +3858,7 @@ document.querySelector("#presentationNotesBtn").addEventListener("click", toggle
 document.querySelector("#copyBtn").addEventListener("click", copyPacket);
 document.querySelector("#copySlidesBtn").addEventListener("click", copySlideOutline);
 document.querySelector("#copyLinkBtn").addEventListener("click", copyScenarioLink);
+document.querySelector("#copyParticipantDeckBtn").addEventListener("click", copyParticipantDeckLink);
 document.querySelector("#downloadBtn").addEventListener("click", downloadPacket);
 document.querySelector("#downloadParticipantBtn").addEventListener("click", downloadParticipantHandout);
 document.querySelector("#downloadFacilitatorBtn").addEventListener("click", downloadFacilitatorGuide);
@@ -2096,11 +3868,62 @@ document.querySelector("#viewPacketBtn").addEventListener("click", () => {
 });
 
 Object.values(controls).forEach((control) => {
-  control.addEventListener("change", generatePacket);
+  control.addEventListener("change", () => {
+    updateGroupModeFields();
+    generatePacket();
+  resetInteractiveTimer("Ready");
+  renderInteractiveFacilitatorNotes();
+  });
 });
 
 window.addEventListener("afterprint", clearPrintMode);
 window.addEventListener("keydown", handlePresentationKeydown);
 
+setWorkspaceMode("packet");
+renderInteractiveIntro();
 applyStateFromUrl();
 generatePacket();
+resetInteractiveTimer("Ready");
+renderInteractiveFacilitatorNotes();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
