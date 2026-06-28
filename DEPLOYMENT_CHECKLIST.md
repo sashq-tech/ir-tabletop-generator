@@ -109,6 +109,18 @@ http://127.0.0.1:4195/?type=phishing&org=smallBusiness&audience=mixed&focus=bala
 - Confirm the prototype is still educational, defensive, browser-only, and does not ask users to enter sensitive incident details.
 - Re-run syntax and browser smoke checks immediately before pushing a public milestone.
 
+## Human Launch And Discovery Checklist
+
+- Google Search Console: add/verify `responserehearsal.com`, submit `https://responserehearsal.com/sitemap.xml`, and inspect/request indexing for the homepage, About, Privacy, Terms, Contact, and Trust pages.
+- Bing Webmaster Tools: add or import the site, submit the sitemap, and confirm crawl/index status after discovery.
+- Cloudflare/domain sanity: confirm apex and `www` return `200 OK`, HTTPS is valid, the apex domain remains canonical, `robots.txt` and `sitemap.xml` are reachable, and DNS/redirect settings match the intended production route.
+- WebsiteLaunches/directories: position the site as a browser-only tabletop exercise generator for defensive readiness practice and facilitator preparation. Do not present it as legal advice, compliance advice, incident-response consulting, or a guaranteed readiness solution.
+- Listing category ideas: cybersecurity training, incident response tabletop exercise, security awareness, business continuity planning, facilitator tools.
+
+Suggested listing copy:
+
+> Response Rehearsal is a browser-only tabletop exercise generator for practicing incident decisions before the real day. It helps facilitators draft defensive scenarios, injects, participant handouts, facilitator notes, worksheets, and after-action prompts without accounts, uploads, or a backend. Generated material is a planning aid that should be reviewed against each organization's own policies and risk tolerance.
+
 ## Future Optional Static Hosting
 
 If this later moves beyond GitHub repository staging to Cloudflare Pages or another static host:

@@ -92,6 +92,18 @@ Recommended manual smoke path:
 
 See `DEPLOYMENT_CHECKLIST.md` for the fuller staging checklist.
 
+## Human Launch Checklist
+
+- Google Search Console: add `https://responserehearsal.com/` as a URL-prefix property, or use a domain property if DNS verification is available. Submit `https://responserehearsal.com/sitemap.xml`, then inspect/request indexing for the homepage and public trust pages.
+- Bing Webmaster Tools: add or import the site, submit `https://responserehearsal.com/sitemap.xml`, and confirm crawl/index status after the sitemap is fetched.
+- Cloudflare/domain sanity: confirm apex and `www` both return `200 OK`, HTTPS is valid, the apex remains canonical, `robots.txt` and `sitemap.xml` are reachable, and no unexpected redirects or challenge pages appear.
+- Directory positioning: describe the site as a browser-only incident response tabletop exercise generator for defensive practice and facilitator preparation. Avoid claims that it provides legal advice, compliance advice, incident-response consulting, or guaranteed readiness improvement.
+- Suggested listing categories: cybersecurity training, incident response tabletop exercises, business continuity planning, security awareness tools, or facilitator tools.
+
+Suggested public listing copy:
+
+> Response Rehearsal is a browser-only tabletop exercise generator that helps facilitators practice incident decisions before the real day. Build defensive scenarios, injects, participant handouts, facilitator notes, worksheets, and after-action prompts without accounts, uploads, or a backend. Generated material is a planning aid that should be reviewed by the facilitator; it is not legal, compliance, or incident-response advice.
+
 ## Trust And Use Boundaries
 
 This prototype creates educational tabletop exercise materials. It does not provide legal, compliance, regulatory, or incident-response advice.
