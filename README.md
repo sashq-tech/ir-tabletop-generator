@@ -4,7 +4,9 @@ Response Rehearsal is a static, browser-only prototype for building incident res
 
 Tagline: Practice incident decisions before the real day.
 
-Current staging endpoint: this GitHub repository. The purchased future domain is `responserehearsal.com`, but it is not connected or deployed yet. There is no Cloudflare deployment configured yet.
+Live site: `https://responserehearsal.com/`
+
+The canonical public domain is `https://responserehearsal.com/`. The `www` host is also reachable, but canonical metadata points to the apex domain.
 
 ## What It Does
 
@@ -52,6 +54,8 @@ The static app runs from these top-level files:
 - `terms.html`
 - `contact.html`
 - `trust-and-privacy.html`
+- `robots.txt`
+- `sitemap.xml`
 
 Supporting repository docs:
 
@@ -102,6 +106,6 @@ Public trust pages are included for soft-launch readiness: `about.html`, `privac
 
 - Static/browser-only prototype.
 - GitHub repository is the current staging/publication endpoint.
-- Future public domain: `responserehearsal.com` purchased, not connected or deployed.
-- No Cloudflare deployment is configured.
+- Live public domain: `https://responserehearsal.com/`.
+- Canonical URLs, `robots.txt`, and `sitemap.xml` point to the apex domain.
 - Source reference materials are research inputs and should not be copied into public site content.

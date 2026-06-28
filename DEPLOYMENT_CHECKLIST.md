@@ -1,6 +1,6 @@
 # Response Rehearsal Deployment Checklist
 
-This project is still a local prototype. Do not deploy without Sean approval.
+This project is a live static site. Do not change production hosting, DNS, or domain settings without Sean approval.
 
 ## Current Prototype State
 
@@ -8,9 +8,9 @@ This project is still a local prototype. Do not deploy without Sean approval.
 - Core public experience is implemented in plain HTML, CSS, and JavaScript.
 - Current local path: `C:\Users\rdrnr\Projects\IR Tabletop Generator`.
 - Current GitHub remote: `https://github.com/sashq-tech/ir-tabletop-generator.git`.
-- Current publication/staging endpoint: GitHub repository.
-- Purchased future domain: `responserehearsal.com`.
-- Domain and Cloudflare Pages setup are not part of the current staging path; do not claim `responserehearsal.com` is live until it is connected and verified.
+- Current public endpoint: `https://responserehearsal.com/`.
+- Canonical domain: `https://responserehearsal.com/`.
+- The `www` host is also reachable, but canonical metadata should point to the apex domain.
 
 ## Public Files To Ship
 
@@ -24,6 +24,8 @@ Only these top-level files are intended for a static public site today:
 - `terms.html`
 - `contact.html`
 - `trust-and-privacy.html`
+- `robots.txt`
+- `sitemap.xml`
 - `README.md`
 - `DEPLOYMENT_CHECKLIST.md`
 
@@ -97,7 +99,7 @@ http://127.0.0.1:4195/?type=phishing&org=smallBusiness&audience=mixed&focus=bala
 - Test participant and facilitator presentation modes.
 - Test print views for full packet, participant handout, facilitator guide, blank worksheet, and slide deck.
 - Confirm no analytics, ads, affiliate links, external scripts, uploads, accounts, or backend calls were added unintentionally.
-- Confirm any references to `responserehearsal.com` clearly state that the domain is planned/future until the domain is connected and verified.
+- Confirm canonical URLs, Open Graph URLs, `robots.txt`, and `sitemap.xml` point to `https://responserehearsal.com/`.
 
 ## Before GitHub Staging
 
@@ -115,18 +117,15 @@ If this later moves beyond GitHub repository staging to Cloudflare Pages or anot
 - Build command: none.
 - Output directory: repository root.
 - Required runtime files: `index.html`, `styles.css`, `app.js`, `about.html`, `privacy.html`, `terms.html`, `contact.html`, `trust-and-privacy.html`.
-- Review the staging URL before any production or custom-domain mapping.
-- Do not add canonical URLs, sitemap domain URLs, or robots domain assumptions until `responserehearsal.com` has a verified hosting target.
+- Review the live apex and key pages after each production push.
 
 ## Handoff Summary For Staging
 
 - App type: static site, no backend.
 - Build command: none.
 - Public entry point: `index.html`.
-- Required runtime files: `index.html`, `styles.css`, `app.js`, `about.html`, `privacy.html`, `terms.html`, `contact.html`, `trust-and-privacy.html`.
-- Current endpoint: GitHub repository.
-- Future domain: `responserehearsal.com`, purchased but not connected.
-- Future optional endpoint: Cloudflare Pages or equivalent static hosting, only after that path is chosen.
+- Required runtime files: `index.html`, `styles.css`, `app.js`, `about.html`, `privacy.html`, `terms.html`, `contact.html`, `trust-and-privacy.html`, `robots.txt`, `sitemap.xml`.
+- Current endpoint: `https://responserehearsal.com/`.
 
 ## Product Guardrails
 
