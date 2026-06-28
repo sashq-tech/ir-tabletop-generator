@@ -1183,6 +1183,14 @@ body.presentation-active {
 .debrief-panel li p {
   margin: 0.35rem 0 0;
 }
+
+.debrief-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 0.75rem 0 1rem;
+}
+
 .debrief-summary {
   margin: 0 0 1rem;
   color: var(--text);

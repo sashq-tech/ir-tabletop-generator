@@ -1072,6 +1072,7 @@ const output = {
   interactiveDebriefTitle: document.querySelector("#interactiveDebriefTitle"),
   interactiveDebriefBody: document.querySelector("#interactiveDebriefBody"),
   copyInteractiveDebriefBtn: document.querySelector("#copyInteractiveDebriefBtn"),
+  copyAarSummaryBtn: document.querySelector("#copyAarSummaryBtn"),
   interactiveTimer: document.querySelector("#interactiveTimer"),
   interactiveTimerStatus: document.querySelector("#interactiveTimerStatus"),
   interactiveFacilitatorNotes: document.querySelector("#interactiveFacilitatorNotes"),
@@ -2451,6 +2452,7 @@ function renderFacilitatorRunbook() {
 function startInteractiveExercise() {
   setWorkspaceMode("interactive");
   output.copyInteractiveDebriefBtn.disabled = true;
+  output.copyAarSummaryBtn.disabled = true;
   resetInteractiveTimer("Ready");
   interactiveState = {
     scenarioKey: selectedInteractiveScenarioKey(),
@@ -2466,6 +2468,7 @@ function startInteractiveExercise() {
 function resetInteractiveExercise() {
   interactiveState = null;
   output.interactiveDebrief.hidden = true;
+  output.copyAarSummaryBtn.disabled = true;
   renderInteractiveIntro();
 }
 
@@ -2494,6 +2497,7 @@ function renderInteractiveIntro() {
   syncInteractiveScenarioPicker();
   const setup = currentExerciseSetup();
   output.copyInteractiveDebriefBtn.disabled = true;
+  output.copyAarSummaryBtn.disabled = true;
   renderInteractiveMeters(currentInteractiveScenario().meters);
   output.interactivePhase.textContent = "Ready";
   output.interactiveTitle.textContent = currentInteractiveScenario().title;
@@ -2577,6 +2581,7 @@ function renderInteractiveDebrief() {
   output.interactiveChoices.replaceChildren();
   output.interactiveDebrief.hidden = false;
   output.copyInteractiveDebriefBtn.disabled = false;
+  output.copyAarSummaryBtn.disabled = false;
   stopInteractiveTimer("Exercise complete");
   renderFacilitatorRunbook();
   renderInteractiveFacilitatorNotes();
@@ -2897,6 +2902,57 @@ function interactiveDebriefText() {
     "## Facilitator Closeout Questions",
     ...closeoutLines
   ].join("\n");
+}
+
+function interactiveAarSummaryText() {
+  if (!interactiveDebriefReady()) {
+    return "No completed interactive after-action summary is available yet.";
+  }
+
+  const scenario = currentInteractiveScenario();
+  const setup = currentExerciseSetup();
+  const scenarioEntry = selectedInteractiveScenarioEntry();
+  const weakMeters = Object.values(interactiveState.meters)
+    .filter((meter) => meter.value < 70)
+    .map((meter) => `${meter.label}: ${meter.value}`);
+  const decisionLines = interactiveState.path.map(
+    (entry, index) => `${index + 1}. ${entry.phase}: ${entry.choice} -> ${entry.outcome}`
+  );
+  const gapLines = interactiveTradeoffItems().slice(0, 4).map((item) => `- ${item}`);
+  const actionLines = interactiveActionItems().slice(0, 4).map((item) => `- ${item}`);
+  const nextMeetingLines = interactiveNextMeetingItems().slice(0, 3).map((item) => `- ${item}`);
+
+  return [
+    `# AAR Summary - ${scenario.title}`,
+    "",
+    `Scenario: ${scenarioEntry.label}`,
+    `Incident type: ${setup.scenario.label}`,
+    `Audience: ${setup.audienceLabel}`,
+    `Duration: ${setup.durationLabel}`,
+    `Seed: ${controls.seedInput.value}`,
+    "",
+    "## What Happened",
+    buildInteractiveDebriefSummary(scenario),
+    "",
+    "## Decisions Made",
+    ...decisionLines,
+    "",
+    "## Gaps Observed",
+    ...(gapLines.length ? gapLines : ["- No major tradeoff gaps were generated from this path."]),
+    "",
+    "## Follow-Up Actions",
+    ...actionLines,
+    "",
+    "## Next Review",
+    ...nextMeetingLines,
+    "",
+    "## Readiness Watch",
+    weakMeters.length ? `Review these lower-scoring areas: ${weakMeters.join(", ")}.` : "No readiness meter finished below 70."
+  ].join("\n");
+}
+
+function copyInteractiveAarSummary() {
+  copyText(interactiveAarSummaryText(), output.copyAarSummaryBtn, "Copy AAR summary");
 }
 function renderList(element, items) {
   element.replaceChildren(
@@ -3956,6 +4012,7 @@ document.querySelector("#generateBtn").addEventListener("click", generatePacket)
 document.querySelector("#startInteractiveBtn").addEventListener("click", startInteractiveExercise);
 document.querySelector("#resetInteractiveBtn").addEventListener("click", resetInteractiveExercise);
 document.querySelector("#copyInteractiveDebriefBtn").addEventListener("click", copyInteractiveDebrief);
+document.querySelector("#copyAarSummaryBtn").addEventListener("click", copyInteractiveAarSummary);
 document.querySelector("#toggleTimerBtn").addEventListener("click", toggleInteractiveTimer);
 document.querySelector("#addFiveBtn").addEventListener("click", () => addInteractiveTimerMinutes(5));
 document.querySelector("#resetTimerBtn").addEventListener("click", () => resetInteractiveTimer("Ready"));

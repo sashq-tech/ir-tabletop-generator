@@ -76,6 +76,7 @@ Recommended manual smoke path:
 - Copy the facilitator pre-brief.
 - Start and complete an interactive path.
 - Confirm the AAR export unlocks.
+- Click `Copy AAR summary` after completion and confirm it produces the concise decisions/gaps/actions summary.
 - Check a narrow/mobile viewport for no horizontal overflow.
 
 See `DEPLOYMENT_CHECKLIST.md` for the fuller staging checklist.
