@@ -1029,6 +1029,8 @@ const ui = {
   formatNeed: document.querySelector("#formatNeed"),
   recommendFormatBtn: document.querySelector("#recommendFormatBtn"),
   formatAdvice: document.querySelector("#formatAdvice"),
+  demoRunBtn: document.querySelector("#demoRunBtn"),
+  copyDemoBtn: document.querySelector("#copyDemoBtn"),
   helpButtons: document.querySelectorAll(".help-button"),
   fieldHelp: document.querySelector("#fieldHelp"),
   fieldHelpTitle: document.querySelector("#fieldHelpTitle"),
@@ -1954,6 +1956,83 @@ function setWorkspaceMode(mode = "packet") {
 function recommendFormat() {
   const mode = ui.formatNeed?.value || "packet";
   setWorkspaceMode(mode);
+}
+
+function demoRunState() {
+  return {
+    incidentType: "phishing",
+    orgProfile: "smallBusiness",
+    audience: "mixed",
+    exerciseFocus: "balanced",
+    duration: "60",
+    difficulty: "standard",
+    groupMode: "whole",
+    groupOne: "Whole team",
+    seed: "246810",
+    rehearsal: "phishing-bec"
+  };
+}
+
+function loadDemoRun() {
+  const demo = demoRunState();
+  controls.incidentType.value = demo.incidentType;
+  controls.orgProfile.value = demo.orgProfile;
+  controls.audience.value = demo.audience;
+  controls.exerciseFocus.value = demo.exerciseFocus;
+  controls.duration.value = demo.duration;
+  controls.difficulty.value = demo.difficulty;
+  controls.groupMode.value = demo.groupMode;
+  controls.groupOneInput.value = demo.groupOne;
+  controls.groupTwoInput.value = "Group 2";
+  controls.groupThreeInput.value = "Group 3";
+  controls.seedInput.value = demo.seed;
+  updateGroupModeFields();
+  syncInteractiveScenarioPicker(demo.rehearsal);
+  interactiveState = null;
+  output.interactiveDebrief.hidden = true;
+  resetInteractiveTimer("Ready");
+  setWorkspaceMode("interactive");
+  generatePacket();
+  document.querySelector("#interactiveExercise").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function demoFacilitatorSampleText() {
+  const scenario = interactiveScenarios["phishing-bec"];
+  const setup = demoRunState();
+  return [
+    "# Demo Run - Executive Payment Request Drill",
+    "",
+    "Use this sample to evaluate the interactive BEC/runbook/AAR flow without connecting to any external system or entering real organization data.",
+    "",
+    "## Demo Settings",
+    "- Incident family: Credential phishing",
+    "- Organization profile: Small business IT team",
+    "- Audience: Mixed technical and leadership",
+    "- Focus: Balanced readiness",
+    "- Duration: 60 minutes",
+    "- Difficulty: Standard",
+    `- Seed: ${setup.seed}`,
+    "",
+    "## Facilitator Opening",
+    "Today we are practicing how the team handles a realistic executive payment pressure scenario. Work from current process, separate known facts from assumptions, and assign an owner for every follow-up before closing.",
+    "",
+    "## Starter Inject Timeline",
+    ...scenario.phases.map((phase, index) => `${index + 1}. ${phase.phase} - ${phase.title}: ${phase.inject}`),
+    "",
+    "## Expected Evaluation Path",
+    "- Load the BEC demo from the top of the app.",
+    "- Review the facilitator runbook and copy the facilitator pre-brief.",
+    "- Start the interactive exercise.",
+    "- Choose one response option per inject.",
+    "- Confirm the after-action report export unlocks after the final choice.",
+    "",
+    "## Use Boundary",
+    "This sample is for educational tabletop review only. Do not enter real credentials, confidential payment details, personal information, or sensitive system details."
+  ].join("\n");
+}
+
+function copyDemoFacilitatorSample() {
+  copyText(demoFacilitatorSampleText(), ui.copyDemoBtn, "Copy sample brief");
 }
 
 function selectedOptionText(control) {
@@ -3809,6 +3888,8 @@ ui.modeButtons.forEach((button) => {
 
 ui.recommendFormatBtn?.addEventListener("click", recommendFormat);
 ui.formatNeed?.addEventListener("change", recommendFormat);
+ui.demoRunBtn?.addEventListener("click", loadDemoRun);
+ui.copyDemoBtn?.addEventListener("click", copyDemoFacilitatorSample);
 
 ui.helpButtons.forEach((button) => {
   button.addEventListener("click", (event) => {

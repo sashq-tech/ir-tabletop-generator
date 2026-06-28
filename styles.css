@@ -277,6 +277,36 @@ h3 {
   padding-top: 0.2rem;
 }
 
+.demo-run {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid rgba(127, 220, 255, 0.22);
+  border-radius: 8px;
+  background: rgba(127, 220, 255, 0.06);
+}
+
+.demo-run h3 {
+  margin: 0 0 0.35rem;
+  font-size: 1rem;
+}
+
+.demo-run p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.demo-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  justify-content: flex-end;
+}
+
 .compact-field {
   gap: 0.35rem;
 }
@@ -1415,8 +1445,13 @@ li + li {
 
 @media (max-width: 920px) {
   .format-chooser,
-  .format-advisor {
+  .format-advisor,
+  .demo-run {
     grid-template-columns: 1fr;
+  }
+
+  .demo-actions {
+    justify-content: flex-start;
   }
 
   .mode-grid {
