@@ -1,8 +1,10 @@
-# Incident Response Tabletop Exercise Generator
+# Response Rehearsal
 
-IR Tabletop Generator is a static, browser-only prototype for building incident response tabletop exercise materials. It is designed for defensive readiness discussions, facilitator prep, and lightweight exercise delivery without accounts, uploads, databases, or backend services.
+Response Rehearsal is a static, browser-only prototype for building incident response tabletop exercise materials. It is designed for defensive readiness discussions, facilitator prep, and lightweight exercise delivery without accounts, uploads, databases, or backend services.
 
-Current staging endpoint: this GitHub repository. There is no custom domain or Cloudflare deployment configured yet.
+Tagline: Practice incident decisions before the real day.
+
+Current staging endpoint: this GitHub repository. The purchased future domain is `responserehearsal.com`, but it is not connected or deployed yet. There is no Cloudflare deployment configured yet.
 
 ## What It Does
 
@@ -100,5 +102,6 @@ Public trust pages are included for soft-launch readiness: `about.html`, `privac
 
 - Static/browser-only prototype.
 - GitHub repository is the current staging/publication endpoint.
-- No domain or Cloudflare deployment is configured.
+- Future public domain: `responserehearsal.com` purchased, not connected or deployed.
+- No Cloudflare deployment is configured.
 - Source reference materials are research inputs and should not be copied into public site content.

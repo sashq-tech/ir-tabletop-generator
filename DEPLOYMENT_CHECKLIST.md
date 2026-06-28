@@ -1,4 +1,4 @@
-# IR Tabletop Generator Deployment Checklist
+# Response Rehearsal Deployment Checklist
 
 This project is still a local prototype. Do not deploy without Sean approval.
 
@@ -9,7 +9,8 @@ This project is still a local prototype. Do not deploy without Sean approval.
 - Current local path: `C:\Users\rdrnr\Projects\IR Tabletop Generator`.
 - Current GitHub remote: `https://github.com/sashq-tech/ir-tabletop-generator.git`.
 - Current publication/staging endpoint: GitHub repository.
-- Domain and Cloudflare Pages setup are future optional work and are not part of the current staging path.
+- Purchased future domain: `responserehearsal.com`.
+- Domain and Cloudflare Pages setup are not part of the current staging path; do not claim `responserehearsal.com` is live until it is connected and verified.
 
 ## Public Files To Ship
 
@@ -96,6 +97,7 @@ http://127.0.0.1:4195/?type=phishing&org=smallBusiness&audience=mixed&focus=bala
 - Test participant and facilitator presentation modes.
 - Test print views for full packet, participant handout, facilitator guide, blank worksheet, and slide deck.
 - Confirm no analytics, ads, affiliate links, external scripts, uploads, accounts, or backend calls were added unintentionally.
+- Confirm any references to `responserehearsal.com` clearly state that the domain is planned/future until the domain is connected and verified.
 
 ## Before GitHub Staging
 
@@ -114,6 +116,7 @@ If this later moves beyond GitHub repository staging to Cloudflare Pages or anot
 - Output directory: repository root.
 - Required runtime files: `index.html`, `styles.css`, `app.js`, `about.html`, `privacy.html`, `terms.html`, `contact.html`, `trust-and-privacy.html`.
 - Review the staging URL before any production or custom-domain mapping.
+- Do not add canonical URLs, sitemap domain URLs, or robots domain assumptions until `responserehearsal.com` has a verified hosting target.
 
 ## Handoff Summary For Staging
 
@@ -122,6 +125,7 @@ If this later moves beyond GitHub repository staging to Cloudflare Pages or anot
 - Public entry point: `index.html`.
 - Required runtime files: `index.html`, `styles.css`, `app.js`, `about.html`, `privacy.html`, `terms.html`, `contact.html`, `trust-and-privacy.html`.
 - Current endpoint: GitHub repository.
+- Future domain: `responserehearsal.com`, purchased but not connected.
 - Future optional endpoint: Cloudflare Pages or equivalent static hosting, only after that path is chosen.
 
 ## Product Guardrails
