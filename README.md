@@ -10,7 +10,7 @@ Current staging endpoint: this GitHub repository. There is no custom domain or C
 - Supports ransomware, credential phishing, insider data exposure, public service outage, and vendor compromise scenarios.
 - Produces participant handouts, facilitator guides, timed injects, discussion prompts, evidence prompts, worksheets, action trackers, and after-action material.
 - Includes interactive rehearsal mode with scenario picker, facilitator runbook, timer controls, facilitator notes, copyable injects, decision choices, consequence meters, and AAR export.
-- Includes a BEC demo run that loads a ready-to-review executive payment request scenario and copyable facilitator sample.
+- Includes evaluator-friendly samples: a BEC demo run and a copy-ready ransomware tabletop packet.
 - Includes browser presentation mode with facilitator and participant deck views for remote or hybrid sessions.
 - Provides copy, print, download, daily drill, and shareable URL controls.
 
@@ -68,6 +68,7 @@ Recommended manual smoke path:
 - Load the app with no console errors.
 - Click `Load BEC demo`.
 - Confirm the interactive format opens with `Executive Payment Request Drill`.
+- Click `Copy ransomware packet` and confirm the button reports `Copied`.
 - Generate a full packet.
 - Open interactive rehearsal.
 - Confirm the scenario picker updates the exercise.

@@ -1031,6 +1031,7 @@ const ui = {
   formatAdvice: document.querySelector("#formatAdvice"),
   demoRunBtn: document.querySelector("#demoRunBtn"),
   copyDemoBtn: document.querySelector("#copyDemoBtn"),
+  copyRansomwareSampleBtn: document.querySelector("#copyRansomwareSampleBtn"),
   helpButtons: document.querySelectorAll(".help-button"),
   fieldHelp: document.querySelector("#fieldHelp"),
   fieldHelpTitle: document.querySelector("#fieldHelpTitle"),
@@ -2033,6 +2034,55 @@ function demoFacilitatorSampleText() {
 
 function copyDemoFacilitatorSample() {
   copyText(demoFacilitatorSampleText(), ui.copyDemoBtn, "Copy sample brief");
+}
+
+function ransomwareSamplePacketText() {
+  const scenario = scenarios.ransomware;
+  const profile = profiles.smallBusiness;
+  const focus = focusAdds.operations;
+  const guidance = scenarioFacilitatorGuidance.ransomware;
+  const timeline = [
+    ["T+00", "Initial report", "Help desk tickets spike after users report ransom notes and renamed shared files."],
+    ["T+10", "Scope pressure", "A department lead says a deadline-critical folder is unreadable and asks for a recovery estimate."],
+    ["T+20", "Containment choice", "Identity logs show unusual administrative activity, but ownership of the account is unclear."],
+    ["T+35", "Communications pressure", "Leadership asks whether to brief external stakeholders before the technical scope is complete."],
+    ["T+50", "Recovery decision", "Backup staff can restore one system quickly, but the last known-good point is unclear."]
+  ];
+
+  return [
+    "# Sample Exercise Packet - Ransomware Disruption",
+    "",
+    "Use this copy-ready packet to evaluate the generator's non-BEC tabletop content without entering real organizational data.",
+    "",
+    "## Scenario Brief",
+    `${scenario.opening} The exercise is intended for ${profile.summary}. Participants should decide what they would do, who owns each decision, what evidence they need, and when the situation should be escalated.`,
+    "",
+    "## Exercise Objectives",
+    ...scenario.objectives.map((objective) => `- ${objective}`),
+    `- ${focus.objective}`,
+    "",
+    "## Starter Inject Timeline",
+    ...timeline.map(([time, title, inject]) => `- ${time} - ${title}: ${inject}`),
+    "",
+    "## Expected Decisions",
+    ...scenario.decisions.slice(0, 5).map((decision) => `- ${decision}`),
+    "",
+    "## Evidence To Capture",
+    ...scenarioEvidenceNeeds.ransomware.slice(0, 6).map((item) => `- ${item}`),
+    "",
+    "## Watch For Gaps",
+    ...guidance.watchForGaps.slice(0, 5).map((item) => `- ${item}`),
+    "",
+    "## AAR Prompts",
+    ...aarPrompts.map((prompt) => `- ${prompt}`),
+    "",
+    "## Use Boundary",
+    "This sample is for educational tabletop review only. Do not enter real credentials, confidential incident details, personal information, regulated data, or sensitive system details."
+  ].join("\n");
+}
+
+function copyRansomwareSamplePacket() {
+  copyText(ransomwareSamplePacketText(), ui.copyRansomwareSampleBtn, "Copy ransomware packet");
 }
 
 function selectedOptionText(control) {
@@ -3890,6 +3940,7 @@ ui.recommendFormatBtn?.addEventListener("click", recommendFormat);
 ui.formatNeed?.addEventListener("change", recommendFormat);
 ui.demoRunBtn?.addEventListener("click", loadDemoRun);
 ui.copyDemoBtn?.addEventListener("click", copyDemoFacilitatorSample);
+ui.copyRansomwareSampleBtn?.addEventListener("click", copyRansomwareSamplePacket);
 
 ui.helpButtons.forEach((button) => {
   button.addEventListener("click", (event) => {
