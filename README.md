@@ -105,7 +105,8 @@ Public trust pages are included for soft-launch readiness: `about.html`, `privac
 ## Current Status
 
 - Static/browser-only prototype.
-- GitHub repository is the current staging/publication endpoint.
 - Live public domain: `https://responserehearsal.com/`.
+- GitHub repository remains the source/staging repo for changes before they reach the live site.
 - Canonical URLs, `robots.txt`, and `sitemap.xml` point to the apex domain.
+- Post-launch stability sweep on 2026-06-28 passed for apex, `www`, crawl files, trust page metadata, and the main generator/demo flow.
 - Source reference materials are research inputs and should not be copied into public site content.
