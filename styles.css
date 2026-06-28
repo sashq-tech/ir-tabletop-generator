@@ -123,6 +123,34 @@ h3 {
   gap: 0.75rem;
 }
 
+.site-nav,
+.footer-nav {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.site-nav {
+  justify-content: center;
+  margin-left: auto;
+}
+
+.site-nav a,
+.footer-nav a {
+  color: var(--muted);
+  font-size: 0.88rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.site-nav a:hover,
+.site-nav a:focus-visible,
+.footer-nav a:hover,
+.footer-nav a:focus-visible {
+  color: var(--green);
+}
+
 .print-actions {
   display: grid;
   gap: 0.7rem;
@@ -147,8 +175,18 @@ h3 {
 
 .site-footer p {
   margin: 0;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(238, 245, 239, 0.1);
+}
+
+.footer-nav {
   padding-top: 1rem;
   border-top: 1px solid rgba(238, 245, 239, 0.1);
+  margin-bottom: 0.65rem;
+}
+
+.footer-nav + p {
+  border-top: 0;
 }
 
 
@@ -187,6 +225,22 @@ h3 {
   margin: 0;
   color: var(--muted);
   line-height: 1.7;
+}
+
+.content-page ul {
+  margin: 0;
+  padding-left: 1.2rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.content-page li + li {
+  margin-top: 0.35rem;
+}
+
+.content-page a {
+  color: var(--green);
+  font-weight: 800;
 }
 
 .content-action {
@@ -1494,6 +1548,11 @@ li + li {
   .site-header {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .site-nav {
+    justify-content: flex-start;
+    margin-left: 0;
   }
 
   .app-shell {

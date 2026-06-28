@@ -45,6 +45,10 @@ The static app runs from these top-level files:
 - `index.html`
 - `styles.css`
 - `app.js`
+- `about.html`
+- `privacy.html`
+- `terms.html`
+- `contact.html`
 - `trust-and-privacy.html`
 
 Supporting repository docs:
@@ -77,6 +81,7 @@ Recommended manual smoke path:
 - Start and complete an interactive path.
 - Confirm the AAR export unlocks.
 - Click `Copy AAR summary` after completion and confirm it produces the concise decisions/gaps/actions summary.
+- Open About, Privacy, Terms, Contact, and Trust links from the header or footer.
 - Check a narrow/mobile viewport for no horizontal overflow.
 
 See `DEPLOYMENT_CHECKLIST.md` for the fuller staging checklist.
@@ -88,6 +93,8 @@ This prototype creates educational tabletop exercise materials. It does not prov
 Do not enter real credentials, confidential incident details, personal information, sensitive infrastructure details, regulated data, or anything that would create risk if shared. Use generic or fictionalized details when practicing.
 
 The generator should stay focused on defensive tabletop discussion and readiness planning. It should not include operational attack guidance.
+
+Public trust pages are included for soft-launch readiness: `about.html`, `privacy.html`, `terms.html`, `contact.html`, and `trust-and-privacy.html`. Contact copy is intentionally neutral until a permanent launch contact path is selected.
 
 ## Current Status
 

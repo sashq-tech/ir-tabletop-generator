@@ -18,6 +18,10 @@ Only these top-level files are intended for a static public site today:
 - `index.html`
 - `styles.css`
 - `app.js`
+- `about.html`
+- `privacy.html`
+- `terms.html`
+- `contact.html`
 - `trust-and-privacy.html`
 - `README.md`
 - `DEPLOYMENT_CHECKLIST.md`
@@ -86,6 +90,7 @@ http://127.0.0.1:4195/?type=phishing&org=smallBusiness&audience=mixed&focus=bala
 
 - Confirm no source PDFs, downloaded references, local notes, screenshots, or test artifacts are included in the deployed folder.
 - Review `trust-and-privacy.html` for accuracy.
+- Review About, Privacy, Terms, and Contact pages for launch contact wording and current data-handling accuracy.
 - Run `node --check app.js`.
 - Open `index.html` directly in a browser and generate at least one packet.
 - Test participant and facilitator presentation modes.
@@ -107,7 +112,7 @@ If this later moves beyond GitHub repository staging to Cloudflare Pages or anot
 - Project root: repository root.
 - Build command: none.
 - Output directory: repository root.
-- Required runtime files: `index.html`, `styles.css`, `app.js`, `trust-and-privacy.html`.
+- Required runtime files: `index.html`, `styles.css`, `app.js`, `about.html`, `privacy.html`, `terms.html`, `contact.html`, `trust-and-privacy.html`.
 - Review the staging URL before any production or custom-domain mapping.
 
 ## Handoff Summary For Staging
@@ -115,7 +120,7 @@ If this later moves beyond GitHub repository staging to Cloudflare Pages or anot
 - App type: static site, no backend.
 - Build command: none.
 - Public entry point: `index.html`.
-- Required runtime files: `index.html`, `styles.css`, `app.js`, `trust-and-privacy.html`.
+- Required runtime files: `index.html`, `styles.css`, `app.js`, `about.html`, `privacy.html`, `terms.html`, `contact.html`, `trust-and-privacy.html`.
 - Current endpoint: GitHub repository.
 - Future optional endpoint: Cloudflare Pages or equivalent static hosting, only after that path is chosen.
 
