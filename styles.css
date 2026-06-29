@@ -1104,11 +1104,16 @@ body.presentation-active {
 }
 
 .facilitator-tools {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(8.5rem, 1fr));
   gap: 0.55rem;
   align-content: start;
-  justify-content: flex-end;
+}
+
+.facilitator-tools .ghost-button {
+  min-height: 2.85rem;
+  width: 100%;
+  white-space: normal;
 }
 
 .facilitator-notes-panel {
@@ -1535,7 +1540,7 @@ li + li {
   }
 
   .facilitator-tools {
-    justify-content: flex-start;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .meter-grid,
@@ -1578,6 +1583,31 @@ li + li {
   .choice-grid,
   .debrief-score-grid {
     grid-template-columns: 1fr;
+  }
+
+  .facilitator-console {
+    padding: 0.75rem;
+  }
+
+  .timer-card {
+    align-items: center;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.25rem 0.75rem;
+  }
+
+  .timer-card strong {
+    grid-row: 1 / span 2;
+    grid-column: 2;
+    font-size: 1.55rem;
+  }
+
+  .facilitator-tools {
+    grid-template-columns: 1fr;
+  }
+
+  .facilitator-tools .ghost-button {
+    min-height: 3.1rem;
+    padding-block: 0.8rem;
   }
 
   .site-header {
