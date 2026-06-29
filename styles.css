@@ -243,6 +243,19 @@ h3 {
   font-weight: 800;
 }
 
+.content-page a.primary-button,
+.content-page a.primary-button:visited {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.content-page a.primary-button:hover,
+.content-page a.primary-button:focus-visible {
+  color: var(--ink);
+  background: #6bf0a5;
+  box-shadow: 0 0 0 3px rgba(67, 224, 138, 0.16);
+}
+
 .content-action {
   padding-top: 0.5rem;
 }
