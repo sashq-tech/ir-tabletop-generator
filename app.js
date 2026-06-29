@@ -3921,13 +3921,32 @@ function packetText() {
 }
 
 async function copyText(text, button, resetText) {
+  if (!button) {
+    return;
+  }
+
+  const resetCopyState = () => {
+    button.textContent = resetText;
+    button.removeAttribute("aria-label");
+    delete button.dataset.copyState;
+    delete button.dataset.copyTimeout;
+  };
+  const setCopyState = (state, label, timeout = 1800) => {
+    if (button.dataset.copyTimeout) {
+      window.clearTimeout(Number(button.dataset.copyTimeout));
+    }
+    button.textContent = label;
+    button.dataset.copyState = state;
+    button.setAttribute("aria-label", `${resetText}: ${label}`);
+    button.setAttribute("aria-live", "polite");
+    button.dataset.copyTimeout = String(window.setTimeout(resetCopyState, timeout));
+  };
+
   try {
     await navigator.clipboard.writeText(text);
-    button.textContent = "Copied";
-    window.setTimeout(() => {
-      button.textContent = resetText;
-    }, 1400);
+    setCopyState("success", "Copied");
   } catch {
+    setCopyState("error", "Copy failed", 2400);
     window.alert("Copy failed. You can select the generated text or URL manually.");
   }
 }

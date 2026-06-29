@@ -576,6 +576,23 @@ button {
 .ghost-button:hover {
   border-color: var(--cyan);
 }
+
+.ghost-button[data-copy-state="success"],
+.primary-button[data-copy-state="success"] {
+  border-color: rgba(67, 224, 138, 0.9);
+  background: rgba(67, 224, 138, 0.16);
+  color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(67, 224, 138, 0.14);
+}
+
+.ghost-button[data-copy-state="error"],
+.primary-button[data-copy-state="error"] {
+  border-color: rgba(239, 111, 108, 0.9);
+  background: rgba(239, 111, 108, 0.16);
+  color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(239, 111, 108, 0.14);
+}
+
 .ghost-button:disabled,
 .primary-button:disabled {
   cursor: not-allowed;
