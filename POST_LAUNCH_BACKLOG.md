@@ -32,7 +32,7 @@ Acceptance criteria:
 
 ## 3. Exercise Safety And Disclaimer Positioning
 
-Status: First pass complete. Continue checking this when adding new exports, samples, or public copy.
+Status: First pass complete. Trust & Privacy is now a first-class public nav/footer link; continue checking safety visibility when adding new exports, samples, or public copy.
 
 Why it matters: Response Rehearsal is a planning aid, not legal, compliance, or incident-response advice. That boundary should be visible at the moments where users are most likely to copy, export, or reuse exercise material.
 
@@ -41,6 +41,7 @@ First small implementation step: Review the generator, sample packet, AAR export
 Acceptance criteria:
 
 - Public pages and generated/exported materials use consistent wording about educational/planning use, facilitator responsibility, no guarantees, and no legal/security incident-response advice.
+- The Privacy page and Trust & Privacy page remain clearly discoverable and distinct: privacy/data handling on Privacy, and trust/use boundaries on Trust & Privacy.
 - Users are reminded not to enter real credentials, sensitive incident details, personal information, or regulated data.
 - Safety language does not imply the app provides professional services or validated compliance outcomes.
 
@@ -60,7 +61,7 @@ Acceptance criteria:
 
 ## 5. QA Coverage And Regression Checks
 
-Status: Partially complete. Current release checks cover syntax, mobile Chrome smoke, print/export smoke, live crawl endpoints, and cache-busted asset checks; a reusable scripted smoke target is still future work.
+Status: Partially complete. Current release checks cover syntax, mobile Chrome smoke, print/export smoke, live crawl endpoints, cache-busted asset checks, public trust navigation, and content-page generator CTA contrast; a reusable scripted smoke target is still future work.
 
 Why it matters: The project is a single-page static app with many interconnected controls. Small changes can break scenario selection, copied text, print views, or presentation mode without an obvious build failure.
 
@@ -70,7 +71,7 @@ Acceptance criteria:
 
 - The repo documents one repeatable pre-push verification path for docs-only changes and one for runtime changes.
 - Runtime changes require `node --check app.js` plus a local browser smoke of the generator/demo flow.
-- Launch/crawl changes require live checks for apex, `www`, `robots.txt`, `sitemap.xml`, and key trust pages.
+- Launch/crawl changes require live checks for apex, `www`, `robots.txt`, `sitemap.xml`, key trust pages, and public navigation discoverability.
 
 ## Not In Scope Yet
 

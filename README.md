@@ -89,6 +89,8 @@ Recommended manual smoke path:
 - Confirm the AAR export unlocks.
 - Click `Copy AAR summary` after completion and confirm it produces the concise decisions/gaps/actions summary.
 - Open About, Privacy, Terms, Contact, and Trust links from the header or footer.
+- Confirm `Trust & Privacy` appears in the main public navigation and footer.
+- Confirm the content-page `Open the generator` / `Return to generator` button text is readable before hover.
 - Check a narrow/mobile viewport for no horizontal overflow.
 
 See `DEPLOYMENT_CHECKLIST.md` for the fuller staging checklist.
@@ -123,6 +125,7 @@ Public trust pages are included for soft-launch readiness: `about.html`, `privac
 - Canonical URLs, `robots.txt`, and `sitemap.xml` point to the apex domain.
 - Post-launch stability sweep on 2026-06-28 passed for apex, `www`, crawl files, trust page metadata, and the main generator/demo flow.
 - Release checkpoint on 2026-06-28 covered live-domain metadata, human launch/discovery checklist, facilitator export context, mobile facilitator controls, and copy-button state feedback.
+- Production bugfix checkpoint on 2026-06-28 made `Trust & Privacy` a first-class public nav link and resolved the content-page generator CTA contrast issue.
 - Source reference materials are research inputs and should not be copied into public site content.
 
 ## Recent Product Polish
@@ -130,4 +133,5 @@ Public trust pages are included for soft-launch readiness: `about.html`, `privac
 - Facilitator exports now carry clearer exercise context, timer metadata, closeout capture prompts, and educational-use boundaries.
 - Mobile facilitator controls use larger, more predictable tap targets for live sessions.
 - Copy actions provide visible success/failure feedback and polite assistive-technology announcements.
+- Public trust navigation now exposes `Trust & Privacy` in the main header and footer, and content-page generator CTA labels remain readable in the default state.
 - Post-launch backlog remains intentionally focused on static/browser-only improvements before any account, upload, backend, analytics, or database decisions.

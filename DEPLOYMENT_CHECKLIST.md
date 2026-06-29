@@ -11,7 +11,7 @@ This project is a live static site. Do not change production hosting, DNS, or do
 - Current public endpoint: `https://responserehearsal.com/`.
 - Canonical domain: `https://responserehearsal.com/`.
 - The `www` host is also reachable, but canonical metadata should point to the apex domain.
-- Current release checkpoint: live-domain metadata, post-launch stability checks, human launch/discovery guidance, facilitator export context, mobile facilitator control layout, and copy-button state feedback are complete.
+- Current release checkpoint: live-domain metadata, post-launch stability checks, human launch/discovery guidance, facilitator export context, mobile facilitator control layout, copy-button state feedback, first-class `Trust & Privacy` navigation, and content-page generator CTA contrast are complete.
 
 ## Public Files To Ship
 
@@ -88,6 +88,8 @@ http://127.0.0.1:4195/?type=phishing&org=smallBusiness&audience=mixed&focus=bala
 - Confirm timer, current inject copy, facilitator notes, and copy-button success/failure states work.
 - Complete an interactive path.
 - Confirm after-action export unlocks, copies, and includes exercise context, owner/follow-up prompts, and educational-use boundary copy.
+- Confirm `Trust & Privacy` is reachable from the main public navigation and footer on Home, About, Privacy, Terms, Contact, and Trust & Privacy.
+- Confirm content-page generator CTA text is readable in default, hover, and focus states.
 - Test mobile/narrow viewport for no horizontal overflow.
 
 ## Before Any Public Launch
@@ -95,6 +97,7 @@ http://127.0.0.1:4195/?type=phishing&org=smallBusiness&audience=mixed&focus=bala
 - Confirm no source PDFs, downloaded references, local notes, screenshots, or test artifacts are included in the deployed folder.
 - Review `trust-and-privacy.html` for accuracy.
 - Review About, Privacy, Terms, and Contact pages for launch contact wording and current data-handling accuracy.
+- Confirm Trust & Privacy is clearly discoverable from public navigation, not only as a footer or contextual link.
 - Run `node --check app.js`.
 - Open `index.html` directly in a browser and generate at least one packet.
 - Test participant and facilitator presentation modes.
