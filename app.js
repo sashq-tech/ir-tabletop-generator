@@ -2274,15 +2274,28 @@ function currentInjectCopyText() {
   const scenario = currentInteractiveScenario();
   const phase = currentInteractivePhase();
   const setup = currentExerciseSetup();
+  const entry = selectedInteractiveScenarioEntry();
 
   if (!phase) {
     return interactiveDebriefReady()
       ? interactiveDebriefText()
-      : `${scenario.title}\n\n${interactiveIntroText(setup)}\n\n${interactiveScenarioContext(setup)}`;
+      : [
+        `# ${scenario.title}`,
+        "",
+        "## Exercise Context",
+        ...facilitatorExportContextLines(setup, entry),
+        "",
+        interactiveIntroText(setup),
+        "",
+        interactiveScenarioContext(setup)
+      ].join("\n");
   }
 
   return [
     `# ${scenario.title} - ${phase.phase}`,
+    "",
+    "## Exercise Context",
+    ...facilitatorExportContextLines(setup, entry),
     "",
     `Inject: ${phase.title}`,
     phase.inject,
@@ -2291,7 +2304,10 @@ function currentInjectCopyText() {
     ...facilitatorNotesForCurrentPhase().map((note) => `- ${note}`),
     "",
     "Decision options:",
-    ...phase.choices.map((choice, index) => `${index + 1}. ${choice.label}`)
+    ...phase.choices.map((choice, index) => `${index + 1}. ${choice.label}`),
+    "",
+    "Capture before advancing:",
+    ...facilitatorCaptureChecklistLines()
   ].join("\n");
 }
 
@@ -2371,17 +2387,8 @@ function facilitatorDurationPhrase(setup) {
   return setup.durationLabel.replace(" minutes", "-minute").replace(" minute", "-minute");
 }
 
-function facilitatorPreBriefText() {
-  const setup = currentExerciseSetup();
-  const scenario = currentInteractiveScenario();
-  const entry = selectedInteractiveScenarioEntry();
-  const durationMinutes = Number(controls.duration.value);
-  const seed = controls.seedInput.value || "not set";
-
+function facilitatorExportContextLines(setup = currentExerciseSetup(), entry = selectedInteractiveScenarioEntry()) {
   return [
-    `# ${scenario.title} - Facilitator Pre-Brief`,
-    "",
-    "## Exercise Setup",
     `- Incident family: ${setup.scenario.label}`,
     `- Interactive scenario: ${entry.label}`,
     `- Organization profile: ${setup.profile.label}`,
@@ -2390,7 +2397,31 @@ function facilitatorPreBriefText() {
     `- Duration: ${setup.durationLabel}`,
     `- Difficulty: ${setup.difficultyLabel}`,
     `- Group mode: ${facilitatorGroupLine()}`,
-    `- Seed: ${seed}`,
+    `- Seed: ${controls.seedInput.value || "not set"}`
+  ];
+}
+
+function facilitatorCaptureChecklistLines() {
+  return [
+    "- Decision made:",
+    "- Decision owner:",
+    "- Evidence or record to preserve:",
+    "- Open question:",
+    "- Follow-up owner and due date:"
+  ];
+}
+
+function facilitatorPreBriefText() {
+  const setup = currentExerciseSetup();
+  const scenario = currentInteractiveScenario();
+  const entry = selectedInteractiveScenarioEntry();
+  const durationMinutes = Number(controls.duration.value);
+
+  return [
+    `# ${scenario.title} - Facilitator Pre-Brief`,
+    "",
+    "## Exercise Setup",
+    ...facilitatorExportContextLines(setup, entry),
     "",
     "## Opening Script",
     `Welcome to a ${facilitatorDurationPhrase(setup).toLowerCase()} no-fault tabletop exercise for ${setup.scenario.label.toLowerCase()}. Today we are using ${scenario.title}. The goal is to practice how we make decisions with incomplete information, how we brief leadership, and how we assign owners for follow-up work.`,
@@ -2868,15 +2899,9 @@ function interactiveDebriefText() {
     "",
     "## Exercise Snapshot",
     `Generated: ${generatedAt}`,
-    `Incident type: ${setup.scenario.label}`,
-    `Interactive scenario: ${scenarioEntry.label}`,
-    `Organization profile: ${setup.profile.label}`,
-    `Audience: ${setup.audienceLabel}`,
-    `Focus: ${setup.focus.label}`,
-    `Duration: ${setup.durationLabel}`,
-    `Difficulty: ${setup.difficultyLabel}`,
-    `Seed: ${controls.seedInput.value}`,
+    ...facilitatorExportContextLines(setup, scenarioEntry),
     `Timer remaining: ${timerRemaining} (${timerStatus})`,
+    `Use boundary: educational tabletop planning aid; not legal, compliance, or incident-response advice.`,
     "",
     "## Facilitator Summary",
     buildInteractiveDebriefSummary(scenario),
@@ -2899,6 +2924,9 @@ function interactiveDebriefText() {
     "## Next Meeting Follow-Ups",
     ...nextMeetingLines,
     "",
+    "## Closeout Capture Checklist",
+    ...facilitatorCaptureChecklistLines(),
+    "",
     "## Facilitator Closeout Questions",
     ...closeoutLines
   ].join("\n");
@@ -2912,6 +2940,9 @@ function interactiveAarSummaryText() {
   const scenario = currentInteractiveScenario();
   const setup = currentExerciseSetup();
   const scenarioEntry = selectedInteractiveScenarioEntry();
+  const generatedAt = new Date().toLocaleString();
+  const timerStatus = output.interactiveTimerStatus?.textContent || "not started";
+  const timerRemaining = formatTimer(interactiveTimerRemaining || 0);
   const weakMeters = Object.values(interactiveState.meters)
     .filter((meter) => meter.value < 70)
     .map((meter) => `${meter.label}: ${meter.value}`);
@@ -2925,11 +2956,10 @@ function interactiveAarSummaryText() {
   return [
     `# AAR Summary - ${scenario.title}`,
     "",
-    `Scenario: ${scenarioEntry.label}`,
-    `Incident type: ${setup.scenario.label}`,
-    `Audience: ${setup.audienceLabel}`,
-    `Duration: ${setup.durationLabel}`,
-    `Seed: ${controls.seedInput.value}`,
+    "## Exercise Context",
+    `- Generated: ${generatedAt}`,
+    ...facilitatorExportContextLines(setup, scenarioEntry),
+    `- Timer remaining: ${timerRemaining} (${timerStatus})`,
     "",
     "## What Happened",
     buildInteractiveDebriefSummary(scenario),
@@ -2946,8 +2976,13 @@ function interactiveAarSummaryText() {
     "## Next Review",
     ...nextMeetingLines,
     "",
+    "## Capture Checklist",
+    ...facilitatorCaptureChecklistLines(),
+    "",
     "## Readiness Watch",
-    weakMeters.length ? `Review these lower-scoring areas: ${weakMeters.join(", ")}.` : "No readiness meter finished below 70."
+    weakMeters.length ? `Review these lower-scoring areas: ${weakMeters.join(", ")}.` : "No readiness meter finished below 70.",
+    "",
+    "Use boundary: educational tabletop planning aid; not legal, compliance, or incident-response advice."
   ].join("\n");
 }
 
@@ -3212,6 +3247,10 @@ function blankWorksheetText() {
   return [
     `# ${output.packetTitle.textContent} - Blank Facilitator Worksheet`,
     output.packetSummary.textContent,
+    "## Exercise Profile",
+    output.exerciseProfile.innerText,
+    "## Use Note",
+    useNoteText(),
     "## Facts, Assumptions, Decisions, Questions",
     fadqRows,
     "## Decision and Action Tracker",
