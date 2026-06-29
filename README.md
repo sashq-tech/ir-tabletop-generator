@@ -61,6 +61,7 @@ Supporting repository docs:
 
 - `README.md`
 - `DEPLOYMENT_CHECKLIST.md`
+- `POST_LAUNCH_BACKLOG.md`
 - `IR Tabletop Generator/` project notes and handoff history
 
 Local-only folders such as source references, generated output, agent metadata, and workspace files should not be treated as public runtime assets.
