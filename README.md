@@ -122,4 +122,12 @@ Public trust pages are included for soft-launch readiness: `about.html`, `privac
 - GitHub repository remains the source/staging repo for changes before they reach the live site.
 - Canonical URLs, `robots.txt`, and `sitemap.xml` point to the apex domain.
 - Post-launch stability sweep on 2026-06-28 passed for apex, `www`, crawl files, trust page metadata, and the main generator/demo flow.
+- Release checkpoint on 2026-06-28 covered live-domain metadata, human launch/discovery checklist, facilitator export context, mobile facilitator controls, and copy-button state feedback.
 - Source reference materials are research inputs and should not be copied into public site content.
+
+## Recent Product Polish
+
+- Facilitator exports now carry clearer exercise context, timer metadata, closeout capture prompts, and educational-use boundaries.
+- Mobile facilitator controls use larger, more predictable tap targets for live sessions.
+- Copy actions provide visible success/failure feedback and polite assistive-technology announcements.
+- Post-launch backlog remains intentionally focused on static/browser-only improvements before any account, upload, backend, analytics, or database decisions.

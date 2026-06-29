@@ -11,6 +11,7 @@ This project is a live static site. Do not change production hosting, DNS, or do
 - Current public endpoint: `https://responserehearsal.com/`.
 - Canonical domain: `https://responserehearsal.com/`.
 - The `www` host is also reachable, but canonical metadata should point to the apex domain.
+- Current release checkpoint: live-domain metadata, post-launch stability checks, human launch/discovery guidance, facilitator export context, mobile facilitator control layout, and copy-button state feedback are complete.
 
 ## Public Files To Ship
 
@@ -84,9 +85,9 @@ http://127.0.0.1:4195/?type=phishing&org=smallBusiness&audience=mixed&focus=bala
 - Confirm the facilitator runbook shows ready state before start.
 - Copy the facilitator pre-brief.
 - Start the interactive exercise.
-- Confirm timer, current inject copy, and facilitator notes work.
+- Confirm timer, current inject copy, facilitator notes, and copy-button success/failure states work.
 - Complete an interactive path.
-- Confirm after-action export unlocks and copies.
+- Confirm after-action export unlocks, copies, and includes exercise context, owner/follow-up prompts, and educational-use boundary copy.
 - Test mobile/narrow viewport for no horizontal overflow.
 
 ## Before Any Public Launch

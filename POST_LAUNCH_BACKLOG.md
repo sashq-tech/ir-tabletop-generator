@@ -4,6 +4,8 @@ This backlog captures practical next improvements after the first public launch.
 
 ## 1. Facilitator Print And Export Polish
 
+Status: First pass complete. Keep this item open for future print/readability refinements after real facilitator use.
+
 Why it matters: Facilitators are likely to save, print, or paste materials into a meeting agenda before running a session. Cleaner outputs make the tool feel trustworthy and reduce the manual cleanup needed before a real tabletop.
 
 First small implementation step: Review the current print, download, AAR summary, participant handout, facilitator guide, worksheet, and slide deck outputs from one generated exercise and one sample packet. Identify the two most common formatting gaps, such as missing metadata, awkward page breaks, unclear section titles, or copy text that needs facilitator context.
@@ -15,6 +17,8 @@ Acceptance criteria:
 - Copy/export controls produce text that can be pasted into email, Word, or meeting notes without losing key decisions, owners, and follow-up prompts.
 
 ## 2. Scenario Library Growth
+
+Status: Not started. This is the recommended next product area after the current release checkpoint.
 
 Why it matters: The app will be judged quickly by whether the scenarios feel realistic, varied, and useful. A broader library gives repeat visitors more reasons to return and supports different organization sizes, roles, and exercise goals.
 
@@ -28,6 +32,8 @@ Acceptance criteria:
 
 ## 3. Exercise Safety And Disclaimer Positioning
 
+Status: First pass complete. Continue checking this when adding new exports, samples, or public copy.
+
 Why it matters: Response Rehearsal is a planning aid, not legal, compliance, or incident-response advice. That boundary should be visible at the moments where users are most likely to copy, export, or reuse exercise material.
 
 First small implementation step: Review the generator, sample packet, AAR export, trust page, About page, Terms page, and README for consistent safety language. Identify whether one short in-app note should appear near generation/export controls without making the interface feel alarmist.
@@ -40,6 +46,8 @@ Acceptance criteria:
 
 ## 4. Mobile Facilitation Usability
 
+Status: First pass complete. Keep this item open for additional real-device testing.
+
 Why it matters: Facilitators may use a phone or small laptop while presenting over Zoom or Teams. The live console, timers, inject controls, and notes need to remain usable under pressure on narrow screens.
 
 First small implementation step: Run a focused mobile-width smoke test through loading a demo, opening interactive rehearsal, revealing facilitator notes, copying an inject, advancing decisions, and copying the AAR summary. Record the first layout or tap-target issue found.
@@ -51,6 +59,8 @@ Acceptance criteria:
 - Buttons and status text fit their containers without clipping or layout jumps.
 
 ## 5. QA Coverage And Regression Checks
+
+Status: Partially complete. Current release checks cover syntax, mobile Chrome smoke, print/export smoke, live crawl endpoints, and cache-busted asset checks; a reusable scripted smoke target is still future work.
 
 Why it matters: The project is a single-page static app with many interconnected controls. Small changes can break scenario selection, copied text, print views, or presentation mode without an obvious build failure.
 
