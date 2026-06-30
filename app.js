@@ -1797,6 +1797,96 @@ Object.assign(interactiveScenarios, {
     ["Publish internal guidance listing safe functions, blocked admin changes, workaround owners, and next update time.", "Teams can keep operating with fewer assumptions.", "Workaround communication is part of containment."],
     ["Assign owners for break-glass account testing, vendor escalation contacts, admin workstation hardening, and key rotation drills.", "The exercise turns a lockout into durable recovery planning.", "SaaS recovery depends on rehearsed privileged-access restoration."]
   ]),
+  "insider-role-change-repo": makeInteractiveScenario("Role Change Repository Access Drill", {
+    containment: "Access containment",
+    evidence: "Repository evidence",
+    continuity: "Product continuity",
+    trust: "Fair process",
+    coordination: "Product coordination"
+  }, [
+    ["Detect", "Repository activity follows a role change", "A product engineer who recently moved off a sensitive project downloads a large repository archive and design notes after hours. The account is still a member of a broad project group, and the product lead says a customer demo depends on some of the same material."],
+    ["Triage", "Business need and data sensitivity are unclear", "Engineering can see repository access timestamps, but data owners need to determine whether the archive includes customer-specific notes, export-controlled design material, or only routine product documentation."],
+    ["Contain", "Access cleanup may disrupt delivery", "Removing the broad project group will reduce exposure, but it may also block legitimate support for the upcoming demo and release handoff. HR asks that the review stay need-to-know until facts are confirmed."],
+    ["Communicate", "Leadership wants a careful summary", "The President asks what should be briefed to the CEO. The product lead wants to avoid implying misconduct before the team knows whether the access was authorized or excessive."],
+    ["Recover", "Repository permissions need ownership", "The review finds that role-change access cleanup is informal. Several project groups grant access to old repositories, shared demo notes, and customer-facing artifacts without a named owner or review cadence."]
+  ], [
+    ["Preserve repository logs, open a fact-based review, notify HR/legal as needed, and confirm current role-based access.", "The team protects evidence and avoids speculation while checking whether access still matches the user's role.", "Insider-risk triage should start with facts, access, and ownership rather than assumptions about intent."],
+    ["Create a sensitivity map for the archive, data owners, customer impact, and legitimate business need.", "The room can separate normal transition work from material that needs tighter handling.", "Data sensitivity and business need should be evaluated together."],
+    ["Remove unnecessary group access, create a time-boxed exception for demo support if approved, and document monitoring criteria.", "Exposure is reduced while the business has a controlled path for legitimate work.", "Least-privilege cleanup can include documented exceptions instead of all-or-nothing decisions."],
+    ["Prepare a leadership brief with confirmed facts, open questions, decision owners, and language that avoids motive claims.", "Leadership gets a careful summary without turning an access review into an accusation.", "Fair-process communication protects trust and evidence quality."],
+    ["Assign owners for role-change access review, repository group ownership, customer-artifact labeling, and recurring permission checks.", "The exercise closes with practical access-governance work tied to the product environment.", "Recovery should fix the permission pattern that made the concern possible."]
+  ], [
+    [
+      {
+        label: "Assume the download is malicious and immediately lock the user out of every engineering system.",
+        impact: { containment: 16, evidence: -8, continuity: -16, trust: -18, coordination: -8 },
+        outcome: "Exposure drops quickly, but the response may damage fair process, interrupt delivery, and alter evidence before facts are preserved.",
+        lesson: "Strong action may be necessary, but facts and evidence handling should come first when intent is unknown."
+      },
+      {
+        label: "Ask the product lead to talk to the user informally before opening a review.",
+        impact: { containment: -8, evidence: -14, continuity: 4, trust: -8, coordination: -10 },
+        outcome: "The conversation may explain the activity, but it can also alert the user, change behavior, and weaken evidence.",
+        lesson: "Informal outreach can undermine evidence preservation and HR/legal coordination."
+      }
+    ],
+    [
+      {
+        label: "Treat the archive as low risk because it came from a normal repository.",
+        impact: { containment: -10, evidence: -8, continuity: 8, trust: -8, coordination: -8 },
+        outcome: "The team avoids disruption, but repository content may contain customer, contractual, or sensitive design material.",
+        lesson: "Repository location alone does not determine sensitivity."
+      },
+      {
+        label: "Send the full archive list to a broad leadership group for quick classification.",
+        impact: { containment: 0, evidence: -6, continuity: -4, trust: -12, coordination: -8 },
+        outcome: "More people can comment, but need-to-know handling and sensitive details spread unnecessarily.",
+        lesson: "Classification should involve data owners without expanding exposure."
+      }
+    ],
+    [
+      {
+        label: "Leave access unchanged until after the customer demo to avoid disruption.",
+        impact: { containment: -16, evidence: 0, continuity: 14, trust: -10, coordination: -6 },
+        outcome: "The demo stays on track, but unnecessary access and potential exposure continue.",
+        lesson: "Business pressure should shape controlled exceptions, not defer access cleanup entirely."
+      },
+      {
+        label: "Remove every shared group used by the project and let engineering rebuild access later.",
+        impact: { containment: 16, evidence: 4, continuity: -18, trust: -4, coordination: -10 },
+        outcome: "Access risk drops, but the team creates avoidable delivery problems and support churn.",
+        lesson: "Containment works better when it is targeted and owner-approved."
+      }
+    ],
+    [
+      {
+        label: "Tell leadership the user likely took sensitive data before the team has classified the archive.",
+        impact: { containment: 0, evidence: -8, continuity: -4, trust: -18, coordination: -8 },
+        outcome: "The summary is decisive but may be wrong and hard to unwind.",
+        lesson: "Leadership briefs should separate confirmed facts from interpretations."
+      },
+      {
+        label: "Keep the issue inside IT until there is proof of external sharing.",
+        impact: { containment: -6, evidence: 2, continuity: 6, trust: -10, coordination: -12 },
+        outcome: "The response avoids escalation, but HR, legal, data owners, and leadership may be unprepared if sensitivity is confirmed.",
+        lesson: "Need-to-know does not mean IT-only."
+      }
+    ],
+    [
+      {
+        label: "Close the review once the archive is classified and no external sharing is confirmed.",
+        impact: { containment: -6, evidence: -4, continuity: 8, trust: -2, coordination: -10 },
+        outcome: "The immediate concern ends, but broad repository access remains a repeatable weakness.",
+        lesson: "No confirmed disclosure can still reveal an access-governance gap."
+      },
+      {
+        label: "Require manual approval from the CEO for every repository permission change.",
+        impact: { containment: 8, evidence: 0, continuity: -16, trust: -4, coordination: -8 },
+        outcome: "The control sounds strict, but it is too slow for routine engineering access management.",
+        lesson: "Access governance needs accountable owners and review cadence, not impractical bottlenecks."
+      }
+    ]
+  ]),
   "supplyChain-update-integrity": makeInteractiveScenario("Vendor Update Integrity Drill", {
     containment: "Update containment",
     evidence: "Package evidence",
@@ -1830,7 +1920,8 @@ const interactiveScenarioLibrary = {
   ],
   insider: [
     { key: "insider", label: "Featured: Departing employee data exposure", summary: "Full five-step insider rehearsal focused on HR/legal coordination, evidence, fair process, and access cleanup." },
-    { key: "insider-contractor", label: "Focused drill: Contractor overshare", summary: "Practice external sharing cleanup, sponsor coordination, data-owner review, and least-privilege access." }
+    { key: "insider-contractor", label: "Focused drill: Contractor overshare", summary: "Practice external sharing cleanup, sponsor coordination, data-owner review, and least-privilege access." },
+    { key: "insider-role-change-repo", label: "Focused drill: Role-change repository access", summary: "Practice sensitive repository access review, product continuity, fair-process communication, and permission ownership." }
   ],
   ddos: [
     { key: "ddos", label: "Featured: Public service outage", summary: "Full five-step availability rehearsal covering triage, provider filtering, status messaging, and resilience follow-up." },
