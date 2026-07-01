@@ -1730,6 +1730,96 @@ Object.assign(interactiveScenarios, {
     ["Post impact-focused status language with next update time and no unsupported blame.", "Users get useful information while evidence continues.", "Status updates can be specific without naming a cause."],
     ["Assign owners for provider escalation, dependency monitoring, workaround playbooks, and customer messaging triggers.", "The incident produces operational resilience improvements.", "Dependency recovery should strengthen escalation and detection."]
   ]),
+  "ddos-vendor-platform-outage": makeInteractiveScenario("Vendor Platform Outage Drill", {
+    containment: "Service stability",
+    evidence: "Impact timeline",
+    continuity: "Demo continuity",
+    trust: "Customer confidence",
+    coordination: "Vendor coordination"
+  }, [
+    ["Detect", "Customer demo platform becomes unreliable", "A vendor-hosted platform used for customer demonstrations and remote training begins timing out during a scheduled customer session. The vendor status page is green, but staff in two locations report failed logins and stalled screens."],
+    ["Triage", "Internal and vendor evidence disagree", "Support sees user complaints, product sees demo disruption, and IT sees normal internal network health. The vendor asks for examples, timestamps, affected users, and browser details before escalating."],
+    ["Contain", "Fallback options have tradeoffs", "The product team can switch to recorded material or a reduced live workflow, but either option may affect customer confidence. Leadership asks whether to pause the session, continue with limitations, or reschedule."],
+    ["Communicate", "Customer-facing language needs care", "Customer-facing staff need a short explanation that is honest about impact, avoids blaming the vendor without evidence, and gives the customer a clear next step."],
+    ["Recover", "Normal service returns without clear ownership", "The platform stabilizes after the vendor makes changes, but the team has no standard evidence packet, fallback-demo checklist, or owner for vendor escalation after customer-facing outages."]
+  ], [
+    ["Open an availability incident, capture timestamps and user impact, and start a vendor escalation with one internal owner.", "The team gets organized quickly and gives the vendor evidence they can act on.", "Vendor outages still need internal incident structure and impact evidence."],
+    ["Build a shared fact log covering affected users, locations, vendor ticket status, business impact, and next decision time.", "The room can brief leadership and customer-facing staff without guessing about root cause.", "A fact log keeps vendor escalation and business impact aligned."],
+    ["Use a preapproved fallback path with stated limitations, monitor customer impact, and decide when to reschedule.", "The customer session has a controlled continuity option instead of improvised workarounds.", "Availability response should include business fallback criteria, not only technical escalation."],
+    ["Send customer-facing language that names the affected function, workaround, next update time, and current evidence boundary.", "The customer receives a useful update without unsupported vendor blame.", "Good outage messaging is impact-focused and evidence-bounded."],
+    ["Assign owners for vendor evidence packets, fallback-demo materials, escalation contacts, and after-action review triggers.", "The exercise turns a rough vendor outage into a reusable continuity playbook.", "Recovery should improve the next customer-facing outage, not just close the ticket."]
+  ], [
+    [
+      {
+        label: "Wait for the vendor status page to turn red before opening an incident.",
+        impact: { containment: -10, evidence: -10, continuity: -12, trust: -10, coordination: -12 },
+        outcome: "The team avoids premature escalation, but customer impact grows while evidence is not collected consistently.",
+        lesson: "Your user impact can justify escalation before a vendor status page changes."
+      },
+      {
+        label: "Tell the customer the vendor is down and end the session immediately.",
+        impact: { containment: 2, evidence: -6, continuity: -14, trust: -12, coordination: -6 },
+        outcome: "The disruption is acknowledged quickly, but the message overstates root cause and skips fallback evaluation.",
+        lesson: "Fast communication still needs evidence boundaries and continuity options."
+      }
+    ],
+    [
+      {
+        label: "Ask every affected staff member to contact the vendor separately with their own examples.",
+        impact: { containment: 0, evidence: -8, continuity: -6, trust: -6, coordination: -16 },
+        outcome: "The vendor gets more reports, but the evidence is inconsistent and internal ownership becomes unclear.",
+        lesson: "Vendor escalation works better through one coordinated evidence packet."
+      },
+      {
+        label: "Focus only on internal network troubleshooting because the vendor status page is green.",
+        impact: { containment: -8, evidence: -4, continuity: -8, trust: -6, coordination: -10 },
+        outcome: "Internal checks may rule out local causes, but vendor escalation and customer continuity lag.",
+        lesson: "Green vendor status does not eliminate vendor-side or regional service issues."
+      }
+    ],
+    [
+      {
+        label: "Continue the full live demo and ask staff to work around any errors as they happen.",
+        impact: { containment: -6, evidence: -4, continuity: 4, trust: -14, coordination: -8 },
+        outcome: "The session continues, but customer confidence drops as staff improvise around visible failures.",
+        lesson: "Continuity choices should be deliberate, not improvised in front of the customer."
+      },
+      {
+        label: "Cancel all related customer activity until the vendor provides a formal root cause.",
+        impact: { containment: 8, evidence: 4, continuity: -18, trust: -6, coordination: -4 },
+        outcome: "Risk is reduced, but the business loses options that might have preserved customer value.",
+        lesson: "Root cause is useful, but continuity decisions often need to happen sooner."
+      }
+    ],
+    [
+      {
+        label: "Avoid saying anything specific until the team knows exactly what failed.",
+        impact: { containment: 0, evidence: 4, continuity: -6, trust: -16, coordination: -8 },
+        outcome: "The team avoids speculation, but customers and staff lack practical guidance.",
+        lesson: "You can communicate impact and next steps before final root cause."
+      },
+      {
+        label: "Promise the customer the platform will be fixed by the next session.",
+        impact: { containment: -2, evidence: -6, continuity: 4, trust: -14, coordination: -6 },
+        outcome: "The promise sounds reassuring but may become a credibility problem if the vendor cannot meet it.",
+        lesson: "Availability promises should be tied to evidence and ownership."
+      }
+    ],
+    [
+      {
+        label: "Close the incident once the vendor says service is stable.",
+        impact: { containment: -4, evidence: -8, continuity: 4, trust: -4, coordination: -10 },
+        outcome: "The team moves on, but the same evidence, fallback, and escalation gaps may recur.",
+        lesson: "Vendor stability is not the same as internal readiness for the next outage."
+      },
+      {
+        label: "Require every future demo to use only recorded material.",
+        impact: { containment: 8, evidence: 0, continuity: -12, trust: -4, coordination: -6 },
+        outcome: "The rule reduces live-platform risk, but may undercut legitimate business needs and product demonstration value.",
+        lesson: "Recovery controls should be practical enough to sustain."
+      }
+    ]
+  ]),
   "supplyChain-breach-notice": makeInteractiveScenario("Vendor Breach Notice Drill", {
     containment: "Third-party access",
     evidence: "Notice evidence",
@@ -1925,7 +2015,8 @@ const interactiveScenarioLibrary = {
   ],
   ddos: [
     { key: "ddos", label: "Featured: Public service outage", summary: "Full five-step availability rehearsal covering triage, provider filtering, status messaging, and resilience follow-up." },
-    { key: "ddos-cloud-dependency", label: "Focused drill: Cloud dependency outage", summary: "Practice dependency failures, provider escalation, workarounds, and impact-focused status updates." }
+    { key: "ddos-cloud-dependency", label: "Focused drill: Cloud dependency outage", summary: "Practice dependency failures, provider escalation, workarounds, and impact-focused status updates." },
+    { key: "ddos-vendor-platform-outage", label: "Focused drill: Vendor platform outage", summary: "Practice customer-facing vendor outages, demo continuity decisions, evidence packets, and careful status language." }
   ],
   supplyChain: [
     { key: "supplyChain", label: "Featured: Vendor support portal compromise", summary: "Full five-step third-party access rehearsal covering support portal activity, contract terms, monitored exceptions, and restoration gates." },

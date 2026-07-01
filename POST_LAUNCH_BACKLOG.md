@@ -18,7 +18,7 @@ Acceptance criteria:
 
 ## 2. Scenario Library Growth
 
-Status: In progress. A focused role-change repository access drill has been added to the insider incident family; continue expanding underrepresented families with realistic, defensive drills.
+Status: In progress. Focused drills now include role-change repository access for insider exposure and vendor platform outage for public service availability; continue expanding underrepresented families with realistic, defensive drills.
 
 Why it matters: The app will be judged quickly by whether the scenarios feel realistic, varied, and useful. A broader library gives repeat visitors more reasons to return and supports different organization sizes, roles, and exercise goals.
 
