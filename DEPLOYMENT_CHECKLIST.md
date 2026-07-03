@@ -117,6 +117,7 @@ http://127.0.0.1:4195/?type=phishing&org=smallBusiness&audience=mixed&focus=bala
 
 - Google Search Console: add/verify `responserehearsal.com`, submit `https://responserehearsal.com/sitemap.xml`, and inspect/request indexing for the homepage, About, Privacy, Terms, Contact, and Trust pages.
 - Bing Webmaster Tools: add or import the site, submit the sitemap, and confirm crawl/index status after discovery.
+- IndexNow: key file URL is `https://responserehearsal.com/b7e1a9c42d6f4083a5c8e2f9017b6d34.txt`. For a future manual ping, submit homepage and sitemap URLs with key `b7e1a9c42d6f4083a5c8e2f9017b6d34`.
 - Cloudflare/domain sanity: confirm apex and `www` return `200 OK`, HTTPS is valid, the apex domain remains canonical, `robots.txt` and `sitemap.xml` are reachable, and DNS/redirect settings match the intended production route.
 - WebsiteLaunches/directories: position the site as a browser-only tabletop exercise generator for defensive readiness practice and facilitator preparation. Do not present it as legal advice, compliance advice, incident-response consulting, or a guaranteed readiness solution.
 - Listing category ideas: cybersecurity training, incident response tabletop exercise, security awareness, business continuity planning, facilitator tools.
