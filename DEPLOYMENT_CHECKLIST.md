@@ -21,6 +21,7 @@ Only these top-level files are intended for a static public site today:
 - `styles.css`
 - `app.js`
 - `about.html`
+- `30-minute-incident-response-tabletop.html`
 - `privacy.html`
 - `terms.html`
 - `contact.html`
