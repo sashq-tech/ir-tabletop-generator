@@ -50,6 +50,7 @@ The static app runs from these top-level files:
 - `styles.css`
 - `app.js`
 - `about.html`
+- `15-minute-incident-response-drill.html`
 - `30-minute-incident-response-tabletop.html`
 - `privacy.html`
 - `terms.html`
@@ -135,5 +136,6 @@ Public trust pages are included for soft-launch readiness: `about.html`, `privac
 - Mobile facilitator controls use larger, more predictable tap targets for live sessions.
 - Copy actions provide visible success/failure feedback and polite assistive-technology announcements.
 - Public trust navigation now exposes `Trust & Privacy` in the main header and footer, and content-page generator CTA labels remain readable in the default state.
+- Public content now includes `15-minute-incident-response-drill.html`, a fast incident response drill guide for short security-team decision practice.
 - Public content now includes `30-minute-incident-response-tabletop.html`, an indexable facilitation guide linked from the homepage, header/footer navigation, and sitemap.
 - Post-launch backlog remains intentionally focused on static/browser-only improvements before any account, upload, backend, analytics, or database decisions.

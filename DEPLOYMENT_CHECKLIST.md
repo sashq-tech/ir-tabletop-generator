@@ -21,6 +21,7 @@ Only these top-level files are intended for a static public site today:
 - `styles.css`
 - `app.js`
 - `about.html`
+- `15-minute-incident-response-drill.html`
 - `30-minute-incident-response-tabletop.html`
 - `privacy.html`
 - `terms.html`
@@ -144,6 +145,7 @@ If this later moves beyond GitHub repository staging to Cloudflare Pages or anot
 - Public entry point: `index.html`.
 - Required runtime files: `index.html`, `styles.css`, `app.js`, `about.html`, `privacy.html`, `terms.html`, `contact.html`, `trust-and-privacy.html`, `robots.txt`, `sitemap.xml`.
 - Current endpoint: `https://responserehearsal.com/`.
+- Public guide pages: `15-minute-incident-response-drill.html` and `30-minute-incident-response-tabletop.html`.
 
 ## Product Guardrails
 
