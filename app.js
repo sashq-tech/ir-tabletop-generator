@@ -1887,6 +1887,96 @@ Object.assign(interactiveScenarios, {
     ["Publish internal guidance listing safe functions, blocked admin changes, workaround owners, and next update time.", "Teams can keep operating with fewer assumptions.", "Workaround communication is part of containment."],
     ["Assign owners for break-glass account testing, vendor escalation contacts, admin workstation hardening, and key rotation drills.", "The exercise turns a lockout into durable recovery planning.", "SaaS recovery depends on rehearsed privileged-access restoration."]
   ]),
+  "ransomware-communications-pressure": makeInteractiveScenario("Ransomware Communications Pressure Drill", {
+    containment: "Spread control",
+    evidence: "Fact discipline",
+    continuity: "Operations continuity",
+    trust: "Leadership trust",
+    coordination: "Message coordination"
+  }, [
+    ["Detect", "Outage reports turn into ransomware concern", "Help desk reports a wave of locked-file complaints while a department lead says a shared folder needed for customer work is unavailable. Staff are already asking whether to disconnect, reboot, or use personal email."],
+    ["Triage", "Leadership needs a briefing before scope is clear", "IT has not confirmed the entry point, backup status, or full business impact. The President asks for a short CEO update and wants to know what decision leadership may need to make in the next 30 minutes."],
+    ["Contain", "Staff guidance and continuity collide", "Security wants staff to stop unsafe workarounds, but operations needs a way to keep critical tasks moving. Managers are drafting their own instructions because they have not received approved language."],
+    ["Communicate", "External visibility is possible", "A partner asks whether connected work should pause, and communications wants a holding statement in case customers or local contacts ask why a service is delayed. There is no confirmed data disclosure."],
+    ["Recover", "The first message set becomes the after-action trail", "The immediate pressure drops after containment and manual processing decisions. The team must decide which messages, decisions, owners, and unresolved questions belong in the after-action record."]
+  ], [
+    ["Declare a suspected incident, preserve first-known facts, and issue a short staff hold message with safe actions and a next update time.", "The team creates a clear response posture and slows unsafe workarounds without overstating the cause.", "Early ransomware messaging should give safe actions and a next update time, not speculation."],
+    ["Prepare a CEO-ready brief with confirmed facts, unknowns, business impact, decision needs, and the next update time.", "Leadership gets useful situational awareness without false certainty.", "A good executive brief separates facts, assumptions, and decisions needed now."],
+    ["Approve one staff guidance message, name continuity owners, and document any manual-processing exception.", "Operations gets a controlled path while unsafe workarounds are reduced.", "Continuity guidance should be coordinated, approved, and recorded."],
+    ["Draft internal and external holding language that names impact, avoids unconfirmed cause claims, and defines escalation criteria.", "Customer-facing teams are ready without over-notifying or hiding the issue.", "Holding statements are strongest when tied to evidence and decision criteria."],
+    ["Capture the message timeline, decision owners, open questions, and follow-up controls before closing the drill.", "The exercise leaves a practical record of what happened and what needs improvement.", "Ransomware communications become valuable when they feed the after-action plan."]
+  ], [
+    [
+      {
+        label: "Tell staff only that IT is investigating and avoid giving specific actions until ransomware is confirmed.",
+        impact: { containment: -8, evidence: 4, continuity: -6, trust: -8, coordination: -10 },
+        outcome: "The message avoids premature labels, but staff keep improvising while the response team gathers facts.",
+        lesson: "You can give safe actions before confirming the final incident label."
+      },
+      {
+        label: "Warn everyone that ransomware is active and all shared systems should be considered unsafe.",
+        impact: { containment: 8, evidence: -6, continuity: -14, trust: -8, coordination: -4 },
+        outcome: "The warning gets attention, but broad claims create panic and business disruption before scope is known.",
+        lesson: "Urgency should be specific enough to guide behavior without overstating facts."
+      }
+    ],
+    [
+      {
+        label: "Wait for technical confirmation before briefing the CEO.",
+        impact: { containment: 2, evidence: 8, continuity: -4, trust: -14, coordination: -8 },
+        outcome: "The team avoids guessing, but leadership is not ready to make time-sensitive continuity decisions.",
+        lesson: "Executives need bounded uncertainty, not silence."
+      },
+      {
+        label: "Brief the CEO that ransomware is confirmed and recovery should start immediately.",
+        impact: { containment: -6, evidence: -12, continuity: 4, trust: -14, coordination: -6 },
+        outcome: "Leadership hears a decisive story, but the facts may not support the label or recovery path yet.",
+        lesson: "Executive speed should not come from unsupported certainty."
+      }
+    ],
+    [
+      {
+        label: "Let each department send its own workarounds because they know their operations best.",
+        impact: { containment: -14, evidence: -4, continuity: 8, trust: -10, coordination: -16 },
+        outcome: "Some work continues, but messages conflict and risky workarounds spread.",
+        lesson: "Local continuity still needs shared guardrails."
+      },
+      {
+        label: "Stop all work until containment and backup status are fully confirmed.",
+        impact: { containment: 14, evidence: 8, continuity: -18, trust: -6, coordination: 0 },
+        outcome: "Risk drops, but critical operations stall without a controlled manual path.",
+        lesson: "Strong containment should be paired with approved continuity decisions."
+      }
+    ],
+    [
+      {
+        label: "Tell partners this is a ransomware event so they can protect themselves.",
+        impact: { containment: 2, evidence: -10, continuity: -4, trust: -12, coordination: -8 },
+        outcome: "Partners receive an early warning, but the organization has made an unconfirmed external cause statement.",
+        lesson: "External language should separate impact from unconfirmed cause."
+      },
+      {
+        label: "Do not prepare external language until disclosure or data theft is confirmed.",
+        impact: { containment: 0, evidence: 6, continuity: 2, trust: -10, coordination: -12 },
+        outcome: "The team avoids over-notification, but customer-facing staff are unprepared if questions arrive first.",
+        lesson: "Prepared language is not the same as immediate notification."
+      }
+    ],
+    [
+      {
+        label: "Close the exercise once systems are contained and staff have instructions.",
+        impact: { containment: 2, evidence: -8, continuity: 4, trust: -4, coordination: -12 },
+        outcome: "The immediate response feels complete, but message decisions and follow-up owners are not captured.",
+        lesson: "Communication decisions should be part of the after-action record."
+      },
+      {
+        label: "Ask everyone to email lessons learned later so the meeting can end on time.",
+        impact: { containment: 0, evidence: -6, continuity: 2, trust: -2, coordination: -10 },
+        outcome: "The meeting ends neatly, but ownership and next actions weaken after the room disperses.",
+        lesson: "Short closeout capture beats vague follow-up requests."
+      }
+    ]
+  ]),
   "insider-role-change-repo": makeInteractiveScenario("Role Change Repository Access Drill", {
     containment: "Access containment",
     evidence: "Repository evidence",
@@ -2006,7 +2096,8 @@ const interactiveScenarioLibrary = {
   ransomware: [
     { key: "ransomware", label: "Featured: Ransomware disruption", summary: "Full five-step ransomware rehearsal covering detection, containment, business pressure, communications, and recovery." },
     { key: "ransomware-backup", label: "Focused drill: Backup failure", summary: "Practice backup integrity decisions when encrypted files and incomplete restore points collide." },
-    { key: "ransomware-saas-lockout", label: "Focused drill: SaaS admin lockout", summary: "Practice ransomware-adjacent identity recovery when privileged SaaS access and integrations are at risk." }
+    { key: "ransomware-saas-lockout", label: "Focused drill: SaaS admin lockout", summary: "Practice ransomware-adjacent identity recovery when privileged SaaS access and integrations are at risk." },
+    { key: "ransomware-communications-pressure", label: "Focused drill: Communications pressure", summary: "Practice executive updates, staff guidance, continuity decisions, and evidence-bounded ransomware messaging." }
   ],
   insider: [
     { key: "insider", label: "Featured: Departing employee data exposure", summary: "Full five-step insider rehearsal focused on HR/legal coordination, evidence, fair process, and access cleanup." },
