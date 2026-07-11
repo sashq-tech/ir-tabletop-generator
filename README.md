@@ -101,11 +101,22 @@ See `DEPLOYMENT_CHECKLIST.md` for the fuller staging checklist.
 
 ## Human Launch Checklist
 
-- Google Search Console: add `https://responserehearsal.com/` as a URL-prefix property, or use a domain property if DNS verification is available. Submit `https://responserehearsal.com/sitemap.xml`, then inspect/request indexing for the homepage and public trust pages.
+- Google Search Console: add `https://responserehearsal.com/` as a URL-prefix property, or use a domain property if DNS verification is available. Submit `https://responserehearsal.com/sitemap.xml`, then inspect/request indexing for the homepage, Guides hub, 15-minute drill, 30-minute tabletop guide, and public trust pages.
 - Bing Webmaster Tools: add or import the site, submit `https://responserehearsal.com/sitemap.xml`, and confirm crawl/index status after the sitemap is fetched.
 - Cloudflare/domain sanity: confirm apex and `www` both return `200 OK`, HTTPS is valid, the apex remains canonical, `robots.txt` and `sitemap.xml` are reachable, and no unexpected redirects or challenge pages appear.
 - Directory positioning: describe the site as a browser-only incident response tabletop exercise generator for defensive practice and facilitator preparation. Avoid claims that it provides legal advice, compliance advice, incident-response consulting, or guaranteed readiness improvement.
 - Suggested listing categories: cybersecurity training, incident response tabletop exercises, business continuity planning, security awareness tools, or facilitator tools.
+
+Next verification URLs:
+
+- `https://responserehearsal.com/`
+- `https://responserehearsal.com/guides.html`
+- `https://responserehearsal.com/15-minute-incident-response-drill.html`
+- `https://responserehearsal.com/30-minute-incident-response-tabletop.html`
+- `https://responserehearsal.com/sitemap.xml`
+- `https://responserehearsal.com/?type=ransomware&focus=communications&duration=60&difficulty=standard&rehearsal=ransomware-communications-pressure`
+
+Signal rule: hold when sitemap/indexing/crawl status is clean, request indexing when live inspection passes but coverage is pending, fix sitemap/nav only for broken crawl/canonical/discovery evidence, and write the next guide only when real Search Console, Bing, WebsiteLaunches, directory, or referral evidence points to a specific practical search intent.
 
 Suggested public listing copy:
 
@@ -142,4 +153,5 @@ Public trust pages are included for soft-launch readiness: `about.html`, `privac
 - Public content now includes `15-minute-incident-response-drill.html`, a fast incident response drill guide for short security-team decision practice.
 - Public content now includes `30-minute-incident-response-tabletop.html`, an indexable facilitation guide linked from the homepage, header/footer navigation, and sitemap.
 - July 11, 2026 guide-hub pass did not use new Search Console export data for this site; the fresh Human Ops export folder did not include a Response Rehearsal export.
+- July 11, 2026 search readiness pass was notes/docs-only and added exact URLs plus hold/request-indexing/fix/write-next-guide signals for the newly published Guides hub.
 - Post-launch backlog remains intentionally focused on static/browser-only improvements before any account, upload, backend, analytics, or database decisions.

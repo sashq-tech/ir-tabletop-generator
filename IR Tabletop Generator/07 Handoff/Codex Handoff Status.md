@@ -71,10 +71,11 @@ The IR Tabletop Generator project has:
 - Public launch work renamed the site to Response Rehearsal at `https://responserehearsal.com/`.
 - Added public trust pages, 15-minute drill guide, 30-minute tabletop guide, focused ransomware communications pressure drill path, and a static `guides.html` hub.
 - July 11 guide-hub pass used current local/static site inventory only; fresh Search Console exports in `C:\Users\rdrnr\Projects\AI Ops Center\Human Ops 7.11.26` did not include a Response Rehearsal export.
+- Added a notes/docs-only Guides hub search readiness checklist covering Search Console sitemap status, URL inspection/indexing, Bing crawl/index status, WebsiteLaunches/directory/referral evidence, and exact Response Rehearsal URLs to verify next.
 
 ## Next Recommended Step
 
-Let the sitemap and published guide hub settle, then use the next concrete signal to choose the following bounded task: Search Console data when a Response Rehearsal export exists, or a small static content/internal-link pass if search data remains quiet.
+Let the sitemap and published guide hub settle. Next, Sean should verify or export Search Console and Bing evidence for `https://responserehearsal.com/`, `https://responserehearsal.com/guides.html`, `https://responserehearsal.com/15-minute-incident-response-drill.html`, `https://responserehearsal.com/30-minute-incident-response-tabletop.html`, and the sitemap. Hold if discovered/indexed cleanly, request indexing if live inspection passes but indexing is pending, fix sitemap/nav only if crawl or canonical issues appear, and write the next guide only after real query/referral evidence points to a specific practical topic.
 
 ## Later Roadmap Note
 
