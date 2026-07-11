@@ -130,6 +130,8 @@ http://127.0.0.1:4195/?type=phishing&org=smallBusiness&audience=mixed&focus=bala
 
 Verdict after fixes: Submit. This is a readiness judgment, not a guarantee of AdSense approval.
 
+Submission status: Submitted to AdSense on 2026-07-11. Sean submitted all sites, including Response Rehearsal. AdSense review is pending.
+
 Fixed before the verdict:
 
 - Removed exposed `Response Rehearsal prototype` wording from generated packet footer text.
@@ -141,6 +143,8 @@ Preflight evidence:
 - Live sitemap includes the homepage, Guides hub, 15-minute guide, 30-minute guide, About, Privacy, Terms, Contact, and Trust & Privacy.
 - Reviewed public HTML for placeholder/prototype/beta wording, hobby/tabletop-game framing, deceptive ad labels, and ad-click encouragement.
 - Content-page generator CTA text remains readable before hover.
+
+Current hold posture: do not churn production while AdSense review is pending unless AdSense, Search Console, or live-site checks report a concrete issue or blocker. `/guides.html` remains indexing requested / pending recrawl; the 15-minute and 30-minute guide articles are indexed/green.
 
 After AdSense approval or ad-code placement, re-check the live pages to confirm ads do not resemble navigation, CTA buttons, download controls, or exercise action controls.
 

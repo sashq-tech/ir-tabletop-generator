@@ -36,4 +36,6 @@ Sean inspected the guide URLs in Google Search Console:
 
 ## Current Posture
 
-Do not create another production content page yet. Let the Guides hub recrawl after the indexing request. The two article pages are indexed/green, so there is no current guide-page defect to fix.
+Submitted to AdSense on 2026-07-11.
+
+Response Rehearsal was submitted to AdSense on 2026-07-11 and review is pending. Do not create another production content page yet. Let the Guides hub recrawl after the indexing request. The two article pages are indexed/green, so there is no current guide-page defect to fix. Do not churn production unless AdSense, Search Console, or live-site checks report a concrete issue or blocker.

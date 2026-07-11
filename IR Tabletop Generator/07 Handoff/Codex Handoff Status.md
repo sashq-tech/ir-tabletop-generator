@@ -74,10 +74,11 @@ The IR Tabletop Generator project has:
 - Added a notes/docs-only Guides hub search readiness checklist covering Search Console sitemap status, URL inspection/indexing, Bing crawl/index status, WebsiteLaunches/directory/referral evidence, and exact Response Rehearsal URLs to verify next.
 - Sean inspected the guide URLs in Search Console on 2026-07-11: `https://responserehearsal.com/guides.html` was not indexed and indexing was requested, so it is pending recrawl and not a site defect; `https://responserehearsal.com/15-minute-incident-response-drill.html` and `https://responserehearsal.com/30-minute-incident-response-tabletop.html` are indexed/green with no reported issues.
 - Ran a 2026-07-11 AdSense preflight audit. Fixed two small blockers before submission posture: removed exposed `prototype` wording from generated packet footer text and updated Privacy/Trust copy for possible third-party advertising/cookies. Verdict after fixes: Submit, with no guarantee of AdSense approval.
+- Submitted to AdSense on 2026-07-11. Sean submitted all sites, including Response Rehearsal. Current posture: AdSense review pending; `/guides.html` indexing requested / pending recrawl; the 15-minute and 30-minute guide articles are indexed/green; no production churn unless AdSense, Search Console, or live-site checks report a concrete issue or blocker.
 
 ## Next Recommended Step
 
-If Sean submits to AdSense, re-check the live pages after approval or ad-code placement to ensure ads do not resemble navigation, CTAs, or download controls. Otherwise, let `https://responserehearsal.com/guides.html` recrawl after the indexing request and hold on new production content unless Search Console, Bing, WebsiteLaunches, directory, or referral evidence points to a specific practical topic.
+Hold while AdSense review and `/guides.html` recrawl are pending. Re-check the live pages after AdSense approval or ad-code placement to ensure ads do not resemble navigation, CTAs, or download controls. Resume production changes only for a concrete AdSense/Search Console issue, a live blocker, or a clear post-review signal.
 
 ## Later Roadmap Note
 

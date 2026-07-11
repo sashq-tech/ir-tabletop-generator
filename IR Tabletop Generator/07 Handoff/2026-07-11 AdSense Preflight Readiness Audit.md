@@ -18,6 +18,14 @@ Verdict after fixes: Submit.
 
 No remaining blockers were found in this pass. The site is not guaranteed to be accepted by AdSense, but the reviewed surfaces are in a reasonable submission posture.
 
+## Submission Status
+
+Submitted to AdSense on 2026-07-11.
+
+Sean submitted all sites, including Response Rehearsal, to AdSense on 2026-07-11.
+
+Current posture: AdSense review pending. Do not churn production while the review is pending unless AdSense, Search Console, or live-site checks report a concrete issue or blocker.
+
 ## Fixed During This Pass
 
 - Removed exposed `Response Rehearsal prototype` wording from generated packet footer text in `app.js`.
