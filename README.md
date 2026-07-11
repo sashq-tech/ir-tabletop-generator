@@ -50,6 +50,7 @@ The static app runs from these top-level files:
 - `styles.css`
 - `app.js`
 - `about.html`
+- `guides.html`
 - `15-minute-incident-response-drill.html`
 - `30-minute-incident-response-tabletop.html`
 - `privacy.html`
@@ -91,6 +92,7 @@ Recommended manual smoke path:
 - Confirm the AAR export unlocks.
 - Click `Copy AAR summary` after completion and confirm it produces the concise decisions/gaps/actions summary.
 - Open About, Privacy, Terms, Contact, and Trust links from the header or footer.
+- Confirm the Guides hub links to the 15-minute drill, 30-minute tabletop guide, and ransomware communications pressure drill route.
 - Confirm `Trust & Privacy` appears in the main public navigation and footer.
 - Confirm the content-page `Open the generator` / `Return to generator` button text is readable before hover.
 - Check a narrow/mobile viewport for no horizontal overflow.
@@ -136,6 +138,8 @@ Public trust pages are included for soft-launch readiness: `about.html`, `privac
 - Mobile facilitator controls use larger, more predictable tap targets for live sessions.
 - Copy actions provide visible success/failure feedback and polite assistive-technology announcements.
 - Public trust navigation now exposes `Trust & Privacy` in the main header and footer, and content-page generator CTA labels remain readable in the default state.
+- Public content now includes `guides.html`, a compact hub for practical drills and facilitator resources.
 - Public content now includes `15-minute-incident-response-drill.html`, a fast incident response drill guide for short security-team decision practice.
 - Public content now includes `30-minute-incident-response-tabletop.html`, an indexable facilitation guide linked from the homepage, header/footer navigation, and sitemap.
+- July 11, 2026 guide-hub pass did not use new Search Console export data for this site; the fresh Human Ops export folder did not include a Response Rehearsal export.
 - Post-launch backlog remains intentionally focused on static/browser-only improvements before any account, upload, backend, analytics, or database decisions.

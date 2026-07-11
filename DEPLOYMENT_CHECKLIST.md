@@ -21,6 +21,7 @@ Only these top-level files are intended for a static public site today:
 - `styles.css`
 - `app.js`
 - `about.html`
+- `guides.html`
 - `15-minute-incident-response-drill.html`
 - `30-minute-incident-response-tabletop.html`
 - `privacy.html`
@@ -91,6 +92,7 @@ http://127.0.0.1:4195/?type=phishing&org=smallBusiness&audience=mixed&focus=bala
 - Complete an interactive path.
 - Confirm after-action export unlocks, copies, and includes exercise context, owner/follow-up prompts, and educational-use boundary copy.
 - Confirm `Trust & Privacy` is reachable from the main public navigation and footer on Home, About, Privacy, Terms, Contact, and Trust & Privacy.
+- Confirm `Guides` is reachable from the main public navigation and footer and links to the 15-minute drill, 30-minute tabletop guide, and ransomware communications pressure drill route.
 - Confirm content-page generator CTA text is readable in default, hover, and focus states.
 - Test mobile/narrow viewport for no horizontal overflow.
 
@@ -135,7 +137,7 @@ If this later moves beyond GitHub repository staging to Cloudflare Pages or anot
 - Project root: repository root.
 - Build command: none.
 - Output directory: repository root.
-- Required runtime files: `index.html`, `styles.css`, `app.js`, `about.html`, `privacy.html`, `terms.html`, `contact.html`, `trust-and-privacy.html`.
+- Required runtime files: `index.html`, `styles.css`, `app.js`, `about.html`, `guides.html`, `15-minute-incident-response-drill.html`, `30-minute-incident-response-tabletop.html`, `privacy.html`, `terms.html`, `contact.html`, `trust-and-privacy.html`.
 - Review the live apex and key pages after each production push.
 
 ## Handoff Summary For Staging
@@ -143,9 +145,9 @@ If this later moves beyond GitHub repository staging to Cloudflare Pages or anot
 - App type: static site, no backend.
 - Build command: none.
 - Public entry point: `index.html`.
-- Required runtime files: `index.html`, `styles.css`, `app.js`, `about.html`, `privacy.html`, `terms.html`, `contact.html`, `trust-and-privacy.html`, `robots.txt`, `sitemap.xml`.
+- Required runtime files: `index.html`, `styles.css`, `app.js`, `about.html`, `guides.html`, `15-minute-incident-response-drill.html`, `30-minute-incident-response-tabletop.html`, `privacy.html`, `terms.html`, `contact.html`, `trust-and-privacy.html`, `robots.txt`, `sitemap.xml`.
 - Current endpoint: `https://responserehearsal.com/`.
-- Public guide pages: `15-minute-incident-response-drill.html` and `30-minute-incident-response-tabletop.html`.
+- Public guide pages: `guides.html`, `15-minute-incident-response-drill.html`, and `30-minute-incident-response-tabletop.html`.
 
 ## Product Guardrails
 

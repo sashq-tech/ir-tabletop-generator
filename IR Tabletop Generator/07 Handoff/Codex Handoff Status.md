@@ -2,7 +2,7 @@
 
 ## Last Updated
 
-2026-06-27
+2026-07-11
 
 ## Current State
 
@@ -68,10 +68,13 @@ The IR Tabletop Generator project has:
 - Added a facilitator notes rail with notes visibility control.
 - Added participant-safe presentation filtering so shared mode skips facilitator-only slides and removes facilitator/scribe-only bullets from shared inject slides.
 - Updated presentation URLs to preserve `deck=participant|facilitator`, slide number, and hidden notes state.
+- Public launch work renamed the site to Response Rehearsal at `https://responserehearsal.com/`.
+- Added public trust pages, 15-minute drill guide, 30-minute tabletop guide, focused ransomware communications pressure drill path, and a static `guides.html` hub.
+- July 11 guide-hub pass used current local/static site inventory only; fresh Search Console exports in `C:\Users\rdrnr\Projects\AI Ops Center\Human Ops 7.11.26` did not include a Response Rehearsal export.
 
 ## Next Recommended Step
 
-Continue export/presentation polish before adding more scenario categories. The strongest next work item is a real-world presentation rehearsal pass: Teams/Zoom screen share, browser fullscreen, participant-safe links, facilitator notes ergonomics, and local PDF viewer review.
+Let the sitemap and published guide hub settle, then use the next concrete signal to choose the following bounded task: Search Console data when a Response Rehearsal export exists, or a small static content/internal-link pass if search data remains quiet.
 
 ## Later Roadmap Note
 
