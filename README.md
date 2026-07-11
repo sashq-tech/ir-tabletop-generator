@@ -162,4 +162,5 @@ Public trust pages are included for soft-launch readiness: `about.html`, `privac
 - July 11, 2026 guide-hub pass did not use new Search Console export data for this site; the fresh Human Ops export folder did not include a Response Rehearsal export.
 - July 11, 2026 search readiness pass was notes/docs-only and added exact URLs plus hold/request-indexing/fix/write-next-guide signals for the newly published Guides hub.
 - July 11, 2026 Search Console update from Sean: the Guides hub has indexing requested and is pending recrawl; the 15-minute and 30-minute guide articles are indexed/green with no reported issues.
+- July 11, 2026 AdSense preflight audit verdict after fixes: Submit. Fixes removed exposed `prototype` wording from generated packet footer text and updated Privacy/Trust copy for possible third-party advertising/cookies.
 - Post-launch backlog remains intentionally focused on static/browser-only improvements before any account, upload, backend, analytics, or database decisions.

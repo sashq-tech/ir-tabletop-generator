@@ -126,6 +126,24 @@ http://127.0.0.1:4195/?type=phishing&org=smallBusiness&audience=mixed&focus=bala
 - WebsiteLaunches/directories: position the site as a browser-only tabletop exercise generator for defensive readiness practice and facilitator preparation. Do not present it as legal advice, compliance advice, incident-response consulting, or a guaranteed readiness solution.
 - Listing category ideas: cybersecurity training, incident response tabletop exercise, security awareness, business continuity planning, facilitator tools.
 
+## 2026-07-11 AdSense Preflight Result
+
+Verdict after fixes: Submit. This is a readiness judgment, not a guarantee of AdSense approval.
+
+Fixed before the verdict:
+
+- Removed exposed `Response Rehearsal prototype` wording from generated packet footer text.
+- Updated Privacy and Trust copy so possible third-party advertising/cookies are acknowledged if AdSense is enabled.
+
+Preflight evidence:
+
+- Live `https://responserehearsal.com/ads.txt` includes `google.com, pub-7040609172484112, DIRECT, f08c47fec0942fa0`.
+- Live sitemap includes the homepage, Guides hub, 15-minute guide, 30-minute guide, About, Privacy, Terms, Contact, and Trust & Privacy.
+- Reviewed public HTML for placeholder/prototype/beta wording, hobby/tabletop-game framing, deceptive ad labels, and ad-click encouragement.
+- Content-page generator CTA text remains readable before hover.
+
+After AdSense approval or ad-code placement, re-check the live pages to confirm ads do not resemble navigation, CTA buttons, download controls, or exercise action controls.
+
 ### 2026-07-11 Guides Hub Readiness Signals
 
 Use this list when Sean next has Google Search Console, Bing Webmaster Tools, or referral/directory evidence available. The July 11 Human Ops export folder did not include Response Rehearsal data, so do not make content decisions from those exports.
