@@ -118,6 +118,13 @@ Next verification URLs:
 
 Signal rule: hold when sitemap/indexing/crawl status is clean, request indexing when live inspection passes but coverage is pending, fix sitemap/nav only for broken crawl/canonical/discovery evidence, and write the next guide only when real Search Console, Bing, WebsiteLaunches, directory, or referral evidence points to a specific practical search intent.
 
+2026-07-11 Search Console status from Sean:
+
+- `https://responserehearsal.com/guides.html`: not indexed; indexing requested and pending recrawl. This is not a site defect.
+- `https://responserehearsal.com/15-minute-incident-response-drill.html`: indexed and green.
+- `https://responserehearsal.com/30-minute-incident-response-tabletop.html`: indexed and green.
+- No issues were reported on the indexed guide pages.
+
 Suggested public listing copy:
 
 > Response Rehearsal is a browser-only tabletop exercise generator that helps facilitators practice incident decisions before the real day. Build defensive scenarios, injects, participant handouts, facilitator notes, worksheets, and after-action prompts without accounts, uploads, or a backend. Generated material is a planning aid that should be reviewed by the facilitator; it is not legal, compliance, or incident-response advice.
@@ -154,4 +161,5 @@ Public trust pages are included for soft-launch readiness: `about.html`, `privac
 - Public content now includes `30-minute-incident-response-tabletop.html`, an indexable facilitation guide linked from the homepage, header/footer navigation, and sitemap.
 - July 11, 2026 guide-hub pass did not use new Search Console export data for this site; the fresh Human Ops export folder did not include a Response Rehearsal export.
 - July 11, 2026 search readiness pass was notes/docs-only and added exact URLs plus hold/request-indexing/fix/write-next-guide signals for the newly published Guides hub.
+- July 11, 2026 Search Console update from Sean: the Guides hub has indexing requested and is pending recrawl; the 15-minute and 30-minute guide articles are indexed/green with no reported issues.
 - Post-launch backlog remains intentionally focused on static/browser-only improvements before any account, upload, backend, analytics, or database decisions.

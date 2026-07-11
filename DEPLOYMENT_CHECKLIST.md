@@ -130,6 +130,13 @@ http://127.0.0.1:4195/?type=phishing&org=smallBusiness&audience=mixed&focus=bala
 
 Use this list when Sean next has Google Search Console, Bing Webmaster Tools, or referral/directory evidence available. The July 11 Human Ops export folder did not include Response Rehearsal data, so do not make content decisions from those exports.
 
+Current Search Console status from Sean's 2026-07-11 inspection:
+
+- `https://responserehearsal.com/guides.html`: not indexed; indexing requested. This is pending recrawl, not a site defect.
+- `https://responserehearsal.com/15-minute-incident-response-drill.html`: indexed and green.
+- `https://responserehearsal.com/30-minute-incident-response-tabletop.html`: indexed and green.
+- No issues were reported on the indexed guide pages.
+
 - Sitemap: `https://responserehearsal.com/sitemap.xml`
   - Hold if Google and Bing have fetched it successfully and the listed URLs are discoverable.
   - Fix sitemap/nav if it is not fetched, shows a fetch error, or omits the current public URLs.
@@ -138,16 +145,17 @@ Use this list when Sean next has Google Search Console, Bing Webmaster Tools, or
   - Request indexing if discovered but not indexed after the sitemap is accepted.
   - Fix sitemap/nav if inspection reports blocked, redirected unexpectedly, or different canonical than the apex URL.
 - Guides hub: `https://responserehearsal.com/guides.html`
+  - Current status: indexing requested / pending recrawl after Sean's 2026-07-11 inspection.
   - Hold if discovered/indexed and linked from the homepage or sitelinks/internal link reports.
-  - Request indexing if live inspection succeeds but indexing is pending.
+  - Do not treat the current not-indexed state as a defect unless Search Console later reports crawl, canonical, or blocked-page issues.
   - Write the next guide only after this page is indexed or there is a clear query/referral signal showing related demand.
 - 15-minute drill guide: `https://responserehearsal.com/15-minute-incident-response-drill.html`
-  - Hold if indexed and impressions begin for short-drill or fast-response rehearsal terms.
-  - Request indexing if inspection passes but the page remains discovered/not indexed.
+  - Current status: indexed and green after Sean's 2026-07-11 inspection.
+  - Hold if impressions begin for short-drill or fast-response rehearsal terms.
   - Write the next guide if impressions appear with low CTR, or if related queries suggest a narrower practical drill topic.
 - 30-minute tabletop guide: `https://responserehearsal.com/30-minute-incident-response-tabletop.html`
-  - Hold if indexed and impressions begin for tabletop/facilitation terms.
-  - Request indexing if inspection passes but coverage is still pending.
+  - Current status: indexed and green after Sean's 2026-07-11 inspection.
+  - Hold if impressions begin for tabletop/facilitation terms.
   - Write the next guide if query data clusters around a specific incident type, audience, or exercise format.
 - Ransomware communications drill route: `https://responserehearsal.com/?type=ransomware&focus=communications&duration=60&difficulty=standard&rehearsal=ransomware-communications-pressure`
   - Treat as an app route, not a static sitemap URL.

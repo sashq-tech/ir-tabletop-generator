@@ -25,6 +25,15 @@ The fresh `C:\Users\rdrnr\Projects\AI Ops Center\Human Ops 7.11.26` export folde
 - Bing Webmaster Tools: hold if sitemap and core URLs are discovered; resubmit sitemap or use IndexNow if Bing has not crawled after several days; fix only for blocked/unreachable/canonical problems.
 - WebsiteLaunches/directories/referrals: hold if referrals appear and engagement is not clearly broken; improve listing copy if referrals bounce; write the next guide only when the signal points to a specific practical search intent.
 
+## 2026-07-11 Search Console Status Update
+
+Sean inspected the guide URLs in Google Search Console:
+
+- `https://responserehearsal.com/guides.html` was not indexed; Sean requested indexing. Treat this as indexing requested / pending recrawl, not a site defect.
+- `https://responserehearsal.com/15-minute-incident-response-drill.html` is indexed and green.
+- `https://responserehearsal.com/30-minute-incident-response-tabletop.html` is indexed and green.
+- No issues were reported on the indexed guide pages.
+
 ## Current Posture
 
-Do not create another production content page yet. Let the Guides hub, sitemap, and existing guide pages settle until there is real Response Rehearsal Search Console, Bing, or referral evidence.
+Do not create another production content page yet. Let the Guides hub recrawl after the indexing request. The two article pages are indexed/green, so there is no current guide-page defect to fix.

@@ -72,10 +72,11 @@ The IR Tabletop Generator project has:
 - Added public trust pages, 15-minute drill guide, 30-minute tabletop guide, focused ransomware communications pressure drill path, and a static `guides.html` hub.
 - July 11 guide-hub pass used current local/static site inventory only; fresh Search Console exports in `C:\Users\rdrnr\Projects\AI Ops Center\Human Ops 7.11.26` did not include a Response Rehearsal export.
 - Added a notes/docs-only Guides hub search readiness checklist covering Search Console sitemap status, URL inspection/indexing, Bing crawl/index status, WebsiteLaunches/directory/referral evidence, and exact Response Rehearsal URLs to verify next.
+- Sean inspected the guide URLs in Search Console on 2026-07-11: `https://responserehearsal.com/guides.html` was not indexed and indexing was requested, so it is pending recrawl and not a site defect; `https://responserehearsal.com/15-minute-incident-response-drill.html` and `https://responserehearsal.com/30-minute-incident-response-tabletop.html` are indexed/green with no reported issues.
 
 ## Next Recommended Step
 
-Let the sitemap and published guide hub settle. Next, Sean should verify or export Search Console and Bing evidence for `https://responserehearsal.com/`, `https://responserehearsal.com/guides.html`, `https://responserehearsal.com/15-minute-incident-response-drill.html`, `https://responserehearsal.com/30-minute-incident-response-tabletop.html`, and the sitemap. Hold if discovered/indexed cleanly, request indexing if live inspection passes but indexing is pending, fix sitemap/nav only if crawl or canonical issues appear, and write the next guide only after real query/referral evidence points to a specific practical topic.
+Let `https://responserehearsal.com/guides.html` recrawl after the indexing request. Hold on new production content unless Search Console, Bing, WebsiteLaunches, directory, or referral evidence points to a specific practical topic. Fix sitemap/nav only if a crawl, canonical, or broken-link issue appears.
 
 ## Later Roadmap Note
 
