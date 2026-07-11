@@ -26,6 +26,8 @@ Sean submitted all sites, including Response Rehearsal, to AdSense on 2026-07-11
 
 Current posture: AdSense review pending. Do not churn production while the review is pending unless AdSense, Search Console, or live-site checks report a concrete issue or blocker.
 
+2026-07-11 Cloudflare Crawler Hints enabled. Sean enabled the Cloudflare Crawler Hints beta across all four sites. This is a Cloudflare-side/search-crawl assist, not a production code change. Keep monitoring sitemap/Search Console, Bing crawl/index status, `/guides.html` recrawl, the indexed/green guide articles, and AdSense review.
+
 ## Fixed During This Pass
 
 - Removed exposed `Response Rehearsal prototype` wording from generated packet footer text in `app.js`.

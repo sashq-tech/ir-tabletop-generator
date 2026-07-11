@@ -39,3 +39,5 @@ Sean inspected the guide URLs in Google Search Console:
 Submitted to AdSense on 2026-07-11.
 
 Response Rehearsal was submitted to AdSense on 2026-07-11 and review is pending. Do not create another production content page yet. Let the Guides hub recrawl after the indexing request. The two article pages are indexed/green, so there is no current guide-page defect to fix. Do not churn production unless AdSense, Search Console, or live-site checks report a concrete issue or blocker.
+
+2026-07-11 Cloudflare Crawler Hints enabled. Sean enabled the Cloudflare Crawler Hints beta across all four sites. This is a Cloudflare-side/search-crawl assist, not a production code change. Continue monitoring `/guides.html` indexing requested / pending recrawl, the indexed/green guide articles, sitemap/Search Console, Bing, and AdSense review.

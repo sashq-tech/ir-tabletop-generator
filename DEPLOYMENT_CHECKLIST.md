@@ -146,6 +146,8 @@ Preflight evidence:
 
 Current hold posture: do not churn production while AdSense review is pending unless AdSense, Search Console, or live-site checks report a concrete issue or blocker. `/guides.html` remains indexing requested / pending recrawl; the 15-minute and 30-minute guide articles are indexed/green.
 
+2026-07-11 Cloudflare Crawler Hints enabled. Sean enabled the Cloudflare Crawler Hints beta across all four sites. This is a Cloudflare-side/search-crawl assist, not a production code change. Keep monitoring `/guides.html` indexing requested / pending recrawl, the indexed/green guide articles, sitemap/Search Console, Bing, and AdSense review; do not churn production unless AdSense/Search Console reports a concrete issue or a live blocker appears.
+
 After AdSense approval or ad-code placement, re-check the live pages to confirm ads do not resemble navigation, CTA buttons, download controls, or exercise action controls.
 
 ### 2026-07-11 Guides Hub Readiness Signals

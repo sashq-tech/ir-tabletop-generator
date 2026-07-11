@@ -75,10 +75,11 @@ The IR Tabletop Generator project has:
 - Sean inspected the guide URLs in Search Console on 2026-07-11: `https://responserehearsal.com/guides.html` was not indexed and indexing was requested, so it is pending recrawl and not a site defect; `https://responserehearsal.com/15-minute-incident-response-drill.html` and `https://responserehearsal.com/30-minute-incident-response-tabletop.html` are indexed/green with no reported issues.
 - Ran a 2026-07-11 AdSense preflight audit. Fixed two small blockers before submission posture: removed exposed `prototype` wording from generated packet footer text and updated Privacy/Trust copy for possible third-party advertising/cookies. Verdict after fixes: Submit, with no guarantee of AdSense approval.
 - Submitted to AdSense on 2026-07-11. Sean submitted all sites, including Response Rehearsal. Current posture: AdSense review pending; `/guides.html` indexing requested / pending recrawl; the 15-minute and 30-minute guide articles are indexed/green; no production churn unless AdSense, Search Console, or live-site checks report a concrete issue or blocker.
+- 2026-07-11 Cloudflare Crawler Hints enabled. Sean enabled the Cloudflare Crawler Hints beta across all four sites. This is a Cloudflare-side/search-crawl assist, not a production code change. Continue monitoring `/guides.html` indexing requested / pending recrawl, guide pages indexed/green, sitemap/Search Console, Bing, and AdSense review.
 
 ## Next Recommended Step
 
-Hold while AdSense review and `/guides.html` recrawl are pending. Re-check the live pages after AdSense approval or ad-code placement to ensure ads do not resemble navigation, CTAs, or download controls. Resume production changes only for a concrete AdSense/Search Console issue, a live blocker, or a clear post-review signal.
+Hold while AdSense review and `/guides.html` recrawl are pending. Cloudflare Crawler Hints is now enabled as a crawl assist; no production code change is needed for that setting. Re-check the live pages after AdSense approval or ad-code placement to ensure ads do not resemble navigation, CTAs, or download controls. Resume production changes only for a concrete AdSense/Search Console issue, a live blocker, or a clear post-review signal.
 
 ## Later Roadmap Note
 
