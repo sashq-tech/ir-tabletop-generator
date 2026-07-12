@@ -278,6 +278,36 @@ h3 {
   font-weight: 900;
 }
 
+.contact-form {
+  display: grid;
+  gap: 0.85rem;
+  padding: 1rem;
+  border: 1px solid rgba(238, 245, 239, 0.12);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+  width: 100%;
+  border: 1px solid rgba(238, 245, 239, 0.18);
+  border-radius: 8px;
+  background: rgba(2, 8, 6, 0.78);
+  color: var(--text);
+  font: inherit;
+  padding: 0.8rem 0.9rem;
+}
+
+.contact-form textarea {
+  min-height: 9rem;
+  resize: vertical;
+}
+
+.contact-form ::placeholder {
+  color: rgba(205, 216, 208, 0.68);
+}
+
 .site-footer a {
   color: var(--green);
   font-weight: 800;

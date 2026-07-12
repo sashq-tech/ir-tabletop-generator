@@ -6,13 +6,13 @@
     <title>Contact | Response Rehearsal</title>
     <meta
       name="description"
-      content="Contact and feedback information for Response Rehearsal."
+      content="Contact Response Rehearsal at contact@responserehearsal.com for feedback about the incident response rehearsal tool."
     >
     <meta name="theme-color" content="#06110d">
     <meta property="og:title" content="Contact | Response Rehearsal">
     <meta
       property="og:description"
-      content="How to send feedback about Response Rehearsal without entering sensitive incident information."
+      content="Use the public contact address for Response Rehearsal feedback. Do not send sensitive incident information."
     >
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://responserehearsal.com/contact.html">
@@ -20,7 +20,7 @@
     <meta name="twitter:title" content="Contact | Response Rehearsal">
     <meta
       name="twitter:description"
-      content="How to send feedback about Response Rehearsal without entering sensitive incident information."
+      content="Use the public contact address for Response Rehearsal feedback. Do not send sensitive incident information."
     >
     <link rel="icon" href="data:,">
     <link rel="canonical" href="https://responserehearsal.com/contact.html">
@@ -52,14 +52,39 @@
         <p class="eyebrow">Feedback</p>
         <h2>Contact</h2>
         <p>
-          A permanent launch contact address has not been published yet. Response Rehearsal is served at https://responserehearsal.com/. Until a contact path is selected, use the GitHub repository feedback path if it is available.
+          For questions or feedback about Response Rehearsal, email <a href="mailto:contact@responserehearsal.com">contact@responserehearsal.com</a>.
+          This address is the public contact path for the site.
         </p>
 
         <section>
-          <h3>Repository feedback</h3>
+          <h3>Email draft form</h3>
           <p>
-            Project repository: <a href="https://github.com/sashq-tech/ir-tabletop-generator">github.com/sashq-tech/ir-tabletop-generator</a>.
+            This static form opens a prefilled message in your email app. It does not send anything to a server from this website.
           </p>
+          <form class="contact-form" id="contactMailForm" action="mailto:contact@responserehearsal.com" method="post" enctype="text/plain">
+            <label class="field">
+              <span class="field-label">Name</span>
+              <input id="contactName" name="name" type="text" autocomplete="name">
+            </label>
+            <label class="field">
+              <span class="field-label">Email</span>
+              <input id="contactEmail" name="email" type="email" autocomplete="email">
+            </label>
+            <label class="field">
+              <span class="field-label">Topic</span>
+              <select id="contactTopic" name="topic">
+                <option value="Response Rehearsal feedback">Response Rehearsal feedback</option>
+                <option value="Site issue">Site issue</option>
+                <option value="Privacy or trust question">Privacy or trust question</option>
+                <option value="Exercise content suggestion">Exercise content suggestion</option>
+              </select>
+            </label>
+            <label class="field">
+              <span class="field-label">Message</span>
+              <textarea id="contactMessage" name="message" rows="6" placeholder="Briefly describe the feedback or issue. Do not include sensitive incident details."></textarea>
+            </label>
+            <button class="primary-button" type="submit">Open email draft</button>
+          </form>
         </section>
 
         <section>
@@ -70,9 +95,9 @@
         </section>
 
         <section>
-          <h3>Launch TODO</h3>
+          <h3>Repository</h3>
           <p>
-            Before publishing a support address, replace this neutral contact language with the chosen support email, contact form, or repository issue policy.
+            The project repository is <a href="https://github.com/sashq-tech/ir-tabletop-generator">github.com/sashq-tech/ir-tabletop-generator</a>. Use the public contact address for site feedback unless you are intentionally reviewing repository code.
           </p>
         </section>
 
@@ -93,5 +118,34 @@
       </nav>
       <p>No login. No upload. No backend. This tool runs in the browser and uses generic exercise content.</p>
     </footer>
+    <script>
+      (function () {
+        const form = document.querySelector("#contactMailForm");
+        if (!form) {
+          return;
+        }
+
+        form.addEventListener("submit", function (event) {
+          event.preventDefault();
+          const name = document.querySelector("#contactName").value.trim();
+          const email = document.querySelector("#contactEmail").value.trim();
+          const topic = document.querySelector("#contactTopic").value;
+          const message = document.querySelector("#contactMessage").value.trim();
+          const body = [
+            "Name: " + (name || "Not provided"),
+            "Email: " + (email || "Not provided"),
+            "Topic: " + topic,
+            "",
+            message || "Message:"
+          ].join("\n");
+
+          window.location.href =
+            "mailto:contact@responserehearsal.com?subject=" +
+            encodeURIComponent(topic) +
+            "&body=" +
+            encodeURIComponent(body);
+        });
+      })();
+    </script>
   </body>
 </html>
