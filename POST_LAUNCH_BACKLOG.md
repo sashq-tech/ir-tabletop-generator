@@ -10,6 +10,24 @@ Why it matters: Sean's product signal is that the current site feels chaotic, wh
 
 First small implementation step after approval: Build from the product strategy note at `IR Tabletop Generator/01 Product Strategy/2026-07-11 Structured Landing Focused Interactive Rehearsal.md`. Decide whether the focused rehearsal workspace should live at a separate `rehearsal.html` page or behind a compatible `index.html` route/state, then draft the minimal landing-door layout before editing production files.
 
+Recommended first implementation slice after AdSense review or Sean's explicit approval:
+
+1. Choose route shape and compatibility rule:
+   - Preferred starting point: keep `index.html` as the landing/front door and create `rehearsal.html` for the focused Interactive Rehearsal workspace.
+   - Preserve existing parameterized rehearsal links from Guides, especially the ransomware communications pressure drill. If a separate `rehearsal.html` is used, add a compatibility handoff plan before changing public links.
+2. Draft the landing shell only:
+   - Product name, concise incident-response decision-rehearsal positioning, browser-only/no-login/no-upload trust line, and three doors: Interactive Rehearsal, Guides / Short Drills, About / Trust / Privacy.
+   - Do not expose packet exports, slide controls, worksheet controls, detailed settings, or sample packet buttons on first load.
+3. Map current controls before moving code:
+   - Interactive Rehearsal workspace: scenario picker, pre-brief, timer, inject stage, choices, consequence meters, facilitator notes, copy inject, AAR reveal/export.
+   - Secondary facilitator prep path: full packet, participant handout, facilitator guide, slides, worksheet, print/download/copy controls.
+4. Verify before publish:
+   - Existing guide URLs still return 200 and remain linked.
+   - Guides hub remains discoverable.
+   - `/contact`, Privacy, Terms, Trust & Privacy, sitemap, robots, and `ads.txt` remain clean.
+   - CTA text remains visible without hover.
+   - No new app features or guide content are added during this restructure slice.
+
 Acceptance criteria:
 
 - First load is a true landing page with concise intro, trust/positioning, and clear path choices.
