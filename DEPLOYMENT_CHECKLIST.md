@@ -150,6 +150,34 @@ Current hold posture: do not churn production while AdSense review is pending un
 
 After AdSense approval or ad-code placement, re-check the live pages to confirm ads do not resemble navigation, CTA buttons, download controls, or exercise action controls.
 
+### 2026-07-12 Contact Trust Fix
+
+Public contact path: `contact@responserehearsal.com`.
+
+Commit: `4c6562f Add real Response Rehearsal contact path`.
+
+Files changed in the production fix:
+
+- `contact.html`
+- `privacy.html`
+- `styles.css`
+- `sitemap.xml`
+
+Result:
+
+- Contact page now uses a form-style static workflow that opens a prefilled email draft with `mailto:contact@responserehearsal.com`.
+- The page keeps the contact email visible as a fallback and states that the form does not send anything to a server from the site.
+- Privacy copy now covers email handling boundaries and warns users not to send credentials, confidential incident details, regulated data, or sensitive infrastructure details.
+- Removed placeholder/future-channel contact wording.
+
+Verification:
+
+- Local checks passed: `node --check app.js`, contact inline script/content check, public wording sweep, contact link/sitemap marker check, CTA visibility pattern check, and `git diff --check` with CRLF warnings only.
+- Live checks passed for `https://responserehearsal.com/contact`, `https://responserehearsal.com/contact.html`, `https://responserehearsal.com/privacy.html`, `https://responserehearsal.com/terms.html`, `https://responserehearsal.com/trust-and-privacy.html`, `https://responserehearsal.com/styles.css`, and `https://responserehearsal.com/sitemap.xml`.
+- Cloudflare Email Obfuscation rewrites visible email links in raw HTML, but the live form action and JavaScript mailto target remain `contact@responserehearsal.com`.
+
+Current posture: AdSense review pending; production is stable unless Google, Search Console, Bing, or a live check reports a concrete issue.
+
 ### 2026-07-11 Guides Hub Readiness Signals
 
 Use this list when Sean next has Google Search Console, Bing Webmaster Tools, or referral/directory evidence available. The July 11 Human Ops export folder did not include Response Rehearsal data, so do not make content decisions from those exports.

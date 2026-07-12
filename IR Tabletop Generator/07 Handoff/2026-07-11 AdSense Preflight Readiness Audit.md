@@ -28,6 +28,8 @@ Current posture: AdSense review pending. Do not churn production while the revie
 
 2026-07-11 Cloudflare Crawler Hints enabled. Sean enabled the Cloudflare Crawler Hints beta across all four sites. This is a Cloudflare-side/search-crawl assist, not a production code change. Keep monitoring sitemap/Search Console, Bing crawl/index status, `/guides.html` recrawl, the indexed/green guide articles, and AdSense review.
 
+2026-07-12 contact trust mitigation: Sean confirmed `contact@responserehearsal.com` is available through Cloudflare Email Routing. Commit `4c6562f` updated the Contact page to use a truthful static mailto form pattern, kept the email address visible as a fallback, removed placeholder/future-channel contact wording, and updated Privacy copy for email handling boundaries. Live verification passed for `/contact`, `/contact.html`, Privacy, Terms, Trust & Privacy, stylesheet contact-form rules, and sitemap markers.
+
 ## Fixed During This Pass
 
 - Removed exposed `Response Rehearsal prototype` wording from generated packet footer text in `app.js`.

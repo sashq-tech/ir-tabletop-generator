@@ -137,7 +137,7 @@ Do not enter real credentials, confidential incident details, personal informati
 
 The generator should stay focused on defensive tabletop discussion and readiness planning. It should not include operational attack guidance.
 
-Public trust pages are included for soft-launch readiness: `about.html`, `privacy.html`, `terms.html`, `contact.html`, and `trust-and-privacy.html`. Contact copy is intentionally neutral until a permanent launch contact path is selected.
+Public trust pages are included for soft-launch readiness: `about.html`, `privacy.html`, `terms.html`, `contact.html`, and `trust-and-privacy.html`. The public contact path is `contact@responserehearsal.com`; the Contact page uses a truthful static mailto form pattern and visible email fallback.
 
 ## Current Status
 
@@ -165,4 +165,5 @@ Public trust pages are included for soft-launch readiness: `about.html`, `privac
 - July 11, 2026 AdSense preflight audit verdict after fixes: Submit. Fixes removed exposed `prototype` wording from generated packet footer text and updated Privacy/Trust copy for possible third-party advertising/cookies.
 - July 11, 2026 submission update: Submitted to AdSense on 2026-07-11. Sean submitted all sites, including Response Rehearsal. AdSense review is pending; hold production churn unless AdSense, Search Console, or live-site checks report a concrete issue or blocker.
 - 2026-07-11 Cloudflare Crawler Hints enabled. Sean enabled the Cloudflare Crawler Hints beta across all four sites; treat this as a Cloudflare-side/search-crawl assist, not a production code change. Keep monitoring `/guides.html` indexing requested / pending recrawl, the indexed/green guide articles, sitemap/Search Console, Bing, and AdSense review.
+- 2026-07-12 contact trust fix: `contact@responserehearsal.com` is confirmed as the public contact path, `contact.html` now uses a form-style static mailto workflow instead of a fake server-side submit, and `privacy.html` documents email handling boundaries. Commit: `4c6562f`.
 - Post-launch backlog remains intentionally focused on static/browser-only improvements before any account, upload, backend, analytics, or database decisions.
