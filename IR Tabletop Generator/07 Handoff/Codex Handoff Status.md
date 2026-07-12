@@ -76,10 +76,11 @@ The IR Tabletop Generator project has:
 - Ran a 2026-07-11 AdSense preflight audit. Fixed two small blockers before submission posture: removed exposed `prototype` wording from generated packet footer text and updated Privacy/Trust copy for possible third-party advertising/cookies. Verdict after fixes: Submit, with no guarantee of AdSense approval.
 - Submitted to AdSense on 2026-07-11. Sean submitted all sites, including Response Rehearsal. Current posture: AdSense review pending; `/guides.html` indexing requested / pending recrawl; the 15-minute and 30-minute guide articles are indexed/green; no production churn unless AdSense, Search Console, or live-site checks report a concrete issue or blocker.
 - 2026-07-11 Cloudflare Crawler Hints enabled. Sean enabled the Cloudflare Crawler Hints beta across all four sites. This is a Cloudflare-side/search-crawl assist, not a production code change. Continue monitoring `/guides.html` indexing requested / pending recrawl, guide pages indexed/green, sitemap/Search Console, Bing, and AdSense review.
+- 2026-07-11 product-structure note captured Sean's direction that the current site feels chaotic, the Interactive Rehearsal is the strongest part, the landing page should become a true intro with path/door choices, and Interactive Rehearsal should move into a focused workspace. Planning note: `IR Tabletop Generator/01 Product Strategy/2026-07-11 Structured Landing Focused Interactive Rehearsal.md`. No production changes were made.
 
 ## Next Recommended Step
 
-Hold while AdSense review and `/guides.html` recrawl are pending. Cloudflare Crawler Hints is now enabled as a crawl assist; no production code change is needed for that setting. Re-check the live pages after AdSense approval or ad-code placement to ensure ads do not resemble navigation, CTAs, or download controls. Resume production changes only for a concrete AdSense/Search Console issue, a live blocker, or a clear post-review signal.
+Hold while AdSense review and `/guides.html` recrawl are pending. Cloudflare Crawler Hints is now enabled as a crawl assist; no production code change is needed for that setting. Re-check the live pages after AdSense approval or ad-code placement to ensure ads do not resemble navigation, CTAs, or download controls. Resume production changes only for a concrete AdSense/Search Console issue, a live blocker, a clear post-review signal, or Sean's explicit approval to implement the structured landing plus focused Interactive Rehearsal plan.
 
 ## Later Roadmap Note
 

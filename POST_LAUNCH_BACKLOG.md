@@ -2,6 +2,23 @@
 
 This backlog captures practical next improvements after the first public launch. It is intentionally scoped to browser-only, static-site work with no accounts, uploads, database, or backend service.
 
+## 0. Structured Landing And Focused Interactive Rehearsal
+
+Status: Planning captured on 2026-07-11. Hold production changes while AdSense review and `/guides.html` recrawl are pending unless Sean explicitly approves the live restructure.
+
+Why it matters: Sean's product signal is that the current site feels chaotic, while the Interactive Rehearsal is the strongest part. The landing page should introduce Response Rehearsal, then offer clear paths/doors instead of exposing every generator, export, slide, worksheet, and guide option at once.
+
+First small implementation step after approval: Build from the product strategy note at `IR Tabletop Generator/01 Product Strategy/2026-07-11 Structured Landing Focused Interactive Rehearsal.md`. Decide whether the focused rehearsal workspace should live at a separate `rehearsal.html` page or behind a compatible `index.html` route/state, then draft the minimal landing-door layout before editing production files.
+
+Acceptance criteria:
+
+- First load is a true landing page with concise intro, trust/positioning, and clear path choices.
+- Interactive Rehearsal has a focused workspace with scenario picker, timer, inject stage, choices, consequence meters, facilitator notes, copy controls, and after-action reveal, without packet/export clutter.
+- Guides/short drills and About/Trust/Privacy remain discoverable.
+- Existing indexed guide URLs and parameterized rehearsal links are preserved or intentionally redirected with checks.
+- CTA labels remain readable without hover and serious incident-response positioning is preserved.
+- No new app features are added as part of the restructure unless separately approved.
+
 ## 1. Facilitator Print And Export Polish
 
 Status: First pass complete. Keep this item open for future print/readability refinements after real facilitator use.
