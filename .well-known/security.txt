@@ -1,0 +1,5 @@
+Contact: mailto:contact@responserehearsal.com
+Contact: https://responserehearsal.com/contact
+Expires: 2027-06-30T23:59:00Z
+Preferred-Languages: en
+Canonical: https://responserehearsal.com/.well-known/security.txt

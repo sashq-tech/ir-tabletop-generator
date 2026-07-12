@@ -28,6 +28,7 @@ Only these top-level files are intended for a static public site today:
 - `terms.html`
 - `contact.html`
 - `trust-and-privacy.html`
+- `.well-known/security.txt`
 - `robots.txt`
 - `sitemap.xml`
 - `README.md`
@@ -177,6 +178,28 @@ Verification:
 - Cloudflare Email Obfuscation rewrites visible email links in raw HTML, but the live form action and JavaScript mailto target remain `contact@responserehearsal.com`.
 
 Current posture: AdSense review pending; production is stable unless Google, Search Console, Bing, or a live check reports a concrete issue.
+
+### 2026-07-12 Security.txt Hygiene
+
+Cloudflare recommendation addressed: `security.txt` was not configured. This was a Low severity trust/security hygiene item and is safe to handle during AdSense review because it is scoped to a standards-based well-known text file.
+
+Runtime file:
+
+- `.well-known/security.txt`
+
+Expected live URL:
+
+- `https://responserehearsal.com/.well-known/security.txt`
+
+Expected fields:
+
+- `Contact: mailto:contact@responserehearsal.com`
+- `Contact: https://responserehearsal.com/contact`
+- `Expires: 2027-06-30T23:59:00Z`
+- `Preferred-Languages: en`
+- `Canonical: https://responserehearsal.com/.well-known/security.txt`
+
+No bug bounty, authorization-to-test, safe harbor, or permission language is included.
 
 ### 2026-07-11 Guides Hub Readiness Signals
 
