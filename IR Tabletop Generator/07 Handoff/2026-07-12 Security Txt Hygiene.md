@@ -10,6 +10,10 @@ This was handled as a small trust/security hygiene fix during AdSense review. No
 
 - `.well-known/security.txt`
 
+## Commit
+
+`ce6763d Add Response Rehearsal security.txt`
+
 ## Expected Live URL
 
 `https://responserehearsal.com/.well-known/security.txt`
@@ -31,6 +35,22 @@ Canonical: https://responserehearsal.com/.well-known/security.txt
 - `Expires` is less than one year out.
 - `Canonical` matches the exact well-known URL.
 - No bug bounty, authorization-to-test, safe harbor, or permission language was added.
+
+## Verification
+
+Local checks:
+
+- File exists at `.well-known/security.txt`.
+- Required fields are present.
+- Sweep found no bug bounty, authorization-to-test, safe harbor, permission, or testing-scope language.
+- `git diff --check` passed with CRLF warnings only.
+
+Live checks:
+
+- `https://responserehearsal.com/.well-known/security.txt` returned `200 OK`.
+- `Content-Type` was `text/plain; charset=utf-8`.
+- Live body contained both `Contact` fields, `Expires`, `Preferred-Languages`, and matching `Canonical`.
+- Note: the first immediate post-push request briefly returned the homepage fallback as `text/html`; after a 20-second retry, the correct `security.txt` file was live.
 
 ## Current Posture
 

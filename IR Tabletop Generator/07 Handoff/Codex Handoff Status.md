@@ -82,7 +82,8 @@ The IR Tabletop Generator project has:
 - 2026-07-12 post-contact-fix QA confirmed commits `4c6562f` and `922e0f5` are present, the repo was clean before notes updates, and key live surfaces returned 200: `/`, `/contact`, `/privacy`, `/terms`, `/guides.html`, `sitemap.xml`, `robots.txt`, and `ads.txt`.
 - 2026-07-12 live marker checks found the Contact page mailto form, no fake server-side submit language, sitemap guide/contact/privacy markers, robots sitemap directive, AdSense publisher line `pub-7040609172484112`, Guides hub links, and default trust-page CTA styling through `.content-page a.primary-button` and `.primary-button`.
 - 2026-07-12 backlog updated with the recommended first implementation slice for Structured Landing + Focused Interactive Rehearsal. It remains post-AdSense or explicit-approval only; no production code/content changed in this QA pass.
-- 2026-07-12 Cloudflare Low recommendation addressed by adding `.well-known/security.txt` with RFC 9116-style Contact, Expires, Preferred-Languages, and Canonical fields. It uses `mailto:contact@responserehearsal.com` and `https://responserehearsal.com/contact`, with no bug bounty or permission-to-test language.
+- 2026-07-12 Cloudflare Low recommendation addressed in commit `ce6763d Add Response Rehearsal security.txt` by adding `.well-known/security.txt` with RFC 9116-style Contact, Expires, Preferred-Languages, and Canonical fields. It uses `mailto:contact@responserehearsal.com` and `https://responserehearsal.com/contact`, with no bug bounty or permission-to-test language.
+- 2026-07-12 live verification passed for `https://responserehearsal.com/.well-known/security.txt`: `200 OK`, `Content-Type: text/plain; charset=utf-8`, required Contact/Expires/Canonical fields present. The first immediate post-push request briefly returned the homepage fallback, but a 20-second retry returned the correct text file.
 
 ## Next Recommended Step
 

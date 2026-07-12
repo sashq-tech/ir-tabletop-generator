@@ -187,6 +187,10 @@ Runtime file:
 
 - `.well-known/security.txt`
 
+Commit:
+
+- `ce6763d Add Response Rehearsal security.txt`
+
 Expected live URL:
 
 - `https://responserehearsal.com/.well-known/security.txt`
@@ -200,6 +204,13 @@ Expected fields:
 - `Canonical: https://responserehearsal.com/.well-known/security.txt`
 
 No bug bounty, authorization-to-test, safe harbor, or permission language is included.
+
+Live verification:
+
+- `https://responserehearsal.com/.well-known/security.txt` returns `200 OK`.
+- `Content-Type` is `text/plain; charset=utf-8`.
+- Live body contains both `Contact` lines, `Expires`, `Preferred-Languages`, and matching `Canonical`.
+- Initial check briefly returned the homepage fallback immediately after push; a 20-second retry returned the correct text file.
 
 ### 2026-07-11 Guides Hub Readiness Signals
 
