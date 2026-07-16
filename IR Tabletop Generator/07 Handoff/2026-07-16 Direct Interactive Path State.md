@@ -30,6 +30,31 @@ Small Response Rehearsal product slice for the focused Interactive Rehearsal dir
 - Cache-busted live checks for `https://responserehearsal.com/app.js?v=23625e5b` and `https://responserehearsal.com/?v=23625e5b` did not show the new direct-path markers after the push wait.
 - Current conclusion: code is pushed, but production is not yet verified live for commit `23625e5`.
 
+## 2026-07-16 Recovery Recheck
+
+- Repo remained clean before this status note.
+- Latest local commits remain `b6c6154 Record direct interactive path deployment status` and `23625e5 Add direct interactive path state`.
+- Rechecked production with cache-busted URLs:
+  - `https://responserehearsal.com/app.js?v=23625e5-recheck-0716`
+  - `https://responserehearsal.com/?v=23625e5-recheck-0716`
+- Production still did not show `pendingPathFocus`, `focusPendingPath`, `state.path = "interactive"`, or `href="index.html?path=interactive"`.
+- Local deployment inspection found no committed `wrangler.toml`, `wrangler.json`, `wrangler.jsonc`, `package.json`, `.github/workflows`, `_headers`, or `_redirects` deployment config.
+- Local docs identify the GitHub remote as `https://github.com/sashq-tech/ir-tabletop-generator.git` and describe GitHub as the source/staging repo, but they do not record an exact Cloudflare Pages project name.
+
+## Operator Note For Sean
+
+Phone-safe next action:
+
+1. Open Cloudflare dashboard.
+2. Go to Workers & Pages, then Pages.
+3. Find the Pages project serving `responserehearsal.com`.
+4. Check whether it is connected to `sashq-tech/ir-tabletop-generator` on `main`.
+5. If connected, open Deployments and click Retry deployment or Trigger deployment for the latest `main` commit.
+6. If it is not connected, connect it to `sashq-tech/ir-tabletop-generator`, branch `main`, with build command blank/none and output directory set to the repository root.
+7. If Sean wants Codex to deploy from here, provide a Cloudflare API token as `CLOUDFLARE_API_TOKEN` with permission to read/deploy the relevant Pages project; then Codex can list projects and deploy without guessing.
+
+Do not create a Wrangler config in the repo until the correct Cloudflare Pages project name and deployment model are confirmed.
+
 ## Live Checks
 
 - `https://responserehearsal.com/?path=interactive&type=ransomware&focus=communications&duration=60&difficulty=standard&rehearsal=ransomware-communications-pressure` returned `200`, but the deployed JavaScript still lacks the new direct-path markers, so this is not a successful behavior verification yet.
