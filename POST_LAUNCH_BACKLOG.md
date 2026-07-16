@@ -18,6 +18,14 @@ First small implementation step after approval: Build from the product strategy 
 - No new route, app feature, guide page, DNS/platform setting, sitemap change, or trust-page change was introduced.
 - The full `rehearsal.html` or route split remains a later decision after AdSense approval or explicit approval for a larger restructure.
 
+2026-07-16 direct-path follow-up:
+
+- Commit `23625e5 Add direct interactive path state` adds compatible `?path=interactive` support without creating a new route.
+- Existing scenario URL parameters remain intact, including `type`, `org`, `focus`, `duration`, `difficulty`, group labels, seed, presentation state, and `rehearsal`.
+- The Interactive Rehearsal door now has a copyable static href, `index.html?path=interactive`, while JavaScript still intercepts normal clicks for the current-page focused workspace.
+- Local checks passed, but production publish is pending. Wrangler direct deploy blocked because no `CLOUDFLARE_API_TOKEN` is available in this non-interactive environment, and live cache-busted marker checks did not yet show commit `23625e5`.
+- Before the next product slice, publish/verify commit `23625e5` through the established Cloudflare Pages/GitHub path or provide a usable Cloudflare deploy token.
+
 Recommended first implementation slice after AdSense review or Sean's explicit approval:
 
 1. Choose route shape and compatibility rule:
