@@ -10,6 +10,8 @@ Sean does not want to sit idle during AdSense review, but the site should preser
 
 Added a homepage path-door band above the existing format chooser.
 
+Commit: `ada8697 Add focused rehearsal entry paths`.
+
 Paths:
 
 - Interactive Rehearsal: selects the existing `interactive` workspace mode and scrolls to the existing interactive exercise section.
@@ -33,6 +35,24 @@ Paths:
 - Existing Guides hub and trust pages remain discoverable.
 - Existing parameterized rehearsal links remain intact.
 - `ads.txt` and `/.well-known/security.txt` remain part of the live verification set.
+
+## Verification
+
+Local checks:
+
+- `node --check app.js` passed.
+- `git diff --check` passed with CRLF warnings only.
+- Marker checks confirmed the new homepage path band, `data-path-target` buttons, `openPathDoor` handler, and existing trust/search files.
+
+Live checks:
+
+- `https://responserehearsal.com/` returned `200` and contains `Choose a path`, `Interactive Rehearsal`, `Build Materials`, `Guides / Short Drills`, and `data-path-target="interactive"`.
+- Live `app.js` contains `pathButtons`, `openPathDoor`, and `setWorkspaceMode("interactive")`.
+- `https://responserehearsal.com/guides.html` redirects to `/guides` and returns `200`; the canonical remains `https://responserehearsal.com/guides.html`.
+- `https://responserehearsal.com/contact`, `/privacy`, and `/terms` returned `200`.
+- Live `ads.txt` still contains `pub-7040609172484112`.
+- Live `/.well-known/security.txt` still returns `200` as `text/plain`.
+- Live sitemap still lists `/`, `guides.html`, the 15-minute guide, the 30-minute guide, Privacy, Contact, Terms, and Trust & Privacy.
 
 ## Current Search And Trust Posture
 
