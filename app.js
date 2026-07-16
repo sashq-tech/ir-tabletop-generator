@@ -1026,6 +1026,7 @@ const controls = {
 
 const ui = {
   modeButtons: document.querySelectorAll("[data-mode-target]"),
+  pathButtons: document.querySelectorAll("[data-path-target]"),
   formatNeed: document.querySelector("#formatNeed"),
   recommendFormatBtn: document.querySelector("#recommendFormatBtn"),
   formatAdvice: document.querySelector("#formatAdvice"),
@@ -2231,6 +2232,18 @@ function setWorkspaceMode(mode = "packet") {
 function recommendFormat() {
   const mode = ui.formatNeed?.value || "packet";
   setWorkspaceMode(mode);
+}
+
+function openPathDoor(path) {
+  if (path === "interactive") {
+    setWorkspaceMode("interactive");
+    generatePacket();
+    document.querySelector("#interactiveExercise").scrollIntoView({ behavior: "smooth", block: "start" });
+    return;
+  }
+
+  setWorkspaceMode("packet");
+  document.querySelector(".control-panel").scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function demoRunState() {
@@ -4321,6 +4334,10 @@ function printMode(mode) {
 
 ui.modeButtons.forEach((button) => {
   button.addEventListener("click", () => setWorkspaceMode(button.dataset.modeTarget));
+});
+
+ui.pathButtons.forEach((button) => {
+  button.addEventListener("click", () => openPathDoor(button.dataset.pathTarget));
 });
 
 ui.recommendFormatBtn?.addEventListener("click", recommendFormat);

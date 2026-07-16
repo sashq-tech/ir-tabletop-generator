@@ -4,11 +4,19 @@ This backlog captures practical next improvements after the first public launch.
 
 ## 0. Structured Landing And Focused Interactive Rehearsal
 
-Status: Planning captured on 2026-07-11. Hold production changes while AdSense review and `/guides.html` recrawl are pending unless Sean explicitly approves the live restructure.
+Status: First low-risk entry slice implemented on 2026-07-16. Hold larger route/workspace changes while AdSense review and `/guides.html` recrawl are pending unless Sean explicitly approves the live restructure.
 
 Why it matters: Sean's product signal is that the current site feels chaotic, while the Interactive Rehearsal is the strongest part. The landing page should introduce Response Rehearsal, then offer clear paths/doors instead of exposing every generator, export, slide, worksheet, and guide option at once.
 
 First small implementation step after approval: Build from the product strategy note at `IR Tabletop Generator/01 Product Strategy/2026-07-11 Structured Landing Focused Interactive Rehearsal.md`. Decide whether the focused rehearsal workspace should live at a separate `rehearsal.html` page or behind a compatible `index.html` route/state, then draft the minimal landing-door layout before editing production files.
+
+2026-07-16 safe first slice:
+
+- Added a small homepage path-door band above the existing format chooser.
+- Primary path: Interactive Rehearsal, wired to the existing focused interactive workspace.
+- Secondary paths: Build Materials and Guides / Short Drills.
+- No new route, app feature, guide page, DNS/platform setting, sitemap change, or trust-page change was introduced.
+- The full `rehearsal.html` or route split remains a later decision after AdSense approval or explicit approval for a larger restructure.
 
 Recommended first implementation slice after AdSense review or Sean's explicit approval:
 
@@ -25,6 +33,7 @@ Recommended first implementation slice after AdSense review or Sean's explicit a
    - Existing guide URLs still return 200 and remain linked.
    - Guides hub remains discoverable.
    - `/contact`, Privacy, Terms, Trust & Privacy, sitemap, robots, and `ads.txt` remain clean.
+   - `/.well-known/security.txt` remains live as `text/plain`.
    - CTA text remains visible without hover.
    - No new app features or guide content are added during this restructure slice.
 

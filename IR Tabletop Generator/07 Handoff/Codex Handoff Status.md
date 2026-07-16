@@ -2,7 +2,7 @@
 
 ## Last Updated
 
-2026-07-12
+2026-07-16
 
 ## Current State
 
@@ -84,10 +84,12 @@ The IR Tabletop Generator project has:
 - 2026-07-12 backlog updated with the recommended first implementation slice for Structured Landing + Focused Interactive Rehearsal. It remains post-AdSense or explicit-approval only; no production code/content changed in this QA pass.
 - 2026-07-12 Cloudflare Low recommendation addressed in commit `ce6763d Add Response Rehearsal security.txt` by adding `.well-known/security.txt` with RFC 9116-style Contact, Expires, Preferred-Languages, and Canonical fields. It uses `mailto:contact@responserehearsal.com` and `https://responserehearsal.com/contact`, with no bug bounty or permission-to-test language.
 - 2026-07-12 live verification passed for `https://responserehearsal.com/.well-known/security.txt`: `200 OK`, `Content-Type: text/plain; charset=utf-8`, required Contact/Expires/Canonical fields present. The first immediate post-push request briefly returned the homepage fallback, but a 20-second retry returned the correct text file.
+- 2026-07-16 implemented the smallest safe first slice toward Structured Landing + Focused Interactive Rehearsal: added a homepage path-door band above the existing format chooser with Interactive Rehearsal, Build Materials, and Guides / Short Drills choices. Interactive Rehearsal and Build Materials reuse the existing mode system and scroll to existing sections; Guides links to `guides.html`.
+- 2026-07-16 trust/search posture preserved: AdSense review remains pending; `/guides.html` indexing requested / pending recrawl; 15-minute and 30-minute guide pages indexed/green per Sean; live `ads.txt` and `/.well-known/security.txt` remain part of the verification set.
 
 ## Next Recommended Step
 
-Hold while AdSense review and `/guides.html` recrawl are pending. Contact trust is now fixed with `contact@responserehearsal.com`, and `security.txt` is now configured for Cloudflare trust hygiene. Search Console status remains: `/guides.html` indexing requested / pending recrawl; the 15-minute and 30-minute guide articles are indexed/green per Sean. Re-check the live pages after AdSense approval or ad-code placement to ensure ads do not resemble navigation, CTAs, or download controls. Resume production changes only for a concrete AdSense/Search Console issue, a live blocker, a clear post-review signal, or Sean's explicit approval to implement the structured landing plus focused Interactive Rehearsal plan.
+Hold while AdSense review and `/guides.html` recrawl are pending. Contact trust is fixed with `contact@responserehearsal.com`, `security.txt` is configured for Cloudflare trust hygiene, and the homepage now has a small path-door entry without a full restructure. Search Console status remains: `/guides.html` indexing requested / pending recrawl; the 15-minute and 30-minute guide articles are indexed/green per Sean. Re-check live `ads.txt`, `security.txt`, sitemap, trust pages, and guide links after each production push. Next useful implementation slice, after approval or a concrete signal, is to make the Interactive Rehearsal workspace feel more focused without creating a new route yet: reduce competing export controls while in interactive mode, or add a direct parameterized interactive entry state.
 
 ## Later Roadmap Note
 
