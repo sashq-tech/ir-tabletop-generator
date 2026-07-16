@@ -1105,6 +1105,7 @@ const output = {
 
 let presentationIndex = 0;
 let pendingPresentationIndex = null;
+let pendingPathFocus = null;
 let presentationAudience = "facilitator";
 let presentationNotesVisible = true;
 let currentSlideData = [];
@@ -2238,12 +2239,25 @@ function openPathDoor(path) {
   if (path === "interactive") {
     setWorkspaceMode("interactive");
     generatePacket();
-    document.querySelector("#interactiveExercise").scrollIntoView({ behavior: "smooth", block: "start" });
+    focusInteractiveWorkspace();
     return;
   }
 
   setWorkspaceMode("packet");
   document.querySelector(".control-panel").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function focusInteractiveWorkspace() {
+  document.querySelector("#interactiveExercise")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  document.querySelector("#startInteractiveBtn")?.focus({ preventScroll: true });
+}
+
+function focusPendingPath() {
+  if (pendingPathFocus !== "interactive") {
+    return;
+  }
+  pendingPathFocus = null;
+  window.requestAnimationFrame(focusInteractiveWorkspace);
 }
 
 function demoRunState() {
@@ -3935,7 +3949,7 @@ function getTimelineText() {
 }
 
 function getState() {
-  return {
+  const state = {
     type: controls.incidentType.value,
     org: controls.orgProfile.value,
     audience: controls.audience.value,
@@ -3949,6 +3963,12 @@ function getState() {
     seed: controls.seedInput.value,
     rehearsal: selectedInteractiveScenarioKey()
   };
+
+  if (document.body.dataset.mode === "interactive") {
+    state.path = "interactive";
+  }
+
+  return state;
 }
 
 function applyStateFromUrl() {
@@ -3977,6 +3997,10 @@ function applyStateFromUrl() {
   controls.groupThreeInput.value = params.get("g3") || "Group 3";
   updateGroupModeFields();
   syncInteractiveScenarioPicker(params.get("rehearsal"));
+  if (params.get("path") === "interactive") {
+    setWorkspaceMode("interactive");
+    pendingPathFocus = "interactive";
+  }
 
   clearPrintMode();
   if (params.get("printView") === "participant") {
@@ -4093,6 +4117,7 @@ function generatePacket() {
     openPresentationMode(pendingPresentationIndex);
     pendingPresentationIndex = null;
   }
+  focusPendingPath();
 }
 
 function renderProfileForElement(element, items) {
@@ -4337,7 +4362,10 @@ ui.modeButtons.forEach((button) => {
 });
 
 ui.pathButtons.forEach((button) => {
-  button.addEventListener("click", () => openPathDoor(button.dataset.pathTarget));
+  button.addEventListener("click", (event) => {
+    event.preventDefault();
+    openPathDoor(button.dataset.pathTarget);
+  });
 });
 
 ui.recommendFormatBtn?.addEventListener("click", recommendFormat);
