@@ -2,7 +2,7 @@
 
 ## Last Updated
 
-2026-07-16
+2026-07-17
 
 ## Current State
 
@@ -95,10 +95,11 @@ The IR Tabletop Generator project has:
 - 2026-07-17 browser verification passed: `https://responserehearsal.com/?path=interactive` loads into `document.body.dataset.mode=interactive`, preserves `path=interactive`, scrolls `#interactiveExercise` to the top of the viewport, and focuses `#startInteractiveBtn`. The parameterized ransomware communications pressure URL preserved `type=ransomware`, `focus=communications`, `duration=60`, `difficulty=standard`, and `rehearsal=ransomware-communications-pressure`.
 - 2026-07-17 focused live checks passed after deploy hook: Contact, Privacy, Terms, Guides, `ads.txt`, `/.well-known/security.txt`, sitemap, and robots are reachable and contain expected trust/search markers.
 - 2026-07-17 Search Console checkpoint reviewed raw export folder `C:\Users\rdrnr\Projects\AI Ops Center\Human Ops 7.17.26\responserehearsal.com-Performance-on-Search-2026-07-17`: chart totals are 0 clicks and 2 impressions; query signal is `incident response drills` with 1 impression at average position 79; page signals are `/` with 1 impression at average position 4 and `/15-minute-incident-response-drill` with 1 impression at average position 79. Treat this as early-indexing signal only. Do not overhaul production content from two impressions.
+- 2026-07-17 analytics-directed guide polish published in commit `c44f3af Polish 15-minute drill search intent` and deploy hook deployment `e9af199c-af59-4e63-a7fe-e48589ee2a76`. This was a bounded, indexable improvement to the 15-minute drill guide for `incident response drills` intent: added a compact drill card, facilitator script, FAQ/schema update, and a natural path into Interactive Rehearsal. Guides hub ransomware drill link now includes `?path=interactive`, and sitemap lastmod values for Guides and the 15-minute guide are `2026-07-17`. Live checks passed for the changed guide, Guides hub, sitemap, direct interactive URL, homepage direct link, `app.js` direct-path markers, Contact, `ads.txt`, `security.txt`, and robots.
 
 ## Next Recommended Step
 
-Direct Interactive Rehearsal path support is live and verified. Contact trust is fixed with `contact@responserehearsal.com`, `security.txt` is configured for Cloudflare trust hygiene, and the homepage has a small path-door entry without a full restructure. Search Console status remains early: 0 clicks and 2 impressions in the 2026-07-17 export, with `incident response drills` and the 15-minute drill as the first useful content signals. AdSense review remains pending, so keep churn low. The confirmed production recovery path is the Cloudflare Pages deploy hook Sean provided on 2026-07-17. Next useful implementation slice, if Sean wants to continue, is a bounded interactive-mode focus polish or, if Search Console repeats the same query signal, a small 15-minute drill / Guides hub internal-link polish pass.
+Direct Interactive Rehearsal path support is live and verified. Contact trust is fixed with `contact@responserehearsal.com`, `security.txt` is configured for Cloudflare trust hygiene, and the homepage has a small path-door entry without a full restructure. Search Console status remains early: 0 clicks and 2 impressions in the 2026-07-17 export, with `incident response drills` and the 15-minute drill as the first useful content signals. The first bounded polish for that signal is now live in commit `c44f3af`; do not keep rewriting the guide until Search Console repeats the signal. AdSense review remains pending, so keep churn low. The confirmed production recovery path is the Cloudflare Pages deploy hook Sean provided on 2026-07-17. Next useful implementation slice, if Sean wants to continue, is a bounded interactive-mode focus polish or, if Search Console repeats the same query signal, one more small 15-minute drill / Guides hub internal-link pass.
 
 ## Later Roadmap Note
 
