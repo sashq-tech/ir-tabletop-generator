@@ -85,6 +85,21 @@ Focused live endpoint verification:
 
 Current conclusion: direct Interactive Rehearsal path support is live and verified. The earlier deployment blocker is closed.
 
+## 2026-07-17 Search Console + Deploy Recheck
+
+- Re-ran deployment closeout after Sean downloaded the 2026-07-17 Search Console Performance export.
+- Live homepage still contains `href="index.html?path=interactive"` and `data-path-target="interactive"`.
+- Live `app.js` still contains `pendingPathFocus`, `focusPendingPath`, `state.path = "interactive"`, and preserved `syncInteractiveScenarioPicker(params.get("rehearsal"))`.
+- Browser verification still passes for `https://responserehearsal.com/?path=interactive`: mode is `interactive`, `path=interactive` is preserved, `#interactiveExercise` is at the top of the viewport, and focus is on `#startInteractiveBtn`.
+- Browser verification still passes for the parameterized ransomware communications pressure URL:
+  - `type=ransomware`
+  - `focus=communications`
+  - `duration=60`
+  - `difficulty=standard`
+  - `rehearsal=ransomware-communications-pressure`
+  - `path=interactive`
+- Focused live endpoints remained healthy: Contact, Privacy, Terms, Guides, `ads.txt`, `/.well-known/security.txt`, sitemap, and robots all returned expected status/markers.
+
 ## Earlier Pre-Hook Live Checks
 
 - Before Sean triggered the deploy hook on 2026-07-17, `https://responserehearsal.com/?path=interactive&type=ransomware&focus=communications&duration=60&difficulty=standard&rehearsal=ransomware-communications-pressure` returned `200`, but the deployed JavaScript still lacked the new direct-path markers.
