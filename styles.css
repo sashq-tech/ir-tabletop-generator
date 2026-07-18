@@ -2143,6 +2143,72 @@ li + li {
     border-bottom: 1px solid #dddddd;
   }
 
+  body.interactive-aar-ready[data-mode="interactive"] .interactive-header,
+  body.interactive-aar-ready[data-mode="interactive"] .scenario-library,
+  body.interactive-aar-ready[data-mode="interactive"] .facilitator-runbook,
+  body.interactive-aar-ready[data-mode="interactive"] .facilitator-console,
+  body.interactive-aar-ready[data-mode="interactive"] .meter-grid,
+  body.interactive-aar-ready[data-mode="interactive"] .interactive-stage,
+  body.interactive-aar-ready[data-mode="interactive"] #interactiveDebrief > .debrief-actions {
+    display: none;
+  }
+
+  body.interactive-aar-ready[data-mode="interactive"] .interactive-exercise,
+  body.interactive-aar-ready[data-mode="interactive"] .debrief-panel,
+  body.interactive-aar-ready[data-mode="interactive"] .debrief-score-grid div {
+    border: 0;
+    background: #ffffff;
+    box-shadow: none;
+  }
+
+  body.interactive-aar-ready[data-mode="interactive"] .interactive-exercise,
+  body.interactive-aar-ready[data-mode="interactive"] .debrief-panel {
+    padding: 0;
+  }
+
+  body.interactive-aar-ready[data-mode="interactive"] .interactive-exercise {
+    display: block;
+  }
+
+  body.interactive-aar-ready[data-mode="interactive"] .debrief-panel {
+    display: block;
+  }
+
+  body.interactive-aar-ready[data-mode="interactive"] .debrief-panel .eyebrow {
+    color: #005f39;
+  }
+
+  body.interactive-aar-ready[data-mode="interactive"] .debrief-panel h4 {
+    color: #111111;
+    font-size: 18pt;
+  }
+
+  body.interactive-aar-ready[data-mode="interactive"] .debrief-score-grid {
+    display: block;
+  }
+
+  body.interactive-aar-ready[data-mode="interactive"] .debrief-score-grid div,
+  body.interactive-aar-ready[data-mode="interactive"] .debrief-panel section {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  body.interactive-aar-ready[data-mode="interactive"] .debrief-score-grid div {
+    margin-bottom: 0.1in;
+    padding: 0;
+  }
+
+  body.interactive-aar-ready[data-mode="interactive"] .debrief-panel p,
+  body.interactive-aar-ready[data-mode="interactive"] .debrief-panel li,
+  body.interactive-aar-ready[data-mode="interactive"] .debrief-score-grid dd {
+    color: #222222;
+  }
+
+  body.interactive-aar-ready[data-mode="interactive"] .debrief-score-grid dt,
+  body.interactive-aar-ready[data-mode="interactive"] .debrief-path strong {
+    color: #111111;
+  }
+
   .participant-divider,
   .facilitator-divider {
     break-before: page;

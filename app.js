@@ -2118,6 +2118,12 @@ const interactiveScenarioLibrary = {
   ]
 };
 let interactiveState = null;
+const INTERACTIVE_AAR_READY_CLASS = "interactive-aar-ready";
+
+function setInteractiveAarPrintReady(isReady) {
+  document.body.classList.toggle(INTERACTIVE_AAR_READY_CLASS, Boolean(isReady));
+}
+
 function makeInteractiveScenario(title, meterLabels, phaseRows, primaryChoices, alternateChoices = null) {
   const defaultSecondaryChoices = [
     {
@@ -2787,6 +2793,7 @@ function renderFacilitatorRunbook() {
 
 function startInteractiveExercise() {
   setWorkspaceMode("interactive");
+  setInteractiveAarPrintReady(false);
   output.copyInteractiveDebriefBtn.disabled = true;
   output.copyAarSummaryBtn.disabled = true;
   resetInteractiveTimer("Ready");
@@ -2803,6 +2810,7 @@ function startInteractiveExercise() {
 
 function resetInteractiveExercise() {
   interactiveState = null;
+  setInteractiveAarPrintReady(false);
   output.interactiveDebrief.hidden = true;
   output.copyAarSummaryBtn.disabled = true;
   renderInteractiveIntro();
@@ -2832,6 +2840,7 @@ function renderInteractiveMeters(meters) {
 function renderInteractiveIntro() {
   syncInteractiveScenarioPicker();
   const setup = currentExerciseSetup();
+  setInteractiveAarPrintReady(false);
   output.copyInteractiveDebriefBtn.disabled = true;
   output.copyAarSummaryBtn.disabled = true;
   renderInteractiveMeters(currentInteractiveScenario().meters);
@@ -2858,6 +2867,7 @@ function renderInteractiveExercise() {
     resetInteractiveExercise();
     return;
   }
+  setInteractiveAarPrintReady(false);
   const scenario = currentInteractiveScenario();
   const phase = scenario.phases[interactiveState.step];
   output.interactiveTitle.textContent = currentInteractiveScenario().title;
@@ -2909,6 +2919,7 @@ function chooseInteractiveOption(choice) {
 
 function renderInteractiveDebrief() {
   const scenario = currentInteractiveScenario();
+  setInteractiveAarPrintReady(true);
   renderInteractiveMeters(interactiveState.meters);
   output.interactivePhase.textContent = "Complete";
   output.interactiveInjectTitle.textContent = "Exercise complete";
