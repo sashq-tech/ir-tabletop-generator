@@ -2415,8 +2415,13 @@ function interactiveScenarioContext(setup = currentExerciseSetup()) {
   return `${setup.durationLabel} ${setup.difficultyLabel.toLowerCase()} exercise for ${setup.profile.summary}. Audience: ${setup.audienceLabel}. Focus: ${setup.focus.label}. The playable path now follows the selected incident type.`;
 }
 
+function interactiveFocusPhrase(focusLabel = "") {
+  const label = focusLabel.toLowerCase();
+  return label.includes("pressure") ? label : `${label} pressure`;
+}
+
 function interactiveIntroText(setup = currentExerciseSetup()) {
-  return `Use this mode to rehearse decisions for ${setup.scenario.label.toLowerCase()} with ${setup.focus.label.toLowerCase()} pressure, then compare the team's choices against containment, evidence, continuity, and stakeholder trust.`;
+  return `Use this mode to rehearse decisions for ${setup.scenario.label.toLowerCase()} with ${interactiveFocusPhrase(setup.focus.label)}, then compare the team's choices against containment, evidence, continuity, and stakeholder trust.`;
 }
 
 function showFieldHelp(button) {
