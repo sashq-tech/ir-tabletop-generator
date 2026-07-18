@@ -30,7 +30,7 @@ First small implementation step after approval: Build from the product strategy 
 
 - Commit `9503b7e` fixed the localized Interactive Rehearsal wording defect where `Communications pressure` could render as `communications pressure pressure`.
 - Live desktop and 390px mobile QA passed for direct `?path=interactive`, landing-door click, facilitator notes, copy feedback, start-to-AAR, AAR export, packet/sample copy, Markdown export filename generation, stubbed print path, back/forward behavior, and browser console.
-- P3 URL hygiene item: promoted to a concrete Search Console defect on 2026-07-18 after Sean reported redirecting sitemap variants. Fixed in the bounded sitemap/canonical cleanup pass by moving sitemap `<loc>` values, canonical metadata, Open Graph URLs, structured-data URLs, and static internal hrefs to extensionless final routes while preserving `.html` compatibility redirects.
+- P3 URL hygiene item: promoted to a concrete Search Console defect on 2026-07-18 after Sean reported redirecting sitemap variants. Fixed in commit `a64f54b Use extensionless canonical URLs`, deployed through Cloudflare Pages deployment `55cf2a94-879a-4216-93d1-7feacf5326d0`, by moving sitemap `<loc>` values, canonical metadata, Open Graph URLs, structured-data URLs, and static internal hrefs to extensionless final routes while preserving `.html` compatibility redirects.
 - P3 landing URL item: bare `/` currently normalizes into a full parameterized default state URL after app initialization. It is not a crawl blocker, but a cleaner front door would keep `/` until a user changes settings or requests a shareable scenario link.
 
 2026-07-18 print/PDF acceptance follow-up:
