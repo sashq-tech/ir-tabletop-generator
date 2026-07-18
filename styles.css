@@ -566,11 +566,19 @@ body[data-mode="packet"] .blank-worksheet {
 }
 
 body[data-mode="interactive"] .signal-strip,
+body[data-mode="interactive"] .path-doorway,
+body[data-mode="interactive"] .format-chooser,
+body[data-mode="interactive"] .control-panel,
+body[data-mode="interactive"] .header-actions,
 body[data-mode="interactive"] .packet-header,
 body[data-mode="interactive"] .packet-grid > :not(.interactive-exercise),
 body[data-mode="interactive"] .slide-deck,
 body[data-mode="interactive"] .blank-worksheet {
   display: none;
+}
+
+body[data-mode="interactive"] .app-shell {
+  grid-template-columns: minmax(0, 1fr);
 }
 
 body[data-mode="interactive"] .packet-grid {
