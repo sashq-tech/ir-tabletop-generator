@@ -1990,8 +1990,9 @@ li + li {
   }
 
   .site-header,
-  
-.control-panel,
+  .path-doorway,
+  .format-chooser,
+  .control-panel,
   .signal-strip,
   .site-footer {
     display: none;
