@@ -26,6 +26,13 @@ First small implementation step after approval: Build from the product strategy 
 - Local checks passed, but production publish is pending. Wrangler direct deploy blocked because no `CLOUDFLARE_API_TOKEN` is available in this non-interactive environment, and live cache-busted marker checks did not yet show commit `23625e5`.
 - Before the next product slice, publish/verify commit `23625e5` through the established Cloudflare Pages/GitHub path or provide a usable Cloudflare deploy token.
 
+2026-07-18 deep-audit follow-up:
+
+- Commit `9503b7e` fixed the localized Interactive Rehearsal wording defect where `Communications pressure` could render as `communications pressure pressure`.
+- Live desktop and 390px mobile QA passed for direct `?path=interactive`, landing-door click, facilitator notes, copy feedback, start-to-AAR, AAR export, packet/sample copy, Markdown export filename generation, stubbed print path, back/forward behavior, and browser console.
+- P3 URL hygiene item: Cloudflare Pages redirects public `.html` URLs to extensionless routes, while local canonical tags and sitemap entries still use `.html`. Access works, but canonicals/sitemap/nav should be made internally consistent in one deliberate pass after AdSense review or explicit approval.
+- P3 landing URL item: bare `/` currently normalizes into a full parameterized default state URL after app initialization. It is not a crawl blocker, but a cleaner front door would keep `/` until a user changes settings or requests a shareable scenario link.
+
 Recommended first implementation slice after AdSense review or Sean's explicit approval:
 
 1. Choose route shape and compatibility rule:
