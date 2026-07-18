@@ -33,6 +33,13 @@ First small implementation step after approval: Build from the product strategy 
 - P3 URL hygiene item: Cloudflare Pages redirects public `.html` URLs to extensionless routes, while local canonical tags and sitemap entries still use `.html`. Access works, but canonicals/sitemap/nav should be made internally consistent in one deliberate pass after AdSense review or explicit approval.
 - P3 landing URL item: bare `/` currently normalizes into a full parameterized default state URL after app initialization. It is not a crawl blocker, but a cleaner front door would keep `/` until a user changes settings or requests a shareable scenario link.
 
+2026-07-18 print/PDF acceptance follow-up:
+
+- Commit `1a306de` fixed the packet print front-matter defect by hiding `.path-doorway` and `.format-chooser` in `@media print`.
+- Real browser PDFs were generated before and after the fix under `output/pdf/`, with Poppler-rendered contact sheets under `output/pdf/rendered*`.
+- After-fix review passed for generated full packet, participant-only handout, and facilitator-only guide: no landing UI pages, no obvious clipped text, light ink, readable type, and participant output did not leak facilitator-only sections.
+- P3 AAR print item: completed AAR PDF is readable but still includes broader interactive workspace controls/runbook before the reveal. Consider a later AAR-only print/export control if the August exercise needs a clean after-action handout.
+
 Recommended first implementation slice after AdSense review or Sean's explicit approval:
 
 1. Choose route shape and compatibility rule:
