@@ -61,20 +61,40 @@ Cloudflare Pages deploy hook accepted:
 - `aed73d6a-e938-4950-93bc-ca42b0b0d4f7`
 - `3956bfd4-bc39-4724-953a-d4a11e20b9d6`
 
-Live production did not advance during this pass. Cache-busted checks for:
+Sean inspected Cloudflare directly and confirmed deployment `3956bfd4-bc39-4724-953a-d4a11e20b9d6` is `success`, aliases include apex and `www`, and trigger metadata points to commit `4378385`.
+
+Follow-up escalated cache-busted fetches confirmed production now serves the AAR-only markers:
 
 - `https://responserehearsal.com/app.js`
 - `https://responserehearsal.com/styles.css`
-
-still did not contain:
 
 - `INTERACTIVE_AAR_READY_CLASS`
 - `setInteractiveAarPrintReady`
 - `interactive-aar-ready`
 
+## Live PDF Verification
+
+Production PDFs generated after deployment `3956bfd4-bc39-4724-953a-d4a11e20b9d6`:
+
+- `output/pdf/rr-aaronly-after-live-completed-aar.pdf`: 3 pages.
+- `output/pdf/rr-aaronly-after-live-full-packet.pdf`: 9 pages.
+- `output/pdf/rr-aaronly-after-live-participant-handout.pdf`: 3 pages.
+- `output/pdf/rr-aaronly-after-live-facilitator-guide.pdf`: 8 pages.
+
+Live contact sheets:
+
+- `output/pdf/aaronly-after-live-completed-aar-contact.png`
+- `output/pdf/aaronly-after-live-full-packet-contact.png`
+- `output/pdf/aaronly-after-live-participant-handout-contact.png`
+- `output/pdf/aaronly-after-live-facilitator-guide-contact.png`
+
+Visual acceptance:
+
+- Completed AAR starts directly with the after-action reveal and no longer prints the interactive header, runbook, scenario library, facilitator console, or live inject stage.
+- Full packet remains in the accepted 9-page structure with no front-door UI pages.
+- Participant handout remains 3 pages and does not visually expose facilitator-only timeline or notes.
+- Facilitator guide remains 8 pages with the expected facilitator content.
+
 ## Next Step
 
-Do not stack new product work until deploy state is clear. First verify whether production now serves commit `4378385`. If not, check Cloudflare Pages dashboard for the two accepted deploy-hook deployment ids, confirm the Pages project still deploys `sashq-tech/ir-tabletop-generator` from `main`, and retry the latest deployment from the dashboard.
-
-Once production serves `4378385`, generate a live after-AAR PDF and rerun live packet PDFs to complete production acceptance.
-
+This slice is complete. Keep production churn low during AdSense review. Next bounded work should wait for either a concrete live blocker, AdSense/Search Console feedback, or explicit approval for the deferred URL hygiene / landing cleanup lane.
