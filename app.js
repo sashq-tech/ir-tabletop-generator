@@ -1027,6 +1027,10 @@ const controls = {
 const ui = {
   modeButtons: document.querySelectorAll("[data-mode-target]"),
   pathButtons: document.querySelectorAll("[data-path-target]"),
+  routeButtons: document.querySelectorAll("[data-route-target]"),
+  workspaceEyebrow: document.querySelector("#workspaceEyebrow"),
+  workspaceTitle: document.querySelector("#workspaceTitle"),
+  workspaceDescription: document.querySelector("#workspaceDescription"),
   formatNeed: document.querySelector("#formatNeed"),
   recommendFormatBtn: document.querySelector("#recommendFormatBtn"),
   formatAdvice: document.querySelector("#formatAdvice"),
@@ -2225,6 +2229,49 @@ const formatAdvice = {
   worksheet: "Scribe worksheet is best when you already have a scenario and only need a clean way to capture facts, assumptions, decisions, questions, and actions."
 };
 
+const workspaceCopy = {
+  interactive: {
+    eyebrow: "Live decision workspace",
+    title: "Interactive Rehearsal",
+    description: "Keep the room focused on the current inject, the next decision, and the owner for follow-up."
+  },
+  packet: {
+    eyebrow: "Facilitator preparation",
+    title: "Packet Generator",
+    description: "Configure the exercise once, then prepare the packet, handouts, slides, worksheet, and facilitator guide."
+  }
+};
+
+function currentWorkspaceRoute() {
+  return ["landing", "interactive", "packet"].includes(document.body.dataset.route)
+    ? document.body.dataset.route
+    : "landing";
+}
+
+function updateWorkspaceHeading(route = currentWorkspaceRoute()) {
+  const copy = workspaceCopy[route] || workspaceCopy.packet;
+  if (ui.workspaceEyebrow) {
+    ui.workspaceEyebrow.textContent = copy.eyebrow;
+  }
+  if (ui.workspaceTitle) {
+    ui.workspaceTitle.textContent = copy.title;
+  }
+  if (ui.workspaceDescription) {
+    ui.workspaceDescription.textContent = copy.description;
+  }
+}
+
+function setWorkspaceRoute(route = "landing") {
+  const nextRoute = ["landing", "interactive", "packet"].includes(route) ? route : "landing";
+  document.body.dataset.route = nextRoute;
+  if (nextRoute === "interactive") {
+    setWorkspaceMode("interactive");
+  } else if (nextRoute === "packet" && document.body.dataset.mode === "interactive") {
+    setWorkspaceMode("packet");
+  }
+  updateWorkspaceHeading(nextRoute);
+}
+
 function setWorkspaceMode(mode = "packet") {
   const nextMode = formatAdvice[mode] ? mode : "packet";
   document.body.dataset.mode = nextMode;
@@ -2238,19 +2285,42 @@ function setWorkspaceMode(mode = "packet") {
 
 function recommendFormat() {
   const mode = ui.formatNeed?.value || "packet";
+  if (mode === "interactive") {
+    openPathDoor("interactive");
+    return;
+  }
   setWorkspaceMode(mode);
+  updateUrlState();
 }
 
-function openPathDoor(path) {
+function openPathDoor(path, { historyMode = "push", focus = true } = {}) {
   if (path === "interactive") {
-    setWorkspaceMode("interactive");
-    generatePacket();
-    focusInteractiveWorkspace();
+    setWorkspaceRoute("interactive");
+    generatePacket({ historyMode });
+    if (focus) {
+      focusInteractiveWorkspace();
+    }
     return;
   }
 
+  if (path === "landing") {
+    setWorkspaceRoute("landing");
+    stopInteractiveTimer("Paused");
+    updateUrlState(historyMode);
+    if (focus) {
+      document.querySelector("#pathDoorwayTitle")?.focus({ preventScroll: true });
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+    return;
+  }
+
+  setWorkspaceRoute("packet");
   setWorkspaceMode("packet");
-  document.querySelector(".control-panel").scrollIntoView({ behavior: "smooth", block: "start" });
+  generatePacket({ historyMode });
+  if (focus) {
+    document.querySelector(".control-panel")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    document.querySelector("#incidentType")?.focus({ preventScroll: true });
+  }
 }
 
 function focusInteractiveWorkspace() {
@@ -2299,8 +2369,8 @@ function loadDemoRun() {
   interactiveState = null;
   output.interactiveDebrief.hidden = true;
   resetInteractiveTimer("Ready");
-  setWorkspaceMode("interactive");
-  generatePacket();
+  setWorkspaceRoute("interactive");
+  generatePacket({ historyMode: "push" });
   document.querySelector("#interactiveExercise").scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
@@ -3980,8 +4050,12 @@ function getState() {
     rehearsal: selectedInteractiveScenarioKey()
   };
 
-  if (document.body.dataset.mode === "interactive") {
-    state.path = "interactive";
+  const route = currentWorkspaceRoute();
+  if (route !== "landing") {
+    state.path = route;
+  }
+  if (route === "packet" && ["slides", "worksheet"].includes(document.body.dataset.mode)) {
+    state.mode = document.body.dataset.mode;
   }
 
   return state;
@@ -4013,9 +4087,32 @@ function applyStateFromUrl() {
   controls.groupThreeInput.value = params.get("g3") || "Group 3";
   updateGroupModeFields();
   syncInteractiveScenarioPicker(params.get("rehearsal"));
-  if (params.get("path") === "interactive") {
-    setWorkspaceMode("interactive");
+
+  const requestedPath = params.get("path");
+  const hasLegacyWorkspaceState = [
+    "type",
+    "org",
+    "audience",
+    "focus",
+    "duration",
+    "difficulty",
+    "gm",
+    "seed",
+    "rehearsal",
+    "view"
+  ].some((key) => params.has(key));
+  const route = ["interactive", "packet"].includes(requestedPath)
+    ? requestedPath
+    : hasLegacyWorkspaceState
+      ? "packet"
+      : "landing";
+  setWorkspaceRoute(route);
+
+  if (route === "interactive") {
     pendingPathFocus = "interactive";
+  } else if (route === "packet") {
+    const requestedMode = params.get("mode");
+    setWorkspaceMode(["slides", "worksheet"].includes(requestedMode) ? requestedMode : "packet");
   }
 
   clearPrintMode();
@@ -4030,17 +4127,34 @@ function applyStateFromUrl() {
   }
 
   if (params.get("view") === "present") {
+    setWorkspaceRoute("packet");
+    setWorkspaceMode("slides");
     presentationAudience = params.get("deck") === "facilitator" ? "facilitator" : "participant";
     presentationNotesVisible = presentationAudience === "facilitator" && params.get("notes") !== "off";
     pendingPresentationIndex = Math.max((Number(params.get("slide")) || 1) - 1, 0);
+  } else {
+    pendingPresentationIndex = null;
+    output.presentationStage.hidden = true;
+    document.body.classList.remove("presentation-active");
+    output.presentationSlide.replaceChildren();
   }
 }
 
-function updateUrlState() {
-  const state = getState();
-  const params = new URLSearchParams(state);
-  const nextUrl = `${window.location.pathname}?${params.toString()}`;
-  window.history.replaceState(null, "", nextUrl);
+function updateUrlState(historyMode = "replace") {
+  if (historyMode === "none") {
+    return;
+  }
+  const route = currentWorkspaceRoute();
+  const params = new URLSearchParams(getState());
+  const nextUrl = route === "landing"
+    ? window.location.pathname
+    : `${window.location.pathname}?${params.toString()}`;
+  const currentUrl = `${window.location.pathname}${window.location.search}`;
+  if (nextUrl === currentUrl) {
+    return;
+  }
+  const method = historyMode === "push" ? "pushState" : "replaceState";
+  window.history[method]({ route }, "", nextUrl);
 }
 
 function updatePresentationUrl() {
@@ -4054,7 +4168,7 @@ function updatePresentationUrl() {
   window.history.replaceState(null, "", `${window.location.pathname}?${params.toString()}`);
 }
 
-function generatePacket() {
+function generatePacket({ historyMode = "replace" } = {}) {
   const scenario = scenarios[controls.incidentType.value];
   const profile = profiles[controls.orgProfile.value];
   const focus = focusAdds[controls.exerciseFocus.value];
@@ -4126,7 +4240,7 @@ function generatePacket() {
   } else {
     renderInteractiveIntro();
   }
-  updateUrlState();
+  updateUrlState(historyMode);
   if (!output.presentationStage.hidden) {
     showPresentationSlide(presentationIndex);
   } else if (pendingPresentationIndex !== null) {
@@ -4374,13 +4488,28 @@ function printMode(mode) {
 
 
 ui.modeButtons.forEach((button) => {
-  button.addEventListener("click", () => setWorkspaceMode(button.dataset.modeTarget));
+  button.addEventListener("click", () => {
+    if (button.dataset.modeTarget === "interactive") {
+      openPathDoor("interactive");
+      return;
+    }
+    setWorkspaceRoute("packet");
+    setWorkspaceMode(button.dataset.modeTarget);
+    updateUrlState();
+  });
 });
 
 ui.pathButtons.forEach((button) => {
   button.addEventListener("click", (event) => {
     event.preventDefault();
     openPathDoor(button.dataset.pathTarget);
+  });
+});
+
+ui.routeButtons.forEach((button) => {
+  button.addEventListener("click", (event) => {
+    event.preventDefault();
+    openPathDoor(button.dataset.routeTarget);
   });
 });
 
@@ -4459,11 +4588,14 @@ Object.values(controls).forEach((control) => {
 
 window.addEventListener("afterprint", clearPrintMode);
 window.addEventListener("keydown", handlePresentationKeydown);
+window.addEventListener("popstate", () => {
+  applyStateFromUrl();
+  generatePacket({ historyMode: "none" });
+});
 
-setWorkspaceMode("packet");
 renderInteractiveIntro();
 applyStateFromUrl();
-generatePacket();
+generatePacket({ historyMode: "replace" });
 resetInteractiveTimer("Ready");
 renderInteractiveFacilitatorNotes();
 

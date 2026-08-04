@@ -45,55 +45,66 @@
     </script>
     <link rel="stylesheet" href="styles.css">
   </head>
-  <body>
+  <body data-route="landing" data-mode="packet">
     <header class="site-header">
-      <div class="brand-lockup" aria-label="Response Rehearsal">
+      <a class="brand-lockup brand-home" href="/" data-route-target="landing" aria-label="Response Rehearsal home">
         <span class="brand-mark" aria-hidden="true">RR</span>
         <div>
           <p class="eyebrow">Practice incident decisions before the real day</p>
           <h1>Response Rehearsal</h1>
         </div>
-      </div>
+      </a>
       <nav class="site-nav" aria-label="Public pages">
-        <a href="/about">About</a>
         <a href="/guides">Guides</a>
-        <a href="/15-minute-incident-response-drill">15-Minute Drill</a>
-        <a href="/30-minute-incident-response-tabletop">30-Minute Guide</a>
-        <a href="/privacy">Privacy</a>
+        <a href="/about">About</a>
         <a href="/trust-and-privacy">Trust &amp; Privacy</a>
-        <a href="/terms">Terms</a>
         <a href="/contact">Contact</a>
       </nav>
       <div class="header-actions">
         <button class="ghost-button" id="copyBtn" type="button">Copy packet</button>
         <button class="primary-button" id="printBtn" type="button">Print full packet</button>
       </div>
+      <button class="ghost-button workspace-exit" id="exitWorkspaceBtn" type="button" data-route-target="landing">Exit workspace</button>
     </header>
 
     <main class="app-shell">
       <section class="path-doorway" aria-labelledby="pathDoorwayTitle">
         <div class="path-doorway-copy">
-          <p class="eyebrow">Choose a path</p>
-          <h2 id="pathDoorwayTitle">Run a focused rehearsal, build materials, or review a short guide.</h2>
+          <p class="eyebrow">Incident response decision practice</p>
+          <h2 id="pathDoorwayTitle" tabindex="-1">Give the room a realistic problem. Practice the decisions before the pressure is real.</h2>
           <p>
-            Response Rehearsal is browser-only and built for defensive incident-response practice. Start with the live
-            decision workspace when the team is ready to rehearse, or use the prep paths when you need handouts,
-            slides, worksheets, or facilitation guidance first.
+            Response Rehearsal helps facilitators run serious, decision-centered tabletop exercises without an account,
+            upload, or backend. Choose the live workspace when the team is ready, or prepare the materials first.
           </p>
+          <ul class="landing-trust" aria-label="Product boundaries">
+            <li>Runs in this browser</li>
+            <li>No login or upload</li>
+            <li>Use generic exercise details</li>
+          </ul>
         </div>
         <div class="path-door-grid" aria-label="Response Rehearsal paths">
           <a class="path-door primary-door" href="/?path=interactive" data-path-target="interactive">
             <span>Interactive Rehearsal</span>
-            <strong>Focused live workspace for injects, decisions, consequence meters, notes, and after-action capture.</strong>
+            <strong>Run injects, make decisions, track consequences, and close with an after-action review.</strong>
+            <em>Enter live workspace</em>
           </a>
-          <button class="path-door" type="button" data-path-target="packet">
-            <span>Build Materials</span>
-            <strong>Create facilitator guides, participant handouts, slide-ready output, worksheets, and packets.</strong>
-          </button>
+          <a class="path-door" href="/?path=packet" data-path-target="packet">
+            <span>Packet Generator</span>
+            <strong>Prepare a facilitator guide, participant handout, slides, worksheet, and complete exercise packet.</strong>
+            <em>Build exercise materials</em>
+          </a>
           <a class="path-door link-door" href="/guides">
-            <span>Guides / Short Drills</span>
-            <strong>Use practical facilitation guides and short drills before launching a session.</strong>
+            <span>Guides</span>
+            <strong>Use short drills, facilitator guidance, and practical tabletop formats before a session.</strong>
+            <em>Browse guides</em>
           </a>
+        </div>
+      </section>
+      <section class="workspace-bar" aria-labelledby="workspaceTitle">
+        <div>
+          <p class="eyebrow" id="workspaceEyebrow">Facilitator workspace</p>
+          <h2 id="workspaceTitle">Packet Generator</h2>
+          <p id="workspaceDescription">Configure the exercise once, then prepare the materials your session needs.</p>
         </div>
       </section>
       <section class="format-chooser" aria-label="Choose exercise format">

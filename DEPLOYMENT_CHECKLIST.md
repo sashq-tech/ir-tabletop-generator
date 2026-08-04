@@ -11,7 +11,7 @@ This project is a live static site. Do not change production hosting, DNS, or do
 - Current public endpoint: `https://responserehearsal.com/`.
 - Canonical domain: `https://responserehearsal.com/`.
 - The `www` host is also reachable, but canonical metadata should point to the apex domain.
-- Current release checkpoint: live-domain metadata, post-launch stability checks, human launch/discovery guidance, facilitator export context, mobile facilitator control layout, copy-button state feedback, first-class `Trust & Privacy` navigation, and content-page generator CTA contrast are complete.
+- Current release checkpoint: the calm landing page, focused Interactive Rehearsal workspace, Packet Generator path, history-safe route state, and repeatable desktop/mobile workspace regression suite are complete alongside the earlier facilitator export, trust navigation, and crawl work.
 
 ## Public Files To Ship
 
@@ -38,6 +38,8 @@ Optional for repository staging, but not required for the public web root:
 
 - `.gitignore`
 - `IR Tabletop Generator.code-workspace`
+- `package.json` and `package-lock.json`
+- `playwright.config.js` and `qa/`
 
 ## Do Not Ship
 
@@ -58,6 +60,8 @@ Run these from `C:\Users\rdrnr\Projects\IR Tabletop Generator` before any stagin
 
 ```powershell
 node --check .\app.js
+npm ci
+npm run test:workspace
 git status --short
 git remote -v
 ```
@@ -77,12 +81,15 @@ http://127.0.0.1:4195/
 Recommended focused smoke URL:
 
 ```text
-http://127.0.0.1:4195/?type=phishing&org=smallBusiness&audience=mixed&focus=balanced&duration=60&difficulty=standard&gm=whole&seed=246810&rehearsal=phishing-bec
+http://127.0.0.1:4195/?path=interactive&type=phishing&org=smallBusiness&audience=mixed&focus=balanced&duration=60&difficulty=standard&gm=whole&seed=246810&rehearsal=phishing-bec
 ```
 
 ## Local Browser Smoke Checklist
 
 - Load the app with no console errors.
+- Confirm bare `/` stays clean and shows only the landing paths, public navigation, and browser-only trust line.
+- Enter Interactive Rehearsal and Packet Generator; confirm each adds one history entry and Exit workspace returns to `/`.
+- Confirm Back, Forward, refresh, and copied direct links restore route, selected scenario, and packet sub-mode without duplicate history entries.
 - Generate a full packet.
 - Open the interactive rehearsal format.
 - Confirm the scenario picker updates the selected exercise.

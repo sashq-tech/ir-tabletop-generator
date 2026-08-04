@@ -10,6 +10,8 @@ The canonical public domain is `https://responserehearsal.com/`. The `www` host 
 
 ## What It Does
 
+- Opens on a calm landing page with direct paths into Interactive Rehearsal, Packet Generator, and Guides.
+- Keeps Interactive Rehearsal in a focused workspace with a clear Exit action and shareable `?path=interactive` state.
 - Generates incident response tabletop packets from selected settings.
 - Supports ransomware, credential phishing, insider data exposure, public service outage, and vendor compromise scenarios.
 - Produces participant handouts, facilitator guides, timed injects, discussion prompts, evidence prompts, worksheets, action trackers, and after-action material.
@@ -39,7 +41,7 @@ http://127.0.0.1:4195/
 Focused smoke-test URL:
 
 ```text
-http://127.0.0.1:4195/?type=phishing&org=smallBusiness&audience=mixed&focus=balanced&duration=60&difficulty=standard&gm=whole&seed=246810&rehearsal=phishing-bec
+http://127.0.0.1:4195/?path=interactive&type=phishing&org=smallBusiness&audience=mixed&focus=balanced&duration=60&difficulty=standard&gm=whole&seed=246810&rehearsal=phishing-bec
 ```
 
 ## Public Runtime Files
@@ -66,6 +68,7 @@ Supporting repository docs:
 - `DEPLOYMENT_CHECKLIST.md`
 - `POST_LAUNCH_BACKLOG.md`
 - `IR Tabletop Generator/` project notes and handoff history
+- `qa/`, `playwright.config.js`, and `package.json` for repeatable desktop/mobile regression checks
 
 Local-only folders such as source references, generated output, agent metadata, and workspace files should not be treated as public runtime assets.
 
@@ -77,9 +80,20 @@ Run the JavaScript syntax check before pushing app changes:
 node --check .\app.js
 ```
 
+Run the workspace regression suite after routing, interactive, export, print, accessibility, or responsive changes:
+
+```powershell
+npm ci
+npm run test:workspace
+```
+
+The suite uses local Chrome at desktop and 390px mobile widths. It verifies landing and workspace entry/exit, Back/Forward, refresh and direct links, packet copy/download/print calls, start-to-AAR behavior, AAR copy and print-ready state, visible control names, and horizontal overflow.
+
 Recommended manual smoke path:
 
 - Load the app with no console errors.
+- Confirm bare `/` remains the landing page with no generated query string.
+- Enter and exit both Interactive Rehearsal and Packet Generator; confirm Back/Forward restores each path.
 - Click `Load BEC demo`.
 - Confirm the interactive format opens with `Executive Payment Request Drill`.
 - Click `Copy ransomware packet` and confirm the button reports `Copied`.

@@ -3,3 +3,6 @@ Incident Response Sources/
 .vscode/
 *.code-workspace
 **/.obsidian/
+node_modules/
+playwright-report/
+test-results/

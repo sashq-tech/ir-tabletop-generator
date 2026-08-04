@@ -113,6 +113,13 @@ The IR Tabletop Generator project has:
 
 The AAR-only print/export slice and sitemap/canonical cleanup are live and verified. Keep churn low while AdSense review is pending. A reasonable later slice remains a small landing URL cleanup so bare `/` stays visually clean until the user changes state, but wait for concrete Search Console, AdSense, or live-site evidence before changing production again.
 
+## 2026-08-03 Landing And Workspace Release
+
+- Sean explicitly approved the larger restructure and publication.
+- [[2026-08-03 Landing Workspace Release]] records the calm `/` front door, focused `?path=interactive` workspace, `?path=packet` preparation route, persistent Exit action, Back/Forward/refresh/direct-link contract, and development-only Playwright regression suite.
+- Local acceptance passed: JavaScript/tooling syntax, all 8 desktop/mobile Chrome regressions, AAR/export/print checks, accessible control names, and horizontal-overflow checks.
+- The old recommendation to clean up the bare landing URL is complete; the next product decision should come from facilitator use or current search/AdSense evidence rather than reopening this structure immediately.
+
 ## Later Roadmap Note
 
 For August exercise prep, slide-ready output and browser presentation mode now exist as first prototypes so users can run from the browser, paste generated exercise content into organizational PowerPoint templates, or print a slide-format PDF. True `.pptx` export should still wait until the no-backend approach is proven.

@@ -4,11 +4,21 @@ This backlog captures practical next improvements after the first public launch.
 
 ## 0. Structured Landing And Focused Interactive Rehearsal
 
-Status: First low-risk entry slice implemented on 2026-07-16. Hold larger route/workspace changes while AdSense review and `/guides.html` recrawl are pending unless Sean explicitly approves the live restructure.
+Status: Complete in the 2026-08-03 approved landing/workspace release. Keep the single-document `?path=` model unless real usage shows a need for separate HTML files.
 
 Why it matters: Sean's product signal is that the current site feels chaotic, while the Interactive Rehearsal is the strongest part. The landing page should introduce Response Rehearsal, then offer clear paths/doors instead of exposing every generator, export, slide, worksheet, and guide option at once.
 
-First small implementation step after approval: Build from the product strategy note at `IR Tabletop Generator/01 Product Strategy/2026-07-11 Structured Landing Focused Interactive Rehearsal.md`. Decide whether the focused rehearsal workspace should live at a separate `rehearsal.html` page or behind a compatible `index.html` route/state, then draft the minimal landing-door layout before editing production files.
+Implementation decision: keep `index.html` as the canonical landing page and use compatible `?path=interactive` and `?path=packet` workspace state. This preserves existing parameterized drill links while giving browser Back, Forward, refresh, and copied URLs a stable route contract.
+
+2026-08-03 approved implementation:
+
+- Bare `/` now remains a calm landing page instead of being rewritten into default generator parameters.
+- The first screen offers three clear paths: Interactive Rehearsal, Packet Generator, and Guides.
+- Interactive Rehearsal is a distraction-free workspace with public navigation, packet actions, packet content, slides, and worksheets hidden; one persistent Exit workspace action returns to the landing page.
+- Packet Generator retains the existing packet, handout, facilitator guide, slide, worksheet, copy, download, and print controls.
+- `pushState` is used only for path entry/exit. In-workspace settings use `replaceState`, and `popstate` restores route, mode, scenario, and presentation state without duplicate history entries.
+- Legacy parameterized URLs without `path=` open the Packet Generator and normalize to `path=packet`; existing `path=interactive` links preserve their selected scenario and rehearsal.
+- A repeatable Playwright suite now covers desktop and 390px mobile entry/exit/history, direct links, refresh, packet copy/download/print, start-to-AAR and AAR print state, visible-control names, and horizontal overflow.
 
 2026-07-16 safe first slice:
 
@@ -16,7 +26,7 @@ First small implementation step after approval: Build from the product strategy 
 - Primary path: Interactive Rehearsal, wired to the existing focused interactive workspace.
 - Secondary paths: Build Materials and Guides / Short Drills.
 - No new route, app feature, guide page, DNS/platform setting, sitemap change, or trust-page change was introduced.
-- The full `rehearsal.html` or route split remains a later decision after AdSense approval or explicit approval for a larger restructure.
+- The later implementation kept the compatible query route instead of adding `rehearsal.html`, avoiding duplicated app markup and redirect risk.
 
 2026-07-16 direct-path follow-up:
 
@@ -31,7 +41,7 @@ First small implementation step after approval: Build from the product strategy 
 - Commit `9503b7e` fixed the localized Interactive Rehearsal wording defect where `Communications pressure` could render as `communications pressure pressure`.
 - Live desktop and 390px mobile QA passed for direct `?path=interactive`, landing-door click, facilitator notes, copy feedback, start-to-AAR, AAR export, packet/sample copy, Markdown export filename generation, stubbed print path, back/forward behavior, and browser console.
 - P3 URL hygiene item: promoted to a concrete Search Console defect on 2026-07-18 after Sean reported redirecting sitemap variants. Fixed in commit `a64f54b Use extensionless canonical URLs`, deployed through Cloudflare Pages deployment `55cf2a94-879a-4216-93d1-7feacf5326d0`, by moving sitemap `<loc>` values, canonical metadata, Open Graph URLs, structured-data URLs, and static internal hrefs to extensionless final routes while preserving `.html` compatibility redirects.
-- P3 landing URL item: bare `/` currently normalizes into a full parameterized default state URL after app initialization. It is not a crawl blocker, but a cleaner front door would keep `/` until a user changes settings or requests a shareable scenario link.
+- P3 landing URL item: resolved in the 2026-08-03 landing/workspace release; bare `/` remains clean until a workspace is selected.
 
 2026-07-18 print/PDF acceptance follow-up:
 
@@ -41,7 +51,7 @@ First small implementation step after approval: Build from the product strategy 
 - P3 AAR print item: complete and live in commit `4378385 Add AAR-only print view`, deployed through Cloudflare Pages deployment `3956bfd4-bc39-4724-953a-d4a11e20b9d6`. The fix uses `interactive-aar-ready` only after AAR completion and print CSS hides workspace controls/runbook while preserving the AAR record.
 - PDF evidence passed: live-before AAR was 5 pages with workspace chrome, patched live-after AAR is 3 pages starting directly with the after-action reveal. Packet regression stayed stable on production: full packet 9 pages, participant handout 3 pages without visual facilitator leakage, facilitator guide 8 pages.
 
-Recommended first implementation slice after AdSense review or Sean's explicit approval:
+Implementation checklist used for the approved release:
 
 1. Choose route shape and compatibility rule:
    - Preferred starting point: keep `index.html` as the landing/front door and create `rehearsal.html` for the focused Interactive Rehearsal workspace.
