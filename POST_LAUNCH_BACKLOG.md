@@ -138,7 +138,15 @@ Acceptance criteria:
 
 ## 5. QA Coverage And Regression Checks
 
-Status: Partially complete. Current release checks cover syntax, mobile Chrome smoke, print/export smoke, live crawl endpoints, cache-busted asset checks, public trust navigation, and content-page generator CTA contrast; a reusable scripted smoke target is still future work.
+Status: Partially complete. Current release checks cover syntax, desktop and mobile Chrome workflows, print/export smoke, live crawl endpoints, cache-busted asset checks, public trust navigation, content-page generator CTA contrast, and trust-page structured data. A reusable live smoke target is still future work.
+
+2026-08-06 unpublished structured-data and QA candidate:
+
+- Added one page-specific JSON-LD node to About, Privacy, Terms, Contact, and Trust & Privacy. Each node uses the page's existing truthful description, extensionless self-canonical URL, unique page identifier, and shared site reference; no FAQ, rating, service, or organization claims were invented.
+- Extended the Playwright suite to parse every new schema node and compare its URL and description with canonical, Open Graph, meta description, and sitemap evidence.
+- Added desktop and 390px checks for landmarks, accessible control names, contact-form labels, keyboard focus order, JavaScript errors, and horizontal overflow across all five pages.
+- Added a separate optional Firefox configuration and self-detecting runner. It executes the same suite when Playwright Firefox is installed and reports a truthful skip when it is unavailable.
+- The application runtime, landing/workspace routing, drill content, packet generation, AAR flow, copy/download/print behavior, sitemap, and public page content were not changed.
 
 Why it matters: The project is a single-page static app with many interconnected controls. Small changes can break scenario selection, copied text, print views, or presentation mode without an obvious build failure.
 

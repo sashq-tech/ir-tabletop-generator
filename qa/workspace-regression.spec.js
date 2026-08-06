@@ -3,6 +3,14 @@ const { test, expect } = require("@playwright/test");
 const interactiveUrl =
   "/?path=interactive&type=phishing&org=smallBusiness&audience=mixed&focus=balanced&duration=60&difficulty=standard&gm=whole&seed=246810&rehearsal=phishing-bec";
 
+const publicTrustPages = [
+  { route: "/about", type: "AboutPage" },
+  { route: "/privacy", type: "WebPage" },
+  { route: "/terms", type: "WebPage" },
+  { route: "/contact", type: "ContactPage" },
+  { route: "/trust-and-privacy", type: "WebPage" }
+];
+
 test.beforeEach(async ({ page }) => {
   await page.addInitScript(() => {
     window.__copiedText = "";
@@ -132,4 +140,71 @@ test("visible controls have names and both routes avoid horizontal overflow", as
     }));
     expect(overflow.scrollWidth).toBeLessThanOrEqual(overflow.innerWidth + 1);
   }
+});
+
+test("trust-page schema parses and agrees with canonical, metadata, and sitemap", async ({ page, request }) => {
+  const sitemap = await request.get("/sitemap.xml");
+  expect(sitemap.ok()).toBe(true);
+  const sitemapXml = await sitemap.text();
+  const schemaIds = new Set();
+
+  for (const { route, type } of publicTrustPages) {
+    await page.goto(route);
+    const canonical = await page.locator('link[rel="canonical"]').getAttribute("href");
+    const ogUrl = await page.locator('meta[property="og:url"]').getAttribute("content");
+    const description = await page.locator('meta[name="description"]').getAttribute("content");
+    const schemaText = await page.locator('script[type="application/ld+json"]').allTextContents();
+
+    expect(schemaText).toHaveLength(1);
+    const schema = JSON.parse(schemaText[0]);
+    expect(schema["@context"]).toBe("https://schema.org");
+    expect(schema["@type"]).toBe(type);
+    expect(schema.url).toBe(canonical);
+    expect(schema.description).toBe(description);
+    expect(schema.isPartOf).toEqual({ "@id": "https://responserehearsal.com/#website" });
+    expect(schema["@id"]).toBe(`${canonical}#webpage`);
+    expect(schemaIds.has(schema["@id"])).toBe(false);
+    schemaIds.add(schema["@id"]);
+    expect(ogUrl).toBe(canonical);
+    expect(sitemapXml).toContain(`<loc>${canonical}</loc>`);
+  }
+});
+
+test("trust pages remain keyboard-readable and avoid narrow-screen overflow", async ({ page }) => {
+  const errors = [];
+  page.on("pageerror", (error) => errors.push(error.message));
+
+  for (const { route } of publicTrustPages) {
+    await page.goto(route);
+    await expect(page.locator("html")).toHaveAttribute("lang", "en");
+    await expect(page.locator("main")).toHaveCount(1);
+    await expect(page.locator("article h2")).toHaveCount(1);
+    await expect(page.locator('nav[aria-label="Public pages"]')).toBeVisible();
+    await expect(page.locator('nav[aria-label="Footer"]')).toBeVisible();
+
+    const unnamed = await page.locator("button:visible, a:visible, input:visible, select:visible, textarea:visible").evaluateAll((elements) =>
+      elements
+        .filter((element) => !((element.getAttribute("aria-label") || element.labels?.[0]?.textContent || element.textContent || "").trim()))
+        .map((element) => element.outerHTML)
+    );
+    expect(unnamed).toEqual([]);
+
+    const overflow = await page.evaluate(() => ({
+      innerWidth,
+      scrollWidth: document.documentElement.scrollWidth
+    }));
+    expect(overflow.scrollWidth).toBeLessThanOrEqual(overflow.innerWidth + 1);
+
+    await page.locator("body").press("Tab");
+    await expect(page.locator(":focus")).toHaveAttribute("aria-label", "Response Rehearsal home");
+    await page.keyboard.press("Tab");
+    await expect(page.locator(":focus")).toHaveText("About");
+  }
+
+  await page.goto("/contact");
+  await expect(page.getByLabel("Name")).toBeVisible();
+  await expect(page.getByLabel("Email")).toHaveAttribute("type", "email");
+  await expect(page.getByLabel("Topic")).toBeVisible();
+  await expect(page.getByLabel("Message")).toBeVisible();
+  expect(errors).toEqual([]);
 });

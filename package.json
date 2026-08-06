@@ -4,7 +4,8 @@
   "version": "1.0.0",
   "description": "Browser-only incident response tabletop exercise generator.",
   "scripts": {
-    "test:workspace": "playwright test"
+    "test:workspace": "playwright test",
+    "test:workspace:firefox": "node qa/run-firefox.mjs"
   },
   "devDependencies": {
     "@playwright/test": "^1.55.0"
