@@ -142,6 +142,38 @@ test("visible controls have names and both routes avoid horizontal overflow", as
   }
 });
 
+test("short-drill guides hand facilitators directly into the interactive workspace", async ({ page }) => {
+  await page.goto("/15-minute-incident-response-drill");
+  const fifteenMinuteCta = page.getByRole("link", { name: "Open Interactive Rehearsal", exact: true });
+  await expect(fifteenMinuteCta).toBeVisible();
+  await fifteenMinuteCta.click();
+  await expect(page.locator("body")).toHaveAttribute("data-route", "interactive");
+  await expect(page.locator("#workspaceTitle")).toHaveText("Interactive Rehearsal");
+  await expect(page).toHaveURL(/path=interactive/);
+  await page.goBack();
+  await expect(page).toHaveURL(/15-minute-incident-response-drill$/);
+
+  await page.goto("/30-minute-incident-response-tabletop");
+  const thirtyMinuteCta = page.getByRole("link", { name: "Run a 30-minute Interactive Rehearsal", exact: true });
+  await expect(thirtyMinuteCta).toBeVisible();
+  await thirtyMinuteCta.click();
+  await expect(page.locator("body")).toHaveAttribute("data-route", "interactive");
+  await expect(page.locator("#duration")).toHaveValue("30");
+  await expect(page).toHaveURL(/path=interactive/);
+  await expect(page).toHaveURL(/duration=30/);
+  await page.reload();
+  await expect(page.locator("body")).toHaveAttribute("data-route", "interactive");
+  await expect(page.locator("#duration")).toHaveValue("30");
+  await page.goBack();
+  await expect(page).toHaveURL(/30-minute-incident-response-tabletop$/);
+
+  const overflow = await page.evaluate(() => ({
+    innerWidth,
+    scrollWidth: document.documentElement.scrollWidth
+  }));
+  expect(overflow.scrollWidth).toBeLessThanOrEqual(overflow.innerWidth + 1);
+});
+
 test("trust-page schema parses and agrees with canonical, metadata, and sitemap", async ({ page, request }) => {
   const sitemap = await request.get("/sitemap.xml");
   expect(sitemap.ok()).toBe(true);
