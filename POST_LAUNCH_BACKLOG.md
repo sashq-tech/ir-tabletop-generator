@@ -2,6 +2,27 @@
 
 This backlog captures practical next improvements after the first public launch. It is intentionally scoped to browser-only, static-site work with no accounts, uploads, database, or backend service.
 
+## 2026-08-13 Preventive AdSense Value Audit
+
+Status: Local review candidate only. Not committed, pushed, deployed, or submitted to AdSense.
+
+Evidence:
+
+- The live product has nine indexable routes. The homepage and two drill guides are substantive; the Guides hub is primarily navigational, while About, Privacy, Terms, Contact, and Trust & Privacy are appropriately concise for their purposes.
+- Interactive Rehearsal is a complete original workflow with scenario selection, pre-brief, runbook, timer, injects, decision consequences, facilitator notes, and AAR output. Packet generation, worksheets, slides, copy, download, and print paths add meaningful facilitator utility.
+- Source contains no manual AdSense units, so ad-to-content balance is not the current risk. The meaningful preventive gap is a thin discovery layer between first-time facilitators and the existing product depth.
+- The newest Search Console snapshot, generated 2026-08-13 with data through 2026-08-10, shows `0 / 10` clicks/impressions for the latest seven days versus `0 / 6` previously. Query evidence is still sparse and centered on defining incident response drills, so it does not justify broad SEO rewrites or multiple new pages.
+
+Candidate decision:
+
+- Deepen `guides.html` into one original facilitator learning path covering exercise sizing, decision objectives, room preparation, inject pacing, decision-quality capture, realistic pressure, and AAR closeout.
+- Reuse direct links into the existing 15-minute, 30-minute, Interactive Rehearsal, ransomware communications, BEC, and Packet Generator paths. Do not add a new route or alter the focused workspace.
+- Add a browser regression for substantive guide content, structured-data alignment, direct BEC handoff, Back navigation, and desktop/mobile overflow.
+
+Publish trigger:
+
+- Review and publish this single candidate only with fresh explicit approval after local checks pass. AdSense resubmission remains a separate human/account decision.
+
 ## 0. Structured Landing And Focused Interactive Rehearsal
 
 Status: Complete in the 2026-08-03 approved landing/workspace release. Keep the single-document `?path=` model unless real usage shows a need for separate HTML files.

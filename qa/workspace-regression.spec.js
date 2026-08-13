@@ -174,6 +174,35 @@ test("short-drill guides hand facilitators directly into the interactive workspa
   expect(overflow.scrollWidth).toBeLessThanOrEqual(overflow.innerWidth + 1);
 });
 
+test("guides hub provides a substantive facilitator path into rehearsal", async ({ page }) => {
+  await page.goto("/guides");
+
+  await expect(page.getByRole("heading", { level: 2, name: "Facilitator learning path" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 3, name: /Run each inject as a decision loop/ })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 3, name: /Close with a usable after-action record/ })).toBeVisible();
+
+  const articleWords = await page.locator("article").innerText().then((text) => text.trim().split(/\s+/).length);
+  expect(articleWords).toBeGreaterThanOrEqual(750);
+
+  const schema = JSON.parse(await page.locator('script[type="application/ld+json"]').textContent());
+  expect(schema["@type"]).toBe("CollectionPage");
+  expect(schema.mainEntity.itemListElement).toHaveLength(5);
+
+  const rehearsalLink = page.getByRole("link", { name: "Run the BEC decision rehearsal", exact: true }).last();
+  await expect(rehearsalLink).toHaveAttribute("href", /path=interactive/);
+  await rehearsalLink.click();
+  await expect(page.locator("body")).toHaveAttribute("data-route", "interactive");
+  await expect(page.locator("#interactiveScenario")).toHaveValue("phishing-bec");
+  await page.goBack();
+  await expect(page).toHaveURL(/\/guides$/);
+
+  const overflow = await page.evaluate(() => ({
+    innerWidth,
+    scrollWidth: document.documentElement.scrollWidth
+  }));
+  expect(overflow.scrollWidth).toBeLessThanOrEqual(overflow.innerWidth + 1);
+});
+
 test("trust-page schema parses and agrees with canonical, metadata, and sitemap", async ({ page, request }) => {
   const sitemap = await request.get("/sitemap.xml");
   expect(sitemap.ok()).toBe(true);

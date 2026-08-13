@@ -6,13 +6,13 @@
     <title>Incident Response Guides and Drills | Response Rehearsal</title>
     <meta
       name="description"
-      content="Practical incident response rehearsal guides and drills for facilitators: short drills, tabletop structure, and focused ransomware communications practice."
+      content="A practical incident response facilitator learning path for choosing a drill, running decision-centered injects, and closing with useful after-action owners."
     >
     <meta name="theme-color" content="#06110d">
     <meta property="og:title" content="Incident Response Guides and Drills | Response Rehearsal">
     <meta
       property="og:description"
-      content="A compact hub for Response Rehearsal's practical incident response guides, short drills, and facilitator-ready rehearsal resources."
+      content="Choose a rehearsal length, prepare the room, test decisions under pressure, and close with a usable after-action record."
     >
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://responserehearsal.com/guides">
@@ -20,7 +20,7 @@
     <meta name="twitter:title" content="Incident Response Guides and Drills | Response Rehearsal">
     <meta
       name="twitter:description"
-      content="Find practical incident response rehearsal guides, short drills, and facilitator-ready resources."
+      content="A practical before, during, and after learning path for incident response tabletop facilitators."
     >
     <link rel="icon" href="data:,">
     <link rel="canonical" href="https://responserehearsal.com/guides">
@@ -29,7 +29,7 @@
         "@context": "https://schema.org",
         "@type": "CollectionPage",
         "name": "Incident Response Guides and Drills",
-        "description": "A practical guide hub for short incident response drills, tabletop facilitation, and focused decision practice.",
+        "description": "A practical facilitator learning path for choosing an incident response drill, running decision-centered injects, and closing with owned follow-up actions.",
         "url": "https://responserehearsal.com/guides",
         "mainEntity": {
           "@type": "ItemList",
@@ -49,8 +49,20 @@
             {
               "@type": "ListItem",
               "position": 3,
+              "name": "Interactive Business Email Compromise Rehearsal",
+              "url": "https://responserehearsal.com/?path=interactive&type=phishing&duration=60&rehearsal=phishing-bec"
+            },
+            {
+              "@type": "ListItem",
+              "position": 4,
               "name": "Ransomware Communications Pressure Drill",
               "url": "https://responserehearsal.com/?path=interactive&type=ransomware&focus=communications&duration=60&difficulty=standard&rehearsal=ransomware-communications-pressure"
+            },
+            {
+              "@type": "ListItem",
+              "position": 5,
+              "name": "Incident Response Exercise Packet Generator",
+              "url": "https://responserehearsal.com/?path=packet"
             }
           ]
         }
@@ -82,40 +94,131 @@
     <main class="content-shell">
       <article class="content-page">
         <p class="eyebrow">Practical incident response rehearsal resources</p>
-        <h2>Guides and drills</h2>
+        <h2>Facilitator learning path</h2>
         <p>
-          Use these resources when you need a focused way to practice incident decisions. The articles explain how to run short exercises; the drill links open Response Rehearsal with a practical scenario path already selected.
+          An incident response drill is a time-boxed conversation in which a team receives incomplete information,
+          makes specific decisions, and records what must improve before a real incident. It is not a quiz and it is
+          not a test of who remembers the plan. The facilitator's job is to keep the room focused on ownership,
+          evidence, tradeoffs, communications, and the next decision.
         </p>
 
-        <section>
-          <h3><a href="/15-minute-incident-response-drill">15-minute incident response drill</a></h3>
+        <section id="choose-depth">
+          <h3>1. Choose the smallest useful rehearsal</h3>
           <p>
-            A fast decision-practice format for the first few minutes of an incident. Use it for team warmups, monthly readiness checks, or quick reviews before a larger tabletop.
+            Match the format to the decision you need to practice. A short exercise with one clear objective is more
+            useful than a long meeting that tries to test every part of the response plan.
+          </p>
+          <ul>
+            <li><a href="/15-minute-incident-response-drill">Use the 15-minute drill</a> for one first-response decision, one escalation question, and one follow-up owner.</li>
+            <li><a href="/30-minute-incident-response-tabletop">Use the 30-minute tabletop</a> when the room needs two or three injects, a decision record, and a short after-action discussion.</li>
+            <li><a href="/?path=interactive&amp;type=phishing&amp;duration=60&amp;rehearsal=phishing-bec">Use Interactive Rehearsal</a> for a branching session where choices change readiness measures and the final AAR.</li>
+            <li><a href="/?path=packet">Use the Packet Generator</a> when participants need a handout, facilitator guide, slides, worksheet, and printable exercise record.</li>
+          </ul>
+        </section>
+
+        <section id="define-outcome">
+          <h3>2. Define the decision outcome before writing injects</h3>
+          <p>
+            Write one sentence that describes what the room should be able to decide by the end. Examples include:
+            who can isolate a critical system, when leadership receives its first update, who approves an external
+            holding statement, or what evidence is required before recovery begins. This keeps the exercise anchored
+            to a real operating question instead of a dramatic incident story.
+          </p>
+          <p>
+            Next, name the roles that must contribute. Use role titles rather than individual names so the exercise
+            remains reusable. A small session may need only a facilitator, incident lead, IT lead, communications or
+            operations representative, executive decision-maker, and scribe. Combine roles when that reflects the
+            organization, but state who has each authority during the exercise.
           </p>
         </section>
 
-        <section>
-          <h3><a href="/30-minute-incident-response-tabletop">30-minute incident response tabletop guide</a></h3>
+        <section id="prepare-room">
+          <h3>3. Prepare the room without scripting the answer</h3>
           <p>
-            A practical short-tabletop structure with agenda timing, facilitator checklist, decision points, common mistakes, and after-action capture.
+            Give participants the objective, time limit, ground rules, and their roles before the first inject. Tell
+            them that assumptions must be spoken aloud and that the scenario will not provide every fact they want.
+            Do not distribute facilitator notes, preferred choices, or consequences. Those are prompts for keeping
+            the discussion moving, not an answer key.
+          </p>
+          <ul>
+            <li>Use fictional names and generic systems; do not enter credentials, personal information, regulated data, or active incident details.</li>
+            <li>Assign one scribe to capture facts, assumptions, decisions, open questions, owners, and due dates.</li>
+            <li>Decide who can call a pause if the discussion reveals a real security concern that belongs outside the exercise.</li>
+            <li>Reserve the final 10 minutes for the AAR rather than letting the scenario consume the entire meeting.</li>
+          </ul>
+        </section>
+
+        <section id="decision-loop">
+          <h3>4. Run each inject as a decision loop</h3>
+          <p>
+            Read the inject, allow a brief fact-finding discussion, then ask for a decision. When the room starts
+            describing everything it could investigate, bring it back to what it will do now, who owns that action,
+            and when the decision must be revisited. A useful decision loop produces five things:
+          </p>
+          <ol>
+            <li><strong>Decision:</strong> the action, hold, escalation, or communication the team chooses.</li>
+            <li><strong>Owner:</strong> the role accountable for carrying it forward.</li>
+            <li><strong>Time:</strong> the deadline or next update point.</li>
+            <li><strong>Evidence:</strong> the facts needed to confirm, change, or reverse the decision.</li>
+            <li><strong>Tradeoff:</strong> the operational, legal, customer, safety, or recovery cost the team accepts.</li>
+          </ol>
+          <p>
+            If the room stalls, ask one bounded question: “What must happen in the next 15 minutes?”, “Who can
+            authorize that?”, “What would make us change course?”, or “What can we safely tell staff right now?”
+            Avoid rescuing the group with the facilitator notes too early. Productive uncertainty is where unclear
+            authority and missing procedures become visible.
           </p>
         </section>
 
-        <section>
-          <h3><a href="/?path=interactive&amp;type=ransomware&amp;focus=communications&amp;duration=60&amp;difficulty=standard&amp;rehearsal=ransomware-communications-pressure">Ransomware communications pressure drill</a></h3>
+        <section id="pressure">
+          <h3>5. Add pressure that tests coordination, not technical trivia</h3>
           <p>
-            A focused interactive rehearsal for executive updates, staff guidance, continuity decisions, and evidence-bounded ransomware messaging.
+            A strong inject changes the decision environment. It can add an executive request, an unavailable
+            system owner, a customer question, an uncertain data-scope finding, or a continuity deadline. It should
+            not require participants to guess a product-specific command or forensic artifact. The goal is to test
+            whether the team can coordinate responsibly when facts are incomplete.
+          </p>
+          <p>
+            For a ready example, run the <a href="/?path=interactive&amp;type=ransomware&amp;focus=communications&amp;duration=60&amp;difficulty=standard&amp;rehearsal=ransomware-communications-pressure">Ransomware Communications Pressure Drill</a>.
+            It keeps technical certainty limited while the room must coordinate leadership updates, staff guidance,
+            continuity decisions, and external messaging. For a different pressure pattern, <a href="/?path=interactive&amp;type=phishing&amp;duration=60&amp;rehearsal=phishing-bec">run the BEC decision rehearsal</a>
+            and focus on payment holds, identity evidence, business verification, and executive communication.
           </p>
         </section>
 
-        <section>
-          <h3><a href="/">Full incident response exercise generator</a></h3>
+        <section id="close-aar">
+          <h3>6. Close with a usable after-action record</h3>
           <p>
-            Build a complete packet with participant handout, facilitator guide, timed injects, slide facilitation, scribe worksheet, and after-action prompts.
+            End the scenario while there is still time to agree on follow-up. Ask the scribe to read back the major
+            decisions and unresolved questions. Separate observations from actions: “the escalation path was unclear”
+            is an observation; “Operations will publish an after-hours escalation roster by September 15” is an
+            action. Every action should have one accountable owner and a review date.
+          </p>
+          <ul>
+            <li>Record what the team decided and the evidence or assumption behind it.</li>
+            <li>Capture where authority, contact information, tooling, or documentation slowed the response.</li>
+            <li>Assign no more than a few high-value actions that can realistically be reviewed at the next meeting.</li>
+            <li>Schedule a short follow-up to verify completion rather than treating the AAR as the finish line.</li>
+          </ul>
+          <p>
+            Response Rehearsal's interactive path produces an AAR summary from the choices made during the session.
+            The packet path provides a blank action tracker and facilitator worksheet for discussions that do not use
+            branching choices. Both are planning aids; the facilitator remains responsible for adapting the exercise
+            to the organization's plans, obligations, and professional advice.
           </p>
         </section>
 
-        <p class="content-action"><a class="primary-button link-button" href="/">Open the generator</a></p>
+        <section id="recommended-path">
+          <h3>A simple progression for a new facilitator</h3>
+          <ol>
+            <li>Read the <a href="/15-minute-incident-response-drill">15-minute format</a> and run it with two or three colleagues.</li>
+            <li>Use the <a href="/30-minute-incident-response-tabletop">30-minute guide</a> to practice pacing, scribing, and a short AAR.</li>
+            <li><a href="/?path=interactive&amp;type=phishing&amp;duration=60&amp;rehearsal=phishing-bec">Run the BEC decision rehearsal</a> with a mixed technical and leadership group.</li>
+            <li><a href="/?path=packet">Build a full exercise packet</a> only after the objective, roles, and decision authorities are clear.</li>
+          </ol>
+        </section>
+
+        <p class="content-action"><a class="primary-button link-button" href="/?path=interactive&amp;type=phishing&amp;duration=60&amp;rehearsal=phishing-bec">Start with the BEC rehearsal</a></p>
       </article>
     </main>
 
