@@ -16,8 +16,11 @@
 
 - `node --check app.js`
 - `git diff --check`
-- Full desktop and 390px mobile Playwright workspace regression, including direct URL restoration and a five-decision run through copied AAR output.
-- Live cache-busted `app.js` marker and direct interactive route checks after publication.
+- All 18 desktop and 390px mobile Playwright workspace regressions passed, including direct URL restoration and a five-decision run through copied AAR output.
+- Commit `4ea1752` was pushed to `main`; cache-busted live `app.js` contains the scenario key and title.
+- Live desktop and 390px mobile Chrome runs restored the drill, showed three choices at every inject, reached the AAR, avoided overflow, and logged no page errors.
+- Twelve homepage, guide, trust/contact, sitemap, robots, and ads routes returned `200` after publication.
+- The optional Firefox runner skipped because its Playwright browser binary is not installed.
 
 ## Boundaries
 
