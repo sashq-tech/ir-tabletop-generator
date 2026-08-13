@@ -3,6 +3,9 @@ const { test, expect } = require("@playwright/test");
 const interactiveUrl =
   "/?path=interactive&type=phishing&org=smallBusiness&audience=mixed&focus=balanced&duration=60&difficulty=standard&gm=whole&seed=246810&rehearsal=phishing-bec";
 
+const travelLaptopUrl =
+  "/?path=interactive&type=insider&org=smallBusiness&audience=mixed&focus=balanced&duration=60&difficulty=standard&gm=whole&seed=864213&rehearsal=insider-lost-travel-laptop";
+
 const publicTrustPages = [
   { route: "/about", type: "AboutPage" },
   { route: "/privacy", type: "WebPage" },
@@ -123,6 +126,40 @@ test("interactive run completes with AAR copy and print-ready output", async ({ 
   await page.emulateMedia({ media: "print" });
   await expect(page.locator("#interactiveDebrief")).toBeVisible();
   await expect(page.locator("#interactiveStage")).toBeHidden();
+});
+
+test("lost travel laptop drill restores direct state and produces a complete AAR", async ({ page }) => {
+  const errors = [];
+  page.on("pageerror", (error) => errors.push(error.message));
+
+  await page.goto(travelLaptopUrl);
+  await expect(page.locator("body")).toHaveAttribute("data-route", "interactive");
+  await expect(page.locator("#incidentType")).toHaveValue("insider");
+  await expect(page.locator("#interactiveScenario")).toHaveValue("insider-lost-travel-laptop");
+  await expect(page.locator("#interactiveTitle")).toHaveText("Lost Travel Laptop Exposure Drill");
+  await expect(page.locator("#interactiveScenarioSummary")).toContainText("remote lock or wipe decisions");
+
+  await page.reload();
+  await expect(page.locator("#interactiveScenario")).toHaveValue("insider-lost-travel-laptop");
+  await page.locator("#startInteractiveBtn").click();
+  await expect(page.locator("#interactiveInjectTitle")).toContainText("Laptop missing after a customer visit");
+
+  for (let step = 0; step < 5; step += 1) {
+    await expect(page.locator("#interactiveChoices button")).toHaveCount(3);
+    await page.locator("#interactiveChoices button").first().click();
+  }
+
+  await expect(page.locator("#interactiveDebrief")).toBeVisible();
+  await page.locator("#copyAarSummaryBtn").click();
+  await expect.poll(() => page.evaluate(() => window.__copiedText)).toContain("Lost Travel Laptop Exposure Drill");
+  await expect.poll(() => page.evaluate(() => window.__copiedText)).toContain("AAR Summary");
+
+  const overflow = await page.evaluate(() => ({
+    innerWidth,
+    scrollWidth: document.documentElement.scrollWidth
+  }));
+  expect(overflow.scrollWidth).toBeLessThanOrEqual(overflow.innerWidth + 1);
+  expect(errors).toEqual([]);
 });
 
 test("visible controls have names and both routes avoid horizontal overflow", async ({ page }) => {

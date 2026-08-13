@@ -2073,6 +2073,96 @@ Object.assign(interactiveScenarios, {
       }
     ]
   ]),
+  "insider-lost-travel-laptop": makeInteractiveScenario("Lost Travel Laptop Exposure Drill", {
+    containment: "Device containment",
+    evidence: "Device and access evidence",
+    continuity: "Travel continuity",
+    trust: "Customer confidence",
+    coordination: "Travel response coordination"
+  }, [
+    ["Detect", "Laptop missing after a customer visit", "A product specialist returning from a customer demonstration realizes a company laptop is missing. It was last seen between the customer site, a rideshare, and the hotel. The managed device contains demo material, cached email, and customer logistics, but no one has confirmed unauthorized access."],
+    ["Triage", "Protection status and data scope are uncertain", "IT can confirm the device identity and last management check-in, but encryption status, cached sessions, locally stored files, and the sensitivity of the demo material need owner review. Operations asks whether law enforcement, the customer, or leadership must be contacted now."],
+    ["Contain", "Remote wipe competes with evidence and continuity", "The laptop appears online intermittently. A remote wipe may reduce exposure but could remove local evidence and unsynchronized demo work. The traveler needs a safe replacement for another customer session tomorrow."],
+    ["Communicate", "Customer and executive notification criteria are unclear", "There is still no evidence that anyone opened the laptop or accessed cloud services. The President needs a fact-bounded update for the CEO, while the product lead wants guidance in case the customer asks about the missing device."],
+    ["Recover", "The device is not recovered within 24 hours", "The team has replaced the laptop and contained its access, but travel inventory, offline-data limits, remote-action testing, customer notification criteria, and responsibility for lost-device follow-up are inconsistent."]
+  ], [
+    ["Declare a suspected lost-device incident, record the timeline and device identity, notify the response owner, preserve cloud and endpoint logs, and begin policy-approved lock and session controls.", "The team starts containment without turning an unconfirmed loss into a confirmed breach.", "Lost-device response should preserve facts while quickly controlling the device and associated sessions."],
+    ["Build a shared fact board for encryption, device management, local data, cached sessions, last check-in, customer material, and reporting thresholds.", "The room can distinguish protected data, possible exposure, and decisions that need named owners.", "Device protection and data sensitivity must be evaluated together before notification or wipe decisions."],
+    ["Remote-lock the laptop, revoke relevant sessions, preserve available telemetry, set a time-boxed wipe decision, and issue a clean replacement with only the access needed for the next demo.", "Exposure is reduced while the team protects evidence and restores travel continuity through a controlled device.", "Remote actions work best when lock, session control, wipe criteria, evidence, and replacement access are one coordinated decision."],
+    ["Brief leadership with confirmed facts, unknowns, controls taken, notification criteria, and the next update time; prepare customer holding language without sending it yet.", "Leadership and customer-facing staff are ready without overstating data exposure.", "Prepared communication is useful before notification is required, provided it stays evidence-bounded."],
+    ["Document the outcome, validate the replacement device, rotate credentials or secrets based on evidence, and assign owners for travel data limits, inventory checks, remote-action tests, and notification playbooks.", "The exercise closes with practical improvements to travel-device readiness instead of only replacing hardware.", "Recovery should reduce the chance that the next lost device creates the same uncertainty."]
+  ], [
+    [
+      {
+        label: "Wait until morning while the traveler checks the hotel and rideshare lost-and-found channels.",
+        impact: { containment: -14, evidence: -6, continuity: 6, trust: -8, coordination: -10 },
+        outcome: "The device may still be found, but account sessions and local data remain exposed during the delay.",
+        lesson: "Physical recovery efforts can continue in parallel with device and identity containment."
+      },
+      {
+        label: "Announce a customer data breach immediately because the laptop is missing.",
+        impact: { containment: 2, evidence: -12, continuity: -8, trust: -16, coordination: -6 },
+        outcome: "The response moves quickly, but the organization makes a serious claim before confirming access or data scope.",
+        lesson: "A missing device is an incident to assess, not automatic proof of data disclosure."
+      }
+    ],
+    [
+      {
+        label: "Treat the device as low risk because company laptops are normally encrypted.",
+        impact: { containment: -10, evidence: -12, continuity: 8, trust: -8, coordination: -8 },
+        outcome: "The team avoids disruption, but relies on an assumption instead of confirming device posture and session exposure.",
+        lesson: "Expected controls need evidence before they can support a risk decision."
+      },
+      {
+        label: "Email the full customer and file list to a broad leadership group for rapid review.",
+        impact: { containment: 0, evidence: 2, continuity: -4, trust: -12, coordination: -8 },
+        outcome: "More people can comment, but sensitive context spreads beyond the owners needed to classify it.",
+        lesson: "Fast scoping should still follow need-to-know handling."
+      }
+    ],
+    [
+      {
+        label: "Issue an immediate remote wipe before collecting any available management or cloud evidence.",
+        impact: { containment: 16, evidence: -16, continuity: -12, trust: 0, coordination: -4 },
+        outcome: "Exposure may fall quickly, but the team loses evidence and cannot explain whether the device was accessed.",
+        lesson: "Immediate wipe can be appropriate, but the tradeoff and evidence sequence should be deliberate."
+      },
+      {
+        label: "Leave the device and sessions active so IT can keep tracking it until it is recovered.",
+        impact: { containment: -18, evidence: 10, continuity: 4, trust: -14, coordination: -8 },
+        outcome: "Telemetry may continue, but active access and cached sessions create avoidable exposure.",
+        lesson: "Evidence collection should not quietly become an indefinite exception to containment."
+      }
+    ],
+    [
+      {
+        label: "Tell the customer that its information was exposed so the organization appears transparent.",
+        impact: { containment: 0, evidence: -12, continuity: -8, trust: -18, coordination: -6 },
+        outcome: "The message is proactive but unsupported, creating questions the team cannot answer accurately.",
+        lesson: "Transparency requires precise facts, not the strongest possible interpretation."
+      },
+      {
+        label: "Keep the issue within IT unless unauthorized access is conclusively proven.",
+        impact: { containment: 2, evidence: 4, continuity: 6, trust: -12, coordination: -14 },
+        outcome: "The team avoids premature notice, but leaders and customer-facing staff are unprepared for time-sensitive questions.",
+        lesson: "Internal readiness and decision criteria can be established before external notification."
+      }
+    ],
+    [
+      {
+        label: "Close the incident once the replacement laptop is issued and the missing device is disabled.",
+        impact: { containment: 4, evidence: -8, continuity: 10, trust: -4, coordination: -12 },
+        outcome: "The traveler is productive again, but the organization keeps the same travel-data and response gaps.",
+        lesson: "Hardware replacement is not the same as incident recovery."
+      },
+      {
+        label: "Ban laptops from all customer travel until leadership approves a new policy.",
+        impact: { containment: 14, evidence: 0, continuity: -18, trust: -4, coordination: -8 },
+        outcome: "The rule reduces one risk but is difficult to sustain and may disrupt legitimate demonstrations.",
+        lesson: "Recovery controls should reduce risk while remaining practical enough to follow."
+      }
+    ]
+  ]),
   "supplyChain-update-integrity": makeInteractiveScenario("Vendor Update Integrity Drill", {
     containment: "Update containment",
     evidence: "Package evidence",
@@ -2108,7 +2198,8 @@ const interactiveScenarioLibrary = {
   insider: [
     { key: "insider", label: "Featured: Departing employee data exposure", summary: "Full five-step insider rehearsal focused on HR/legal coordination, evidence, fair process, and access cleanup." },
     { key: "insider-contractor", label: "Focused drill: Contractor overshare", summary: "Practice external sharing cleanup, sponsor coordination, data-owner review, and least-privilege access." },
-    { key: "insider-role-change-repo", label: "Focused drill: Role-change repository access", summary: "Practice sensitive repository access review, product continuity, fair-process communication, and permission ownership." }
+    { key: "insider-role-change-repo", label: "Focused drill: Role-change repository access", summary: "Practice sensitive repository access review, product continuity, fair-process communication, and permission ownership." },
+    { key: "insider-lost-travel-laptop", label: "Focused drill: Lost travel laptop", summary: "Practice device and session containment, remote lock or wipe decisions, customer notification criteria, and replacement-device continuity." }
   ],
   ddos: [
     { key: "ddos", label: "Featured: Public service outage", summary: "Full five-step availability rehearsal covering triage, provider filtering, status messaging, and resilience follow-up." },

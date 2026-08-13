@@ -4,7 +4,7 @@ This backlog captures practical next improvements after the first public launch.
 
 ## 2026-08-13 Preventive AdSense Value Audit
 
-Status: Local review candidate only. Not committed, pushed, deployed, or submitted to AdSense.
+Status: Published in commit `4222ab3` on 2026-08-13. The facilitator learning path is live; no AdSense resubmission or account setting was changed.
 
 Evidence:
 
@@ -19,9 +19,11 @@ Candidate decision:
 - Reuse direct links into the existing 15-minute, 30-minute, Interactive Rehearsal, ransomware communications, BEC, and Packet Generator paths. Do not add a new route or alter the focused workspace.
 - Add a browser regression for substantive guide content, structured-data alignment, direct BEC handoff, Back navigation, and desktop/mobile overflow.
 
-Publish trigger:
+Release evidence:
 
-- Review and publish this single candidate only with fresh explicit approval after local checks pass. AdSense resubmission remains a separate human/account decision.
+- `node --check app.js`, diff hygiene, and all 16 desktop/mobile Chrome workspace regressions passed immediately before publication.
+- The live `/guides` route returned `200` with the new facilitator learning path, aligned canonical URL, and CollectionPage structured data after commit `4222ab3` reached production.
+- AdSense resubmission remains a separate human/account decision.
 
 ## 0. Structured Landing And Focused Interactive Rehearsal
 
@@ -116,11 +118,13 @@ Acceptance criteria:
 
 ## 2. Scenario Library Growth
 
-Status: In progress. Focused drills now include role-change repository access for insider exposure, vendor platform outage for public service availability, and ransomware communications pressure; continue expanding underrepresented families with realistic, defensive drills.
+Status: In progress. Focused drills now include role-change repository access, lost travel laptop exposure, vendor platform outage, and ransomware communications pressure; continue expanding underrepresented families with realistic, defensive drills.
 
 Why it matters: The app will be judged quickly by whether the scenarios feel realistic, varied, and useful. A broader library gives repeat visitors more reasons to return and supports different organization sizes, roles, and exercise goals.
 
-First small implementation step: Add one focused, copy-ready drill for each underrepresented incident family, using realistic but generic details and avoiding operational attack guidance. Start with short drills that exercise different decision pressures rather than long narrative branches.
+2026-08-13 bounded implementation: Added a complete lost travel laptop exposure drill with five injects, three distinct decisions per inject, facilitator consequences, direct-link restoration, and AAR output. The drill covers device and session containment, evidence preservation, remote lock/wipe criteria, customer notification readiness, replacement-device continuity, and durable travel controls without operational attack detail.
+
+Next small implementation step: Add one complete cloud-storage exposure drill that focuses on link scope, data ownership, evidence, customer impact criteria, and access-governance recovery without duplicating the lost-device or contractor-sharing decisions.
 
 Acceptance criteria:
 

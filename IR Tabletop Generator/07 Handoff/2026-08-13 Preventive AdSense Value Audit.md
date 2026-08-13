@@ -4,7 +4,7 @@
 
 The live Response Rehearsal product has substantial original facilitator utility. The one material preventive low-value-content gap is the thin Guides hub, not the rehearsal engine, trust pages, or ad density.
 
-## Candidate
+## Published Improvement
 
 - Expanded `guides.html` from a navigational hub into a 948-word facilitator learning path.
 - Preserved the focused landing/workspace structure and all scenario, packet, AAR, export, print, route, and history behavior.
@@ -18,7 +18,8 @@ The live Response Rehearsal product has substantial original facilitator utility
 - No manual AdSense marker exists in source or the cache-busted live Guides response.
 - `node --check app.js`, static JSON-LD checks, and `git diff --check` passed.
 - All 16 desktop/mobile Chrome regressions passed.
+- Commit `4222ab3` was pushed to `main` and the cache-busted live `/guides` response returned `200` with the new `Facilitator learning path` heading, description, canonical URL, and CollectionPage structured data.
 
 ## Boundary
 
-Local candidate only. Production remains `1a63166`. No commit, push, deployment, AdSense resubmission, Cloudflare/Search Console/account setting, or indexing action was made.
+Published with the owner's explicit approval. No AdSense resubmission, Cloudflare/Search Console/account setting, or indexing action was made.
