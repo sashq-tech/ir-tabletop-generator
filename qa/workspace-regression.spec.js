@@ -6,6 +6,9 @@ const interactiveUrl =
 const travelLaptopUrl =
   "/?path=interactive&type=insider&org=smallBusiness&audience=mixed&focus=balanced&duration=60&difficulty=standard&gm=whole&seed=864213&rehearsal=insider-lost-travel-laptop";
 
+const cloudStorageUrl =
+  "/?path=interactive&type=insider&org=smallBusiness&audience=mixed&focus=balanced&duration=60&difficulty=standard&gm=whole&seed=731945&rehearsal=insider-cloud-storage-exposure";
+
 const publicTrustPages = [
   { route: "/about", type: "AboutPage" },
   { route: "/privacy", type: "WebPage" },
@@ -152,6 +155,43 @@ test("lost travel laptop drill restores direct state and produces a complete AAR
   await expect(page.locator("#interactiveDebrief")).toBeVisible();
   await page.locator("#copyAarSummaryBtn").click();
   await expect.poll(() => page.evaluate(() => window.__copiedText)).toContain("Lost Travel Laptop Exposure Drill");
+  await expect.poll(() => page.evaluate(() => window.__copiedText)).toContain("AAR Summary");
+
+  const overflow = await page.evaluate(() => ({
+    innerWidth,
+    scrollWidth: document.documentElement.scrollWidth
+  }));
+  expect(overflow.scrollWidth).toBeLessThanOrEqual(overflow.innerWidth + 1);
+  expect(errors).toEqual([]);
+});
+
+test("cloud storage exposure drill preserves direct state, facilitator copy, and AAR output", async ({ page }) => {
+  const errors = [];
+  page.on("pageerror", (error) => errors.push(error.message));
+
+  await page.goto(cloudStorageUrl);
+  await expect(page.locator("body")).toHaveAttribute("data-route", "interactive");
+  await expect(page.locator("#incidentType")).toHaveValue("insider");
+  await expect(page.locator("#interactiveScenario")).toHaveValue("insider-cloud-storage-exposure");
+  await expect(page.locator("#interactiveTitle")).toHaveText("Cloud Storage Link Exposure Drill");
+  await expect(page.locator("#interactiveScenarioSummary")).toContainText("link and guest-session containment");
+
+  await page.reload();
+  await expect(page.locator("#interactiveScenario")).toHaveValue("insider-cloud-storage-exposure");
+  await page.locator("#copyPreBriefBtn").click();
+  await expect.poll(() => page.evaluate(() => window.__copiedText)).toContain("Cloud Storage Link Exposure Drill");
+  await page.locator("#startInteractiveBtn").click();
+  await expect(page.locator("#interactiveInjectTitle")).toContainText("Anonymous project-folder link is discovered");
+
+  for (let step = 0; step < 5; step += 1) {
+    await expect(page.locator("#interactiveChoices button")).toHaveCount(3);
+    await page.locator("#interactiveChoices button").first().click();
+  }
+
+  await expect(page.locator("#interactiveDebrief")).toBeVisible();
+  await expect(page.locator("body")).toHaveClass(/interactive-aar-ready/);
+  await page.locator("#copyAarSummaryBtn").click();
+  await expect.poll(() => page.evaluate(() => window.__copiedText)).toContain("Cloud Storage Link Exposure Drill");
   await expect.poll(() => page.evaluate(() => window.__copiedText)).toContain("AAR Summary");
 
   const overflow = await page.evaluate(() => ({

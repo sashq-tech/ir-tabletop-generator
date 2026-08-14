@@ -118,13 +118,15 @@ Acceptance criteria:
 
 ## 2. Scenario Library Growth
 
-Status: In progress. Focused drills now include role-change repository access, lost travel laptop exposure, vendor platform outage, and ransomware communications pressure; continue expanding underrepresented families with realistic, defensive drills.
+Status: In progress. Focused drills now include role-change repository access, lost travel laptop exposure, cloud storage link exposure, vendor platform outage, and ransomware communications pressure; continue expanding underrepresented families with realistic, defensive drills.
 
 Why it matters: The app will be judged quickly by whether the scenarios feel realistic, varied, and useful. A broader library gives repeat visitors more reasons to return and supports different organization sizes, roles, and exercise goals.
 
 2026-08-13 bounded implementation: Added a complete lost travel laptop exposure drill with five injects, three distinct decisions per inject, facilitator consequences, direct-link restoration, and AAR output. The drill covers device and session containment, evidence preservation, remote lock/wipe criteria, customer notification readiness, replacement-device continuity, and durable travel controls without operational attack detail.
 
-Next small implementation step: Add one complete cloud-storage exposure drill that focuses on link scope, data ownership, evidence, customer impact criteria, and access-governance recovery without duplicating the lost-device or contractor-sharing decisions.
+2026-08-13 bounded implementation: Added a complete cloud storage link exposure drill with five injects, three distinct decisions per inject, direct-link restoration, facilitator pre-brief copy, and AAR output. The drill covers nested sharing scope, data ownership, incomplete anonymous-access evidence, link and guest-session containment, contract/customer thresholds, and sustainable governance recovery without duplicating the contractor or lost-device exercises.
+
+Next small implementation step: Add one focused SaaS data-deletion or retention failure drill that tests evidence, restore authority, customer-impact thresholds, and record-retention ownership without repeating ransomware recovery or cloud-sharing decisions.
 
 Acceptance criteria:
 

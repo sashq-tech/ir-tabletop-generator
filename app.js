@@ -2163,6 +2163,96 @@ Object.assign(interactiveScenarios, {
       }
     ]
   ]),
+  "insider-cloud-storage-exposure": makeInteractiveScenario("Cloud Storage Link Exposure Drill", {
+    containment: "Sharing containment",
+    evidence: "Cloud evidence",
+    continuity: "Partner continuity",
+    trust: "Customer confidence",
+    coordination: "Data-owner coordination"
+  }, [
+    ["Detect", "Anonymous project-folder link is discovered", "A staff member reports that a forwarded cloud-storage link opens without signing in. The folder includes customer demo plans, implementation schedules, and selected support exports. The link may have existed for several weeks, but there is no confirmed public posting or unauthorized download."],
+    ["Triage", "Nested content has different owners and sensitivity", "The folder contains subfolders from product, support, and customer teams. Cloud audit data shows when the link was created, but anonymous access records are incomplete. Data owners must determine what was exposed, which contract terms may apply, and whether inherited permissions reached additional content."],
+    ["Contain", "Revoking access could interrupt partner work", "The anonymous link is still active, several named guests also have access, and an external partner uses part of the folder for tomorrow's customer demonstration. The team must contain link, guest-session, and inherited-permission exposure without losing the evidence or every legitimate collaboration path."],
+    ["Communicate", "Accessibility is confirmed but customer impact is not", "One customer's implementation material was within the accessible folder, but there is no confirmed unauthorized download or misuse. The President needs a brief for the CEO, while contracts, legal, and customer-facing owners need a defensible notification threshold and holding language."],
+    ["Recover", "The link is closed but sharing governance is weak", "Review finds ownerless folders, anonymous links without expiration, stale guest access, inconsistent sensitivity labels, and no routine external-sharing review. The team must turn the incident into practical governance work without making collaboration unusable."]
+  ], [
+    ["Open a suspected exposure review, capture the link configuration and file manifest, preserve available audit evidence, then restrict anonymous access with one incident owner.", "The team stops further anonymous access while preserving the facts needed to understand scope.", "Cloud-sharing containment should preserve link, permission, content, and audit evidence before the trail changes."],
+    ["Build an exposure matrix covering data owners, nested content, sensitivity, link history, access evidence, inherited permissions, guest access, and contractual thresholds.", "The room can distinguish technical accessibility from customer impact and assign each scoping question to an owner.", "Cloud exposure scope depends on both permission paths and the data inside them."],
+    ["Revoke the anonymous link, invalidate or reauthenticate affected guest sessions, remove unintended inherited access, and issue a least-privilege replacement path for verified partners.", "Exposure closes across link and guest paths while approved partner work continues through controlled access.", "Replacing one link is not enough when inherited permissions, active guests, and business continuity remain."],
+    ["Brief leadership with confirmed facts, unknowns, affected data owners, contract or legal decision criteria, prepared customer language, and the next update time.", "Leadership and customer-facing teams are ready to act if evidence or thresholds change without claiming a breach prematurely.", "Notification readiness should be tied to evidence, obligations, and named decision owners."],
+    ["Document the disposition and assign owners for folder ownership, link expiration defaults, guest lifecycle review, sensitivity labeling, evidence retention, and recurring external-sharing checks.", "The exercise closes with a workable governance plan that reduces repeat exposure without blocking legitimate collaboration.", "Recovery should fix the ownership and sharing defaults that allowed the exposure to persist."]
+  ], [
+    [
+      {
+        label: "Delete the sharing link immediately and ask the folder owner what happened afterward.",
+        impact: { containment: 16, evidence: -16, continuity: -10, trust: 0, coordination: -8 },
+        outcome: "Anonymous access ends quickly, but the team loses configuration evidence and begins scoping from memory.",
+        lesson: "Urgent containment can still include a short, deliberate evidence-preservation step."
+      },
+      {
+        label: "Leave the link active until IT can determine who used it and whether the folder was indexed publicly.",
+        impact: { containment: -18, evidence: 10, continuity: 8, trust: -14, coordination: -8 },
+        outcome: "More evidence may accumulate, but the known exposure remains open without a time limit or approved exception.",
+        lesson: "Evidence collection should not silently extend known anonymous access."
+      }
+    ],
+    [
+      {
+        label: "Treat the absence of anonymous download records as proof that no external access occurred.",
+        impact: { containment: -8, evidence: -16, continuity: 10, trust: -12, coordination: -8 },
+        outcome: "The review ends quickly, but an incomplete logging source is treated as conclusive evidence.",
+        lesson: "A missing event is not proof of no access when the logging boundary is incomplete."
+      },
+      {
+        label: "Send the complete file inventory and customer list to a broad leadership channel for classification.",
+        impact: { containment: 0, evidence: 4, continuity: -6, trust: -14, coordination: -8 },
+        outcome: "More reviewers can respond, but sensitive context spreads beyond the data owners and decision makers who need it.",
+        lesson: "Exposure scoping should remain evidence-rich and need-to-know."
+      }
+    ],
+    [
+      {
+        label: "Reset the folder owner's password and leave the existing links and guest permissions unchanged.",
+        impact: { containment: -14, evidence: -4, continuity: 10, trust: -10, coordination: -8 },
+        outcome: "The account receives attention, but anonymous and inherited sharing paths remain available.",
+        lesson: "Cloud-sharing incidents are permission problems even when account compromise is not confirmed."
+      },
+      {
+        label: "Disable all external sharing across the tenant until every folder can be reviewed.",
+        impact: { containment: 18, evidence: 2, continuity: -20, trust: -4, coordination: -12 },
+        outcome: "External exposure drops sharply, but approved customer and partner workflows stop without a prioritized restoration plan.",
+        lesson: "Broad containment may be justified, but it needs explicit scope, ownership, and continuity handling."
+      }
+    ],
+    [
+      {
+        label: "Notify every customer represented in the folder that its information was publicly disclosed.",
+        impact: { containment: 0, evidence: -12, continuity: -10, trust: -18, coordination: -8 },
+        outcome: "The organization moves visibly, but its message overstates what the current evidence proves.",
+        lesson: "Accessibility, access, disclosure, and customer impact are different facts."
+      },
+      {
+        label: "Prepare no customer communication until an unauthorized download is conclusively proven.",
+        impact: { containment: 2, evidence: 6, continuity: 6, trust: -14, coordination: -14 },
+        outcome: "Premature notice is avoided, but customer-facing teams and leaders lack a decision-ready response if thresholds are met.",
+        lesson: "Prepared language and notification criteria do not require immediate notification."
+      }
+    ],
+    [
+      {
+        label: "Close the incident after the anonymous link is removed and no misuse is confirmed.",
+        impact: { containment: 4, evidence: -8, continuity: 10, trust: -4, coordination: -14 },
+        outcome: "The immediate exposure ends, but stale guests, ownerless folders, and permissive defaults remain.",
+        lesson: "No confirmed misuse can still reveal a repeatable governance failure."
+      },
+      {
+        label: "Require CEO approval for every future external sharing link.",
+        impact: { containment: 10, evidence: 0, continuity: -18, trust: -2, coordination: -12 },
+        outcome: "The rule sounds strict, but routine collaboration becomes dependent on an impractical approval bottleneck.",
+        lesson: "Effective governance uses accountable owners and sensible defaults, not executive approval for every action."
+      }
+    ]
+  ]),
   "supplyChain-update-integrity": makeInteractiveScenario("Vendor Update Integrity Drill", {
     containment: "Update containment",
     evidence: "Package evidence",
@@ -2199,7 +2289,8 @@ const interactiveScenarioLibrary = {
     { key: "insider", label: "Featured: Departing employee data exposure", summary: "Full five-step insider rehearsal focused on HR/legal coordination, evidence, fair process, and access cleanup." },
     { key: "insider-contractor", label: "Focused drill: Contractor overshare", summary: "Practice external sharing cleanup, sponsor coordination, data-owner review, and least-privilege access." },
     { key: "insider-role-change-repo", label: "Focused drill: Role-change repository access", summary: "Practice sensitive repository access review, product continuity, fair-process communication, and permission ownership." },
-    { key: "insider-lost-travel-laptop", label: "Focused drill: Lost travel laptop", summary: "Practice device and session containment, remote lock or wipe decisions, customer notification criteria, and replacement-device continuity." }
+    { key: "insider-lost-travel-laptop", label: "Focused drill: Lost travel laptop", summary: "Practice device and session containment, remote lock or wipe decisions, customer notification criteria, and replacement-device continuity." },
+    { key: "insider-cloud-storage-exposure", label: "Focused drill: Cloud storage link exposure", summary: "Practice sharing-scope review, cloud evidence, link and guest-session containment, customer-impact thresholds, and external-sharing governance." }
   ],
   ddos: [
     { key: "ddos", label: "Featured: Public service outage", summary: "Full five-step availability rehearsal covering triage, provider filtering, status messaging, and resilience follow-up." },
