@@ -9,6 +9,9 @@ const travelLaptopUrl =
 const cloudStorageUrl =
   "/?path=interactive&type=insider&org=smallBusiness&audience=mixed&focus=balanced&duration=60&difficulty=standard&gm=whole&seed=731945&rehearsal=insider-cloud-storage-exposure";
 
+const saasRetentionUrl =
+  "/?path=interactive&type=supplyChain&org=smallBusiness&audience=mixed&focus=balanced&duration=60&difficulty=standard&gm=whole&seed=592417&rehearsal=supplyChain-saas-retention-failure";
+
 const publicTrustPages = [
   { route: "/about", type: "AboutPage" },
   { route: "/privacy", type: "WebPage" },
@@ -193,6 +196,47 @@ test("cloud storage exposure drill preserves direct state, facilitator copy, and
   await page.locator("#copyAarSummaryBtn").click();
   await expect.poll(() => page.evaluate(() => window.__copiedText)).toContain("Cloud Storage Link Exposure Drill");
   await expect.poll(() => page.evaluate(() => window.__copiedText)).toContain("AAR Summary");
+
+  const overflow = await page.evaluate(() => ({
+    innerWidth,
+    scrollWidth: document.documentElement.scrollWidth
+  }));
+  expect(overflow.scrollWidth).toBeLessThanOrEqual(overflow.innerWidth + 1);
+  expect(errors).toEqual([]);
+});
+
+test("SaaS retention failure drill preserves direct state, facilitator copy, and AAR output", async ({ page }) => {
+  const errors = [];
+  page.on("pageerror", (error) => errors.push(error.message));
+
+  await page.goto(saasRetentionUrl);
+  await expect(page.locator("body")).toHaveAttribute("data-route", "interactive");
+  await expect(page.locator("#incidentType")).toHaveValue("supplyChain");
+  await expect(page.locator("#interactiveScenario")).toHaveValue("supplyChain-saas-retention-failure");
+  await expect(page.locator("#interactiveTitle")).toHaveText("SaaS Data Retention Failure Drill");
+  await expect(page.locator("#interactiveScenarioSummary")).toContainText("retention and legal-hold scope");
+
+  await page.reload();
+  await expect(page.locator("#interactiveScenario")).toHaveValue("supplyChain-saas-retention-failure");
+  await page.locator("#copyPreBriefBtn").click();
+  await expect.poll(() => page.evaluate(() => window.__copiedText)).toContain("SaaS Data Retention Failure Drill");
+  await page.locator("#startInteractiveBtn").click();
+  await expect(page.locator("#interactiveInjectTitle")).toContainText("Historical records disappear after an automated cleanup");
+
+  for (let step = 0; step < 5; step += 1) {
+    await expect(page.locator("#interactiveChoices button")).toHaveCount(3);
+    await page.locator("#interactiveChoices button").first().click();
+  }
+
+  await expect(page.locator("#interactiveDebrief")).toBeVisible();
+  await expect(page.locator("body")).toHaveClass(/interactive-aar-ready/);
+  await page.locator("#copyAarSummaryBtn").click();
+  await expect.poll(() => page.evaluate(() => window.__copiedText)).toContain("SaaS Data Retention Failure Drill");
+  await expect.poll(() => page.evaluate(() => window.__copiedText)).toContain("AAR Summary");
+
+  await page.emulateMedia({ media: "print" });
+  await expect(page.locator("#interactiveDebrief")).toBeVisible();
+  await expect(page.locator("#interactiveStage")).toBeHidden();
 
   const overflow = await page.evaluate(() => ({
     innerWidth,

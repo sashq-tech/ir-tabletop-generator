@@ -2253,6 +2253,96 @@ Object.assign(interactiveScenarios, {
       }
     ]
   ]),
+  "supplyChain-saas-retention-failure": makeInteractiveScenario("SaaS Data Retention Failure Drill", {
+    containment: "Data-loss containment",
+    evidence: "Retention evidence",
+    continuity: "Service continuity",
+    trust: "Customer confidence",
+    coordination: "Data-owner coordination"
+  }, [
+    ["Detect", "Historical records disappear after an automated cleanup", "Staff report that older records and attachments are missing from a business-critical SaaS platform after an overnight retention job. The service remains online, recent records are available, and there is no evidence of unauthorized access, but the deletion process may still be running."],
+    ["Triage", "Retention duties and affected data owners are unclear", "The vendor can provide audit logs and configuration history, but internal teams disagree about required retention periods. Some records may support customer commitments, finance activity, or a legal hold, and no single owner can confirm the last complete copy."],
+    ["Contain", "Restore options could overwrite valid current work", "The vendor offers a time-limited recovery from a service backup. A full rollback may replace records created since the backup, while a selective export-and-merge will take longer and requires someone to approve record-level reconciliation."],
+    ["Communicate", "Customer impact is possible but not fully measured", "Several teams cannot retrieve older customer records. There is no evidence of disclosure, but contractual availability, recordkeeping, or notification obligations may apply. Leadership wants a clear update and customer-facing teams need consistent language."],
+    ["Recover", "Data returns but retention governance remains weak", "The selected records are restored and reconciled. Review finds unclear ownership for retention settings, incomplete legal-hold mapping, untested vendor restore procedures, and no routine confirmation that exported copies are complete and usable."]
+  ], [
+    ["Declare a suspected data-integrity incident, pause automated deletion, preserve configuration and audit evidence, and assign one response lead before attempting recovery.", "The team limits additional loss and protects the evidence needed to explain what changed.", "Data-retention incidents need early containment and evidence preservation even when the service is still available."],
+    ["Build a scope matrix for affected datasets, data owners, last-known complete dates, retention requirements, legal holds, deletion evidence, and available recovery sources.", "The room separates technical deletion scope from business, contractual, and legal obligations.", "Restore priority should follow verified data ownership and retention duties, not whoever reports first."],
+    ["Restore into an isolated location first, validate completeness, then approve a scoped production merge with reconciliation rules, rollback criteria, and a named restore authority.", "Recovery protects current work while giving decision owners evidence about what can be restored safely.", "A recoverable backup is not yet a safe production restore until completeness and collision risks are understood."],
+    ["Brief leadership with confirmed impact, unknowns, recovery status, retention or contract decision criteria, customer holding language, and the next update time.", "Leaders and customer-facing teams can act consistently without describing accidental deletion as a security breach.", "Communications should distinguish data loss, service impact, contractual obligations, and unconfirmed causes."],
+    ["Document the disposition and assign owners for retention configuration, legal-hold mapping, vendor evidence access, restore testing, change approval, and recurring completeness checks.", "The exercise closes with practical controls for both preventing deletion and proving recovery readiness.", "Governance recovery needs accountable owners and tested evidence, not only a corrected retention setting."]
+  ], [
+    [
+      {
+        label: "Start restoring the newest vendor backup immediately so staff can retrieve older records.",
+        impact: { containment: -8, evidence: -14, continuity: 12, trust: -6, coordination: -8 },
+        outcome: "Recovery begins quickly, but the deletion job, configuration evidence, and effect on current records remain uncontrolled.",
+        lesson: "Urgent recovery can make scope and reconciliation harder if containment and evidence are skipped."
+      },
+      {
+        label: "Wait for the vendor to identify the root cause before changing the retention job or opening an incident.",
+        impact: { containment: -18, evidence: 8, continuity: -10, trust: -12, coordination: -10 },
+        outcome: "The team avoids premature action, but additional records may be deleted while internal ownership remains unclear.",
+        lesson: "Root-cause certainty is not required to pause known harmful automation."
+      }
+    ],
+    [
+      {
+        label: "Use the vendor's default retention statement as proof that all required records should still exist.",
+        impact: { containment: -6, evidence: -14, continuity: 6, trust: -12, coordination: -8 },
+        outcome: "The team gains a simple answer, but generic vendor defaults do not establish internal, contractual, or legal requirements.",
+        lesson: "Retention obligations belong to the organization even when a vendor operates the platform."
+      },
+      {
+        label: "Ask every department to send a list of missing records before creating a shared scope model.",
+        impact: { containment: 0, evidence: 2, continuity: -10, trust: -4, coordination: -16 },
+        outcome: "Many examples arrive, but duplicates, inconsistent terminology, and missing ownership slow prioritization.",
+        lesson: "Distributed input still needs a common dataset, owner, requirement, and evidence structure."
+      }
+    ],
+    [
+      {
+        label: "Approve a full tenant rollback because it is the fastest way to recover the missing history.",
+        impact: { containment: 4, evidence: -8, continuity: -16, trust: -10, coordination: -8 },
+        outcome: "Older data may return, but valid current work can be replaced and the team lacks a reconciliation owner.",
+        lesson: "Broad rollback trades one integrity problem for another unless current changes are protected."
+      },
+      {
+        label: "Have teams manually recreate only the records they need and avoid using the vendor restore.",
+        impact: { containment: 2, evidence: -10, continuity: -12, trust: -8, coordination: -14 },
+        outcome: "Critical work may resume piecemeal, but completeness, provenance, and legal-hold requirements become difficult to prove.",
+        lesson: "Manual reconstruction needs the same ownership and integrity controls as a technical restore."
+      }
+    ],
+    [
+      {
+        label: "Tell customers that the SaaS provider caused permanent data loss before restore validation is complete.",
+        impact: { containment: 0, evidence: -12, continuity: -6, trust: -18, coordination: -8 },
+        outcome: "The message is decisive but overstates permanence and assigns cause before the evidence supports either claim.",
+        lesson: "Customer updates should describe confirmed impact and decisions, not unverified blame or permanence."
+      },
+      {
+        label: "Keep the issue inside IT until every missing record and obligation is confirmed.",
+        impact: { containment: 2, evidence: 6, continuity: 4, trust: -14, coordination: -16 },
+        outcome: "Premature statements are avoided, but data owners, leadership, legal, and customer-facing teams cannot prepare for threshold decisions.",
+        lesson: "Internal readiness can begin while technical scope remains incomplete."
+      }
+    ],
+    [
+      {
+        label: "Close the incident once users confirm that the priority records are visible again.",
+        impact: { containment: 4, evidence: -8, continuity: 10, trust: -4, coordination: -14 },
+        outcome: "Immediate work resumes, but no one owns the retention, hold, restore, or completeness gaps that caused the uncertainty.",
+        lesson: "Visible recovery is not proof that retention and restore governance are healthy."
+      },
+      {
+        label: "Disable all automated retention until executives approve a platform-wide policy.",
+        impact: { containment: 12, evidence: 2, continuity: -12, trust: -4, coordination: -10 },
+        outcome: "Further automated deletion stops, but storage, privacy, contractual, and operational requirements may be ignored indefinitely.",
+        lesson: "Governance needs accountable policy owners and controlled change, not an open-ended pause."
+      }
+    ]
+  ]),
   "supplyChain-update-integrity": makeInteractiveScenario("Vendor Update Integrity Drill", {
     containment: "Update containment",
     evidence: "Package evidence",
@@ -2300,7 +2390,8 @@ const interactiveScenarioLibrary = {
   supplyChain: [
     { key: "supplyChain", label: "Featured: Vendor support portal compromise", summary: "Full five-step third-party access rehearsal covering support portal activity, contract terms, monitored exceptions, and restoration gates." },
     { key: "supplyChain-breach-notice", label: "Focused drill: Vendor breach notice", summary: "Practice vague vendor notices, contract obligations, integration containment, and customer-facing criteria." },
-    { key: "supplyChain-update-integrity", label: "Focused drill: Vendor update integrity", summary: "Practice suspicious trusted updater behavior, demo continuity, package evidence, and customer go/no-go criteria." }
+    { key: "supplyChain-update-integrity", label: "Focused drill: Vendor update integrity", summary: "Practice suspicious trusted updater behavior, demo continuity, package evidence, and customer go/no-go criteria." },
+    { key: "supplyChain-saas-retention-failure", label: "Focused drill: SaaS data retention failure", summary: "Practice deletion containment, retention and legal-hold scope, restore authority, customer-impact thresholds, and durable data-governance recovery." }
   ]
 };
 let interactiveState = null;
