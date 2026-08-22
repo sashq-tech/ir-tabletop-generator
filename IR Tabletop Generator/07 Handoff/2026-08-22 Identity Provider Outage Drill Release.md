@@ -12,12 +12,13 @@
 - Each inject presents three scenario-specific decisions with distinct consequences and lessons.
 - The exercise separates identity availability, compromise indicators, business continuity, vendor evidence, and emergency-access governance so facilitators can rehearse fact-bounded decisions.
 
-## Verification Plan
+## Production Evidence
 
-- `node --check app.js`
-- `git diff --check`
-- Full desktop and 390px mobile Playwright workspace regression, including direct URL restoration, facilitator pre-brief copy, three choices at every inject, AAR copy, AAR-only print, and overflow checks.
-- Live cache-busted `app.js` marker and desktop/mobile direct-route exercise completion after publication.
+- Commit `542a881` is pushed to `main` and live at `https://responserehearsal.com/`.
+- `node --check app.js` and `git diff --check` passed.
+- All 24 desktop and 390px mobile Chrome regressions passed, preserving landing/history, packet/export/print, facilitator copy, direct drill restoration, five-step AAR, accessibility, trust, and overflow behavior.
+- Production `app.js` contains `ddos-identity-provider-outage` and the direct interactive route returned `200`.
+- A live 390px run restored the selected drill after reload, displayed the correct title and first inject, presented three decisions at all five steps, reached AAR and print-ready state, and recorded no horizontal overflow or page errors.
 
 ## Boundaries And Next Work
 

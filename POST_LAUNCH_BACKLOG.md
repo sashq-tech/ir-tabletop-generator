@@ -130,6 +130,8 @@ Why it matters: The app will be judged quickly by whether the scenarios feel rea
 
 2026-08-22 bounded implementation: Added a complete identity provider outage drill with five injects, three distinct decisions per inject, direct-link restoration, facilitator pre-brief copy, AAR copy, and AAR-only print behavior. The drill covers break-glass authority, authentication evidence, application-level continuity, vendor escalation, cause-neutral communications, staged recovery validation, and durable emergency-access governance without duplicating SaaS admin lockout or general availability scenarios.
 
+Release evidence: Commit `542a881` is pushed and live. `node --check app.js`, `git diff --check`, and all 24 desktop/mobile Chrome regressions passed. Production `app.js` contains `ddos-identity-provider-outage`; the direct 390px route restored the selected drill, presented three decisions at every inject, reached AAR/print-ready state, and showed no horizontal overflow or page errors.
+
 Next small implementation step: Add one focused software-signing certificate expiration or revocation drill that tests release authority, evidence, customer impact, vendor coordination, and recovery trust without operational exploit detail.
 
 Acceptance criteria:
