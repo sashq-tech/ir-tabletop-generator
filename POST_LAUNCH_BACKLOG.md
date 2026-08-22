@@ -118,7 +118,7 @@ Acceptance criteria:
 
 ## 2. Scenario Library Growth
 
-Status: In progress. Focused drills now include role-change repository access, lost travel laptop exposure, cloud storage link exposure, SaaS data retention failure, vendor platform outage, and ransomware communications pressure; continue expanding underrepresented families with realistic, defensive drills.
+Status: In progress. Focused drills now include role-change repository access, lost travel laptop exposure, cloud storage link exposure, SaaS data retention failure, identity provider outage, vendor platform outage, and ransomware communications pressure; continue expanding underrepresented families with realistic, defensive drills.
 
 Why it matters: The app will be judged quickly by whether the scenarios feel realistic, varied, and useful. A broader library gives repeat visitors more reasons to return and supports different organization sizes, roles, and exercise goals.
 
@@ -128,7 +128,9 @@ Why it matters: The app will be judged quickly by whether the scenarios feel rea
 
 2026-08-22 bounded implementation: Added a complete SaaS data retention failure drill with five injects, three distinct decisions per inject, direct-link restoration, facilitator pre-brief copy, AAR copy, and AAR-only print behavior. The drill covers automated-deletion containment, evidence preservation, retention and legal-hold scope, non-destructive restore authority, customer-impact thresholds, communications, and governance recovery without duplicating ransomware restoration or cloud-sharing decisions.
 
-Next small implementation step: Add one focused identity-provider outage drill that tests break-glass authority, evidence, access continuity, vendor escalation, and recovery governance without repeating SaaS admin-lockout or availability scenarios.
+2026-08-22 bounded implementation: Added a complete identity provider outage drill with five injects, three distinct decisions per inject, direct-link restoration, facilitator pre-brief copy, AAR copy, and AAR-only print behavior. The drill covers break-glass authority, authentication evidence, application-level continuity, vendor escalation, cause-neutral communications, staged recovery validation, and durable emergency-access governance without duplicating SaaS admin lockout or general availability scenarios.
+
+Next small implementation step: Add one focused software-signing certificate expiration or revocation drill that tests release authority, evidence, customer impact, vendor coordination, and recovery trust without operational exploit detail.
 
 Acceptance criteria:
 

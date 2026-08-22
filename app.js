@@ -2343,6 +2343,96 @@ Object.assign(interactiveScenarios, {
       }
     ]
   ]),
+  "ddos-identity-provider-outage": makeInteractiveScenario("Identity Provider Outage Drill", {
+    containment: "Identity control",
+    evidence: "Authentication evidence",
+    continuity: "Access continuity",
+    trust: "Stakeholder confidence",
+    coordination: "Vendor coordination"
+  }, [
+    ["Detect", "Single sign-on failures spread across critical applications", "Staff report repeated sign-in failures across email, support, and business applications that rely on the same identity provider. Existing sessions still work for some users, the provider status page shows no incident, and there is no confirmed malicious configuration change."],
+    ["Triage", "Authentication scope and evidence are fragmented", "Some applications fail all new logins while others accept existing sessions or local credentials. Identity logs are delayed, the administrative console depends on the same provider, and the vendor asks for timestamps, error codes, affected applications, regions, and correlation identifiers."],
+    ["Contain", "Emergency access could restore work but weaken controls", "Documented break-glass accounts are available for a few critical systems. Using them may bypass normal federation or conditional controls, and teams are requesting broad access so customer support, payroll, and executive communications can continue."],
+    ["Communicate", "Staff and customers need bounded guidance", "Employees are proposing personal email, shared credentials, and unsanctioned file transfer as workarounds. Some customer-facing functions are delayed, but active sessions and non-federated services still work. Leadership needs a cause-neutral update and notification thresholds."],
+    ["Recover", "Provider service returns intermittently", "New sign-ins begin working again, but teams cannot yet confirm MFA behavior, token issuance, federation settings, audit completeness, or whether emergency accounts and sessions were used exactly as approved. Pressure is building to declare recovery immediately."]
+  ], [
+    ["Open an identity-availability incident, preserve first-failure evidence and configuration snapshots, assign one response lead, and escalate the provider with a structured evidence packet.", "The team treats identity as a shared dependency without labeling the outage as compromise or waiting for a public provider notice.", "Identity incidents need early evidence, ownership, and vendor escalation because one dependency can affect many otherwise healthy services."],
+    ["Build an application-by-application scope board covering login methods, active-session behavior, affected users, evidence sources, emergency access paths, business priority, and vendor case status.", "The room can distinguish complete lockout from partial continuity and prioritize decisions using a common evidence model.", "Identity outage scope should be measured by authentication path and business function, not only by user complaint volume."],
+    ["Authorize named break-glass users through two-person approval, limit access to critical functions, monitor and record every action, and set an expiration and retirement owner.", "Essential work resumes through a controlled exception while the organization preserves accountability and a clear return path.", "Break-glass access is a governed incident action, not a shared shortcut around identity controls."],
+    ["Issue staff and leadership guidance with confirmed impact, prohibited workarounds, approved continuity paths, customer-notification criteria, and the next update time.", "People receive practical instructions without unsupported claims about attack, provider fault, or universal outage.", "Cause-neutral communication can still be specific about impact, safe behavior, and decision thresholds."],
+    ["Validate sign-in, MFA, token, federation, audit, and critical-application behavior before staged normalization; retire emergency access, reconcile actions, and assign resilience follow-ups.", "Recovery is demonstrated across identity and application controls instead of inferred from a green status page.", "Identity recovery requires control validation and emergency-access closure, not only successful sample logins."]
+  ], [
+    [
+      {
+        label: "Wait for the provider status page to confirm an outage before opening an incident or preserving evidence.",
+        impact: { containment: -10, evidence: -14, continuity: -12, trust: -8, coordination: -12 },
+        outcome: "The team avoids premature escalation, but failure evidence, ownership, and vendor response all start late.",
+        lesson: "Observed business impact can justify incident handling before a provider posts public confirmation."
+      },
+      {
+        label: "Treat the login failures as a cyberattack and disable every remaining active session immediately.",
+        impact: { containment: 12, evidence: -8, continuity: -20, trust: -12, coordination: -8 },
+        outcome: "Potential identity risk is reduced, but surviving continuity disappears and the cause claim exceeds the evidence.",
+        lesson: "Availability symptoms and compromise indicators should be evaluated separately."
+      }
+    ],
+    [
+      {
+        label: "Ask each application owner to troubleshoot independently and report when access returns.",
+        impact: { containment: 0, evidence: -8, continuity: -6, trust: -4, coordination: -18 },
+        outcome: "Local work begins, but evidence formats, priorities, and vendor escalation become inconsistent.",
+        lesson: "Distributed troubleshooting still needs one identity scope board and update rhythm."
+      },
+      {
+        label: "Focus only on the identity administrative console because restoring it should fix every application.",
+        impact: { containment: 2, evidence: -10, continuity: -10, trust: -6, coordination: -8 },
+        outcome: "Administrative access gets attention, but application-specific session, federation, and fallback behavior remains unmeasured.",
+        lesson: "Identity recovery must account for relying applications, not just the provider console."
+      }
+    ],
+    [
+      {
+        label: "Share one emergency administrator account with every team that reports critical work.",
+        impact: { containment: -18, evidence: -16, continuity: 16, trust: -14, coordination: -10 },
+        outcome: "More work resumes quickly, but attribution, least privilege, and credential control collapse during the incident.",
+        lesson: "Emergency access must remain attributable, bounded, and individually governed."
+      },
+      {
+        label: "Refuse all emergency access until normal single sign-on is fully restored.",
+        impact: { containment: 14, evidence: 4, continuity: -20, trust: -10, coordination: -6 },
+        outcome: "Normal controls remain intact, but critical business functions lose the continuity path the break-glass process was meant to provide.",
+        lesson: "A tested emergency path exists to support carefully authorized exceptions."
+      }
+    ],
+    [
+      {
+        label: "Tell staff and customers that the identity provider is under cyberattack so they understand the urgency.",
+        impact: { containment: 0, evidence: -12, continuity: -6, trust: -18, coordination: -8 },
+        outcome: "The message gets attention but states an unconfirmed cause that may be difficult to correct later.",
+        lesson: "Urgency does not require unsupported attribution."
+      },
+      {
+        label: "Send no broad guidance until every affected application and root cause is confirmed.",
+        impact: { containment: -4, evidence: 6, continuity: -10, trust: -14, coordination: -16 },
+        outcome: "The team avoids incomplete statements, but risky workarounds and conflicting local messages spread.",
+        lesson: "Impact, safe behavior, and the next update time can be communicated before root cause is known."
+      }
+    ],
+    [
+      {
+        label: "End the incident after several users can sign in and the provider status page turns green.",
+        impact: { containment: -6, evidence: -8, continuity: 12, trust: -8, coordination: -12 },
+        outcome: "Normal work resumes quickly, but identity controls, audit gaps, and emergency access remain unvalidated.",
+        lesson: "Sample login success is not sufficient recovery evidence for a shared identity dependency."
+      },
+      {
+        label: "Keep emergency accounts and workarounds active for a week in case the provider becomes unstable again.",
+        impact: { containment: -16, evidence: -4, continuity: 10, trust: -10, coordination: -10 },
+        outcome: "Continuity remains available, but temporary exceptions become an extended control gap without incident authority.",
+        lesson: "Emergency access needs explicit retirement criteria and post-use review."
+      }
+    ]
+  ]),
   "supplyChain-update-integrity": makeInteractiveScenario("Vendor Update Integrity Drill", {
     containment: "Update containment",
     evidence: "Package evidence",
@@ -2385,7 +2475,8 @@ const interactiveScenarioLibrary = {
   ddos: [
     { key: "ddos", label: "Featured: Public service outage", summary: "Full five-step availability rehearsal covering triage, provider filtering, status messaging, and resilience follow-up." },
     { key: "ddos-cloud-dependency", label: "Focused drill: Cloud dependency outage", summary: "Practice dependency failures, provider escalation, workarounds, and impact-focused status updates." },
-    { key: "ddos-vendor-platform-outage", label: "Focused drill: Vendor platform outage", summary: "Practice customer-facing vendor outages, demo continuity decisions, evidence packets, and careful status language." }
+    { key: "ddos-vendor-platform-outage", label: "Focused drill: Vendor platform outage", summary: "Practice customer-facing vendor outages, demo continuity decisions, evidence packets, and careful status language." },
+    { key: "ddos-identity-provider-outage", label: "Focused drill: Identity provider outage", summary: "Practice break-glass authority, authentication evidence, access continuity, vendor escalation, communication thresholds, and validated identity recovery." }
   ],
   supplyChain: [
     { key: "supplyChain", label: "Featured: Vendor support portal compromise", summary: "Full five-step third-party access rehearsal covering support portal activity, contract terms, monitored exceptions, and restoration gates." },

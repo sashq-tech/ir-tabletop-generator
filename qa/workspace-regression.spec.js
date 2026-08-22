@@ -12,6 +12,9 @@ const cloudStorageUrl =
 const saasRetentionUrl =
   "/?path=interactive&type=supplyChain&org=smallBusiness&audience=mixed&focus=balanced&duration=60&difficulty=standard&gm=whole&seed=592417&rehearsal=supplyChain-saas-retention-failure";
 
+const identityProviderOutageUrl =
+  "/?path=interactive&type=ddos&org=smallBusiness&audience=mixed&focus=balanced&duration=60&difficulty=standard&gm=whole&seed=418736&rehearsal=ddos-identity-provider-outage";
+
 const publicTrustPages = [
   { route: "/about", type: "AboutPage" },
   { route: "/privacy", type: "WebPage" },
@@ -232,6 +235,47 @@ test("SaaS retention failure drill preserves direct state, facilitator copy, and
   await expect(page.locator("body")).toHaveClass(/interactive-aar-ready/);
   await page.locator("#copyAarSummaryBtn").click();
   await expect.poll(() => page.evaluate(() => window.__copiedText)).toContain("SaaS Data Retention Failure Drill");
+  await expect.poll(() => page.evaluate(() => window.__copiedText)).toContain("AAR Summary");
+
+  await page.emulateMedia({ media: "print" });
+  await expect(page.locator("#interactiveDebrief")).toBeVisible();
+  await expect(page.locator("#interactiveStage")).toBeHidden();
+
+  const overflow = await page.evaluate(() => ({
+    innerWidth,
+    scrollWidth: document.documentElement.scrollWidth
+  }));
+  expect(overflow.scrollWidth).toBeLessThanOrEqual(overflow.innerWidth + 1);
+  expect(errors).toEqual([]);
+});
+
+test("identity provider outage drill preserves direct state, facilitator copy, and AAR output", async ({ page }) => {
+  const errors = [];
+  page.on("pageerror", (error) => errors.push(error.message));
+
+  await page.goto(identityProviderOutageUrl);
+  await expect(page.locator("body")).toHaveAttribute("data-route", "interactive");
+  await expect(page.locator("#incidentType")).toHaveValue("ddos");
+  await expect(page.locator("#interactiveScenario")).toHaveValue("ddos-identity-provider-outage");
+  await expect(page.locator("#interactiveTitle")).toHaveText("Identity Provider Outage Drill");
+  await expect(page.locator("#interactiveScenarioSummary")).toContainText("break-glass authority");
+
+  await page.reload();
+  await expect(page.locator("#interactiveScenario")).toHaveValue("ddos-identity-provider-outage");
+  await page.locator("#copyPreBriefBtn").click();
+  await expect.poll(() => page.evaluate(() => window.__copiedText)).toContain("Identity Provider Outage Drill");
+  await page.locator("#startInteractiveBtn").click();
+  await expect(page.locator("#interactiveInjectTitle")).toContainText("Single sign-on failures spread across critical applications");
+
+  for (let step = 0; step < 5; step += 1) {
+    await expect(page.locator("#interactiveChoices button")).toHaveCount(3);
+    await page.locator("#interactiveChoices button").first().click();
+  }
+
+  await expect(page.locator("#interactiveDebrief")).toBeVisible();
+  await expect(page.locator("body")).toHaveClass(/interactive-aar-ready/);
+  await page.locator("#copyAarSummaryBtn").click();
+  await expect.poll(() => page.evaluate(() => window.__copiedText)).toContain("Identity Provider Outage Drill");
   await expect.poll(() => page.evaluate(() => window.__copiedText)).toContain("AAR Summary");
 
   await page.emulateMedia({ media: "print" });
