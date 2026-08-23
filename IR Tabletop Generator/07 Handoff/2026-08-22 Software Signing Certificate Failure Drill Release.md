@@ -1,7 +1,7 @@
 # Response Rehearsal Software Signing Certificate Failure Drill Release
 
 Date: 2026-08-22
-Status: Candidate ready for authoritative regression and publication
+Status: Published and live
 
 ## Scope
 
@@ -28,12 +28,14 @@ The existing SaaS data retention and identity provider outage drills were not mo
 - Desktop and 390px mobile layout expectations
 - Existing packet, copy, print, and AAR behavior for all other scenarios
 
-## Candidate Verification
+## Release Verification
 
-- Staged JavaScript syntax: pending
-- Focused direct-link and AAR regression: added
-- Full desktop/mobile Playwright suite: pending
-- Authoritative commit and push: pending
-- Live production route and complete 390px flow: pending
+- Feature commit: `b2689d2` (`Add software signing certificate drill`)
+- Branch and remote: `main`, pushed to `origin/main`
+- Syntax and diff: `node --check app.js`, `node --check qa/workspace-regression.spec.js`, and `git diff --check` passed
+- Regression suite: all 26 desktop/mobile Chrome tests passed
+- Production asset: `https://responserehearsal.com/app.js` contains `supplyChain-signing-certificate-failure`
+- Production route: `https://responserehearsal.com/?path=interactive&type=supplyChain&rehearsal=supplyChain-signing-certificate-failure`
+- Live 390px verification: direct route and reload restored the selected drill; all five injects displayed three decisions; the run reached visible AAR and print-ready state; no horizontal overflow or page errors were observed
 
 No account, analytics, AdSense, Cloudflare, DNS, Search Console, or other provider settings are in scope.

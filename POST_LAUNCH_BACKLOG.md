@@ -134,6 +134,8 @@ Why it matters: The app will be judged quickly by whether the scenarios feel rea
 
 Release evidence: Commit `542a881` is pushed and live. `node --check app.js`, `git diff --check`, and all 24 desktop/mobile Chrome regressions passed. Production `app.js` contains `ddos-identity-provider-outage`; the direct 390px route restored the selected drill, presented three decisions at every inject, reached AAR/print-ready state, and showed no horizontal overflow or page errors.
 
+Latest release evidence: Commit `b2689d2` is pushed and live. `node --check app.js`, `node --check qa/workspace-regression.spec.js`, `git diff --check`, and all 26 desktop/mobile Chrome regressions passed. Production `app.js` contains `supplyChain-signing-certificate-failure`; the direct public 390px route restored the selected drill after reload, completed all five injects with three decisions each, reached AAR/print-ready state, and showed no horizontal overflow or page errors.
+
 Next small implementation step: After this release is validated, reassess family coverage and consider a focused source-control platform outage during an active release that tests local continuity, protected-branch exception authority, artifact provenance, vendor escalation, and recovery validation without duplicating identity-provider or general vendor outages.
 
 Acceptance criteria:
