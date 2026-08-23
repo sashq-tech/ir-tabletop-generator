@@ -118,7 +118,7 @@ Acceptance criteria:
 
 ## 2. Scenario Library Growth
 
-Status: In progress. Focused drills now include role-change repository access, lost travel laptop exposure, cloud storage link exposure, SaaS data retention failure, identity provider outage, vendor platform outage, and ransomware communications pressure; continue expanding underrepresented families with realistic, defensive drills.
+Status: In progress. Focused drills now include role-change repository access, lost travel laptop exposure, cloud storage link exposure, SaaS data retention failure, identity provider outage, software signing certificate failure, vendor platform outage, and ransomware communications pressure; continue expanding underrepresented families with realistic, defensive drills.
 
 Why it matters: The app will be judged quickly by whether the scenarios feel realistic, varied, and useful. A broader library gives repeat visitors more reasons to return and supports different organization sizes, roles, and exercise goals.
 
@@ -130,9 +130,11 @@ Why it matters: The app will be judged quickly by whether the scenarios feel rea
 
 2026-08-22 bounded implementation: Added a complete identity provider outage drill with five injects, three distinct decisions per inject, direct-link restoration, facilitator pre-brief copy, AAR copy, and AAR-only print behavior. The drill covers break-glass authority, authentication evidence, application-level continuity, vendor escalation, cause-neutral communications, staged recovery validation, and durable emergency-access governance without duplicating SaaS admin lockout or general availability scenarios.
 
+2026-08-22 bounded implementation: Added a complete software signing certificate failure drill with five injects, three distinct decisions per inject, direct-link restoration, facilitator pre-brief copy, AAR copy, and AAR-only print behavior. The drill covers release containment, signed-artifact and trust-chain evidence, accountable emergency signing, customer and vendor communication thresholds, end-to-end recovery validation, key and certificate rotation, and durable certificate governance without duplicating generic vendor outage or update-integrity decisions.
+
 Release evidence: Commit `542a881` is pushed and live. `node --check app.js`, `git diff --check`, and all 24 desktop/mobile Chrome regressions passed. Production `app.js` contains `ddos-identity-provider-outage`; the direct 390px route restored the selected drill, presented three decisions at every inject, reached AAR/print-ready state, and showed no horizontal overflow or page errors.
 
-Next small implementation step: Add one focused software-signing certificate expiration or revocation drill that tests release authority, evidence, customer impact, vendor coordination, and recovery trust without operational exploit detail.
+Next small implementation step: After this release is validated, reassess family coverage and consider a focused source-control platform outage during an active release that tests local continuity, protected-branch exception authority, artifact provenance, vendor escalation, and recovery validation without duplicating identity-provider or general vendor outages.
 
 Acceptance criteria:
 

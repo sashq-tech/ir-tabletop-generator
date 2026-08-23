@@ -2433,6 +2433,96 @@ Object.assign(interactiveScenarios, {
       }
     ]
   ]),
+  "supplyChain-signing-certificate-failure": makeInteractiveScenario("Software Signing Certificate Failure Drill", {
+    containment: "Release containment",
+    evidence: "Signing evidence",
+    continuity: "Release continuity",
+    trust: "Customer trust",
+    coordination: "Signing authority"
+  }, [
+    ["Detect", "A scheduled release begins showing publisher trust warnings", "A newly published executable is blocked or shown as untrusted on some customer systems because its software-signing certificate appears expired or revoked. Earlier builds still validate on several test systems, release deadlines are active, and there is no confirmed private-key compromise."],
+    ["Triage", "Several trust-chain causes remain plausible", "Engineering can reproduce different results across platforms. The team must distinguish certificate expiration, revocation, timestamp failure, incomplete chain distribution, signing-service error, and possible key compromise while preserving signed artifacts, hashes, certificate status, timestamps, build and signing logs, and key-custody evidence."],
+    ["Contain", "An emergency signing path could restore delivery but weaken key custody", "The affected release is paused and a last-known-good build remains available. A replacement certificate or emergency signing service could be used, but release leaders are pressing for speed and no one has yet named the authority, clean-build requirement, access limits, independent validation, or retirement deadline for the exception."],
+    ["Communicate", "Customers need safe guidance before the cause is final", "Support reports blocked downloads and publisher warnings across a subset of customer environments. Leadership needs thresholds for vendor and customer notification, affected-version guidance, and the next update time without claiming key compromise, blaming a provider, or asking customers to bypass trust controls."],
+    ["Recover", "A replacement trust path works in the lab", "A clean rebuild signed through an approved replacement path validates on representative systems. The team still needs to prove timestamp, revocation, installation, update-channel, and rollback behavior; retire old and emergency credentials; reconcile released artifacts; and assign durable ownership for certificate inventory, expiration monitoring, key custody, revocation contacts, and release-stop criteria."]
+  ], [
+    ["Pause the affected release, preserve signed artifacts and hashes, capture certificate, chain, timestamp, build, signing-service, and custody evidence, and assign response and signing authorities.", "The team limits further distribution while protecting the evidence needed to determine whether trust failed in the certificate, chain, service, process, or key.", "A signing warning is a release-trust incident until evidence and named authority support a narrower conclusion."],
+    ["Build a signing-scope matrix covering versions, platforms, signature and timestamp results, revocation and chain evidence, key custody, last-known-good artifacts, customer impact, and vendor status.", "The room separates observed trust failures from possible causes and can prioritize investigation and continuity using one evidence model.", "Software-signing triage should compare artifacts and trust paths rather than treating every warning as proof of compromise."],
+    ["Use an approved emergency signing path only through named authority and two-person approval, with a clean rebuild, least key access, independent validation, blocked old artifacts, and a time-limited retirement plan.", "Release continuity resumes through a controlled exception that preserves key custody, artifact provenance, and accountability.", "Emergency signing is a governed release action, not permission to weaken custody or distribute unverified software."],
+    ["Issue cause-neutral staff, vendor, and customer guidance with confirmed affected versions, safe actions, notification thresholds, current release status, and the next update time.", "Stakeholders can act without disabling trust checks or relying on unsupported claims about compromise or provider fault.", "Trust incidents require precise impact language even while root cause and notification duties remain under review."],
+    ["Validate clean build provenance, signature, timestamp, chain, revocation response, representative installs, update channels, and rollback behavior; retire old and emergency credentials, reconcile releases, and assign governance owners.", "The organization restores a demonstrably trusted release path and closes temporary authority and key-custody exceptions.", "Recovery requires end-to-end trust validation and durable ownership, not merely one successful signature."]
+  ], [
+    [
+      {
+        label: "Keep shipping because the warnings appear cosmetic and earlier builds still validate.",
+        impact: { containment: -18, evidence: -10, continuity: 14, trust: -16, coordination: -8 },
+        outcome: "The release stays on schedule, but more customers may receive software whose trust status and provenance have not been explained.",
+        lesson: "Release pressure does not turn unresolved signing evidence into a cosmetic issue."
+      },
+      {
+        label: "Revoke every signing certificate and key immediately before preserving artifacts or custody evidence.",
+        impact: { containment: 14, evidence: -18, continuity: -20, trust: -8, coordination: -10 },
+        outcome: "Potential exposure is reduced, but evidence and continuity options disappear before the team knows which trust path failed.",
+        lesson: "Revocation may be necessary, but its scope and timing should be supported by preserved evidence and accountable authority."
+      }
+    ],
+    [
+      {
+        label: "Assume calendar expiration is the root cause and request a replacement certificate without comparing trust evidence.",
+        impact: { containment: 2, evidence: -16, continuity: 6, trust: -10, coordination: -8 },
+        outcome: "Replacement work begins quickly, but timestamp, revocation, chain, service, and custody questions remain unanswered.",
+        lesson: "An expiration date alone does not establish why a signed artifact fails validation."
+      },
+      {
+        label: "Ask customers to disable reputation and signature checks so the team can compare installation results.",
+        impact: { containment: -20, evidence: -10, continuity: 14, trust: -20, coordination: -6 },
+        outcome: "More installations proceed, but customers are asked to weaken a security boundary and the resulting evidence is less representative.",
+        lesson: "Diagnostic and continuity guidance should preserve, not bypass, software trust controls."
+      }
+    ],
+    [
+      {
+        label: "Ship an unsigned build as a temporary continuity measure and promise a signed replacement later.",
+        impact: { containment: -16, evidence: -8, continuity: 16, trust: -20, coordination: -12 },
+        outcome: "Delivery resumes, but customers cannot verify publisher identity or artifact integrity through the established release path.",
+        lesson: "An unsigned emergency release transfers unresolved trust risk to customers."
+      },
+      {
+        label: "Export the signing key to several engineers and let the first available workstation produce the emergency build.",
+        impact: { containment: -20, evidence: -18, continuity: 18, trust: -18, coordination: -16 },
+        outcome: "A build may be produced quickly, but key custody, clean-build assurance, attribution, and revocation scope become much harder to prove.",
+        lesson: "Emergency access still needs least privilege, controlled custody, and attributable approval."
+      }
+    ],
+    [
+      {
+        label: "Tell customers that the private signing key was compromised so they understand the urgency.",
+        impact: { containment: 0, evidence: -14, continuity: -8, trust: -20, coordination: -8 },
+        outcome: "The message is urgent but asserts a cause that the evidence has not established and may trigger unnecessary response obligations.",
+        lesson: "Customer urgency can be communicated through confirmed impact and safe actions without unsupported compromise claims."
+      },
+      {
+        label: "Say nothing externally until the replacement build is ready and every affected platform is confirmed.",
+        impact: { containment: -4, evidence: 6, continuity: -10, trust: -16, coordination: -14 },
+        outcome: "Premature claims are avoided, but customers and support teams lack safe guidance while blocks and warnings continue.",
+        lesson: "Cause-neutral holding guidance can precede final scope and root cause."
+      }
+    ],
+    [
+      {
+        label: "Close the incident after one replacement build signs and installs successfully on an engineering workstation.",
+        impact: { containment: -6, evidence: -10, continuity: 14, trust: -10, coordination: -12 },
+        outcome: "Normal release work resumes, but chain, revocation, timestamp, update-channel, customer-platform, and emergency-access behavior remain unproven.",
+        lesson: "One successful local validation is not end-to-end recovery evidence for a public trust chain."
+      },
+      {
+        label: "Purchase the longest-lived certificate available and treat renewal as a future engineering task.",
+        impact: { containment: 4, evidence: -4, continuity: 8, trust: -6, coordination: -18 },
+        outcome: "Near-term expiration pressure falls, but inventory, monitoring, custody, revocation, and release authority remain unowned.",
+        lesson: "Certificate lifetime does not replace governance and accountable operational ownership."
+      }
+    ]
+  ]),
   "supplyChain-update-integrity": makeInteractiveScenario("Vendor Update Integrity Drill", {
     containment: "Update containment",
     evidence: "Package evidence",
@@ -2482,7 +2572,8 @@ const interactiveScenarioLibrary = {
     { key: "supplyChain", label: "Featured: Vendor support portal compromise", summary: "Full five-step third-party access rehearsal covering support portal activity, contract terms, monitored exceptions, and restoration gates." },
     { key: "supplyChain-breach-notice", label: "Focused drill: Vendor breach notice", summary: "Practice vague vendor notices, contract obligations, integration containment, and customer-facing criteria." },
     { key: "supplyChain-update-integrity", label: "Focused drill: Vendor update integrity", summary: "Practice suspicious trusted updater behavior, demo continuity, package evidence, and customer go/no-go criteria." },
-    { key: "supplyChain-saas-retention-failure", label: "Focused drill: SaaS data retention failure", summary: "Practice deletion containment, retention and legal-hold scope, restore authority, customer-impact thresholds, and durable data-governance recovery." }
+    { key: "supplyChain-saas-retention-failure", label: "Focused drill: SaaS data retention failure", summary: "Practice deletion containment, retention and legal-hold scope, restore authority, customer-impact thresholds, and durable data-governance recovery." },
+    { key: "supplyChain-signing-certificate-failure", label: "Focused drill: Software signing certificate failure", summary: "Practice release containment, signing evidence, emergency signing authority, customer guidance, trust-chain validation, and durable certificate governance." }
   ]
 };
 let interactiveState = null;

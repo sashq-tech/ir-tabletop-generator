@@ -15,6 +15,9 @@ const saasRetentionUrl =
 const identityProviderOutageUrl =
   "/?path=interactive&type=ddos&org=smallBusiness&audience=mixed&focus=balanced&duration=60&difficulty=standard&gm=whole&seed=418736&rehearsal=ddos-identity-provider-outage";
 
+const signingCertificateUrl =
+  "/?path=interactive&type=supplyChain&org=smallBusiness&audience=mixed&focus=balanced&duration=60&difficulty=standard&gm=whole&seed=307514&rehearsal=supplyChain-signing-certificate-failure";
+
 const publicTrustPages = [
   { route: "/about", type: "AboutPage" },
   { route: "/privacy", type: "WebPage" },
@@ -276,6 +279,47 @@ test("identity provider outage drill preserves direct state, facilitator copy, a
   await expect(page.locator("body")).toHaveClass(/interactive-aar-ready/);
   await page.locator("#copyAarSummaryBtn").click();
   await expect.poll(() => page.evaluate(() => window.__copiedText)).toContain("Identity Provider Outage Drill");
+  await expect.poll(() => page.evaluate(() => window.__copiedText)).toContain("AAR Summary");
+
+  await page.emulateMedia({ media: "print" });
+  await expect(page.locator("#interactiveDebrief")).toBeVisible();
+  await expect(page.locator("#interactiveStage")).toBeHidden();
+
+  const overflow = await page.evaluate(() => ({
+    innerWidth,
+    scrollWidth: document.documentElement.scrollWidth
+  }));
+  expect(overflow.scrollWidth).toBeLessThanOrEqual(overflow.innerWidth + 1);
+  expect(errors).toEqual([]);
+});
+
+test("software signing certificate drill preserves direct state, facilitator copy, and AAR output", async ({ page }) => {
+  const errors = [];
+  page.on("pageerror", (error) => errors.push(error.message));
+
+  await page.goto(signingCertificateUrl);
+  await expect(page.locator("body")).toHaveAttribute("data-route", "interactive");
+  await expect(page.locator("#incidentType")).toHaveValue("supplyChain");
+  await expect(page.locator("#interactiveScenario")).toHaveValue("supplyChain-signing-certificate-failure");
+  await expect(page.locator("#interactiveTitle")).toHaveText("Software Signing Certificate Failure Drill");
+  await expect(page.locator("#interactiveScenarioSummary")).toContainText("emergency signing authority");
+
+  await page.reload();
+  await expect(page.locator("#interactiveScenario")).toHaveValue("supplyChain-signing-certificate-failure");
+  await page.locator("#copyPreBriefBtn").click();
+  await expect.poll(() => page.evaluate(() => window.__copiedText)).toContain("Software Signing Certificate Failure Drill");
+  await page.locator("#startInteractiveBtn").click();
+  await expect(page.locator("#interactiveInjectTitle")).toContainText("scheduled release begins showing publisher trust warnings");
+
+  for (let step = 0; step < 5; step += 1) {
+    await expect(page.locator("#interactiveChoices button")).toHaveCount(3);
+    await page.locator("#interactiveChoices button").first().click();
+  }
+
+  await expect(page.locator("#interactiveDebrief")).toBeVisible();
+  await expect(page.locator("body")).toHaveClass(/interactive-aar-ready/);
+  await page.locator("#copyAarSummaryBtn").click();
+  await expect.poll(() => page.evaluate(() => window.__copiedText)).toContain("Software Signing Certificate Failure Drill");
   await expect.poll(() => page.evaluate(() => window.__copiedText)).toContain("AAR Summary");
 
   await page.emulateMedia({ media: "print" });
