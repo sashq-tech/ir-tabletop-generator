@@ -1,0 +1,29 @@
+# Response Rehearsal
+
+Response Rehearsal is a static, browser-only incident response tabletop planning and facilitation tool. It has no login, upload, learner profile, or server-side exercise storage. Use fictional or sanitized exercise details and follow the organization's own policies and professional advice.
+
+## Primary pages
+
+- Home and tool: https://responserehearsal.com/
+- Facilitator guides: https://responserehearsal.com/guides
+- 15-minute incident response drill: https://responserehearsal.com/15-minute-incident-response-drill
+- 30-minute incident response tabletop guide: https://responserehearsal.com/30-minute-incident-response-tabletop
+- 60-minute incident response tabletop facilitator guide: https://responserehearsal.com/60-minute-incident-response-tabletop
+
+## Tool entry points
+
+- Interactive Rehearsal: https://responserehearsal.com/?path=interactive
+- 60-minute BEC rehearsal: https://responserehearsal.com/?path=interactive&type=phishing&org=smallBusiness&audience=mixed&focus=balanced&duration=60&difficulty=standard&gm=whole&rehearsal=phishing-bec
+- Exercise Packet Generator: https://responserehearsal.com/?path=packet
+
+## Trust and discovery
+
+- About: https://responserehearsal.com/about
+- Privacy: https://responserehearsal.com/privacy
+- Terms: https://responserehearsal.com/terms
+- Contact: https://responserehearsal.com/contact
+- Trust and Privacy: https://responserehearsal.com/trust-and-privacy
+- Sitemap: https://responserehearsal.com/sitemap.xml
+- Security contact: https://responserehearsal.com/.well-known/security.txt
+
+The generated packets, choices, observations, and AAR material are planning aids. They are not legal advice, compliance certification, forensic findings, or a substitute for organization-specific incident response plans and qualified professional review.

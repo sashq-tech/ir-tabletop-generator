@@ -383,6 +383,68 @@ test("short-drill guides hand facilitators directly into the interactive workspa
   expect(overflow.scrollWidth).toBeLessThanOrEqual(overflow.innerWidth + 1);
 });
 
+test("60-minute facilitator field guide is crawlable and preserves interactive rehearsal state", async ({ page, request }) => {
+  const errors = [];
+  page.on("pageerror", (error) => errors.push(error.message));
+
+  await page.goto("/60-minute-incident-response-tabletop");
+  await expect(page.getByRole("heading", { level: 2, name: "How to run a 60-minute incident response tabletop" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 3, name: "Assign four room functions" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 3, name: "Minute-by-minute 60-minute agenda" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 3, name: /Worked example/ })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 3, name: "After-action rubric" })).toBeVisible();
+
+  const canonical = await page.locator('link[rel="canonical"]').getAttribute("href");
+  const description = await page.locator('meta[name="description"]').getAttribute("content");
+  const ogUrl = await page.locator('meta[property="og:url"]').getAttribute("content");
+  expect(canonical).toBe("https://responserehearsal.com/60-minute-incident-response-tabletop");
+  expect(ogUrl).toBe(canonical);
+  expect(description).toContain("timed agenda");
+
+  const schema = JSON.parse(await page.locator('script[type="application/ld+json"]').textContent());
+  expect(schema["@type"]).toBe("Article");
+  expect(schema.mainEntityOfPage).toBe(canonical);
+  expect(schema.datePublished).toBe("2026-08-24");
+
+  const articleWords = await page.locator("article").innerText().then((text) => text.trim().split(/\s+/).length);
+  expect(articleWords).toBeGreaterThanOrEqual(1800);
+
+  const sitemap = await request.get("/sitemap.xml");
+  expect(sitemap.ok()).toBe(true);
+  expect(await sitemap.text()).toContain(`<loc>${canonical}</loc>`);
+  const llms = await request.get("/llms.txt");
+  expect(llms.ok()).toBe(true);
+  expect(await llms.text()).toContain("60-minute incident response tabletop facilitator guide");
+
+  const cta = page.getByRole("link", { name: "Run the 60-minute BEC rehearsal", exact: true });
+  await expect(cta).toBeVisible();
+  await cta.click();
+  await expect(page.locator("body")).toHaveAttribute("data-route", "interactive");
+  await expect(page.locator("#workspaceTitle")).toHaveText("Interactive Rehearsal");
+  await expect(page.locator("#interactiveScenario")).toHaveValue("phishing-bec");
+  await expect(page.locator("#duration")).toHaveValue("60");
+  await expect(page).toHaveURL(/path=interactive/);
+  await expect(page).toHaveURL(/rehearsal=phishing-bec/);
+  await page.reload();
+  await expect(page.locator("#interactiveScenario")).toHaveValue("phishing-bec");
+  await expect(page.locator("#duration")).toHaveValue("60");
+  await page.goBack();
+  await expect(page).toHaveURL(/60-minute-incident-response-tabletop$/);
+
+  const unnamed = await page.locator("button:visible, a:visible").evaluateAll((elements) =>
+    elements
+      .filter((element) => !((element.getAttribute("aria-label") || element.textContent || "").trim()))
+      .map((element) => element.outerHTML)
+  );
+  expect(unnamed).toEqual([]);
+  const overflow = await page.evaluate(() => ({
+    innerWidth,
+    scrollWidth: document.documentElement.scrollWidth
+  }));
+  expect(overflow.scrollWidth).toBeLessThanOrEqual(overflow.innerWidth + 1);
+  expect(errors).toEqual([]);
+});
+
 test("guides hub provides a substantive facilitator path into rehearsal", async ({ page }) => {
   await page.goto("/guides");
 
@@ -395,7 +457,8 @@ test("guides hub provides a substantive facilitator path into rehearsal", async 
 
   const schema = JSON.parse(await page.locator('script[type="application/ld+json"]').textContent());
   expect(schema["@type"]).toBe("CollectionPage");
-  expect(schema.mainEntity.itemListElement).toHaveLength(5);
+  expect(schema.mainEntity.itemListElement).toHaveLength(6);
+  await expect(page.getByRole("link", { name: "Use the 60-minute facilitator field guide", exact: true })).toHaveAttribute("href", "/60-minute-incident-response-tabletop");
 
   const rehearsalLink = page.getByRole("link", { name: "Run the BEC decision rehearsal", exact: true }).last();
   await expect(rehearsalLink).toHaveAttribute("href", /path=interactive/);

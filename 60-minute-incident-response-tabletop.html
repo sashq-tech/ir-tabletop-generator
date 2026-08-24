@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>60-Minute Incident Response Tabletop Facilitator Guide | Response Rehearsal</title>
+    <meta
+      name="description"
+      content="Run a 60-minute incident response tabletop with a timed agenda, defined roles, inject pacing, evidence capture, a worked BEC example, and an after-action rubric."
+    >
+    <meta name="theme-color" content="#06110d">
+    <meta property="og:title" content="60-Minute Incident Response Tabletop Facilitator Guide | Response Rehearsal">
+    <meta
+      property="og:description"
+      content="A field guide for facilitating one decision-centered incident rehearsal from opening brief through owned after-action improvements."
+    >
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://responserehearsal.com/60-minute-incident-response-tabletop">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="60-Minute Incident Response Tabletop Facilitator Guide">
+    <meta
+      name="twitter:description"
+      content="Use a minute-by-minute agenda, four inject loops, evidence notes, a worked BEC example, and a practical AAR rubric."
+    >
+    <link rel="icon" href="data:,">
+    <link rel="canonical" href="https://responserehearsal.com/60-minute-incident-response-tabletop">
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "60-Minute Incident Response Tabletop Facilitator Guide",
+        "description": "Run a 60-minute incident response tabletop with a timed agenda, defined roles, inject pacing, evidence capture, a worked BEC example, and an after-action rubric.",
+        "author": {
+          "@type": "Organization",
+          "name": "Response Rehearsal"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Response Rehearsal"
+        },
+        "datePublished": "2026-08-24",
+        "dateModified": "2026-08-24",
+        "inLanguage": "en",
+        "mainEntityOfPage": "https://responserehearsal.com/60-minute-incident-response-tabletop",
+        "isPartOf": {
+          "@type": "WebSite",
+          "@id": "https://responserehearsal.com/#website",
+          "name": "Response Rehearsal",
+          "url": "https://responserehearsal.com/"
+        },
+        "about": [
+          "Incident response tabletop exercises",
+          "Cybersecurity exercise facilitation",
+          "After-action review"
+        ]
+      }
+    </script>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand-lockup brand-link" href="/" aria-label="Response Rehearsal home">
+        <span class="brand-mark" aria-hidden="true">RR</span>
+        <div>
+          <p class="eyebrow">60-minute facilitator field guide</p>
+          <h1>Response Rehearsal</h1>
+        </div>
+      </a>
+      <nav class="site-nav" aria-label="Public pages">
+        <a href="/about">About</a>
+        <a href="/guides">Guides</a>
+        <a href="/15-minute-incident-response-drill">15-Minute Drill</a>
+        <a href="/30-minute-incident-response-tabletop">30-Minute Guide</a>
+        <a href="/60-minute-incident-response-tabletop" aria-current="page">60-Minute Guide</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/trust-and-privacy">Trust &amp; Privacy</a>
+        <a href="/terms">Terms</a>
+        <a href="/contact">Contact</a>
+      </nav>
+    </header>
+
+    <main class="content-shell">
+      <article class="content-page">
+        <p class="eyebrow">One hour from opening brief to owned improvements</p>
+        <h2>How to run a 60-minute incident response tabletop</h2>
+        <p>
+          A useful one-hour tabletop is not a compressed technical investigation. It is a controlled rehearsal of how
+          people recognize changing conditions, use available evidence, make bounded decisions, coordinate across
+          roles, and leave with a small number of owned improvements. The facilitator protects that purpose by managing
+          the clock, asking for decisions instead of theories, and reserving enough time for the after-action review.
+        </p>
+        <p>
+          This field guide is designed to sit beside the <a href="/?path=interactive&amp;type=phishing&amp;org=smallBusiness&amp;audience=mixed&amp;focus=balanced&amp;duration=60&amp;difficulty=standard&amp;gm=whole&amp;rehearsal=phishing-bec">Interactive Business Email Compromise Rehearsal</a>.
+          Use the interactive workspace to present choices and produce an AAR summary. Use this page to run the room,
+          pace discussion, and capture the evidence behind those choices. Keep all exercise details fictional or
+          sanitized. Do not enter credentials, regulated data, sensitive architecture, or active incident information.
+        </p>
+
+        <section id="before-room">
+          <h3>Before the room opens</h3>
+          <p>
+            Write one decision-centered objective, not a broad topic. "Practice business email compromise" is a
+            subject. "Decide when Finance pauses a payment, who validates the request out of band, and when leadership
+            receives a verified update" is an exercise objective. Select one interactive rehearsal that supports the
+            objective and read all of its injects, facilitator notes, and consequences before the meeting.
+          </p>
+          <ul>
+            <li><strong>Set boundaries:</strong> identify systems, details, and real events that must stay outside the discussion.</li>
+            <li><strong>Choose the decision authorities:</strong> invite roles that can explain or exercise the actual handoffs being tested.</li>
+            <li><strong>Prepare the record:</strong> give the scribe fields for facts, assumptions, decisions, owners, deadlines, and revisit triggers.</li>
+            <li><strong>Define success:</strong> name two or three observable behaviors, such as assigning an incident lead within five minutes or separating a verified fact from an assumption before notifying leadership.</li>
+          </ul>
+        </section>
+
+        <section id="roles">
+          <h3>Assign four room functions</h3>
+          <p>
+            Titles vary by organization, but the functions should be explicit. One person may cover more than one
+            function in a small team. The facilitator should not also be the primary decision-maker; that makes it too
+            easy to steer participants toward a preferred answer.
+          </p>
+          <ul>
+            <li><strong>Facilitator:</strong> reads injects, protects the objective and clock, asks neutral follow-ups, and decides when the group has made a sufficiently clear decision to continue.</li>
+            <li><strong>Participants:</strong> speak from their assigned operational roles, identify authorities and constraints, make decisions, and state what evidence could change those decisions.</li>
+            <li><strong>Observer:</strong> watches handoffs, authority, evidence use, communication discipline, and business tradeoffs. The observer records behavior without interrupting or scoring personalities.</li>
+            <li><strong>Scribe:</strong> creates the decision record in real time. The scribe asks for clarification when an owner, deadline, fact, or assumption is missing.</li>
+          </ul>
+          <p>
+            Name one exercise incident lead as part of the opening. That person coordinates the response discussion,
+            but does not replace functional authorities. Legal, communications, operations, security, and executive
+            roles still own decisions that belong to them.
+          </p>
+        </section>
+
+        <section id="agenda">
+          <h3>Minute-by-minute 60-minute agenda</h3>
+          <ol>
+            <li><strong>0-5 minutes - Open and bound the exercise.</strong> State the objective, roles, stop condition, privacy boundary, and rule that assumptions must be spoken aloud. Confirm the incident lead and scribe.</li>
+            <li><strong>5-10 minutes - Establish the starting picture.</strong> Read the scenario summary. Ask the incident lead to separate known facts, working assumptions, and immediate unknowns. Capture the first update time.</li>
+            <li><strong>10-20 minutes - Inject 1: recognition and authority.</strong> Force a decision about declaration, ownership, evidence preservation, or an immediate business hold. Record who can authorize it.</li>
+            <li><strong>20-30 minutes - Inject 2: scope and containment.</strong> Add evidence that changes the suspected scope. Ask for a proportionate action, its operational cost, and the fact that would reverse it.</li>
+            <li><strong>30-40 minutes - Inject 3: coordination and communication.</strong> Introduce a leadership, employee, customer, vendor, or legal question. Require an audience, owner, approved facts, and next-update time.</li>
+            <li><strong>40-48 minutes - Inject 4: recovery or escalation pressure.</strong> Add a deadline, unavailable dependency, or conflicting business priority. Ask what can safely resume, what remains blocked, and who accepts residual risk.</li>
+            <li><strong>48-55 minutes - Reconstruct the decision trail.</strong> Stop scenario play. Have the scribe read back key decisions, evidence, assumptions, and open risks. Correct the record before discussing improvements.</li>
+            <li><strong>55-60 minutes - Score the AAR and assign actions.</strong> Use the rubric below. Select no more than three high-value improvements, each with one owner, target date, and verification method.</li>
+          </ol>
+          <p>
+            Announce the remaining time at minutes 20, 40, and 48. If discussion runs long, shorten fact-finding rather
+            than consuming the AAR. A tabletop without an owned closeout is a conversation, not a completed rehearsal.
+          </p>
+        </section>
+
+        <section id="inject-pacing">
+          <h3>Use a repeatable inject pacing loop</h3>
+          <p>
+            Give each major inject roughly ten minutes. The facilitator can use a 1-2-4-2-1 rhythm: one minute to read,
+            two minutes for clarifying questions, four minutes to decide, two minutes to capture the decision, and one
+            minute to state the changed conditions before moving on.
+          </p>
+          <ol>
+            <li><strong>Read:</strong> deliver only the information in the inject. Do not add an explanation that points toward a preferred choice.</li>
+            <li><strong>Clarify:</strong> answer facts the scenario provides. When the answer is intentionally unavailable, say so and ask what the team will do under that uncertainty.</li>
+            <li><strong>Decide:</strong> ask, "What are you doing now, who owns it, and by when?" If several actions are proposed, ask the incident lead to sequence them.</li>
+            <li><strong>Capture:</strong> have the scribe read the decision back with its evidence, assumption, tradeoff, and revisit trigger.</li>
+            <li><strong>Advance:</strong> reveal the consequence or next inject. Do not relitigate the previous choice unless new evidence justifies changing it.</li>
+          </ol>
+          <p>
+            Use one neutral rescue prompt when the room stalls: "What must happen before the next update?", "Who has
+            authority to accept that risk?", or "Which fact would change this decision?" If the group still cannot
+            decide, record the unclear authority as an observation and continue. The gap is useful exercise evidence.
+          </p>
+        </section>
+
+        <section id="evidence-capture">
+          <h3>Capture evidence without collecting sensitive data</h3>
+          <p>
+            The exercise record should explain why a reasonable team made a decision at that moment. It should not
+            become a transcript or a repository for real incident artifacts. For every significant choice, capture:
+          </p>
+          <ul>
+            <li><strong>Exercise time and inject:</strong> where the decision occurred in the scenario.</li>
+            <li><strong>Known facts:</strong> statements provided by the inject or confirmed within the fictional scenario.</li>
+            <li><strong>Assumptions:</strong> conditions the team treated as true because evidence was not available.</li>
+            <li><strong>Decision and owner:</strong> the action, hold, escalation, or communication and the accountable role.</li>
+            <li><strong>Evidence requested:</strong> the generic artifact or confirmation needed next, such as sign-in history, payment approval records, endpoint status, or vendor confirmation.</li>
+            <li><strong>Tradeoff and revisit trigger:</strong> the cost accepted now and the event or deadline that requires the decision to be reviewed.</li>
+            <li><strong>Communication commitment:</strong> audience, message owner, verified facts allowed in the update, and next-update time.</li>
+          </ul>
+          <p>
+            Observers should also note the source of claimed authority. "The incident lead can pause access under the
+            response plan" is stronger evidence than "Security usually handles that." Record the missing plan,
+            contact, approval path, or tool as a gap without turning the exercise into a document hunt.
+          </p>
+        </section>
+
+        <section id="decision-quality">
+          <h3>Observe decision quality, not whether the room guessed the facilitator's answer</h3>
+          <p>
+            More than one response may be defensible. Judge the process by what participants could reasonably know at
+            the time and whether they made the tradeoff explicit. Useful observer notes answer these questions:
+          </p>
+          <ul>
+            <li><strong>Timeliness:</strong> did the team make a bounded decision before uncertainty became an excuse for inaction?</li>
+            <li><strong>Authority:</strong> was an accountable role named, and did participants know who could approve exceptions or accept risk?</li>
+            <li><strong>Evidence discipline:</strong> did the team distinguish facts from assumptions and request evidence that could change the decision?</li>
+            <li><strong>Proportionality:</strong> did containment match the suspected impact while considering evidence preservation and business continuity?</li>
+            <li><strong>Communication discipline:</strong> did updates identify an audience, owner, verified facts, uncertainty, and next-update time?</li>
+            <li><strong>Adaptability:</strong> did the team revise its approach when new information changed the risk picture?</li>
+          </ul>
+          <p>
+            Write observations as behavior plus effect. "No one named the payment-hold authority, so Finance waited
+            six exercise minutes" is actionable. "The team communicated poorly" is not.
+          </p>
+        </section>
+
+        <section id="worked-example">
+          <h3>Worked example: suspicious payment change becomes BEC</h3>
+          <p>
+            <strong>Objective:</strong> decide when to pause a payment, how to verify the request outside the suspected
+            email channel, who owns identity and financial evidence, and when leadership receives an update. Roles are
+            facilitator, incident lead, Finance participant, identity or security participant, communications or
+            executive participant, observer, and scribe.
+          </p>
+          <ol>
+            <li><strong>Inject 1, minute 10:</strong> Accounts Payable receives an urgent bank-change request in an existing executive email thread. The team pauses the change, names Finance as the hold owner, and requests out-of-band confirmation plus message-header and sign-in evidence. The assumption is that the email account may be compromised; the revisit trigger is verified voice contact through a known number.</li>
+            <li><strong>Inject 2, minute 20:</strong> Sign-in history shows a new location and an unfamiliar inbox rule, but session activity is still being reviewed. The incident lead declares a suspected account compromise, Identity revokes active sessions and preserves relevant logs, and Finance checks for related payment requests. The team accepts short-term executive email disruption to reduce fraud risk.</li>
+            <li><strong>Inject 3, minute 30:</strong> A supplier asks why payment has not arrived while an executive asks whether normal email can be used. The team assigns Finance to contact the supplier through a known channel, gives leadership a cause-neutral update, and moves sensitive coordination to an approved alternate channel. The next update is due in 15 minutes.</li>
+            <li><strong>Inject 4, minute 40:</strong> Evidence suggests a second mailbox may have forwarded invoice data. The team expands the evidence request without claiming confirmed data theft, identifies who will assess notification obligations, keeps payment changes blocked, and defines the evidence required before normal processing resumes.</li>
+          </ol>
+          <p>
+            A strong decision record for Inject 2 would read: "At exercise minute 23, the incident lead declared a
+            suspected executive-account compromise based on a new-location sign-in and unauthorized inbox rule.
+            Identity owns session revocation and log preservation by minute 28. The team accepts temporary email
+            disruption. Reassess scope when sign-in and forwarding-rule review is complete." That note preserves the
+            reasoning without storing real account names, addresses, or log data.
+          </p>
+          <p>
+            Run this example in the <a href="/?path=interactive&amp;type=phishing&amp;org=smallBusiness&amp;audience=mixed&amp;focus=balanced&amp;duration=60&amp;difficulty=standard&amp;gm=whole&amp;rehearsal=phishing-bec">Interactive BEC Rehearsal</a>.
+            The generated AAR summarizes selected choices; add the room's evidence, assumptions, owners, and timing to
+            explain how those decisions were reached.
+          </p>
+        </section>
+
+        <section id="aar-rubric">
+          <h3>After-action rubric</h3>
+          <p>
+            Score the rehearsal process, not individual performance. Use four behavior anchors for each dimension:
+            <strong>0 - not observed</strong>, <strong>1 - improvised</strong>, <strong>2 - defined but inconsistent</strong>,
+            and <strong>3 - clear and repeatable</strong>. Record one sentence of evidence beside each score.
+          </p>
+          <ul>
+            <li><strong>Leadership and ownership:</strong> 0 means no lead or owner emerged; 1 means ownership was assumed; 2 means roles were named after prompting; 3 means the lead, functional owners, and risk authorities were clear at each handoff.</li>
+            <li><strong>Facts, assumptions, and evidence:</strong> 0 means claims were not separated; 1 means evidence requests were vague; 2 means the team named facts and useful evidence with prompting; 3 means decisions consistently included evidence and a trigger for reassessment.</li>
+            <li><strong>Containment and continuity:</strong> 0 means no bounded action was chosen; 1 means action ignored evidence or business impact; 2 means tradeoffs were discussed; 3 means proportionate, reversible actions included preservation, continuity, and recovery conditions.</li>
+            <li><strong>Coordination and communication:</strong> 0 means handoffs or audiences were absent; 1 means updates had no owner or timing; 2 means most updates had an audience and owner; 3 means internal and external updates consistently used verified facts, uncertainty, owner, and next-update time.</li>
+            <li><strong>Adaptation under pressure:</strong> 0 means the team remained stuck or ignored new facts; 1 means it changed direction without explaining why; 2 means it revised some decisions; 3 means it explicitly connected each material change to new evidence or risk.</li>
+            <li><strong>Improvement ownership:</strong> 0 means no follow-up was captured; 1 means actions were vague; 2 means actions had owners but weak verification; 3 means each priority action had one owner, date, expected evidence, and scheduled review.</li>
+          </ul>
+          <p>
+            A total score can help compare repeated runs of the same exercise, but it is not a compliance result or a
+            maturity certification. The useful output is the evidence behind low or inconsistent dimensions and the
+            small set of improvements the organization will verify.
+          </p>
+        </section>
+
+        <section id="closeout">
+          <h3>Close with three kinds of output</h3>
+          <ol>
+            <li><strong>Decision record:</strong> what the team decided, based on which facts and assumptions, with what owner and revisit trigger.</li>
+            <li><strong>Observations:</strong> specific behaviors that helped or slowed response, without assigning blame.</li>
+            <li><strong>Improvement actions:</strong> no more than three priority changes with accountable owners, target dates, and evidence that will demonstrate completion.</li>
+          </ol>
+          <p>
+            Save or copy the Interactive Rehearsal AAR only after the room verifies that it reflects the discussion.
+            The site runs in the browser and does not upload the exercise. Follow your organization's approved storage,
+            retention, and handling rules for any notes you keep.
+          </p>
+        </section>
+
+        <p class="content-action"><a class="primary-button link-button" href="/?path=interactive&amp;type=phishing&amp;org=smallBusiness&amp;audience=mixed&amp;focus=balanced&amp;duration=60&amp;difficulty=standard&amp;gm=whole&amp;rehearsal=phishing-bec">Run the 60-minute BEC rehearsal</a></p>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <nav class="footer-nav" aria-label="Footer">
+        <a href="/about">About</a>
+        <a href="/guides">Guides</a>
+        <a href="/15-minute-incident-response-drill">15-Minute Drill</a>
+        <a href="/30-minute-incident-response-tabletop">30-Minute Guide</a>
+        <a href="/60-minute-incident-response-tabletop">60-Minute Guide</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+        <a href="/contact">Contact</a>
+        <a href="/trust-and-privacy">Trust &amp; Privacy</a>
+      </nav>
+      <p>No login. No upload. No backend. This tool runs in the browser and uses generic exercise content.</p>
+    </footer>
+  </body>
+</html>
