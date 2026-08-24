@@ -9,6 +9,7 @@ Response Rehearsal is a static, browser-only incident response tabletop planning
 - 15-minute incident response drill: https://responserehearsal.com/15-minute-incident-response-drill
 - 30-minute incident response tabletop guide: https://responserehearsal.com/30-minute-incident-response-tabletop
 - 60-minute incident response tabletop facilitator guide: https://responserehearsal.com/60-minute-incident-response-tabletop
+- Source-control platform outage tabletop facilitator guide: https://responserehearsal.com/source-control-platform-outage-tabletop
 
 ## Tool entry points
 

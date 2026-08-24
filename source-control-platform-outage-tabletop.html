@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Source-Control Platform Outage Tabletop Guide | Response Rehearsal</title>
+    <meta
+      name="description"
+      content="Run a system-neutral source-control platform outage tabletop with release authority, evidence capture, credential-risk boundaries, staged restoration, and an AAR rubric."
+    >
+    <meta name="theme-color" content="#06110d">
+    <meta property="og:title" content="Source-Control Platform Outage Tabletop Guide | Response Rehearsal">
+    <meta
+      property="og:description"
+      content="A facilitator companion for rehearsing a source-control outage during an active software release without assuming compromise."
+    >
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://responserehearsal.com/source-control-platform-outage-tabletop">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Source-Control Platform Outage Tabletop Guide">
+    <meta
+      name="twitter:description"
+      content="Practice release-freeze authority, repository and CI evidence, governed fallback, token-risk decisions, and staged restoration."
+    >
+    <link rel="icon" href="data:,">
+    <link rel="canonical" href="https://responserehearsal.com/source-control-platform-outage-tabletop">
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Source-Control Platform Outage During an Active Release: Facilitator Guide",
+        "description": "Run a system-neutral source-control platform outage tabletop with release authority, evidence capture, credential-risk boundaries, staged restoration, and an AAR rubric.",
+        "author": {
+          "@type": "Organization",
+          "name": "Response Rehearsal"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Response Rehearsal"
+        },
+        "datePublished": "2026-08-24",
+        "dateModified": "2026-08-24",
+        "inLanguage": "en",
+        "mainEntityOfPage": "https://responserehearsal.com/source-control-platform-outage-tabletop",
+        "isPartOf": {
+          "@type": "WebSite",
+          "@id": "https://responserehearsal.com/#website",
+          "name": "Response Rehearsal",
+          "url": "https://responserehearsal.com/"
+        },
+        "about": [
+          "Incident response tabletop exercises",
+          "Source-control platform outages",
+          "Software release continuity",
+          "After-action review"
+        ]
+      }
+    </script>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand-lockup brand-link" href="/" aria-label="Response Rehearsal home">
+        <span class="brand-mark" aria-hidden="true">RR</span>
+        <div>
+          <p class="eyebrow">Source-control outage field guide</p>
+          <h1>Response Rehearsal</h1>
+        </div>
+      </a>
+      <nav class="site-nav" aria-label="Public pages">
+        <a href="/about">About</a>
+        <a href="/guides">Guides</a>
+        <a href="/15-minute-incident-response-drill">15-Minute Drill</a>
+        <a href="/30-minute-incident-response-tabletop">30-Minute Guide</a>
+        <a href="/60-minute-incident-response-tabletop">60-Minute Guide</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/trust-and-privacy">Trust &amp; Privacy</a>
+        <a href="/terms">Terms</a>
+        <a href="/contact">Contact</a>
+      </nav>
+    </header>
+
+    <main class="content-shell">
+      <article class="content-page">
+        <p class="eyebrow">Five decisions from release freeze to validated recovery</p>
+        <h2>Source-control platform outage during an active release</h2>
+        <p>
+          A source-control outage becomes more than an availability problem when a release is already moving. A tag
+          may or may not have been created, automated checks can continue after repository access disappears, local
+          clones can disagree, and an artifact may reach staging before anyone names the person who can stop the
+          process. This tabletop asks a team to control that uncertainty without treating a provider outage as proof
+          of a security compromise.
+        </p>
+        <p>
+          Use this guide beside the <a href="/?path=interactive&amp;type=supplyChain&amp;org=smallBusiness&amp;audience=mixed&amp;focus=balanced&amp;duration=60&amp;difficulty=standard&amp;gm=whole&amp;seed=824619&amp;rehearsal=supplyChain-source-control-platform-outage">Interactive Source-Control Platform Outage Rehearsal</a>.
+          The interactive workspace supplies five injects, three decision paths per inject, a timer, readiness meters,
+          and an after-action export. This page supplies the facilitator objective, room roles, evidence structure,
+          neutral prompts, and recovery criteria needed to make those choices meaningful. Keep the exercise fictional
+          or sanitized; do not enter real credentials, tokens, repository names, customer details, or active incident
+          information.
+        </p>
+
+        <section id="objective">
+          <h3>Set one decision-centered objective</h3>
+          <p>
+            By the end of the session, the team should be able to name who can freeze and resume an active release,
+            reconstruct the last trusted release state from more than one evidence source, choose a bounded continuity
+            path, assess credential exposure without assuming compromise, communicate a cause-neutral status, and
+            restore service through validation gates with durable follow-up owners. The exercise is not a test of a
+            particular source-control product, CI system, command, or branching model.
+          </p>
+          <p>
+            Define success in observable terms. Examples include invoking a release hold within five exercise minutes,
+            recording one authoritative release owner, distinguishing verified evidence from a developer's local
+            recollection, and refusing to resume production deployment until artifact provenance and rollback behavior
+            have been checked. If the room debates root cause for most of the hour, return to the decision that must be
+            made with the facts currently available.
+          </p>
+        </section>
+
+        <section id="roles">
+          <h3>Assign the roles and authorities before the first inject</h3>
+          <ul>
+            <li><strong>Facilitator:</strong> reads the injects, protects the clock, asks neutral questions, and keeps the room focused on decisions rather than product trivia.</li>
+            <li><strong>Exercise incident lead:</strong> maintains the operating picture, sequences response work, and identifies where another role owns approval.</li>
+            <li><strong>Release authority:</strong> can freeze, resume, roll back, or cancel the release under the organization's current process. If this authority is unclear, record that as an exercise finding.</li>
+            <li><strong>Engineering and CI owner:</strong> explains repository, runner, build, artifact, deployment, and rollback evidence without treating one system as the entire record.</li>
+            <li><strong>Identity or security owner:</strong> evaluates token and credential exposure, preserves access evidence, and recommends proportionate restrictions or rotations.</li>
+            <li><strong>Business and communications owner:</strong> coordinates leadership, support, product, partner, and vendor updates using confirmed facts and a stated next-update time.</li>
+            <li><strong>Scribe or observer:</strong> records facts, assumptions, decisions, owners, tradeoffs, deadlines, and the evidence that could change each decision.</li>
+          </ul>
+          <p>
+            One person can cover several roles in a small team, but do not leave authority implicit. Ask who can stop a
+            production change after hours, who accepts delay against a customer commitment, and who can authorize an
+            emergency repository, runner, or credential path. The answer should be a role and current authority, not
+            merely the most senior person in the room.
+          </p>
+        </section>
+
+        <section id="agenda">
+          <h3>Run the five-stage agenda</h3>
+          <ol>
+            <li><strong>0-10 minutes - Detect and establish release control.</strong> The primary source-control platform fails while an approved release is moving through automated checks. Some jobs still run and an artifact has reached staging. Ask whether the release is frozen, what the freeze covers, who invoked it, which actions may continue for evidence preservation, and when the decision will be reviewed.</li>
+            <li><strong>10-20 minutes - Triage repository and CI evidence.</strong> Provide partial CI logs, runner records, an artifact registry, deployment telemetry, and conflicting local clones. Ask the team to identify the intended commit, approvals, tag state, executed jobs, produced artifact, and last trusted deployment. Require every claim to be marked confirmed, inferred, conflicting, or unavailable.</li>
+            <li><strong>20-32 minutes - Contain risk while considering continuity.</strong> Introduce an approved mirror, cached source on controlled runners, a last-known-good artifact, and active automation tokens. Ask which fallback is allowed, how freshness and provenance will be checked, what credentials must be limited, and what condition ends the exception. Remind participants that service unavailability does not establish credential theft.</li>
+            <li><strong>32-42 minutes - Coordinate stakeholder and vendor communications.</strong> Product, operations, support, and leadership want a release decision while the provider requests timestamps and request identifiers. Require one status owner, confirmed impact, unresolved questions, stakeholder actions, the provider evidence package, and a next update. Do not let the team call the event a compromise without supporting evidence.</li>
+            <li><strong>42-55 minutes - Restore in stages and validate.</strong> Repository access and CI triggers return. Ask what must be reconciled before merges resume, which artifact will be tested, how protections and tokens will be checked, what canary or limited deployment is appropriate, and which failure condition triggers rollback. Use the last five minutes for the AAR and improvement owners.</li>
+          </ol>
+        </section>
+
+        <section id="evidence-ledger">
+          <h3>Build a release evidence ledger</h3>
+          <p>
+            The ledger should explain what the team believed at each decision point and why. It is not a request to
+            paste real logs into the exercise. Use generic artifact names and record only fictional or sanitized
+            values. Give each row an evidence owner, collection time, confidence label, and retention location.
+          </p>
+          <ul>
+            <li><strong>Release intent:</strong> approved change, expected commit, branch, tag, approver, change window, release owner, and rollback target.</li>
+            <li><strong>Repository state:</strong> last verified remote state, protected-branch events, tag evidence, mirror freshness, and differences among controlled clones.</li>
+            <li><strong>CI and runner state:</strong> job identifiers, trigger source, runner identity, start and stop times, checks completed, logs preserved, and queued work cancelled or allowed.</li>
+            <li><strong>Artifact provenance:</strong> build source, checksum, signing or attestation evidence where used, registry time, promotion history, and environment reached.</li>
+            <li><strong>Deployment state:</strong> target environment, deployed version, health checks, configuration changes, canary population, and rollback readiness.</li>
+            <li><strong>Access and token state:</strong> token owner, intended scope, last observed use, active sessions, emergency access, restrictions applied, and rotation decision.</li>
+            <li><strong>Provider evidence:</strong> incident notice, support case, affected functions, timestamps, request identifiers, provider statements, and the next vendor update.</li>
+          </ul>
+          <p>
+            Do not declare the newest timestamp or closest developer clone authoritative by convenience. Confidence
+            comes from reconciling independent records. When evidence conflicts, preserve both versions, identify who
+            will resolve the conflict, and state which production action remains blocked in the meantime.
+          </p>
+        </section>
+
+        <section id="authority-questions">
+          <h3>Ask release-authority questions that expose real gaps</h3>
+          <ul>
+            <li>Who can freeze merges, builds, artifact promotion, and production deployment, and are those separate authorities?</li>
+            <li>Does a freeze stop evidence collection, or only actions that can change release state?</li>
+            <li>Who may approve an alternate repository, runner, artifact, or manual deployment path?</li>
+            <li>What evidence is required before the release authority can resume the original pipeline?</li>
+            <li>Who accepts the business impact of delay, and who accepts the residual risk of a bounded fallback?</li>
+            <li>What event, deadline, or failed validation automatically returns the release to a frozen state?</li>
+          </ul>
+          <p>
+            A good answer names one accountable role, its source of authority, the exact action approved, and a review
+            trigger. "Engineering will decide" is not enough when engineering, operations, security, and product each
+            control a different part of the release path.
+          </p>
+        </section>
+
+        <section id="credential-boundaries">
+          <h3>Bound credential risk without assuming compromise</h3>
+          <p>
+            An outage can limit access to audit data and make token status uncertain, but uncertainty is not evidence
+            of theft. Begin with an inventory: which source-control, CI, registry, signing, deployment, webhook, and
+            emergency credentials could participate in the release; where they are valid; and what activity can still
+            be observed. Preserve available authentication, runner, and provider evidence before broad changes erase
+            useful context.
+          </p>
+          <p>
+            Apply proportionate controls. Pause high-risk automation that no longer has an accountable release path,
+            reduce scope where the platform permits it, require fresh approval for emergency use, and monitor known
+            integration points. Revoke or rotate immediately when evidence, exposure, policy, or inability to contain
+            use supports that action. Otherwise, document why a credential remains active, who owns the risk, what is
+            being monitored, and when the decision expires. After restoration, reconcile actual token use and close
+            every temporary credential or exception. Avoid both extremes: leaving all access untouched because no
+            compromise is proven, or destroying continuity and evidence by revoking everything solely because the
+            provider is unavailable.
+          </p>
+        </section>
+
+        <section id="worked-record">
+          <h3>Worked decision record</h3>
+          <p>
+            At exercise minute 24, the release authority keeps production deployment frozen but permits a controlled
+            validation build from the approved mirror. The decision is based on a matching reviewed commit identifier,
+            preserved CI approval record, and a mirror freshness check. The team has not confirmed the primary tag
+            state, so the build cannot be promoted. Engineering owns the isolated build; Security owns the automation
+            token inventory and limits the mirror runner to the required repository and registry path. The accepted
+            tradeoff is a delayed customer change window. Revisit the decision when the provider restores tag and
+            audit visibility or in 20 exercise minutes, whichever comes first.
+          </p>
+          <p>
+            At minute 37, Communications sends a cause-neutral internal update: the source-control provider is
+            experiencing an availability incident; the release remains frozen; no credential compromise or customer
+            impact is confirmed; validation is occurring through an approved isolated path; Product owns partner
+            coordination; and the next update is due in 15 minutes. This record is useful because it preserves facts,
+            uncertainty, authority, tradeoff, owners, and revisit conditions without pretending the team knows the
+            provider's root cause.
+          </p>
+        </section>
+
+        <section id="restoration">
+          <h3>Use a staged-restoration checklist</h3>
+          <ol>
+            <li><strong>Reconcile:</strong> compare commits, branches, tags, approvals, protected-branch events, runner activity, queued jobs, token use, artifacts, and deployments against the evidence ledger.</li>
+            <li><strong>Re-establish control:</strong> confirm branch protections, required reviews, release permissions, webhook destinations, runner trust, token scope, and the named release authority.</li>
+            <li><strong>Choose the source:</strong> identify the verified commit and artifact path. Rebuild when provenance is incomplete; do not promote an artifact merely because it already exists.</li>
+            <li><strong>Validate outside production:</strong> run required checks in an isolated or staging environment, compare checksums and expected behavior, and preserve the resulting evidence.</li>
+            <li><strong>Canary:</strong> use a limited deployment or equivalent controlled exposure with health criteria, monitoring owner, observation period, and an executable rollback.</li>
+            <li><strong>Resume deliberately:</strong> require the release authority to state which gates passed, what residual uncertainty remains, who accepts it, and what would stop the release again.</li>
+            <li><strong>Retire exceptions:</strong> close alternate repository paths, emergency runners, temporary permissions, tokens, manual steps, and communication channels that are no longer needed.</li>
+            <li><strong>Record disposition:</strong> document the final released or cancelled state, affected windows, provider findings, stakeholder notices, and follow-up evidence owners.</li>
+          </ol>
+        </section>
+
+        <section id="aar-rubric">
+          <h3>Score the AAR with behavior-based evidence</h3>
+          <p>
+            Score each dimension from 0 to 3: <strong>0 - not observed</strong>, <strong>1 - improvised</strong>,
+            <strong>2 - defined but inconsistent</strong>, and <strong>3 - clear and repeatable</strong>. Add one sentence
+            of observed behavior beside each score. The result is an exercise aid, not a compliance grade or maturity
+            certification.
+          </p>
+          <ul>
+            <li><strong>Release control:</strong> did the room name a freeze scope, release authority, allowed evidence actions, and explicit resume criteria?</li>
+            <li><strong>Evidence discipline:</strong> did participants reconcile repository, CI, artifact, and deployment records while labeling facts, assumptions, conflicts, and unavailable evidence?</li>
+            <li><strong>Continuity governance:</strong> did the fallback have freshness and provenance checks, narrow authority, monitoring, stop conditions, and a retirement deadline?</li>
+            <li><strong>Credential judgment:</strong> did the team investigate exposure and token use without treating outage as compromise or using uncertainty as a reason for inaction?</li>
+            <li><strong>Communication quality:</strong> did updates separate availability, release integrity, credential risk, and customer impact while naming an owner and next-update time?</li>
+            <li><strong>Restoration quality:</strong> did recovery reconcile state, restore controls, validate outside production, use a limited gate, preserve rollback, and close exceptions?</li>
+            <li><strong>Improvement ownership:</strong> did each priority action receive one accountable owner, target date, expected completion evidence, and scheduled review?</li>
+          </ul>
+          <p>
+            Choose no more than three durable improvements. Strong candidates include documenting after-hours
+            release-stop authority, testing a read-only repository or artifact evidence path, defining mirror freshness
+            criteria, retaining CI evidence outside the primary platform, reviewing automation-token ownership, and
+            rehearsing a controlled restoration. An action is not complete when a document is drafted; it is complete
+            when the named evidence proves the new process can be used.
+          </p>
+        </section>
+
+        <p>
+          Return to the <a href="/guides">facilitator guides hub</a> for shorter formats and general room-running
+          guidance. When the objective and roles are ready, open the interactive rehearsal and use its timer, choices,
+          facilitator notes, and AAR export to run the decision path.
+        </p>
+        <p class="content-action"><a class="primary-button link-button" href="/?path=interactive&amp;type=supplyChain&amp;org=smallBusiness&amp;audience=mixed&amp;focus=balanced&amp;duration=60&amp;difficulty=standard&amp;gm=whole&amp;seed=824619&amp;rehearsal=supplyChain-source-control-platform-outage">Run the source-control outage rehearsal</a></p>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <nav class="footer-nav" aria-label="Footer">
+        <a href="/about">About</a>
+        <a href="/guides">Guides</a>
+        <a href="/15-minute-incident-response-drill">15-Minute Drill</a>
+        <a href="/30-minute-incident-response-tabletop">30-Minute Guide</a>
+        <a href="/60-minute-incident-response-tabletop">60-Minute Guide</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+        <a href="/contact">Contact</a>
+        <a href="/trust-and-privacy">Trust &amp; Privacy</a>
+      </nav>
+      <p>No login. No upload. No backend. This tool runs in the browser and uses generic exercise content.</p>
+    </footer>
+  </body>
+</html>

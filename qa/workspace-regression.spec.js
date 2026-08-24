@@ -497,6 +497,86 @@ test("60-minute facilitator field guide is crawlable and preserves interactive r
   expect(errors).toEqual([]);
 });
 
+test("source-control outage facilitator guide is substantive and hands off to the exact rehearsal", async ({ page, request }) => {
+  const errors = [];
+  page.on("pageerror", (error) => errors.push(error.message));
+
+  await page.goto("/source-control-platform-outage-tabletop");
+  await expect(page.getByRole("heading", { level: 2, name: "Source-control platform outage during an active release" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 3, name: "Run the five-stage agenda" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 3, name: "Build a release evidence ledger" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 3, name: "Bound credential risk without assuming compromise" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 3, name: "Worked decision record" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 3, name: "Use a staged-restoration checklist" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 3, name: "Score the AAR with behavior-based evidence" })).toBeVisible();
+
+  const canonical = await page.locator('link[rel="canonical"]').getAttribute("href");
+  const description = await page.locator('meta[name="description"]').getAttribute("content");
+  const ogUrl = await page.locator('meta[property="og:url"]').getAttribute("content");
+  expect(canonical).toBe("https://responserehearsal.com/source-control-platform-outage-tabletop");
+  expect(ogUrl).toBe(canonical);
+  expect(description).toContain("credential-risk boundaries");
+
+  const schema = JSON.parse(await page.locator('script[type="application/ld+json"]').textContent());
+  expect(schema["@type"]).toBe("Article");
+  expect(schema.mainEntityOfPage).toBe(canonical);
+  expect(schema.datePublished).toBe("2026-08-24");
+
+  const articleWords = await page.locator("article").innerText().then((text) => text.trim().split(/\s+/).length);
+  expect(articleWords).toBeGreaterThanOrEqual(1500);
+  expect(articleWords).toBeLessThanOrEqual(2000);
+
+  const sitemap = await request.get("/sitemap.xml");
+  expect(sitemap.ok()).toBe(true);
+  expect(await sitemap.text()).toContain(`<loc>${canonical}</loc>`);
+  const llms = await request.get("/llms.txt");
+  expect(llms.ok()).toBe(true);
+  expect(await llms.text()).toContain("Source-control platform outage tabletop facilitator guide");
+
+  const cta = page.getByRole("link", { name: "Run the source-control outage rehearsal", exact: true });
+  await expect(cta).toBeVisible();
+  await expect(cta).toHaveAttribute("href", /seed=824619/);
+  await expect(cta).toHaveAttribute("href", /rehearsal=supplyChain-source-control-platform-outage/);
+  await cta.click();
+  await expect(page.locator("body")).toHaveAttribute("data-route", "interactive");
+  await expect(page.locator("#interactiveScenario")).toHaveValue("supplyChain-source-control-platform-outage");
+  await expect(page.locator("#incidentType")).toHaveValue("supplyChain");
+  await expect(page.locator("#duration")).toHaveValue("60");
+  await expect(page.locator("#interactiveTimer")).toHaveText("60:00");
+  await expect(page).toHaveURL(/path=interactive/);
+  await expect(page).toHaveURL(/rehearsal=supplyChain-source-control-platform-outage/);
+  await page.reload();
+  await expect(page.locator("#interactiveScenario")).toHaveValue("supplyChain-source-control-platform-outage");
+  await page.goBack();
+  await expect(page).toHaveURL(/source-control-platform-outage-tabletop$/);
+
+  const overflow = await page.evaluate(() => ({
+    innerWidth,
+    scrollWidth: document.documentElement.scrollWidth
+  }));
+  expect(overflow.scrollWidth).toBeLessThanOrEqual(overflow.innerWidth + 1);
+  expect(errors).toEqual([]);
+});
+
+test("about page explains the creator context, method, and review boundaries", async ({ page }) => {
+  await page.goto("/about");
+  await expect(page.getByRole("heading", { level: 2, name: "About the creator and the method" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 3, name: "Why this project exists" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 3, name: "The creator's working context" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 3, name: "How the material is developed" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 3, name: "What review does and does not mean" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "CISA tabletop exercise packages" })).toHaveAttribute("href", /^https:\/\/www\.cisa\.gov\//);
+  await expect(page.getByRole("link", { name: "NIST SP 800-61 Revision 3" })).toHaveAttribute("href", /^https:\/\/csrc\.nist\.gov\//);
+
+  const articleWords = await page.locator("article").innerText().then((text) => text.trim().split(/\s+/).length);
+  expect(articleWords).toBeGreaterThanOrEqual(500);
+  const overflow = await page.evaluate(() => ({
+    innerWidth,
+    scrollWidth: document.documentElement.scrollWidth
+  }));
+  expect(overflow.scrollWidth).toBeLessThanOrEqual(overflow.innerWidth + 1);
+});
+
 test("guides hub provides a substantive facilitator path into rehearsal", async ({ page }) => {
   await page.goto("/guides");
 
@@ -509,9 +589,11 @@ test("guides hub provides a substantive facilitator path into rehearsal", async 
 
   const schema = JSON.parse(await page.locator('script[type="application/ld+json"]').textContent());
   expect(schema["@type"]).toBe("CollectionPage");
-  expect(schema.mainEntity.itemListElement).toHaveLength(7);
+  expect(schema.mainEntity.itemListElement).toHaveLength(8);
   await expect(page.getByRole("link", { name: "Use the 60-minute facilitator field guide", exact: true })).toHaveAttribute("href", "/60-minute-incident-response-tabletop");
-  await expect(page.getByRole("link", { name: "Source-Control Platform Outage During an Active Release", exact: true })).toHaveAttribute("href", /rehearsal=supplyChain-source-control-platform-outage/);
+  await expect(page.getByRole("link", { name: "Use the source-control outage facilitator guide", exact: true })).toHaveAttribute("href", "/source-control-platform-outage-tabletop");
+  await expect(page.getByRole("link", { name: "Source-Control Platform Outage Tabletop Facilitator Guide", exact: true })).toHaveAttribute("href", "/source-control-platform-outage-tabletop");
+  await expect(page.getByRole("link", { name: "interactive source-control outage rehearsal", exact: true })).toHaveAttribute("href", /rehearsal=supplyChain-source-control-platform-outage/);
 
   const rehearsalLink = page.getByRole("link", { name: "Run the BEC decision rehearsal", exact: true }).last();
   await expect(rehearsalLink).toHaveAttribute("href", /path=interactive/);
