@@ -18,6 +18,9 @@ const identityProviderOutageUrl =
 const signingCertificateUrl =
   "/?path=interactive&type=supplyChain&org=smallBusiness&audience=mixed&focus=balanced&duration=60&difficulty=standard&gm=whole&seed=307514&rehearsal=supplyChain-signing-certificate-failure";
 
+const sourceControlOutageUrl =
+  "/?path=interactive&type=supplyChain&org=smallBusiness&audience=mixed&focus=balanced&duration=60&difficulty=standard&gm=whole&seed=824619&rehearsal=supplyChain-source-control-platform-outage";
+
 const publicTrustPages = [
   { route: "/about", type: "AboutPage" },
   { route: "/privacy", type: "WebPage" },
@@ -334,6 +337,55 @@ test("software signing certificate drill preserves direct state, facilitator cop
   expect(errors).toEqual([]);
 });
 
+test("source-control outage drill preserves direct state, timer, AAR, print, and responsive layout", async ({ page }) => {
+  const errors = [];
+  page.on("pageerror", (error) => errors.push(error.message));
+
+  await page.goto(sourceControlOutageUrl);
+  await expect(page.locator("body")).toHaveAttribute("data-route", "interactive");
+  await expect(page.locator("#incidentType")).toHaveValue("supplyChain");
+  await expect(page.locator("#interactiveScenario")).toHaveValue("supplyChain-source-control-platform-outage");
+  await expect(page.locator("#interactiveTitle")).toHaveText("Source-Control Platform Outage During an Active Release");
+  await expect(page.locator("#interactiveScenarioSummary")).toContainText("evidence-led token decisions");
+
+  await page.reload();
+  await expect(page.locator("#interactiveScenario")).toHaveValue("supplyChain-source-control-platform-outage");
+  await expect(page).toHaveURL(/rehearsal=supplyChain-source-control-platform-outage/);
+  await expect(page.locator("#interactiveTimer")).toHaveText("60:00");
+  await page.locator("#toggleTimerBtn").click();
+  await expect(page.locator("#interactiveTimerStatus")).toHaveText("Running");
+  await page.locator("#toggleTimerBtn").click();
+  await expect(page.locator("#interactiveTimerStatus")).toHaveText("Paused");
+
+  await page.locator("#copyPreBriefBtn").click();
+  await expect.poll(() => page.evaluate(() => window.__copiedText)).toContain("Source-Control Platform Outage During an Active Release");
+  await page.locator("#startInteractiveBtn").click();
+  await expect(page.locator("#interactiveInjectTitle")).toContainText("source-control platform fails midway through an active release");
+
+  for (let step = 0; step < 5; step += 1) {
+    await expect(page.locator("#interactiveChoices button")).toHaveCount(3);
+    await page.locator("#interactiveChoices button").first().click();
+  }
+
+  await expect(page.locator("#interactiveDebrief")).toBeVisible();
+  await expect(page.locator("body")).toHaveClass(/interactive-aar-ready/);
+  await page.locator("#copyAarSummaryBtn").click();
+  await expect.poll(() => page.evaluate(() => window.__copiedText)).toContain("Source-Control Platform Outage During an Active Release");
+  await expect.poll(() => page.evaluate(() => window.__copiedText)).toContain("AAR Summary");
+  await expect.poll(() => page.evaluate(() => window.__copiedText)).toContain("Timer remaining:");
+
+  await page.emulateMedia({ media: "print" });
+  await expect(page.locator("#interactiveDebrief")).toBeVisible();
+  await expect(page.locator("#interactiveStage")).toBeHidden();
+
+  const overflow = await page.evaluate(() => ({
+    innerWidth,
+    scrollWidth: document.documentElement.scrollWidth
+  }));
+  expect(overflow.scrollWidth).toBeLessThanOrEqual(overflow.innerWidth + 1);
+  expect(errors).toEqual([]);
+});
+
 test("visible controls have names and both routes avoid horizontal overflow", async ({ page }) => {
   for (const url of ["/", interactiveUrl, "/?path=packet&seed=246810"]) {
     await page.goto(url);
@@ -457,8 +509,9 @@ test("guides hub provides a substantive facilitator path into rehearsal", async 
 
   const schema = JSON.parse(await page.locator('script[type="application/ld+json"]').textContent());
   expect(schema["@type"]).toBe("CollectionPage");
-  expect(schema.mainEntity.itemListElement).toHaveLength(6);
+  expect(schema.mainEntity.itemListElement).toHaveLength(7);
   await expect(page.getByRole("link", { name: "Use the 60-minute facilitator field guide", exact: true })).toHaveAttribute("href", "/60-minute-incident-response-tabletop");
+  await expect(page.getByRole("link", { name: "Source-Control Platform Outage During an Active Release", exact: true })).toHaveAttribute("href", /rehearsal=supplyChain-source-control-platform-outage/);
 
   const rehearsalLink = page.getByRole("link", { name: "Run the BEC decision rehearsal", exact: true }).last();
   await expect(rehearsalLink).toHaveAttribute("href", /path=interactive/);

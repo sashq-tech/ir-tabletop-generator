@@ -14,6 +14,7 @@ Response Rehearsal is a static, browser-only incident response tabletop planning
 
 - Interactive Rehearsal: https://responserehearsal.com/?path=interactive
 - 60-minute BEC rehearsal: https://responserehearsal.com/?path=interactive&type=phishing&org=smallBusiness&audience=mixed&focus=balanced&duration=60&difficulty=standard&gm=whole&rehearsal=phishing-bec
+- Source-control platform outage rehearsal: https://responserehearsal.com/?path=interactive&type=supplyChain&org=smallBusiness&audience=mixed&focus=balanced&duration=60&difficulty=standard&gm=whole&seed=824619&rehearsal=supplyChain-source-control-platform-outage
 - Exercise Packet Generator: https://responserehearsal.com/?path=packet
 
 ## Trust and discovery

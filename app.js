@@ -2523,6 +2523,96 @@ Object.assign(interactiveScenarios, {
       }
     ]
   ]),
+  "supplyChain-source-control-platform-outage": makeInteractiveScenario("Source-Control Platform Outage During an Active Release", {
+    containment: "Release control",
+    evidence: "Repository and CI evidence",
+    continuity: "Release continuity",
+    trust: "Stakeholder confidence",
+    coordination: "Decision authority"
+  }, [
+    ["Detect", "The source-control platform fails midway through an active release", "Developers lose access to the primary repositories while an approved production release is moving through automated checks. Some CI jobs are still running, local clones contain different commit states, and an artifact has reached a staging environment. The provider reports an availability incident, but the organization has not yet identified who can freeze or resume the release."],
+    ["Triage", "Repository state and CI evidence do not yet form one release record", "The team can access partial CI logs, runner records, an artifact registry, deployment telemetry, and several local clones. A release tag may have been created just before the outage, but the primary repository cannot confirm it. The room must determine the last trusted commit, what executed, what artifact was produced, and which evidence is authoritative enough for a release decision."],
+    ["Contain", "Continuity options introduce token and provenance questions", "The release deadline is approaching. An approved repository mirror, cached source on controlled runners, and a last-known-good artifact could support limited continuity, but the mirror may lag and some automation tokens remain active. There is no evidence that credentials were stolen; the outage only makes current access, use, and revocation evidence harder to inspect."],
+    ["Communicate", "Business teams and the provider need a cause-neutral operating picture", "Product, operations, support, and leadership want to know whether the release will proceed. The source-control provider is investigating and asks for timestamps, request identifiers, affected functions, and business impact. No customer impact is confirmed, but a prolonged freeze could affect a promised change window and downstream partners need a consistent status cadence."],
+    ["Recover", "Service returns, but a normal-looking pipeline is not sufficient proof", "Repository access and CI triggers begin working again. The team must reconcile commits, tags, branch protections, approvals, runner activity, token use, artifacts, and deployments; restore through controlled stages; validate the release independently; and close temporary continuity paths. Leaders also need named owners and due dates for repository resilience, evidence retention, token governance, release-stop authority, and future outage exercises."]
+  ], [
+    ["Invoke the release-freeze authority, stop new merges and deployments, preserve the current pipeline and artifact state, and name one incident lead plus one release decision owner.", "The organization establishes an accountable pause without erasing the evidence needed to reconstruct the interrupted release.", "An outage during release needs an explicit control point and decision authority before speed, assumptions, or partially running automation choose the outcome."],
+    ["Create a release evidence ledger that reconciles the intended commit and tag with protected records from CI, runners, the artifact registry, deployment systems, approvals, checksums, and controlled clones, marking every unverified claim.", "The room develops a defensible last-known-good state and separates corroborated release facts from inaccessible or conflicting repository data.", "Repository availability is one evidence source; release confidence comes from reconciling independent records and preserving uncertainty."],
+    ["Authorize only a bounded continuity path using an approved mirror or previously built artifact after provenance checks, while inventorying active tokens, limiting high-risk automation, preserving access evidence, and setting explicit stop and retirement criteria.", "Critical work can continue narrowly without treating the outage as proof of compromise or allowing emergency access to become an untracked release path.", "Continuity and credential response should be proportional to evidence, with least privilege, traceability, and a defined end to every exception."],
+    ["Send a cause-neutral update with the release state, confirmed impact, current freeze or continuity decision, unresolved evidence, provider escalation package, stakeholder actions, decision owner, and next update time.", "Internal teams, partners, and the provider work from one accurate operating picture without unsupported security claims or conflicting release promises.", "Useful outage communications distinguish service availability, release integrity, credential risk, and customer impact while stating what happens next."],
+    ["Reconcile the restored repository and CI state, validate protections and token activity, rebuild or re-verify artifacts through staged test and canary gates with rollback criteria, retire exceptions, record the final disposition, and assign improvement owners with dates and evidence of completion.", "The release resumes only after integrity and operational controls are demonstrated, and the exercise ends with durable ownership rather than an informal lessons-learned list.", "Restoration is a controlled validation sequence; durable recovery includes accountable improvements to authority, evidence, continuity, and credential governance."]
+  ], [
+    [
+      {
+        label: "Let the remaining CI jobs and deployment automation finish because stopping them could leave the release in a worse state.",
+        impact: { containment: -18, evidence: -8, continuity: 14, trust: -12, coordination: -14 },
+        outcome: "Some work continues, but automation advances an unverified release while no one owns the decision to stop, resume, or roll back.",
+        lesson: "Partially available automation does not replace explicit release authority during an outage."
+      },
+      {
+        label: "Have each technical team pause what it can and wait for the platform provider to restore service before assigning release authority.",
+        impact: { containment: 4, evidence: 2, continuity: -12, trust: -6, coordination: -18 },
+        outcome: "Activity slows, but inconsistent local pauses and unclear ownership leave the actual release state unresolved.",
+        lesson: "A release freeze must name its scope, owner, and conditions for change."
+      }
+    ],
+    [
+      {
+        label: "Use the newest developer clone as the release source because its commit timestamp is later than the available CI records.",
+        impact: { containment: -8, evidence: -18, continuity: 12, trust: -12, coordination: -8 },
+        outcome: "The team gets a convenient source tree, but local timestamps and uncorroborated history do not prove the approved release state.",
+        lesson: "A local clone can support investigation or continuity without becoming authoritative by convenience."
+      },
+      {
+        label: "Wait for primary repository access before preserving or comparing any downstream evidence.",
+        impact: { containment: -6, evidence: -12, continuity: -16, trust: -8, coordination: -6 },
+        outcome: "The team avoids choosing among conflicting records, but volatile logs, runner state, and artifact evidence may expire or change.",
+        lesson: "Evidence preservation should begin even when a primary source remains unavailable."
+      }
+    ],
+    [
+      {
+        label: "Revoke every source-control, CI, and deployment token immediately because the platform outage may be a security incident.",
+        impact: { containment: 12, evidence: -14, continuity: -20, trust: -6, coordination: -10 },
+        outcome: "Potential access is reduced broadly, but continuity and evidence collection are disrupted before the team establishes exposure or token use.",
+        lesson: "Outage alone is not proof of credential compromise; revocation scope and timing should follow evidence and risk."
+      },
+      {
+        label: "Run the release from an available mirror with existing automation credentials and reconcile the records after the primary service returns.",
+        impact: { containment: -16, evidence: -14, continuity: 18, trust: -14, coordination: -12 },
+        outcome: "The deadline may be met, but mirror freshness, token authority, artifact provenance, and rollback ownership remain unverified.",
+        lesson: "A fallback is useful only when its freshness, access, evidence, and stop conditions are governed."
+      }
+    ],
+    [
+      {
+        label: "Tell stakeholders the release is blocked by a likely provider security event and promise a new release time based on the vendor's estimate.",
+        impact: { containment: 0, evidence: -14, continuity: -6, trust: -18, coordination: -8 },
+        outcome: "The update sounds decisive, but it overstates the cause and creates a commitment from an uncertain external estimate.",
+        lesson: "Availability facts and security conclusions should remain separate until evidence connects them."
+      },
+      {
+        label: "Keep the outage within engineering until service returns so support and partners do not receive incomplete information.",
+        impact: { containment: 2, evidence: 4, continuity: -10, trust: -14, coordination: -18 },
+        outcome: "Premature claims are avoided, but stakeholders cannot manage the change window or answer predictable questions consistently.",
+        lesson: "Cause-neutral communication can be useful before root cause or final impact is known."
+      }
+    ],
+    [
+      {
+        label: "Resume the original pipeline as soon as repository access and automated checks turn green.",
+        impact: { containment: -12, evidence: -10, continuity: 18, trust: -12, coordination: -8 },
+        outcome: "Delivery restarts quickly, but the team has not reconciled the interrupted state, temporary access, artifact provenance, or rollback readiness.",
+        lesson: "A green pipeline after restoration is not proof that the interrupted release remained intact."
+      },
+      {
+        label: "Cancel the release permanently and schedule resilience improvements without testing restoration or assigning evidence-based closure criteria.",
+        impact: { containment: 10, evidence: -8, continuity: -18, trust: -6, coordination: -12 },
+        outcome: "Immediate release risk falls, but the organization learns little about safe restoration and leaves improvement work without measurable closure.",
+        lesson: "Conservative recovery still needs validation, disposition, ownership, and completion evidence."
+      }
+    ]
+  ]),
   "supplyChain-update-integrity": makeInteractiveScenario("Vendor Update Integrity Drill", {
     containment: "Update containment",
     evidence: "Package evidence",
@@ -2573,7 +2663,8 @@ const interactiveScenarioLibrary = {
     { key: "supplyChain-breach-notice", label: "Focused drill: Vendor breach notice", summary: "Practice vague vendor notices, contract obligations, integration containment, and customer-facing criteria." },
     { key: "supplyChain-update-integrity", label: "Focused drill: Vendor update integrity", summary: "Practice suspicious trusted updater behavior, demo continuity, package evidence, and customer go/no-go criteria." },
     { key: "supplyChain-saas-retention-failure", label: "Focused drill: SaaS data retention failure", summary: "Practice deletion containment, retention and legal-hold scope, restore authority, customer-impact thresholds, and durable data-governance recovery." },
-    { key: "supplyChain-signing-certificate-failure", label: "Focused drill: Software signing certificate failure", summary: "Practice release containment, signing evidence, emergency signing authority, customer guidance, trust-chain validation, and durable certificate governance." }
+    { key: "supplyChain-signing-certificate-failure", label: "Focused drill: Software signing certificate failure", summary: "Practice release containment, signing evidence, emergency signing authority, customer guidance, trust-chain validation, and durable certificate governance." },
+    { key: "supplyChain-source-control-platform-outage", label: "Focused drill: Source-control platform outage", summary: "Practice release-freeze authority, repository and CI evidence, governed fallback, evidence-led token decisions, provider communications, staged restoration, and durable ownership." }
   ]
 };
 let interactiveState = null;
