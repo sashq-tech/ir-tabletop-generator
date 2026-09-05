@@ -74,7 +74,11 @@ test("landing doors, exit, history, refresh, and direct links stay coherent", as
   await expect(page.locator("body")).toHaveAttribute("data-route", "interactive");
   await expect(page).toHaveURL(/path=interactive/);
   await expect(page.locator("#workspaceTitle")).toHaveText("Interactive Rehearsal");
-  await expect(page.locator("#startInteractiveBtn")).toBeFocused();
+  await expect(page.locator("#interactiveScenario")).toBeFocused();
+  const interactiveOrder = await page.locator("#interactiveScenario, #startInteractiveBtn").evaluateAll((elements) =>
+    elements.map((element) => element.id)
+  );
+  expect(interactiveOrder).toEqual(["interactiveScenario", "startInteractiveBtn"]);
   expect(await page.evaluate(() => history.length)).toBe(initialLength + 1);
 
   await page.locator("#exitWorkspaceBtn").click();

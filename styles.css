@@ -1213,6 +1213,11 @@ body.presentation-active {
   align-items: start;
 }
 
+.interactive-entry {
+  display: grid;
+  gap: 1rem;
+}
+
 .interactive-header h3,
 .inject-card h4,
 .debrief-panel h4 {

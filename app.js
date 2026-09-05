@@ -2871,7 +2871,7 @@ function openPathDoor(path, { historyMode = "push", focus = true } = {}) {
 
 function focusInteractiveWorkspace() {
   document.querySelector("#interactiveExercise")?.scrollIntoView({ behavior: "smooth", block: "start" });
-  document.querySelector("#startInteractiveBtn")?.focus({ preventScroll: true });
+  document.querySelector("#interactiveScenario")?.focus({ preventScroll: true });
 }
 
 function focusPendingPath() {

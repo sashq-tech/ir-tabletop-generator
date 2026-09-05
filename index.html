@@ -326,26 +326,27 @@
 
             <section class="packet-section full-width interactive-exercise" id="interactiveExercise" aria-label="Interactive decision rehearsal">
               <div class="interactive-header">
-                <div>
-                  <p class="eyebrow">Interactive decision rehearsal</p>
-                  <h3 id="interactiveTitle">Microsoft 365 Account Compromise</h3>
-                  <p id="interactiveSummary">
-                    Step through a short branching scenario. Choose a response at each inject, watch the readiness meters move, and review the after-action reveal.
-                  </p>
+                <div class="interactive-entry">
+                  <div>
+                    <p class="eyebrow">Interactive decision rehearsal</p>
+                    <h3 id="interactiveTitle">Microsoft 365 Account Compromise</h3>
+                    <p id="interactiveSummary">
+                      Step through a short branching scenario. Choose a response at each inject, watch the readiness meters move, and review the after-action reveal.
+                    </p>
+                  </div>
+                  <div class="scenario-library" aria-label="Interactive scenario library">
+                    <label class="field compact-field">
+                      <span class="field-label">Scenario <button class="help-button" type="button" data-help="Choose the playable interactive exercise for this incident family. The featured option is the most complete path; focused drills are shorter practice variants." aria-label="Explain scenario">?</button></span>
+                      <select id="interactiveScenario"></select>
+                    </label>
+                    <p id="interactiveScenarioSummary">Choose a scenario to rehearse.</p>
+                  </div>
                 </div>
                 <div class="interactive-actions">
                   <button class="primary-button" id="startInteractiveBtn" type="button">Start interactive exercise</button>
                   <button class="ghost-button" id="copyInteractiveDebriefBtn" type="button" disabled>Copy after-action reveal</button>
                   <button class="ghost-button" id="resetInteractiveBtn" type="button">Reset</button>
                 </div>
-              </div>
-
-              <div class="scenario-library" aria-label="Interactive scenario library">
-                <label class="field compact-field">
-                  <span class="field-label">Scenario <button class="help-button" type="button" data-help="Choose the playable interactive exercise for this incident family. The featured option is the most complete path; focused drills are shorter practice variants." aria-label="Explain scenario">?</button></span>
-                  <select id="interactiveScenario"></select>
-                </label>
-                <p id="interactiveScenarioSummary">Choose a scenario to rehearse.</p>
               </div>
 
               <div class="facilitator-runbook" aria-label="Facilitator run sequence">
