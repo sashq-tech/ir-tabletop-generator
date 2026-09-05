@@ -6,13 +6,13 @@
     <title>15-Minute Incident Response Drill | Response Rehearsal</title>
     <meta
       name="description"
-      content="Run a focused 15-minute incident response drill with facilitator timing, drill examples, decision points, common mistakes, and after-action notes."
+      content="Learn what an incident response drill is, how it differs from a tabletop, and run a focused 15-minute decision drill with a facilitator sequence and worked record."
     >
     <meta name="theme-color" content="#06110d">
     <meta property="og:title" content="15-Minute Incident Response Drill | Response Rehearsal">
     <meta
       property="og:description"
-      content="A practical short incident response drill format for teams that need fast decision practice before a larger tabletop exercise or live interactive rehearsal."
+      content="A concise definition, 15-minute facilitator sequence, worked decision record, and direct path into an interactive incident response drill."
     >
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://responserehearsal.com/15-minute-incident-response-drill">
@@ -20,7 +20,7 @@
     <meta name="twitter:title" content="15-Minute Incident Response Drill | Response Rehearsal">
     <meta
       name="twitter:description"
-      content="Practice the first 15 minutes of an incident with a short agenda, drill examples, three decisions, facilitator prompts, and after-action capture."
+      content="Learn the difference between a short decision drill and a tabletop, then run a focused 15-minute incident response rehearsal."
     >
     <link rel="icon" href="data:,">
     <link rel="canonical" href="https://responserehearsal.com/15-minute-incident-response-drill">
@@ -29,7 +29,7 @@
         "@context": "https://schema.org",
         "@type": "Article",
         "headline": "15-Minute Incident Response Drill",
-        "description": "Run a focused 15-minute incident response drill with facilitator timing, drill examples, decision points, common mistakes, and after-action notes.",
+        "description": "Learn what an incident response drill is, how it differs from a tabletop, and run a focused 15-minute decision drill with a facilitator sequence and worked record.",
         "author": {
           "@type": "Organization",
           "name": "Response Rehearsal"
@@ -39,7 +39,7 @@
           "name": "Response Rehearsal"
         },
         "datePublished": "2026-07-04",
-        "dateModified": "2026-07-17",
+        "dateModified": "2026-09-04",
         "mainEntityOfPage": "https://responserehearsal.com/15-minute-incident-response-drill"
       }
     </script>
@@ -111,9 +111,25 @@
       <article class="content-page">
         <p class="eyebrow">Fast decision practice for security teams</p>
         <h2>15-minute incident response drill</h2>
-        <p>
-          A 15-minute drill is not a full tabletop exercise. It is a focused rehearsal of the first few decisions a team must make when an alert becomes an incident candidate. Use it when you need a fast readiness check, a meeting opener, or a practical bridge between annual tabletop exercises.
-        </p>
+
+        <section>
+          <h3>What is an incident response drill?</h3>
+          <p>
+            An <strong>incident response drill</strong> is a structured practice session in which a team receives a plausible security condition and makes the decisions it would face during a real incident. The point is not to predict every technical detail. It is to rehearse judgment: what the team knows, whether to escalate, what evidence to protect, who owns the next action, and what can be communicated without overstating the facts.
+          </p>
+          <p>
+            A 15-minute decision drill narrows that practice to one early incident moment. It gives a facilitator enough time to present a condition, press for three decisions, and record one improvement. Use it as a readiness check between larger exercises, not as proof that the complete incident response plan works.
+          </p>
+          <h4>Short decision drill versus full tabletop</h4>
+          <ul>
+            <li><strong>15-minute decision drill:</strong> One condition, three early decisions, a small group, and one owned follow-up. It tests whether people can move from an uncertain alert to a defensible next action.</li>
+            <li><strong>Full tabletop exercise:</strong> Multiple injects across detection, response, communications, continuity, and recovery. It brings more roles into the room and produces a broader after-action record.</li>
+          </ul>
+          <p>
+            Choose the short format when the question is specific, such as "Who can disable an account after hours?" Choose a full tabletop when you need to examine handoffs across teams, vendors, executives, and later recovery decisions.
+          </p>
+          <p class="content-action"><a class="primary-button link-button" href="/?path=interactive&amp;type=phishing&amp;focus=balanced&amp;duration=15&amp;difficulty=standard&amp;rehearsal=phishing-bec">Run the 15-minute Interactive Rehearsal</a></p>
+        </section>
 
         <section>
           <h3>When to use this format</h3>
@@ -136,13 +152,14 @@
         </section>
 
         <section>
-          <h3>Facilitator structure</h3>
+          <h3>Actionable 15-minute facilitator sequence</h3>
           <ol>
-            <li><strong>0-2 minutes:</strong> State the incident type, time box, ground rule, and scribe. Tell the group that the goal is to make reasonable early decisions with incomplete information.</li>
-            <li><strong>2-5 minutes:</strong> Read the starting condition. Give one alert, one affected service or process, one business pressure, and one unknown.</li>
-            <li><strong>5-11 minutes:</strong> Ask three decision questions. Capture the answer, owner, assumption, and any fact the team needs next.</li>
-            <li><strong>11-14 minutes:</strong> Ask what slowed the decision. Look for unclear authority, missing contact paths, evidence risk, communication confusion, or tooling assumptions.</li>
-            <li><strong>14-15 minutes:</strong> Assign one follow-up. A short drill should end with one concrete improvement, not a wishlist.</li>
+            <li><strong>0-1 minute - set the contract:</strong> Name the facilitator and scribe, state the time box, and say that participants should answer from current practice. The output is a decision record, not a perfect technical solution.</li>
+            <li><strong>1-3 minutes - present the condition:</strong> Give one alert, one affected account or service, one business pressure, and one important unknown. Ask the scribe to separate confirmed facts from assumptions.</li>
+            <li><strong>3-7 minutes - decide whether to escalate:</strong> Ask whether the condition is an incident, a suspicious event that needs more evidence, or a false positive candidate. Record who has declaration authority and what fact would change the answer.</li>
+            <li><strong>7-11 minutes - choose the next safe action:</strong> Ask what the team will do in the next 30 minutes. Require an owner, evidence source, and boundary that prevents a containment action from creating avoidable business or evidence loss.</li>
+            <li><strong>11-13 minutes - communicate:</strong> Decide who needs an update now, who approves it, and which statements remain explicitly unconfirmed. Do not turn a reasonable suspicion into a claim of compromise.</li>
+            <li><strong>13-15 minutes - close:</strong> Read back the decision, owner, assumption, open question, and follow-up. Assign one improvement with a due date or review point, then stop the exercise.</li>
           </ol>
         </section>
 
@@ -180,6 +197,25 @@
         </section>
 
         <section>
+          <h3>Worked decision record: unexpected MFA approval</h3>
+          <p>
+            At minute one, the facilitator says: "A payroll employee reports approving an unexpected MFA prompt shortly after opening a payroll-themed link. The identity console shows a successful sign-in from an unfamiliar network. It is not yet known whether the sign-in belongs to the employee, a mobile carrier, or another party. Payroll processing begins in 40 minutes."
+          </p>
+          <ul>
+            <li><strong>Confirmed facts:</strong> The user approved an unexpected prompt; a successful sign-in is logged; the network is unfamiliar; payroll has a near-term business deadline.</li>
+            <li><strong>Assumptions:</strong> The sign-in may be unauthorized and the account may be at risk. Neither statement is recorded as confirmed compromise.</li>
+            <li><strong>Decision:</strong> Treat the event as a suspected account compromise, revoke active sessions, require credential reset and fresh MFA registration, and preserve the identity and mailbox audit records before making broader claims.</li>
+            <li><strong>Owner and authority:</strong> The on-call identity administrator performs the action under the documented incident lead's authority. If that authority is unclear, the gap becomes the follow-up rather than being silently invented during the drill.</li>
+            <li><strong>Communication:</strong> Tell the payroll lead that access is temporarily restricted while the team validates an identity event. Do not say that payroll data was stolen or that an attacker accessed the account without evidence.</li>
+            <li><strong>Revisit trigger:</strong> Reassess scope if audit logs show mailbox-rule creation, payroll-record access, additional unfamiliar sessions, or similar reports from other users.</li>
+            <li><strong>Improvement:</strong> The incident lead owns a seven-day review of after-hours account-disablement authority and the identity-log preservation checklist.</li>
+          </ul>
+          <p>
+            This record is intentionally small. It shows the reasoning behind the action, preserves uncertainty, and leaves the next person enough context to continue. A list that says only "reset password" would hide the authority, evidence, communication, and follow-up questions the drill is meant to expose.
+          </p>
+        </section>
+
+        <section>
           <h3>Common mistakes</h3>
           <ul>
             <li><strong>Trying to solve the whole incident:</strong> The drill is about the first decisions, not complete recovery.</li>
@@ -205,10 +241,25 @@
             A short drill is best for one decision moment. When the team is ready to work through injects, consequences, facilitator notes, and after-action capture, open the focused Interactive Rehearsal workspace instead of adding more agenda items to the 15-minute format.
           </p>
           <p>
-            For a practical next step, use the <a href="/?path=interactive&amp;type=ransomware&amp;focus=communications&amp;duration=60&amp;difficulty=standard&amp;rehearsal=ransomware-communications-pressure">ransomware communications pressure rehearsal</a>. It keeps the group in a decision workspace and avoids the packet/export controls that are better suited for facilitator preparation.
+            For a practical next step, open the <a href="/?path=interactive&amp;type=phishing&amp;focus=balanced&amp;duration=15&amp;difficulty=standard&amp;rehearsal=phishing-bec">15-minute business email compromise decision rehearsal</a>. The direct link sets the incident family, focused scenario, standard difficulty, and 15-minute timer while keeping the group in the distraction-reduced decision workspace.
           </p>
           <p>
             When the team needs a complete one-hour room plan, continue with the <a href="/60-minute-incident-response-tabletop">60-minute facilitator field guide</a> for role assignments, inject pacing, evidence capture, and an AAR rubric.
+          </p>
+        </section>
+
+        <section>
+          <h3>Method and primary sources</h3>
+          <p>
+            Response Rehearsal grew from the creator's need to prepare an incident response exercise for a small software organization where a sole cyber practitioner may need a credible, meeting-ready structure without a large exercise staff. That practical constraint shapes this guide: short prompts, explicit authority questions, fact-versus-assumption discipline, and an owned after-action item. The guide is an independent educational aid; it is not produced, approved, or certified by CISA or NIST, and it does not establish compliance.
+          </p>
+          <ul>
+            <li><a href="https://www.cisa.gov/resources-tools/services/cisa-tabletop-exercise-packages">CISA Tabletop Exercise Packages</a> provide tools, scenarios, question sets, and guidance for discussion-based exercises. They are a useful primary reference when expanding this short drill into a full tabletop.</li>
+            <li><a href="https://csrc.nist.gov/pubs/sp/800/84/final">NIST SP 800-84, Guide to Test, Training, and Exercise Programs for IT Plans and Capabilities</a> covers designing, conducting, and evaluating exercise events. It informs the separation between a bounded decision drill and a fuller exercise program.</li>
+            <li><a href="https://csrc.nist.gov/pubs/sp/800/61/r3/final">NIST SP 800-61 Rev. 3, Incident Response Recommendations and Considerations for Cybersecurity Risk Management</a> frames incident response as part of broader cybersecurity risk management and supports practicing preparation, response, recovery, and improvement.</li>
+          </ul>
+          <p>
+            Apply your organization's own incident response plan, legal obligations, contracts, escalation roster, and technical procedures. Sanitize exercise details before entering them into any browser tool or shared notes.
           </p>
         </section>
 
@@ -232,7 +283,7 @@
           </p>
         </section>
 
-        <p class="content-action"><a class="primary-button link-button" href="/?path=interactive">Open Interactive Rehearsal</a></p>
+        <p class="content-action"><a class="primary-button link-button" href="/?path=interactive&amp;type=phishing&amp;focus=balanced&amp;duration=15&amp;difficulty=standard&amp;rehearsal=phishing-bec">Run the 15-minute Interactive Rehearsal</a></p>
       </article>
     </main>
 

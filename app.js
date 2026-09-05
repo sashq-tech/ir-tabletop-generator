@@ -3243,6 +3243,17 @@ function copyCurrentInject() {
 }
 
 function facilitatorAgendaItems(scenario, durationMinutes) {
+  if (durationMinutes === 15) {
+    return [
+      "0-1 min: Confirm the facilitator, scribe, objective, and decision-capture rule.",
+      "1-3 min: Read the starting condition and separate confirmed facts from assumptions.",
+      "3-7 min: Decide whether to escalate, who has authority, and what fact could change the decision.",
+      "7-11 min: Choose one safe next action with an owner, evidence source, and operating boundary.",
+      "11-13 min: Decide who needs an update and which statements remain unconfirmed.",
+      "13-15 min: Read back the decision record and assign one improvement owner and review point."
+    ];
+  }
+
   const setupMinutes = Math.min(10, Math.max(5, Math.round(durationMinutes * 0.15)));
   const closeoutMinutes = Math.min(12, Math.max(8, Math.round(durationMinutes * 0.18)));
   const exerciseMinutes = Math.max(15, durationMinutes - setupMinutes - closeoutMinutes);
@@ -3983,6 +3994,16 @@ function renderBlankWorksheet() {
 
 function buildAgenda(duration) {
   const minutes = Number(duration);
+  if (minutes === 15) {
+    return [
+      "1 min - Confirm the facilitator, scribe, objective, and ground rule.",
+      "2 min - Read the starting condition and separate facts from assumptions.",
+      "8 min - Make the escalation, safe-action, and communication decisions.",
+      "2 min - Capture what slowed the decisions or left authority unclear.",
+      "2 min - Assign one improvement owner and review point."
+    ];
+  }
+
   if (minutes === 30) {
     return [
       "5 min - Read scenario and confirm exercise ground rules.",

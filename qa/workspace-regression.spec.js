@@ -404,13 +404,65 @@ test("visible controls have names and both routes avoid horizontal overflow", as
 });
 
 test("short-drill guides hand facilitators directly into the interactive workspace", async ({ page }) => {
+  const errors = [];
+  page.on("pageerror", (error) => errors.push(error.message));
+
   await page.goto("/15-minute-incident-response-drill");
-  const fifteenMinuteCta = page.getByRole("link", { name: "Open Interactive Rehearsal", exact: true });
+  await expect(page.getByRole("heading", { level: 3, name: "What is an incident response drill?" })).toBeVisible();
+  await expect(page.getByText(/structured practice session in which a team receives a plausible security condition/)).toBeVisible();
+  await expect(page.getByRole("heading", { level: 4, name: "Short decision drill versus full tabletop" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 3, name: "Actionable 15-minute facilitator sequence" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 3, name: "Worked decision record: unexpected MFA approval" })).toBeVisible();
+
+  const canonical = await page.locator('link[rel="canonical"]').getAttribute("href");
+  const schemas = await page.locator('script[type="application/ld+json"]').allTextContents();
+  const articleSchema = JSON.parse(schemas[0]);
+  const faqSchema = JSON.parse(schemas[1]);
+  expect(canonical).toBe("https://responserehearsal.com/15-minute-incident-response-drill");
+  expect(articleSchema.mainEntityOfPage).toBe(canonical);
+  expect(articleSchema.dateModified).toBe("2026-09-04");
+  expect(faqSchema["@type"]).toBe("FAQPage");
+
+  const sourceHrefs = await page.locator('a[href^="https://www.cisa.gov"], a[href^="https://csrc.nist.gov"]').evaluateAll((links) =>
+    links.map((link) => link.href)
+  );
+  expect(sourceHrefs).toEqual(expect.arrayContaining([
+    "https://www.cisa.gov/resources-tools/services/cisa-tabletop-exercise-packages",
+    "https://csrc.nist.gov/pubs/sp/800/84/final",
+    "https://csrc.nist.gov/pubs/sp/800/61/r3/final"
+  ]));
+
+  const fifteenMinuteCta = page.getByRole("link", { name: "Run the 15-minute Interactive Rehearsal", exact: true }).first();
   await expect(fifteenMinuteCta).toBeVisible();
   await fifteenMinuteCta.click();
   await expect(page.locator("body")).toHaveAttribute("data-route", "interactive");
   await expect(page.locator("#workspaceTitle")).toHaveText("Interactive Rehearsal");
+  await expect(page.locator("#duration")).toHaveValue("15");
+  await expect(page.locator("#interactiveTimer")).toHaveText("15:00");
   await expect(page).toHaveURL(/path=interactive/);
+  await expect(page).toHaveURL(/duration=15/);
+  await expect(page.locator("#interactiveScenario")).toHaveValue("phishing-bec");
+  await page.locator("#copyPreBriefBtn").click();
+  await expect.poll(() => page.evaluate(() => window.__copiedText)).toContain("15 minutes");
+  await expect.poll(() => page.evaluate(() => window.__copiedText)).toContain("13-15 min");
+  await page.reload();
+  await expect(page.locator("body")).toHaveAttribute("data-route", "interactive");
+  await expect(page.locator("#duration")).toHaveValue("15");
+  await expect(page.locator("#interactiveTimer")).toHaveText("15:00");
+  await page.locator("#startInteractiveBtn").click();
+  for (let step = 0; step < 5; step += 1) {
+    await expect(page.locator("#interactiveChoices button")).toHaveCount(3);
+    await page.locator("#interactiveChoices button").first().click();
+  }
+  await expect(page.locator("#interactiveDebrief")).toBeVisible();
+  await expect(page.locator("#copyAarSummaryBtn")).toBeEnabled();
+  await page.locator("#copyAarSummaryBtn").click();
+  await expect.poll(() => page.evaluate(() => window.__copiedText)).toContain("AAR Summary");
+  await expect.poll(() => page.evaluate(() => window.__copiedText)).toContain("Duration: 15 minutes");
+  await page.emulateMedia({ media: "print" });
+  await expect(page.locator("#interactiveDebrief")).toBeVisible();
+  await expect(page.locator("#interactiveStage")).toBeHidden();
+  await page.emulateMedia({ media: "screen" });
   await page.goBack();
   await expect(page).toHaveURL(/15-minute-incident-response-drill$/);
 
@@ -433,6 +485,7 @@ test("short-drill guides hand facilitators directly into the interactive workspa
     scrollWidth: document.documentElement.scrollWidth
   }));
   expect(overflow.scrollWidth).toBeLessThanOrEqual(overflow.innerWidth + 1);
+  expect(errors).toEqual([]);
 });
 
 test("60-minute facilitator field guide is crawlable and preserves interactive rehearsal state", async ({ page, request }) => {
