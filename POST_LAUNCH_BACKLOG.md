@@ -25,6 +25,32 @@ Release evidence:
 - The live `/guides` route returned `200` with the new facilitator learning path, aligned canonical URL, and CollectionPage structured data after commit `4222ab3` reached production.
 - AdSense resubmission remains a separate human/account decision.
 
+## 2026-09-19 Incident Response Drill Search Alignment
+
+Status: Candidate prepared from the completed September 18 measurement hold; publication and live verification pending.
+
+Evidence through 2026-09-17:
+
+- Latest seven days: `0 clicks / 73 impressions`, versus `0 / 19` in the previous seven days.
+- Full 35-day page result for `/15-minute-incident-response-drill`: `94 impressions`, `0 clicks`, average position `17.07`.
+- Definition-intent queries include `what is an incident response drill?` (`34` impressions, position `9.09`), `what is an incident response drill` (`25`, position `13.56`), and `what is incident response drill` (`3`, position `9.33`), all with zero clicks.
+- The page already contains substantial original facilitator guidance, a worked decision record, primary sources, FAQ/schema, and a direct 15-minute Interactive Rehearsal path. A new page or broader content expansion is not justified.
+
+Bounded implementation:
+
+- Align the HTML title, social title, Article headline, and page-specific heading with the measured definition question.
+- Put a concise, useful definition immediately under the page heading, followed by the existing 15-minute rehearsal action before the format comparison.
+- Keep the current guide depth, FAQ, primary sources, canonical route, scenario-first workspace, and 15-minute BEC rehearsal handoff unchanged.
+- Add regression assertions for title, description, heading, direct answer, Article schema, date modified, and the existing end-to-end rehearsal flow.
+
+Acceptance criteria:
+
+- Searchers receive a direct answer without a thin duplicate page or unsupported claim.
+- The title and description accurately preview the definition, worked example, and 15-minute interactive action.
+- The direct CTA still restores the 15-minute BEC rehearsal, timer, pre-brief, five-inject flow, AAR copy, print state, and Back navigation.
+- Desktop and 390px layouts have no horizontal overflow or page errors.
+- No account, analytics, AdSense, Cloudflare, DNS, Search Console, backend, upload, or database setting changes are made.
+
 ## 0. Structured Landing And Focused Interactive Rehearsal
 
 Status: Complete in the 2026-08-03 approved landing/workspace release. Keep the single-document `?path=` model unless real usage shows a need for separate HTML files.

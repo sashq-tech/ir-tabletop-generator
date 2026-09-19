@@ -412,9 +412,11 @@ test("short-drill guides hand facilitators directly into the interactive workspa
   page.on("pageerror", (error) => errors.push(error.message));
 
   await page.goto("/15-minute-incident-response-drill");
-  await expect(page.getByRole("heading", { level: 3, name: "What is an incident response drill?" })).toBeVisible();
-  await expect(page.getByText(/structured practice session in which a team receives a plausible security condition/)).toBeVisible();
-  await expect(page.getByRole("heading", { level: 4, name: "Short decision drill versus full tabletop" })).toBeVisible();
+  await expect(page).toHaveTitle("What Is an Incident Response Drill? 15-Minute Guide");
+  await expect(page.locator('meta[name="description"]')).toHaveAttribute("content", "An incident response drill is structured practice for real security decisions. See a worked example, then run a focused 15-minute interactive rehearsal.");
+  await expect(page.getByRole("heading", { level: 2, name: "What is an incident response drill?" })).toBeVisible();
+  await expect(page.getByText(/structured practice session where a team responds to a plausible security condition/)).toBeVisible();
+  await expect(page.getByRole("heading", { level: 3, name: "How a 15-minute drill differs from a tabletop" })).toBeVisible();
   await expect(page.getByRole("heading", { level: 3, name: "Actionable 15-minute facilitator sequence" })).toBeVisible();
   await expect(page.getByRole("heading", { level: 3, name: "Worked decision record: unexpected MFA approval" })).toBeVisible();
 
@@ -424,7 +426,9 @@ test("short-drill guides hand facilitators directly into the interactive workspa
   const faqSchema = JSON.parse(schemas[1]);
   expect(canonical).toBe("https://responserehearsal.com/15-minute-incident-response-drill");
   expect(articleSchema.mainEntityOfPage).toBe(canonical);
-  expect(articleSchema.dateModified).toBe("2026-09-04");
+  expect(articleSchema.headline).toBe("What Is an Incident Response Drill? 15-Minute Guide");
+  expect(articleSchema.description).toBe("An incident response drill is structured practice for real security decisions. See a worked example, then run a focused 15-minute interactive rehearsal.");
+  expect(articleSchema.dateModified).toBe("2026-09-19");
   expect(faqSchema["@type"]).toBe("FAQPage");
 
   const sourceHrefs = await page.locator('a[href^="https://www.cisa.gov"], a[href^="https://csrc.nist.gov"]').evaluateAll((links) =>
