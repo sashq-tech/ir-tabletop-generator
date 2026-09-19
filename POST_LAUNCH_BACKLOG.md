@@ -27,7 +27,7 @@ Release evidence:
 
 ## 2026-09-19 Incident Response Drill Search Alignment
 
-Status: Candidate prepared from the completed September 18 measurement hold; publication and live verification pending.
+Status: Published in commit `d10de97` on 2026-09-19 after the completed September 18 measurement hold.
 
 Evidence through 2026-09-17:
 
@@ -50,6 +50,13 @@ Acceptance criteria:
 - The direct CTA still restores the 15-minute BEC rehearsal, timer, pre-brief, five-inject flow, AAR copy, print state, and Back navigation.
 - Desktop and 390px layouts have no horizontal overflow or page errors.
 - No account, analytics, AdSense, Cloudflare, DNS, Search Console, backend, upload, or database setting changes are made.
+
+Release evidence:
+
+- `node --check app.js`, `node --check qa/workspace-regression.spec.js`, `git diff --check`, metadata/JSON-LD parsing, and all 34 desktop/mobile Chrome workspace regressions passed.
+- Production returned the exact new title, description, canonical URL, Article headline, direct definition, and `2026-09-19` modified date.
+- Live desktop and 390px runs followed the CTA into the 15-minute BEC rehearsal, restored the timer and scenario after reload, completed all five injects with three decisions each, reached AAR/print-ready state, returned to the guide with Back, and showed no horizontal overflow or page errors.
+- Search Console and AdSense were not manually resubmitted; the page remains in a measurement hold so impressions and clicks can accumulate against the new snippet.
 
 ## 0. Structured Landing And Focused Interactive Rehearsal
 

@@ -1,7 +1,7 @@
 # Response Rehearsal Incident Response Drill Search Alignment Release
 
 Date: 2026-09-19
-Status: Candidate ready for authoritative regression and publication
+Status: Published and live
 
 ## Measurement Trigger
 
@@ -23,11 +23,18 @@ The guide already has substantive facilitator content, a worked decision record,
 - Put the direct definition and existing 15-minute CTA before the short-drill versus tabletop comparison.
 - Preserve the canonical route, FAQ, sources, long-form guide, BEC rehearsal parameters, timer, pre-brief, five-inject flow, AAR copy, print state, and Back navigation.
 
-## Candidate Verification
+## Release Verification
 
-- HTML and regression syntax: pending
-- Full desktop/mobile workspace suite: pending
-- Authoritative commit and push: pending
-- Live title, description, heading, direct answer, CTA, and 390px rehearsal flow: pending
+- Feature commit: `d10de973682fafb523f60dc44edeaee7e0f0e661` (`Align incident drill guide with search intent`)
+- Branch and remote: `main`, pushed to `origin/main`
+- Static checks: `node --check app.js`, `node --check qa/workspace-regression.spec.js`, `git diff --check`, and metadata/JSON-LD parsing passed
+- Regression suite: all 34 desktop/mobile Chrome workspace tests passed
+- Production page: `https://responserehearsal.com/15-minute-incident-response-drill`
+- Live metadata: exact title, description, canonical URL, Article headline, and `2026-09-19` modified date verified
+- Live desktop and 390px flow: direct definition visible; CTA restored the 15-minute BEC rehearsal and timer after reload; all five injects showed three decisions; AAR/print-ready and Back navigation passed; no horizontal overflow or page errors were observed
+
+## Measurement Follow-Up
+
+Hold further title, description, heading, and definition-copy changes while fresh impressions and clicks accumulate. Compare equivalent post-release windows before considering another CTR edit; do not interpret a short-term zero-click interval as a reason for immediate churn.
 
 No account, analytics, AdSense, Cloudflare, DNS, Search Console, backend, upload, or database setting is in scope.
