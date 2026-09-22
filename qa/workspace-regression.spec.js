@@ -29,6 +29,15 @@ const publicTrustPages = [
   { route: "/trust-and-privacy", type: "WebPage" }
 ];
 
+const publicStructuredDataPages = [
+  { route: "/about", type: "AboutPage", breadcrumbName: "About" },
+  { route: "/privacy", type: "WebPage", breadcrumbName: "Privacy" },
+  { route: "/terms", type: "WebPage", breadcrumbName: "Terms" },
+  { route: "/contact", type: "ContactPage", breadcrumbName: "Contact" },
+  { route: "/trust-and-privacy", type: "WebPage", breadcrumbName: "Trust & Privacy" },
+  { route: "/guides", type: "CollectionPage", breadcrumbName: "Guides" }
+];
+
 test.beforeEach(async ({ page }) => {
   await page.addInitScript(() => {
     window.__copiedText = "";
@@ -648,7 +657,9 @@ test("guides hub provides a substantive facilitator path into rehearsal", async 
   const articleWords = await page.locator("article").innerText().then((text) => text.trim().split(/\s+/).length);
   expect(articleWords).toBeGreaterThanOrEqual(750);
 
-  const schema = JSON.parse(await page.locator('script[type="application/ld+json"]').textContent());
+  const schemaNodes = (await page.locator('script[type="application/ld+json"]').allTextContents()).map((text) => JSON.parse(text));
+  const schema = schemaNodes.find((node) => node["@type"] === "CollectionPage");
+  expect(schema).toBeTruthy();
   expect(schema["@type"]).toBe("CollectionPage");
   expect(schema.mainEntity.itemListElement).toHaveLength(8);
   await expect(page.getByRole("link", { name: "Use the 60-minute facilitator field guide", exact: true })).toHaveAttribute("href", "/60-minute-incident-response-tabletop");
@@ -671,29 +682,51 @@ test("guides hub provides a substantive facilitator path into rehearsal", async 
   expect(overflow.scrollWidth).toBeLessThanOrEqual(overflow.innerWidth + 1);
 });
 
-test("trust-page schema parses and agrees with canonical, metadata, and sitemap", async ({ page, request }) => {
+test("public page and breadcrumb schema agree with canonical metadata and sitemap", async ({ page, request }) => {
   const sitemap = await request.get("/sitemap.xml");
   expect(sitemap.ok()).toBe(true);
   const sitemapXml = await sitemap.text();
   const schemaIds = new Set();
 
-  for (const { route, type } of publicTrustPages) {
+  for (const { route, type, breadcrumbName } of publicStructuredDataPages) {
     await page.goto(route);
     const canonical = await page.locator('link[rel="canonical"]').getAttribute("href");
     const ogUrl = await page.locator('meta[property="og:url"]').getAttribute("content");
     const description = await page.locator('meta[name="description"]').getAttribute("content");
-    const schemaText = await page.locator('script[type="application/ld+json"]').allTextContents();
+    const schemaNodes = (await page.locator('script[type="application/ld+json"]').allTextContents()).map((text) => JSON.parse(text));
 
-    expect(schemaText).toHaveLength(1);
-    const schema = JSON.parse(schemaText[0]);
-    expect(schema["@context"]).toBe("https://schema.org");
-    expect(schema["@type"]).toBe(type);
-    expect(schema.url).toBe(canonical);
-    expect(schema.description).toBe(description);
-    expect(schema.isPartOf).toEqual({ "@id": "https://responserehearsal.com/#website" });
-    expect(schema["@id"]).toBe(`${canonical}#webpage`);
-    expect(schemaIds.has(schema["@id"])).toBe(false);
-    schemaIds.add(schema["@id"]);
+    expect(schemaNodes).toHaveLength(2);
+    const pageSchema = schemaNodes.find((schema) => schema["@type"] === type);
+    const breadcrumbSchema = schemaNodes.find((schema) => schema["@type"] === "BreadcrumbList");
+    expect(pageSchema).toBeTruthy();
+    expect(breadcrumbSchema).toBeTruthy();
+    expect(pageSchema["@context"]).toBe("https://schema.org");
+    expect(pageSchema.url).toBe(canonical);
+    expect(pageSchema.description).toBe(description);
+    expect(pageSchema.isPartOf).toEqual({ "@id": "https://responserehearsal.com/#website" });
+    expect(pageSchema.inLanguage).toBe("en-US");
+    expect(pageSchema["@id"]).toBe(`${canonical}#webpage`);
+    expect(pageSchema.breadcrumb).toEqual({ "@id": `${canonical}#breadcrumb` });
+    expect(breadcrumbSchema["@context"]).toBe("https://schema.org");
+    expect(breadcrumbSchema["@id"]).toBe(`${canonical}#breadcrumb`);
+    expect(breadcrumbSchema.itemListElement).toEqual([
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Response Rehearsal",
+        item: "https://responserehearsal.com/"
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: breadcrumbName,
+        item: canonical
+      }
+    ]);
+    for (const schema of schemaNodes) {
+      expect(schemaIds.has(schema["@id"])).toBe(false);
+      schemaIds.add(schema["@id"]);
+    }
     expect(ogUrl).toBe(canonical);
     expect(sitemapXml).toContain(`<loc>${canonical}</loc>`);
   }

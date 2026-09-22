@@ -2,6 +2,30 @@
 
 This backlog captures practical next improvements after the first public launch. It is intentionally scoped to browser-only, static-site work with no accounts, uploads, database, or backend service.
 
+## 2026-09-22 Public Page Structured Data And Breadcrumbs
+
+Status: Candidate prepared; authoritative regression, publication, and live verification pending.
+
+Measurement boundary:
+
+- Fresh Search Console shows `/15-minute-incident-response-drill` at `142` impressions and average position `14.99`.
+- That guide was just released with search-intent alignment, so this pass does not rewrite it, duplicate its content, or alter the focused Interactive Rehearsal path.
+
+Audit findings:
+
+- About, Privacy, Terms, Contact, and Trust & Privacy already use truthful page types and schema descriptions that match their meta descriptions.
+- Guides correctly uses `CollectionPage` and an eight-item facilitator collection, but its schema description differs from its meta description and it lacks the shared page identity fields used by the trust pages.
+- None of the six audited pages links its page node to a page-specific `BreadcrumbList`.
+
+Bounded implementation:
+
+- Add a two-item `BreadcrumbList` to each audited page: Response Rehearsal home, then the current canonical page.
+- Link each existing page node to its breadcrumb by a unique canonical `@id`.
+- Align Guides with its canonical metadata and the existing `@id`, `isPartOf`, and language conventions without changing the visible guide or its eight-item collection.
+- Extend regression coverage to parse both nodes on all six routes, compare page descriptions and URLs with metadata/canonical/sitemap evidence, verify unique IDs, and reject breadcrumb drift.
+
+No certification, compliance, review, rating, pricing, service, or unsupported product claim is added.
+
 ## 2026-08-13 Preventive AdSense Value Audit
 
 Status: Published in commit `4222ab3` on 2026-08-13. The facilitator learning path is live; no AdSense resubmission or account setting was changed.

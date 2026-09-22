@@ -28,9 +28,13 @@
       {
         "@context": "https://schema.org",
         "@type": "CollectionPage",
-        "name": "Incident Response Guides and Drills",
-        "description": "A practical facilitator learning path for choosing an incident response drill, running decision-centered injects, and closing with owned follow-up actions.",
+        "@id": "https://responserehearsal.com/guides#webpage",
         "url": "https://responserehearsal.com/guides",
+        "name": "Incident Response Guides and Drills | Response Rehearsal",
+        "description": "A practical incident response facilitator learning path for choosing a drill, running decision-centered injects, and closing with useful after-action owners.",
+        "isPartOf": { "@id": "https://responserehearsal.com/#website" },
+        "breadcrumb": { "@id": "https://responserehearsal.com/guides#breadcrumb" },
+        "inLanguage": "en-US",
         "mainEntity": {
           "@type": "ItemList",
           "itemListElement": [
@@ -84,6 +88,27 @@
             }
           ]
         }
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "@id": "https://responserehearsal.com/guides#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Response Rehearsal",
+            "item": "https://responserehearsal.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Guides",
+            "item": "https://responserehearsal.com/guides"
+          }
+        ]
       }
     </script>
     <link rel="stylesheet" href="styles.css">
