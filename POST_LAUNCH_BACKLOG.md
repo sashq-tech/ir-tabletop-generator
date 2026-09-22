@@ -4,7 +4,7 @@ This backlog captures practical next improvements after the first public launch.
 
 ## 2026-09-22 Public Page Structured Data And Breadcrumbs
 
-Status: Candidate prepared; authoritative regression, publication, and live verification pending.
+Status: Published in commit `cdc74eb` on 2026-09-22.
 
 Measurement boundary:
 
@@ -25,6 +25,13 @@ Bounded implementation:
 - Extend regression coverage to parse both nodes on all six routes, compare page descriptions and URLs with metadata/canonical/sitemap evidence, verify unique IDs, and reject breadcrumb drift.
 
 No certification, compliance, review, rating, pricing, service, or unsupported product claim is added.
+
+Release evidence:
+
+- `node --check app.js`, `node --check qa/workspace-regression.spec.js`, `git diff --check`, local JSON-LD parsing, and all 34 desktop/mobile Chrome workspace regressions passed.
+- Production About, Privacy, Terms, Contact, Trust & Privacy, and Guides returned `200`; each exposed the expected page type plus a linked two-item `BreadcrumbList` matching canonical metadata.
+- Guides retained its eight-item collection and its schema description now matches the page meta description.
+- Live 390px checks found no horizontal overflow or page errors, and the focused BEC Interactive Rehearsal still restored and presented three decisions.
 
 ## 2026-08-13 Preventive AdSense Value Audit
 

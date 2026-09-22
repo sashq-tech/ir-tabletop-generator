@@ -1,7 +1,7 @@
 # Response Rehearsal Public Page Structured Data Release
 
 Date: 2026-09-22
-Status: Candidate ready for authoritative regression and publication
+Status: Published and live
 
 ## Boundary
 
@@ -29,12 +29,15 @@ The five trust pages already use truthful page types and descriptions aligned wi
 - Preserve the Guides eight-item collection, all visible copy, public navigation, and every Interactive Rehearsal link.
 - Add desktop/mobile regression coverage for parsing, canonical/metadata/sitemap agreement, page-to-breadcrumb linkage, unique IDs, and exact breadcrumb items.
 
-## Candidate Verification
+## Release Verification
 
-- JSON-LD parsing: pending
-- JavaScript/test syntax and diff hygiene: pending
-- Full desktop/mobile workspace suite: pending
-- Authoritative commit and push: pending
-- Live six-route and JSON-LD verification: pending
+- Feature commit: `cdc74eb9718eefb52102beabc362a758f422e258` (`Add public page breadcrumb schema`)
+- Branch and remote: `main`, pushed to `origin/main`
+- Static checks: `node --check app.js`, `node --check qa/workspace-regression.spec.js`, `git diff --check`, and local JSON-LD parsing passed
+- Regression suite: all 34 desktop/mobile Chrome workspace tests passed
+- Production routes: About, Privacy, Terms, Contact, Trust & Privacy, and Guides all returned `200`
+- Production JSON-LD: every route exposed the expected page node plus a canonical, linked two-item `BreadcrumbList`; descriptions and URLs matched page metadata
+- Guides retained its eight-item collection and aligned description
+- Live 390px check: all six pages avoided horizontal overflow and page errors; the focused BEC Interactive Rehearsal still restored and presented three decisions
 
 No certification, compliance, review, rating, pricing, service, or unsupported product claim is added. No account, analytics, AdSense, Cloudflare, DNS, Search Console, backend, upload, or database setting is in scope.
